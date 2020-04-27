@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <attr name="ConversationInput" format="reference" />
+
+    <declare-styleable name="ConversationInput">
+        <attr name="inputButtonBackground" format="reference" />
+        <attr name="inputButtonDefaultBgColor" format="color|reference" />
+        <attr name="inputButtonDefaultBgPressedColor" format="color|reference" />
+        <attr name="inputButtonDefaultBgDisabledColor" format="color|reference" />
+
+        <attr name="inputButtonIcon" format="reference" />
+        <attr name="inputButtonDefaultIconColor" format="color|reference" />
+        <attr name="inputButtonDefaultIconPressedColor" format="color|reference" />
+        <attr name="inputButtonDefaultIconDisabledColor" format="color|reference" />
+
+        <attr name="inputButtonMargin" format="dimension|reference" />
+        <attr name="inputButtonWidth" format="dimension|reference" />
+        <attr name="inputButtonHeight" format="dimension|reference" />
+
+        <attr name="showAttachmentButton" format="boolean" />
+        <attr name="attachmentButtonBackground" format="reference" />
+        <attr name="attachmentButtonDefaultBgColor" format="color|reference" />
+        <attr name="attachmentButtonDefaultBgPressedColor" format="color|reference" />
+        <attr name="attachmentButtonDefaultBgDisabledColor" format="color|reference" />
+
+        <attr name="attachmentButtonIcon" format="reference" />
+        <attr name="attachmentButtonDefaultIconColor" format="color|reference" />
+        <attr name="attachmentButtonDefaultIconPressedColor" format="color|reference" />
+        <attr name="attachmentButtonDefaultIconDisabledColor" format="color|reference" />
+
+        <attr name="attachmentButtonMargin" format="dimension|reference" />
+        <attr name="attachmentButtonWidth" format="dimension|reference" />
+        <attr name="attachmentButtonHeight" format="dimension|reference" />
+
+        <attr name="inputMaxLines" format="integer" />
+        <attr name="inputHint" format="string" />
+
+        <attr name="inputText" format="string" />
+        <attr name="inputTextSize" format="dimension|reference" />
+        <attr name="inputTextColor" format="color|reference" />
+        <attr name="inputHintColor" format="color|reference" />
+
+        <attr name="inputBackground" format="reference" />
+        <attr name="inputCursorDrawable" format="reference" />
+
+        <attr name="delayTypingStatus" format="integer" />
+    </declare-styleable>
+</resources>

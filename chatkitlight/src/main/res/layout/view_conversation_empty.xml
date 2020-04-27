@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <data>
+
+        <variable
+            name="conversationListListener"
+            type="ir.vasl.chatkitlight.ui.callback.ConversationListListener" />
+    </data>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/global_margin"
+        android:background="#C4C6C7"
+        android:onClick="@{ () -> conversationListListener.onConversationItemClicked()}"
+        android:orientation="vertical">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:padding="@dimen/global_padding_x_extra"
+            android:text="WE HAVE NO DATA TO SHOW :)" />
+
+    </LinearLayout>
+</layout>

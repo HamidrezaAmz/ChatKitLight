@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<font-family xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <!-- regular -->
+    <font
+        android:font="@font/iransans"
+        android:fontStyle="normal"
+        android:fontWeight="400"
+
+        app:font="@font/iransans"
+        app:fontStyle="normal"
+        app:fontWeight="400" />
+
+    <!-- italic -->
+    <font
+        android:font="@font/iransans"
+        android:fontStyle="italic"
+        android:fontWeight="400"
+
+        app:font="@font/iransans"
+        app:fontStyle="italic"
+        app:fontWeight="400" />
+
+    <!-- bold -->
+    <font
+        android:font="@font/iransans_bold"
+        android:fontStyle="normal"
+        android:fontWeight="410"
+
+        app:font="@font/iransans_bold"
+        app:fontStyle="normal"
+        app:fontWeight="410" />
+
+</font-family>
