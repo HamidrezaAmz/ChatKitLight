@@ -1,17 +1,22 @@
 package ir.vasl.chatkitlight.model;
 
+import androidx.appcompat.widget.AppCompatImageView;
+import androidx.core.content.ContextCompat;
+import androidx.databinding.BindingAdapter;
+
+import ir.vasl.chatkitlight.R;
 import ir.vasl.chatkitlight.utils.globalEnums.ConversationStatus;
 import ir.vasl.chatkitlight.utils.globalEnums.ConversationType;
 
 public class ConversationModel {
 
-    private String id;
-    private String title;
-    private String message;
-    private String time;
+    private String id = "";
+    private String title = "";
+    private String message = "";
+    private String time = "";
 
-    private ConversationStatus conversationStatus;
-    private ConversationType conversationType;
+    private ConversationStatus conversationStatus = ConversationStatus.UNDEFINE;
+    private ConversationType conversationType = ConversationType.UNDEFINE;
 
     public String getId() {
         return id;
@@ -59,5 +64,33 @@ public class ConversationModel {
 
     public void setConversationType(ConversationType conversationType) {
         this.conversationType = conversationType;
+    }
+
+    @BindingAdapter("conversationStatusIcon")
+    public static void loadConversationStatusIcon(AppCompatImageView view, ConversationStatus conversationStatus) {
+
+        switch (conversationStatus) {
+            case FAILED:
+                view.setImageResource(R.drawable.ic_info_black_24dp);
+                view.setColorFilter(ContextCompat.getColor(view.getContext(), R.color.failed), android.graphics.PorterDuff.Mode.SRC_IN);
+                break;
+            case SEEN:
+                view.setImageResource(R.drawable.ic_done_all_black_24dp);
+                view.setColorFilter(ContextCompat.getColor(view.getContext(), R.color.blue_light), android.graphics.PorterDuff.Mode.SRC_IN);
+                break;
+            case DELIVERED:
+                view.setImageResource(R.drawable.ic_done_all_black_24dp);
+                view.setColorFilter(ContextCompat.getColor(view.getContext(), R.color.white), android.graphics.PorterDuff.Mode.SRC_IN);
+                break;
+            case SENT:
+                view.setImageResource(R.drawable.ic_check_black_24dp);
+                view.setColorFilter(ContextCompat.getColor(view.getContext(), R.color.white), android.graphics.PorterDuff.Mode.SRC_IN);
+                break;
+            case SENDING:
+            default:
+                view.setImageResource(R.drawable.ic_access_time_black_24dp);
+                view.setColorFilter(ContextCompat.getColor(view.getContext(), R.color.white), android.graphics.PorterDuff.Mode.SRC_IN);
+                break;
+        }
     }
 }

@@ -76,7 +76,7 @@ public class ConversationList extends RecyclerView implements ConversationListLi
             @Override
             public void onChanged(List<ConversationModel> conversationModels) {
                 adapter.setConversationModels(conversationModels);
-
+//                adapter.notifyDataSetChanged();
                 if (currItemSize != 0 && currItemSize < conversationModels.size())
                     smoothScrollToPosition(conversationModels.size());
 

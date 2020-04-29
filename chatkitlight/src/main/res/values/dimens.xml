@@ -8,7 +8,7 @@
     <dimen name="input_padding_right">16sp</dimen>
     <dimen name="input_padding_top">8sp</dimen>
     <dimen name="input_padding_bottom">8sp</dimen>
-    <dimen name="input_height">56dp</dimen>
+    <dimen name="input_height">65dp</dimen>
 
     <dimen name="message_bubble_corners_radius">15dp</dimen>
 

@@ -3,6 +3,8 @@
 
     <data>
 
+        <import type="android.view.View" />
+
         <variable
             name="conversationModel"
             type="ir.vasl.chatkitlight.model.ConversationModel" />
@@ -21,22 +23,43 @@
         <LinearLayout
             android:layout_width="@dimen/conversation_max_width"
             android:layout_height="wrap_content"
-            android:layout_gravity="start"
+            android:layout_gravity="left"
             android:background="@drawable/shape_curve_server"
             android:orientation="vertical"
             android:padding="@dimen/global_padding_middle">
 
             <TextView
-                style="@style/TextViewSubTitle"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="@{ conversationModel.title}" />
-
-            <TextView
                 style="@style/TextViewTitle"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="@{ conversationModel.message}" />
+                android:text="@{ conversationModel.title}"
+                android:visibility='@{ conversationModel.title.equals("") ? View.GONE : View.VISIBLE }' />
+
+            <TextView
+                style="@style/TextViewSubTitle"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@{ conversationModel.message}"
+                android:visibility='@{ conversationModel.message.equals("") ? View.GONE : View.VISIBLE }' />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="right|center_vertical"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/global_margin"
+                    android:layout_marginEnd="@dimen/global_margin"
+                    android:text="@{conversationModel.time}"
+                    android:textColor="@color/warm_grey_five"
+                    android:textSize="12sp"
+                    android:textStyle="bold"
+                    android:visibility='@{conversationModel.time.equals("") ? View.GONE : View.VISIBLE }' />
+
+            </LinearLayout>
 
         </LinearLayout>
 

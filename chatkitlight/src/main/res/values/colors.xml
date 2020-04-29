@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+
     <color name="white">#ffffff</color>
     <color name="white60">#a0ffffff</color>
     <color name="white_two">#efefef</color>
@@ -7,6 +8,7 @@
     <color name="white_four">#e0e0e0</color>
     <color name="white_five">#dadada</color>
     <color name="blue">#031cd7</color>
+    <color name="blue_light">#00BCD4</color>
     <color name="black">#000000</color>
     <color name="transparent">#00000000</color>
     <color name="gray">#333333</color>
@@ -22,6 +24,7 @@
     <color name="cornflower_blue_two_24">#3d4f62d7</color>
     <color name="cornflower_blue_two_dark">#475bd4</color>
     <color name="cornflower_blue_light_40">#64bec5f7</color>
+    <color name="failed">#D7D4D5</color>
 
     <color name="dialog_divider">@color/white_three</color>
     <color name="dialog_title_text">@color/dark_gray</color>

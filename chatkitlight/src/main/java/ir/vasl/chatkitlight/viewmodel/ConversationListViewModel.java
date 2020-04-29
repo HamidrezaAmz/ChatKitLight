@@ -10,6 +10,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import ir.vasl.chatkitlight.model.ConversationModel;
+import ir.vasl.chatkitlight.utils.globalEnums.ConversationStatus;
 
 public class ConversationListViewModel extends AndroidViewModel {
 
@@ -29,6 +30,25 @@ public class ConversationListViewModel extends AndroidViewModel {
 
     public void addNewConversation(ConversationModel conversationModel) {
         this.liveData.getValue().add(conversationModel);
+        this.liveData.postValue(liveData.getValue());
+    }
+
+    public void addNewConversation(List<ConversationModel> conversationModels) {
+        this.liveData.getValue().addAll(conversationModels);
+        this.liveData.postValue(liveData.getValue());
+    }
+
+    public void updateConversationStatus(String conversationId, ConversationStatus conversationStatus) {
+
+        if (liveData.getValue() == null)
+            return;
+
+        for (ConversationModel conversationModel : liveData.getValue()) {
+            if (conversationModel.getId().equals(conversationId)) {
+                conversationModel.setConversationStatus(conversationStatus);
+            }
+        }
+
         this.liveData.postValue(liveData.getValue());
     }
 

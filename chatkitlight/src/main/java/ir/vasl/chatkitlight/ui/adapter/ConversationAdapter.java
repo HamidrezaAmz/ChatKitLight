@@ -18,7 +18,6 @@ import ir.vasl.chatkitlight.databinding.ViewConversationServerBinding;
 import ir.vasl.chatkitlight.model.ConversationModel;
 import ir.vasl.chatkitlight.ui.base.BaseViewHolder;
 import ir.vasl.chatkitlight.ui.callback.ConversationListListener;
-import ir.vasl.chatkitlight.utils.AnimView;
 import ir.vasl.chatkitlight.utils.globalEnums.ConversationType;
 
 public class ConversationAdapter extends RecyclerView.Adapter<BaseViewHolder> implements ConversationListListener {
@@ -56,14 +55,16 @@ public class ConversationAdapter extends RecyclerView.Adapter<BaseViewHolder> im
                 public boolean areContentsTheSame(int oldItemPosition, int newItemPosition) {
                     ConversationModel newConversationModel = conversationModels.get(newItemPosition);
                     ConversationModel oldConversationModel = mConversationModels.get(oldItemPosition);
-                    return newConversationModel.getId().equals(oldConversationModel.getId())
-                            && TextUtils.equals(newConversationModel.getTitle(), oldConversationModel.getTitle())
-                            && TextUtils.equals(newConversationModel.getMessage(), oldConversationModel.getMessage());
+
+                    return TextUtils.equals(newConversationModel.getTitle(), oldConversationModel.getTitle())
+                            && TextUtils.equals(newConversationModel.getMessage(), oldConversationModel.getMessage())
+                            && newConversationModel.getConversationStatus().getValueStr().equals(oldConversationModel.getConversationStatus().getValueStr())
+                            ;
                 }
             });
 
-            mConversationModels = conversationModels;
             result.dispatchUpdatesTo(this);
+            mConversationModels = conversationModels;
         }
     }
 

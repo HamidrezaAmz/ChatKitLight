@@ -1,6 +1,9 @@
 package ir.vasl.samplechatkit;
 
+import android.content.Context;
 import android.os.Bundle;
+import android.os.CountDownTimer;
+import android.util.Log;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.lifecycle.ViewModelProvider;
@@ -14,6 +17,7 @@ import ir.vasl.chatkitlight.ui.callback.TypingListener;
 import ir.vasl.chatkitlight.ui.view.ConversationInput;
 import ir.vasl.chatkitlight.ui.view.ConversationList;
 import ir.vasl.chatkitlight.utils.DataGenerator;
+import ir.vasl.chatkitlight.utils.globalEnums.ConversationStatus;
 import ir.vasl.chatkitlight.utils.globalEnums.ConversationType;
 import ir.vasl.chatkitlight.viewmodel.ConversationListViewModel;
 
@@ -32,6 +36,8 @@ public class MainActivity
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        LocaleHelper.setApplicationLanguage(this);
+
         conversationInput = findViewById(R.id.conversationInput);
         conversationList = findViewById(R.id.conversationList);
 
@@ -40,6 +46,12 @@ public class MainActivity
         conversationInput.setTypingListener(this);
 
         initViewModel();
+    }
+
+    @Override
+    protected void attachBaseContext(Context newBase) {
+        super.attachBaseContext(newBase);
+        LocaleHelper.onAttach(newBase);
     }
 
     private void initViewModel() {
@@ -56,12 +68,28 @@ public class MainActivity
 
         ConversationModel conversationModel = new ConversationModel();
         conversationModel.setId(UUID.randomUUID().toString());
-        conversationModel.setTitle("TITLE");
+        conversationModel.setTitle("");
         conversationModel.setMessage(input.toString());
-        conversationModel.setTime("00:00");
+        conversationModel.setTime("03:19");
         conversationModel.setConversationType(ConversationType.CLIENT);
+        conversationModel.setConversationStatus(ConversationStatus.SENDING);
 
         conversationListViewModel.addNewConversation(conversationModel);
+
+        new CountDownTimer(5000, 1000) {
+
+            public void onTick(long millisUntilFinished) {
+                // mTextField.setText("seconds remaining: " + millisUntilFinished / 1000);
+                //here you can have your logic to set text to edittext
+                Log.i("OnTick", "seconds remaining: " + millisUntilFinished / 1000);
+            }
+
+            public void onFinish() {
+                conversationListViewModel.updateConversationStatus(conversationModel.getId(), ConversationStatus.SENT);
+            }
+
+        }.start();
+
         return true;
     }
 
