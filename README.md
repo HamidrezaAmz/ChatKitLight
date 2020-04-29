@@ -13,6 +13,8 @@ These instructions will help you to use this library inside your projects
 
 This library was built with **androidX**, so you should migrate into androidX to use this library with out any problem. For migration you can use [Migrating to AndroidX](https://developer.android.com/jetpack/androidx/migrate)
 
+Befor you use this library, you should be familiar with [Mvvm](https://upday.github.io/blog/model-view-viewmodel/) architecture and its components.
+
 ### Installing
 
 Step 1. Add the JitPack repository to your build file,
