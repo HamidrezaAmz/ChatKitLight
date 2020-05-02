@@ -8,8 +8,11 @@ import android.util.Log;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.lifecycle.ViewModelProvider;
 
+import com.google.gson.Gson;
+
 import java.util.UUID;
 
+import ir.vasl.chatkitlight.data.DBLayer;
 import ir.vasl.chatkitlight.model.ConversationModel;
 import ir.vasl.chatkitlight.ui.callback.AttachmentsListener;
 import ir.vasl.chatkitlight.ui.callback.InputListener;
@@ -55,11 +58,13 @@ public class MainActivity
     }
 
     private void initViewModel() {
+        if(DBLayer.getInstance(MyApplication.getApp()).getDb().chat().getAllSimple().size() == 0)
+            DBLayer.getInstance(MyApplication.getApp()).getDb().chat().insertAll(DataGenerator.getConversationList());
 
         conversationListViewModel = new ViewModelProvider(this).get(ConversationListViewModel.class);
         conversationList.setConversationListViewModel(conversationListViewModel);
 
-        conversationListViewModel.setLiveData(DataGenerator.getConversationList());
+//        conversationListViewModel.setLiveData(DataGenerator.getConversationList());
 
     }
 

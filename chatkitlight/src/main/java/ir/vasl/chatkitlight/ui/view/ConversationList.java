@@ -2,11 +2,13 @@ package ir.vasl.chatkitlight.ui.view;
 
 import android.content.Context;
 import android.util.AttributeSet;
+import android.util.Log;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.lifecycle.Observer;
+import androidx.paging.PagedList;
 import androidx.recyclerview.widget.DefaultItemAnimator;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -57,7 +59,7 @@ public class ConversationList extends RecyclerView implements ConversationListLi
 
         this.adapter = new ConversationAdapter(this);
         this.setLayoutManager(layoutManager);
-        this.setItemAnimator(new DefaultItemAnimator());
+//        this.setItemAnimator(new DefaultItemAnimator());
         this.setAdapter(adapter);
         this.adapter.notifyDataSetChanged();
 
@@ -72,10 +74,11 @@ public class ConversationList extends RecyclerView implements ConversationListLi
         if (conversationListViewModel == null)
             return;
 
-        conversationListViewModel.getLiveData().observeForever(new Observer<List<ConversationModel>>() {
+        conversationListViewModel.getLiveData().observeForever(new Observer<PagedList<ConversationModel>>() {
             @Override
-            public void onChanged(List<ConversationModel> conversationModels) {
-                adapter.setConversationModels(conversationModels);
+            public void onChanged(PagedList<ConversationModel> conversationModels) {
+//                adapter.setConversationModels(conversationModels);
+                adapter.submitList(conversationModels);
 //                adapter.notifyDataSetChanged();
                 if (currItemSize != 0 && currItemSize < conversationModels.size())
                     smoothScrollToPosition(conversationModels.size());

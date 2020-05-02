@@ -1,15 +1,23 @@
 package ir.vasl.chatkitlight.model;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.widget.AppCompatImageView;
 import androidx.core.content.ContextCompat;
 import androidx.databinding.BindingAdapter;
+import androidx.room.Entity;
+import androidx.room.PrimaryKey;
+import androidx.room.TypeConverter;
+import androidx.room.TypeConverters;
 
 import ir.vasl.chatkitlight.R;
 import ir.vasl.chatkitlight.utils.globalEnums.ConversationStatus;
 import ir.vasl.chatkitlight.utils.globalEnums.ConversationType;
 
+@Entity (tableName = "chatkit_db")
+@TypeConverters({ConversationStatus.class, ConversationType.class})
 public class ConversationModel {
-
+    @NonNull
+    @PrimaryKey
     private String id = "";
     private String title = "";
     private String message = "";
@@ -68,7 +76,8 @@ public class ConversationModel {
 
     @BindingAdapter("conversationStatusIcon")
     public static void loadConversationStatusIcon(AppCompatImageView view, ConversationStatus conversationStatus) {
-
+        if(conversationStatus == null)
+            return;
         switch (conversationStatus) {
             case FAILED:
                 view.setImageResource(R.drawable.ic_info_black_24dp);

@@ -41,11 +41,11 @@ public class DataGenerator {
             "Letraset used it on their dry-transfer sheets",
     };
 
-    public static List<ConversationModel> getConversationList() {
+    public static ArrayList<ConversationModel> getConversationList() {
 
         final int randomBound = 10;
 
-        List<ConversationModel> conversationModels = new ArrayList<>();
+        ArrayList<ConversationModel> conversationModels = new ArrayList<>();
 
         for (int i = 0; i < 10; i++) {
             ConversationModel conversationModel = new ConversationModel();
