@@ -52,7 +52,6 @@ public class ConversationList extends RecyclerView implements ConversationListLi
     private void initAdapter() {
 
         this.setHasFixedSize(true);
-
         LinearLayoutManager layoutManager = new LinearLayoutManager(getContext());
         layoutManager.setOrientation(LinearLayoutManager.VERTICAL);
         layoutManager.setReverseLayout(false);
@@ -60,7 +59,7 @@ public class ConversationList extends RecyclerView implements ConversationListLi
 
         this.adapter = new ConversationAdapter(this);
         this.setLayoutManager(layoutManager);
-//        this.setItemAnimator(new DefaultItemAnimator());
+        this.setItemAnimator(null);
         this.setAdapter(adapter);
         this.adapter.notifyDataSetChanged();
 
@@ -78,12 +77,9 @@ public class ConversationList extends RecyclerView implements ConversationListLi
         conversationListViewModel.getLiveData().observeForever(new Observer<PagedList<ConversationModel>>() {
             @Override
             public void onChanged(PagedList<ConversationModel> conversationModels) {
-//                adapter.setConversationModels(conversationModels);
                 adapter.submitList(conversationModels);
-//                adapter.notifyDataSetChanged();
                 if (currItemSize != 0 && currItemSize < conversationModels.size())
                     smoothScrollToPosition(conversationModels.size());
-
                 currItemSize = conversationModels.size();
             }
         });
@@ -91,7 +87,7 @@ public class ConversationList extends RecyclerView implements ConversationListLi
 
     @Override
     public void onConversationItemClicked(Object object) {
-        Toast.makeText(getContext(), "CLICK YO YOOO...", Toast.LENGTH_SHORT).show();
+        Toast.makeText(getContext(), "Item Clicked ", Toast.LENGTH_SHORT).show();
     }
 
 }

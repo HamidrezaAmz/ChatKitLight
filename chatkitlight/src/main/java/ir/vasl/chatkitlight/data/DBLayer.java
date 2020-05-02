@@ -4,8 +4,6 @@ import android.app.Application;
 
 import androidx.room.Room;
 
-import ir.vasl.chatkitlight.MyApplication;
-
 public class DBLayer {
 
     private static DBLayer DBLayer = null;

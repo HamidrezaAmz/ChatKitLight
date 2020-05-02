@@ -58,14 +58,11 @@ public class MainActivity
     }
 
     private void initViewModel() {
-        if(DBLayer.getInstance(MyApplication.getApp()).getDb().chat().getAllSimple().size() == 0)
+        if(DBLayer.getInstance(MyApplication.getApp()).getDb().chat().getAllSimple().size() == 0) //todo -> this is temp
             DBLayer.getInstance(MyApplication.getApp()).getDb().chat().insertAll(DataGenerator.getConversationList());
 
         conversationListViewModel = new ViewModelProvider(this).get(ConversationListViewModel.class);
         conversationList.setConversationListViewModel(conversationListViewModel);
-
-//        conversationListViewModel.setLiveData(DataGenerator.getConversationList());
-
     }
 
     @Override
@@ -84,8 +81,6 @@ public class MainActivity
         new CountDownTimer(5000, 1000) {
 
             public void onTick(long millisUntilFinished) {
-                // mTextField.setText("seconds remaining: " + millisUntilFinished / 1000);
-                //here you can have your logic to set text to edittext
                 Log.i("OnTick", "seconds remaining: " + millisUntilFinished / 1000);
             }
 

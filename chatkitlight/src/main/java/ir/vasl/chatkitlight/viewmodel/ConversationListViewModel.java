@@ -28,44 +28,32 @@ public class ConversationListViewModel extends AndroidViewModel {
         super(application);
         this.application = application;
         liveData = new LivePagedListBuilder<>(DBLayer.getInstance(application).getDb().chat().getAll(), 5).build();
-        Log.e("tag", "ConversationListViewModel: " + " " + new Gson().toJson(liveData));
     }
 
     public LiveData<PagedList<ConversationModel>> getLiveData() {
         return liveData;
     }
 
-//    public void setLiveData(List<ConversationModel> liveData) {
-//        this.liveData.postValue(liveData);
-//    }
-
     public void addNewConversation(ConversationModel conversationModel) {
         DBLayer.getInstance(application).getDb().chat().insert(conversationModel);
-//        this.liveData.getValue().add(conversationModel);
-//        this.liveData.postValue(liveData.getValue());
     }
 
     public void addNewConversation(ArrayList<ConversationModel> conversationModels) {
         DBLayer.getInstance(application).getDb().chat().insertAll(conversationModels);
-//        this.liveData.getValue().addAll(conversationModels);
-//        this.liveData.postValue(liveData.getValue());
     }
 
     public void updateConversationStatus(String conversationId, ConversationStatus conversationStatus) {
-
         if (liveData.getValue() == null)
             return;
-
         for (ConversationModel conversationModel : liveData.getValue().snapshot()) {
+            if(conversationModel == null || conversationModel.getId() == null)
+                continue;
             if (conversationModel.getId().equals(conversationId)) {
-//                ConversationModel model = new ConversationModel(conversationModel);
-//                model.setConversationStatus(conversationStatus);
-                conversationModel.setConversationStatus(conversationStatus);
-                DBLayer.getInstance(application).getDb().chat().update(conversationModel);
+                ConversationModel model = new ConversationModel(conversationModel);
+                model.setConversationStatus(conversationStatus);
+                DBLayer.getInstance(application).getDb().chat().update(model);
             }
         }
-
-//        this.liveData.postValue(liveData.getValue());
     }
 
     public void removeConversationModel(ConversationModel conversationModel) {
