@@ -1,18 +1,27 @@
 package ir.vasl.chatkitlight.ui.adapter;
 
+import android.telephony.gsm.GsmCellLocation;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.databinding.DataBindingUtil;
+import androidx.paging.LivePagedListBuilder;
+import androidx.paging.PagedList;
 import androidx.paging.PagedListAdapter;
 import androidx.recyclerview.widget.DiffUtil;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.google.gson.Gson;
+
 import java.util.List;
 
+import ir.vasl.chatkitlight.MyApplication;
 import ir.vasl.chatkitlight.R;
+import ir.vasl.chatkitlight.data.DBLayer;
 import ir.vasl.chatkitlight.databinding.ViewConversationClientBinding;
 import ir.vasl.chatkitlight.databinding.ViewConversationEmptyBinding;
 import ir.vasl.chatkitlight.databinding.ViewConversationServerBinding;
@@ -29,57 +38,18 @@ public class ConversationAdapter extends PagedListAdapter<ConversationModel, Bas
         super(new DiffUtil.ItemCallback<ConversationModel>() {
             @Override
             public boolean areItemsTheSame(@NonNull ConversationModel oldItem, @NonNull ConversationModel newItem) {
+
                 return oldItem.getId().equals(newItem.getId());
             }
 
             @Override
             public boolean areContentsTheSame(@NonNull ConversationModel oldConversationModel, @NonNull ConversationModel newConversationModel) {
-                return TextUtils.equals(newConversationModel.getTitle(), oldConversationModel.getTitle())
-                        && TextUtils.equals(newConversationModel.getMessage(), oldConversationModel.getMessage())
-                        && newConversationModel.getConversationStatus().getValueStr().equals(oldConversationModel.getConversationStatus().getValueStr())
-                        ;
+                Log.e("tag", oldConversationModel.getMessage() + " areStatusesTheSame: " + oldConversationModel.getConversationStatus() + " " + newConversationModel.getConversationStatus() );
+                return oldConversationModel.equals(newConversationModel);
             }
         });
         this.conversationListListener = conversationListListener;
     }
-
-//    public void setConversationModels(List<? extends ConversationModel> conversationModels) {
-//        if (mConversationModels == null) {
-//            this.mConversationModels = conversationModels;
-//            this.notifyItemRangeInserted(0, conversationModels.size());
-//        } else {
-//            DiffUtil.DiffResult result = DiffUtil.calculateDiff(new DiffUtil.Callback() {
-//                @Override
-//                public int getOldListSize() {
-//                    return mConversationModels.size();
-//                }
-//
-//                @Override
-//                public int getNewListSize() {
-//                    return conversationModels.size();
-//                }
-//
-//                @Override
-//                public boolean areItemsTheSame(int oldItemPosition, int newItemPosition) {
-//                    return mConversationModels.get(oldItemPosition).getId().equals(conversationModels.get(newItemPosition).getId());
-//                }
-//
-//                @Override
-//                public boolean areContentsTheSame(int oldItemPosition, int newItemPosition) {
-//                    ConversationModel newConversationModel = conversationModels.get(newItemPosition);
-//                    ConversationModel oldConversationModel = mConversationModels.get(oldItemPosition);
-//
-//                    return TextUtils.equals(newConversationModel.getTitle(), oldConversationModel.getTitle())
-//                            && TextUtils.equals(newConversationModel.getMessage(), oldConversationModel.getMessage())
-//                            && newConversationModel.getConversationStatus().getValueStr().equals(oldConversationModel.getConversationStatus().getValueStr())
-//                            ;
-//                }
-//            });
-//
-//            result.dispatchUpdatesTo(this);
-//            mConversationModels = conversationModels;
-//        }
-//    }
 
     @NonNull
     @Override
@@ -104,6 +74,7 @@ public class ConversationAdapter extends PagedListAdapter<ConversationModel, Bas
 
     @Override
     public void onBindViewHolder(@NonNull BaseViewHolder holder, int position) {
+        Log.e("tag", "onBindViewHolder: " + position);
         ConversationModel model = getItem(position);
         if(model == null)
             return;
@@ -128,6 +99,11 @@ public class ConversationAdapter extends PagedListAdapter<ConversationModel, Bas
             case UNDEFINE:
                 break;
         }
+    }
+
+    @Override
+    public void submitList(@Nullable PagedList<ConversationModel> pagedList) {
+        super.submitList(pagedList);
     }
 
     @Override

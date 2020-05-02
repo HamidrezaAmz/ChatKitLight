@@ -58,8 +58,10 @@ public class ConversationListViewModel extends AndroidViewModel {
 
         for (ConversationModel conversationModel : liveData.getValue().snapshot()) {
             if (conversationModel.getId().equals(conversationId)) {
+//                ConversationModel model = new ConversationModel(conversationModel);
+//                model.setConversationStatus(conversationStatus);
                 conversationModel.setConversationStatus(conversationStatus);
-                DBLayer.getInstance(application).getDb().chat().insert(conversationModel);
+                DBLayer.getInstance(application).getDb().chat().update(conversationModel);
             }
         }
 

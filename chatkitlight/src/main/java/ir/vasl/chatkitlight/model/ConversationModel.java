@@ -1,6 +1,7 @@
 package ir.vasl.chatkitlight.model;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.appcompat.widget.AppCompatImageView;
 import androidx.core.content.ContextCompat;
 import androidx.databinding.BindingAdapter;
@@ -25,6 +26,18 @@ public class ConversationModel {
 
     private ConversationStatus conversationStatus = ConversationStatus.UNDEFINE;
     private ConversationType conversationType = ConversationType.UNDEFINE;
+
+    public ConversationModel() {
+    }
+
+    public ConversationModel(ConversationModel model) {
+        this.id = model.id;
+        this.message = model.message;
+        this.title = model.title;
+        this.time = model.time;
+        this.conversationStatus = model.conversationStatus;
+        this.conversationType = model.conversationType;
+    }
 
     public String getId() {
         return id;
@@ -101,5 +114,18 @@ public class ConversationModel {
                 view.setColorFilter(ContextCompat.getColor(view.getContext(), R.color.white), android.graphics.PorterDuff.Mode.SRC_IN);
                 break;
         }
+    }
+
+    @Override
+    public boolean equals(@Nullable Object obj) {
+        if(obj == null || !obj.getClass().equals(getClass()))
+            return false;
+        ConversationModel model = ((ConversationModel) obj);
+        return model.getId().equals(id) &&
+                model.getMessage().equals(message) &&
+                model.getTitle().equals(title) &&
+                model.getTime().equals(time) &&
+                model.conversationStatus.getValue().equals(conversationStatus.getValue());
+
     }
 }
