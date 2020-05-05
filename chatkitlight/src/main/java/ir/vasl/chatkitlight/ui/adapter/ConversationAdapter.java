@@ -8,7 +8,6 @@ import androidx.annotation.Nullable;
 import androidx.databinding.DataBindingUtil;
 import androidx.paging.PagedList;
 import androidx.paging.PagedListAdapter;
-import androidx.recyclerview.widget.DiffUtil;
 
 import ir.vasl.chatkitlight.R;
 import ir.vasl.chatkitlight.databinding.ViewConversationClientBinding;
@@ -17,6 +16,7 @@ import ir.vasl.chatkitlight.databinding.ViewConversationServerBinding;
 import ir.vasl.chatkitlight.model.ConversationModel;
 import ir.vasl.chatkitlight.ui.base.BaseViewHolder;
 import ir.vasl.chatkitlight.ui.callback.ConversationListListener;
+import ir.vasl.chatkitlight.utils.ConversationDiffCallback;
 import ir.vasl.chatkitlight.utils.globalEnums.ConversationType;
 
 public class ConversationAdapter extends PagedListAdapter<ConversationModel, BaseViewHolder> implements ConversationListListener {
@@ -24,19 +24,8 @@ public class ConversationAdapter extends PagedListAdapter<ConversationModel, Bas
     private ConversationListListener conversationListListener;
 
     public ConversationAdapter(ConversationListListener conversationListListener) {
-        super(new DiffUtil.ItemCallback<ConversationModel>() {
-            @Override
-            public boolean areItemsTheSame(@NonNull ConversationModel oldItem, @NonNull ConversationModel newItem) {
-
-                return oldItem.getId().equals(newItem.getId());
-            }
-
-            @Override
-            public boolean areContentsTheSame(@NonNull ConversationModel oldConversationModel, @NonNull ConversationModel newConversationModel) {
-                return oldConversationModel.equals(newConversationModel);
-            }
-        });
-        setHasStableIds(true);
+        super(new ConversationDiffCallback());
+        this.setHasStableIds(true);
         this.conversationListListener = conversationListListener;
     }
 
@@ -68,19 +57,27 @@ public class ConversationAdapter extends PagedListAdapter<ConversationModel, Bas
 
     @Override
     public void onBindViewHolder(@NonNull BaseViewHolder holder, int position) {
-        ConversationModel model = getItem(position);
-        if(model == null)
-            return;
-        holder.onBind(position);
+
         switch (ConversationType.get(holder.getItemViewType())) {
-            case CLIENT:
+            case CLIENT: {
+                ConversationModel model = getItem(position);
+                if (model == null)
+                    return;
+
+                holder.onBind(position);
                 ((ConversationViewHolder) holder).clientBinding.setConversationModel(model);
                 ((ConversationViewHolder) holder).clientBinding.setConversationListListener(this);
                 break;
-            case SERVER:
+            }
+            case SERVER: {
+                ConversationModel model = getItem(position);
+                if (model == null)
+                    return;
+
                 ((ConversationViewHolder) holder).serverBinding.setConversationModel(model);
                 ((ConversationViewHolder) holder).serverBinding.setConversationListListener(this);
                 break;
+            }
             case EMPTY:
                 ((ConversationViewHolder) holder).emptyBinding.setConversationListListener(this);
                 break;
@@ -96,10 +93,29 @@ public class ConversationAdapter extends PagedListAdapter<ConversationModel, Bas
 
     @Override
     public int getItemViewType(int position) {
+
+        if (getCurrentList() == null)
+            return ConversationType.EMPTY.getValue();
+
+        if (getCurrentList().snapshot().size() == 0)
+            return ConversationType.EMPTY.getValue();
+
+        if (getItem(position) == null)
+            return ConversationType.EMPTY.getValue();
+
         ConversationModel model = getItem(position);
         if (model == null || getItemCount() == 0)
-            return ConversationType.CLIENT.getValue();
+            return ConversationType.EMPTY.getValue();
         return model.getConversationType().getValue();
+    }
+
+    @Override
+    public int getItemCount() {
+
+        if (getCurrentList() == null || getCurrentList().snapshot().size() == 0)
+            return 1;
+
+        return getCurrentList().snapshot().size();
     }
 
     private class ConversationViewHolder extends BaseViewHolder {
@@ -123,6 +139,7 @@ public class ConversationAdapter extends PagedListAdapter<ConversationModel, Bas
             this.emptyBinding = emptyBinding;
         }
     }
+
     @Override
     public void onConversationItemClicked(Object object) {
         if (conversationListListener != null)

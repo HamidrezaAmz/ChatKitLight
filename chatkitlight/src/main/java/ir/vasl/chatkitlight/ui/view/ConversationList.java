@@ -2,19 +2,14 @@ package ir.vasl.chatkitlight.ui.view;
 
 import android.content.Context;
 import android.util.AttributeSet;
-import android.util.Log;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.lifecycle.Observer;
 import androidx.paging.PagedList;
-import androidx.recyclerview.widget.DefaultItemAnimator;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
-
-import java.util.Collections;
-import java.util.List;
 
 import ir.vasl.chatkitlight.model.ConversationModel;
 import ir.vasl.chatkitlight.ui.adapter.ConversationAdapter;
@@ -27,8 +22,6 @@ public class ConversationList extends RecyclerView implements ConversationListLi
     private ConversationListViewModel conversationListViewModel;
 
     private int currItemSize = 0;
-
-    private boolean reverseLayout = true;
 
     public ConversationList(@NonNull Context context) {
         super(context);
@@ -51,18 +44,20 @@ public class ConversationList extends RecyclerView implements ConversationListLi
 
     private void initAdapter() {
 
-        this.setHasFixedSize(true);
+        this.setHasFixedSize(false);
+        this.setNestedScrollingEnabled(false);
+
         LinearLayoutManager layoutManager = new LinearLayoutManager(getContext());
         layoutManager.setOrientation(LinearLayoutManager.VERTICAL);
         layoutManager.setReverseLayout(false);
         layoutManager.setStackFromEnd(true);
+        layoutManager.setSmoothScrollbarEnabled(false);
 
         this.adapter = new ConversationAdapter(this);
         this.setLayoutManager(layoutManager);
         this.setItemAnimator(null);
         this.setAdapter(adapter);
         this.adapter.notifyDataSetChanged();
-
     }
 
     public void setConversationListViewModel(ConversationListViewModel conversationListViewModel) {
@@ -71,6 +66,7 @@ public class ConversationList extends RecyclerView implements ConversationListLi
     }
 
     private void initViewModel() {
+
         if (conversationListViewModel == null)
             return;
 
@@ -78,6 +74,7 @@ public class ConversationList extends RecyclerView implements ConversationListLi
             @Override
             public void onChanged(PagedList<ConversationModel> conversationModels) {
                 adapter.submitList(conversationModels);
+
                 if (currItemSize != 0 && currItemSize < conversationModels.size())
                     smoothScrollToPosition(conversationModels.size());
                 currItemSize = conversationModels.size();

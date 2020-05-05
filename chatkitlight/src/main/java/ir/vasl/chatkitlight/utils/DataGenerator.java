@@ -48,8 +48,8 @@ public class DataGenerator {
         ArrayList<ConversationModel> conversationModels = new ArrayList<>();
 
         for (int i = 0; i < 10; i++) {
-            ConversationModel conversationModel = new ConversationModel();
-            conversationModel.setId(UUID.randomUUID().toString());
+            ConversationModel conversationModel = new ConversationModel("ewref", UUID.randomUUID().toString());
+            conversationModel.setConversationId(UUID.randomUUID().toString());
             conversationModel.setTitle(title[new Random().nextInt(randomBound)]);
             conversationModel.setMessage(messages[new Random().nextInt(randomBound)]);
             conversationModel.setTime("07:48");
@@ -69,8 +69,8 @@ public class DataGenerator {
         List<ConversationModel> conversationModels = new ArrayList<>();
 
         for (int i = 0; i < 4; i++) {
-            ConversationModel conversationModel = new ConversationModel();
-            conversationModel.setId(UUID.randomUUID().toString());
+            ConversationModel conversationModel = new ConversationModel("ewref", UUID.randomUUID().toString());
+            conversationModel.setConversationId(UUID.randomUUID().toString());
             conversationModel.setTitle(title[new Random().nextInt(randomBound)]);
             conversationModel.setMessage(messages[new Random().nextInt(randomBound)]);
             conversationModel.setTime("02:18");

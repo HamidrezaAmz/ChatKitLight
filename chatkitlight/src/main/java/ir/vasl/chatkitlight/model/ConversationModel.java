@@ -5,26 +5,46 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.widget.AppCompatImageView;
 import androidx.core.content.ContextCompat;
 import androidx.databinding.BindingAdapter;
+import androidx.room.ColumnInfo;
 import androidx.room.Entity;
 import androidx.room.PrimaryKey;
-import androidx.room.TypeConverter;
 import androidx.room.TypeConverters;
 
 import ir.vasl.chatkitlight.R;
+import ir.vasl.chatkitlight.utils.Constants;
 import ir.vasl.chatkitlight.utils.globalEnums.ConversationStatus;
 import ir.vasl.chatkitlight.utils.globalEnums.ConversationType;
 
-@Entity (tableName = "chatkit_db")
+@Entity(tableName = Constants.TABLE_NAME)
 @TypeConverters({ConversationStatus.class, ConversationType.class})
 public class ConversationModel {
+
     @NonNull
-    @PrimaryKey
-    private String id = "";
+    @PrimaryKey(autoGenerate = true)
+    @ColumnInfo(name = "id")
+    private int id;
+
+    @NonNull
+    @ColumnInfo(name = "chatId")
+    private String chatId = "";
+
+    @NonNull
+    @ColumnInfo(name = "conversationId")
+    private String conversationId = "";
+
+    @ColumnInfo(name = "title")
     private String title = "";
+
+    @ColumnInfo(name = "message")
     private String message = "";
+
+    @ColumnInfo(name = "time")
     private String time = "";
 
+    @ColumnInfo(name = "conversationStatus")
     private ConversationStatus conversationStatus = ConversationStatus.UNDEFINE;
+
+    @ColumnInfo(name = "conversationType")
     private ConversationType conversationType = ConversationType.UNDEFINE;
 
     public ConversationModel() {
@@ -32,6 +52,8 @@ public class ConversationModel {
 
     public ConversationModel(ConversationModel model) {
         this.id = model.id;
+        this.chatId = model.chatId;
+        this.conversationId = model.conversationId;
         this.message = model.message;
         this.title = model.title;
         this.time = model.time;
@@ -39,12 +61,33 @@ public class ConversationModel {
         this.conversationType = model.conversationType;
     }
 
-    public String getId() {
+    public ConversationModel(@NonNull String chatId, @NonNull String conversationId) {
+        this.chatId = chatId;
+        this.conversationId = conversationId;
+    }
+
+    public int getId() {
         return id;
     }
 
-    public void setId(String id) {
+    public void setId(int id) {
         this.id = id;
+    }
+
+    public String getChatId() {
+        return chatId;
+    }
+
+    public void setChatId(String chatId) {
+        this.chatId = chatId;
+    }
+
+    public String getConversationId() {
+        return conversationId;
+    }
+
+    public void setConversationId(String conversationId) {
+        this.conversationId = conversationId;
     }
 
     public String getTitle() {
@@ -89,7 +132,7 @@ public class ConversationModel {
 
     @BindingAdapter("conversationStatusIcon")
     public static void loadConversationStatusIcon(AppCompatImageView view, ConversationStatus conversationStatus) {
-        if(conversationStatus == null)
+        if (conversationStatus == null)
             return;
         switch (conversationStatus) {
             case FAILED:
@@ -118,10 +161,11 @@ public class ConversationModel {
 
     @Override
     public boolean equals(@Nullable Object obj) {
-        if(obj == null || !obj.getClass().equals(getClass()))
+        if (obj == null || !obj.getClass().equals(getClass()))
             return false;
         ConversationModel model = ((ConversationModel) obj);
-        return model.getId().equals(id) &&
+        return model.getId() == id &&
+                model.getConversationId().equals(conversationId) &&
                 model.getMessage().equals(message) &&
                 model.getTitle().equals(title) &&
                 model.getTime().equals(time) &&
