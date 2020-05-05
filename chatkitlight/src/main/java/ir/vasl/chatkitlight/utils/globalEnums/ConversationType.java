@@ -1,5 +1,7 @@
 package ir.vasl.chatkitlight.utils.globalEnums;
 
+import androidx.room.TypeConverter;
+
 public enum ConversationType {
 
     UNDEFINE("UNDEFINED", -1),
@@ -14,6 +16,25 @@ public enum ConversationType {
     ConversationType(String valueStr, Integer value) {
         this.valueStr = valueStr;
         this.value = value;
+    }
+
+    @TypeConverter
+    public static ConversationType getConversationStatus(Integer numeral){
+        for(ConversationType ds : values()){
+            if(ds.getValue().equals(numeral)){
+                return ds;
+            }
+        }
+        return null;
+    }
+
+    @TypeConverter
+    public static Integer getConversationStatusInt(ConversationType status){
+
+        if(status != null)
+            return status.getValue();
+
+        return  null;
     }
 
     public static ConversationType get(String value) {

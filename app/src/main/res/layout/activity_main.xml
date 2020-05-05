@@ -1,28 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/black"
-    tools:context=".MainActivity">
+    android:background="@color/black">
 
-    <ir.vasl.chatkitlight.ui.view.ConversationList
-        android:id="@+id/conversationList"
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/toolbar"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_above="@id/conversationInput"
-        android:layout_alignParentTop="true" />
-
-    <View
-        android:id="@+id/divider"
-        android:layout_width="match_parent"
-        android:layout_height="1dp"
-        android:layout_above="@id/conversationInput"
-        android:layout_marginLeft="16dp"
-        android:layout_marginRight="16dp"
-        android:background="@color/warm_grey_three"
-        android:visibility="gone" />
+        android:layout_height="58dp"
+        android:layout_alignParentTop="true"
+        android:background="?attr/colorPrimary"
+        android:minHeight="?attr/actionBarSize"
+        app:theme="@style/ToolBarStyle" />
 
     <ir.vasl.chatkitlight.ui.view.ConversationInput
         android:id="@+id/conversationInput"
@@ -31,5 +21,12 @@
         android:layout_alignParentBottom="true"
         app:inputHint="@string/hint_enter_a_message"
         app:showAttachmentButton="false" />
+
+    <ir.vasl.chatkitlight.ui.view.ConversationList
+        android:id="@+id/conversationList"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_above="@id/conversationInput"
+        android:layout_below="@id/toolbar" />
 
 </RelativeLayout>

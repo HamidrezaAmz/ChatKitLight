@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout xmlns:android="http://schemas.android.com/apk/res/android">
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <data>
 
@@ -10,18 +11,27 @@
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="match_parent"
         android:layout_margin="@dimen/global_margin"
-        android:background="#C4C6C7"
+        android:gravity="center"
         android:onClick="@{ () -> conversationListListener.onConversationItemClicked()}"
         android:orientation="vertical">
 
         <TextView
+            style="@style/TextViewTitle"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:gravity="center"
             android:padding="@dimen/global_padding_x_extra"
-            android:text="WE HAVE NO DATA TO SHOW :)" />
+            android:text="WE HAVE NO DATA TO SHOW :)"
+            android:visibility="gone" />
+
+        <androidx.appcompat.widget.AppCompatImageView
+            android:layout_width="70dp"
+            android:layout_height="70dp"
+            android:tint="@color/warm_grey_four"
+            app:srcCompat="@drawable/ic_empty_folder_svg" />
 
     </LinearLayout>
+
 </layout>
