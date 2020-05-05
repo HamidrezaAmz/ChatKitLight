@@ -1,3 +1,8 @@
+![GitHub](https://img.shields.io/github/license/hamidrezaamz/ChatKitLight)
+[![API](https://img.shields.io/badge/API-16%2B-brightgreen.svg?style=flat)](https://android-arsenal.com/api?level=17)
+[![](https://jitpack.io/v/HamidrezaAmz/ChatKitLight.svg)](https://jitpack.io/#HamidrezaAmz/ChatKitLight)
+
+
 # ChatKitLight
 This is light chat kit with **MvvM** architecture combined with **LiveData** and **DataBinding**
 
