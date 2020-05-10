@@ -13,6 +13,7 @@ import ir.vasl.chatkitlight.R;
 import ir.vasl.chatkitlight.databinding.ViewConversationClientBinding;
 import ir.vasl.chatkitlight.databinding.ViewConversationEmptyBinding;
 import ir.vasl.chatkitlight.databinding.ViewConversationServerBinding;
+import ir.vasl.chatkitlight.databinding.ViewConversationUnsupportedBinding;
 import ir.vasl.chatkitlight.model.ConversationModel;
 import ir.vasl.chatkitlight.ui.base.BaseViewHolder;
 import ir.vasl.chatkitlight.ui.callback.ConversationListListener;
@@ -44,9 +45,12 @@ public class ConversationAdapter extends PagedListAdapter<ConversationModel, Bas
                 return new ConversationViewHolder(serverBinding);
 
             case EMPTY:
-            default:
                 ViewConversationEmptyBinding emptyBinding = DataBindingUtil.inflate(inflater, R.layout.view_conversation_empty, parent, false);
                 return new ConversationViewHolder(emptyBinding);
+
+            default:
+                ViewConversationUnsupportedBinding unsupportedBinding = DataBindingUtil.inflate(inflater, R.layout.view_conversation_unsupported, parent, false);
+                return new ConversationViewHolder(unsupportedBinding);
         }
     }
 
@@ -69,6 +73,7 @@ public class ConversationAdapter extends PagedListAdapter<ConversationModel, Bas
                 ((ConversationViewHolder) holder).clientBinding.setConversationListListener(this);
                 break;
             }
+
             case SERVER: {
                 ConversationModel model = getItem(position);
                 if (model == null)
@@ -78,10 +83,14 @@ public class ConversationAdapter extends PagedListAdapter<ConversationModel, Bas
                 ((ConversationViewHolder) holder).serverBinding.setConversationListListener(this);
                 break;
             }
+
             case EMPTY:
                 ((ConversationViewHolder) holder).emptyBinding.setConversationListListener(this);
                 break;
+
             case UNDEFINE:
+            default:
+                ((ConversationViewHolder) holder).unsupportedBinding.setConversationListListener(this);
                 break;
         }
     }
@@ -123,6 +132,7 @@ public class ConversationAdapter extends PagedListAdapter<ConversationModel, Bas
         private ViewConversationClientBinding clientBinding;
         private ViewConversationServerBinding serverBinding;
         private ViewConversationEmptyBinding emptyBinding;
+        private ViewConversationUnsupportedBinding unsupportedBinding;
 
         public ConversationViewHolder(@NonNull ViewConversationClientBinding clientBinding) {
             super(clientBinding.getRoot());
@@ -137,6 +147,11 @@ public class ConversationAdapter extends PagedListAdapter<ConversationModel, Bas
         public ConversationViewHolder(@NonNull ViewConversationEmptyBinding emptyBinding) {
             super(emptyBinding.getRoot());
             this.emptyBinding = emptyBinding;
+        }
+
+        public ConversationViewHolder(@NonNull ViewConversationUnsupportedBinding unsupportedBinding) {
+            super(unsupportedBinding.getRoot());
+            this.unsupportedBinding = unsupportedBinding;
         }
     }
 

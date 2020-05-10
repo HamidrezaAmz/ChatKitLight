@@ -31,14 +31,14 @@
             android:padding="@dimen/global_padding_middle">
 
             <TextView
-                style="@style/TextViewTitle"
+                style="@style/TextViewTitleStyle"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="@{ conversationModel.title}"
                 android:visibility='@{ conversationModel.title.equals("") ? View.GONE : View.VISIBLE }' />
 
             <TextView
-                style="@style/TextViewSubTitle"
+                style="@style/TextViewSubTitleStyle"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="@{ conversationModel.message}"
@@ -52,7 +52,7 @@
 
                 <androidx.appcompat.widget.AppCompatImageView
                     android:id="@+id/image"
-                    style="@style/TextViewSubTitle"
+                    style="@style/TextViewSubTitleStyle"
                     conversationStatusIcon="@{conversationModel.conversationStatus}"
                     android:layout_width="15dp"
                     android:layout_height="15dp"
