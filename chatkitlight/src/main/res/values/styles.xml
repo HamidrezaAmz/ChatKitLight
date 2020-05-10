@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <style name="TextViewTitle" parent="@android:style/TextAppearance.Medium">
+    <style name="TextViewTitleStyle" parent="@android:style/TextAppearance.Medium">
         <item name="android:textSize">14sp</item>
         <item name="android:textColor">@color/white</item>
         <item name="android:textStyle">bold</item>
@@ -9,7 +9,7 @@
         <item name="android:padding">0dp</item>
     </style>
 
-    <style name="TextViewSubTitle" parent="@android:style/TextAppearance.Medium">
+    <style name="TextViewSubTitleStyle" parent="@android:style/TextAppearance.Medium">
         <item name="android:textSize">12sp</item>
         <item name="android:textColor">@color/warm_grey_six</item>
         <item name="android:textStyle">bold</item>

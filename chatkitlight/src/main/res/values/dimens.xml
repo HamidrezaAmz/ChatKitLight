@@ -60,4 +60,6 @@
     <dimen name="corner_curve_conversation">10dp</dimen>
     <dimen name="conversation_max_width">250dp</dimen>
 
+    <dimen name="unsupported_height">120dp</dimen>
+
 </resources>
