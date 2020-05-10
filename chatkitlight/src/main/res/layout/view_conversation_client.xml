@@ -51,10 +51,10 @@
                 android:orientation="horizontal">
 
                 <androidx.appcompat.widget.AppCompatImageView
+                    android:id="@+id/image"
                     style="@style/TextViewSubTitle"
                     conversationStatusIcon="@{conversationModel.conversationStatus}"
                     android:layout_width="15dp"
-                    android:id="@+id/image"
                     android:layout_height="15dp"
                     android:tint="@color/white"
                     android:visibility='@{ conversationModel.conversationStatus.equals(null) ? View.GONE : View.VISIBLE  }' />
