@@ -11,7 +11,7 @@
 
     <style name="TextViewSubTitle" parent="@android:style/TextAppearance.Medium">
         <item name="android:textSize">12sp</item>
-        <item name="android:textColor">@color/warm_grey_five</item>
+        <item name="android:textColor">@color/warm_grey_six</item>
         <item name="android:textStyle">bold</item>
         <item name="android:fontFamily">@font/app_font</item>
         <item name="android:padding">0dp</item>
