@@ -56,6 +56,38 @@ public class ConversationListViewModel extends AndroidViewModel {
         }
     }
 
+    public void updateConversationStatusWithIDSwap(String conversationIdOld, String conversationIdNew, ConversationStatus conversationStatus) {
+        if (liveData.getValue() == null)
+            return;
+        for (ConversationModel conversationModel : liveData.getValue().snapshot()) {
+            if (conversationModel == null || conversationModel.getConversationId() == null)
+                continue;
+            if (conversationModel.getConversationId().equals(conversationIdOld)) {
+                ConversationModel model = new ConversationModel(conversationModel);
+                model.setConversationStatus(conversationStatus);
+
+                DatabaseLayer.getInstance(application).getChatKitDatabase().getChatDao().update(model);
+                DatabaseLayer.getInstance(application).getChatKitDatabase().getChatDao().swapId(conversationIdOld, conversationIdNew);
+            }
+        }
+    }
+
+    public void updateConversationStatusWithIDSwap(String conversationIdOld, String conversationIdNew, String ChatID, ConversationStatus conversationStatus) {
+        if (liveData.getValue() == null)
+            return;
+        for (ConversationModel conversationModel : liveData.getValue().snapshot()) {
+            if (conversationModel == null || conversationModel.getConversationId() == null)
+                continue;
+            if (conversationModel.getConversationId().equals(conversationIdOld)) {
+                ConversationModel model = new ConversationModel(conversationModel);
+                model.setConversationStatus(conversationStatus);
+
+                DatabaseLayer.getInstance(application).getChatKitDatabase().getChatDao().update(model);
+                DatabaseLayer.getInstance(application).getChatKitDatabase().getChatDao().swapId(conversationIdOld, conversationIdNew, ChatID);
+            }
+        }
+    }
+
     public void removeConversationModel(ConversationModel conversationModel) {
         if (conversationModel != null) {
             DatabaseLayer.getInstance(application).getChatKitDatabase().getChatDao().delete(conversationModel);
