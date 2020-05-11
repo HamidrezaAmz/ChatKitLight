@@ -87,4 +87,8 @@ public class ConversationList extends RecyclerView implements ConversationListLi
         Toast.makeText(getContext(), "Item Clicked ", Toast.LENGTH_SHORT).show();
     }
 
+    @Override
+    public void onConversationItemLongClicked(Object object) {
+        Toast.makeText(getContext(), "Item Long Clicked ", Toast.LENGTH_SHORT).show();
+    }
 }
