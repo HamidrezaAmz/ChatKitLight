@@ -19,6 +19,7 @@ import ir.vasl.chatkitlight.ui.callback.InputListener;
 import ir.vasl.chatkitlight.ui.callback.TypingListener;
 import ir.vasl.chatkitlight.ui.view.ConversationInput;
 import ir.vasl.chatkitlight.ui.view.ConversationList;
+import ir.vasl.chatkitlight.utils.TimeUtils;
 import ir.vasl.chatkitlight.utils.globalEnums.ConversationStatus;
 import ir.vasl.chatkitlight.utils.globalEnums.ConversationType;
 import ir.vasl.chatkitlight.viewmodel.ConversationListViewModel;
@@ -111,7 +112,7 @@ public class MainActivity
         ConversationModel conversationModel = new ConversationModel(chatID, UUID.randomUUID().toString());
         conversationModel.setTitle("");
         conversationModel.setMessage(input.toString());
-        conversationModel.setTime("03:19");
+        conversationModel.setTime(TimeUtils.getCurrTime());
         conversationModel.setConversationType(ConversationType.CLIENT);
         conversationModel.setConversationStatus(ConversationStatus.SENDING);
 
@@ -154,5 +155,4 @@ public class MainActivity
         }.start();
 
     }
-
 }

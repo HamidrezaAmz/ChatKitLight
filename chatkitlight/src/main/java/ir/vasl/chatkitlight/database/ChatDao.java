@@ -25,11 +25,27 @@ public interface ChatDao {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     void insert(ConversationModel conversationModel);
 
-    @Update
-    void update(ConversationModel model);
+    @Insert(onConflict = OnConflictStrategy.IGNORE)
+    void insertIgnore(ConversationModel conversationModel);
+
+    @Insert(onConflict = OnConflictStrategy.IGNORE)
+    void insertIgnore(List<ConversationModel> conversationModels);
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     void insertAll(List<ConversationModel> conversationModels);
+
+    @Update
+    void update(ConversationModel model);
+
+    @Query("UPDATE " + Constants.TABLE_NAME + " SET "
+            + " conversationId=:conversationIDNew "
+            + " WHERE conversationId =:conversationIDOld")
+    void swapId(String conversationIDOld, String conversationIDNew);
+
+    @Query("UPDATE " + Constants.TABLE_NAME + " SET "
+            + " conversationId=:conversationIDNew "
+            + " WHERE conversationId =:conversationIDOld AND chatId=:chatID")
+    void swapId(String conversationIDOld, String conversationIDNew, String chatID);
 
     @Delete
     void delete(ConversationModel conversationModel);

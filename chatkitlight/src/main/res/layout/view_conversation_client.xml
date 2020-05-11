@@ -5,6 +5,8 @@
 
         <import type="android.view.View" />
 
+        <import type="ir.vasl.chatkitlight.utils.TimeUtils" />
+
         <variable
             name="conversationModel"
             type="ir.vasl.chatkitlight.model.ConversationModel" />
