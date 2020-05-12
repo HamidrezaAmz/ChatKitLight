@@ -7,6 +7,7 @@ import androidx.core.content.ContextCompat;
 import androidx.databinding.BindingAdapter;
 import androidx.room.ColumnInfo;
 import androidx.room.Entity;
+import androidx.room.Ignore;
 import androidx.room.PrimaryKey;
 import androidx.room.TypeConverters;
 
@@ -50,6 +51,7 @@ public class ConversationModel {
     public ConversationModel() {
     }
 
+    @Ignore
     public ConversationModel(ConversationModel model) {
         this.id = model.id;
         this.chatId = model.chatId;
@@ -61,6 +63,7 @@ public class ConversationModel {
         this.conversationType = model.conversationType;
     }
 
+    @Ignore
     public ConversationModel(@NonNull String chatId, @NonNull String conversationId) {
         this.chatId = chatId;
         this.conversationId = conversationId;
@@ -172,4 +175,5 @@ public class ConversationModel {
                 model.conversationStatus.getValue().equals(conversationStatus.getValue());
 
     }
+
 }

@@ -26,6 +26,7 @@
     <color name="cornflower_blue_two_dark">#475bd4</color>
     <color name="cornflower_blue_light_40">#64bec5f7</color>
     <color name="failed">#D7D4D5</color>
+    <color name="divider">#4F4A4A</color>
 
     <color name="dialog_divider">@color/white_three</color>
     <color name="dialog_title_text">@color/dark_gray</color>

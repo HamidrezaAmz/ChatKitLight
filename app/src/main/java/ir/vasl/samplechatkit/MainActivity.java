@@ -15,6 +15,7 @@ import java.util.UUID;
 
 import ir.vasl.chatkitlight.model.ConversationModel;
 import ir.vasl.chatkitlight.ui.callback.AttachmentsListener;
+import ir.vasl.chatkitlight.ui.callback.DialogMenuListener;
 import ir.vasl.chatkitlight.ui.callback.InputListener;
 import ir.vasl.chatkitlight.ui.callback.TypingListener;
 import ir.vasl.chatkitlight.ui.view.ConversationInput;
@@ -27,7 +28,7 @@ import ir.vasl.chatkitlight.viewmodel.factory.ConversationListViewModelFactory;
 
 public class MainActivity
         extends AppCompatActivity
-        implements TypingListener, AttachmentsListener, InputListener {
+        implements TypingListener, AttachmentsListener, InputListener, DialogMenuListener {
 
     private ConversationInput conversationInput;
     private ConversationList conversationList;
@@ -52,6 +53,7 @@ public class MainActivity
         conversationInput.setInputListener(this);
         conversationInput.setAttachmentsListener(this);
         conversationInput.setTypingListener(this);
+        conversationList.setDialogMenuListener(this);
 
         initViewModel();
     }
@@ -154,5 +156,22 @@ public class MainActivity
 
         }.start();
 
+    }
+
+    @Override
+    public void onCopyMessageClicked(Object object) {
+
+    }
+
+    @Override
+    public void onResendMessageClicked(Object object) {
+
+    }
+
+    @Override
+    public void onDeleteMessageClicked(Object object) {
+        if (object instanceof ConversationModel) {
+            conversationListViewModel.removeConversationModel((ConversationModel) object);
+        }
     }
 }

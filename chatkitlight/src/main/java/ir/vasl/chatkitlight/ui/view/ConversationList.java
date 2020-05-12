@@ -2,7 +2,6 @@ package ir.vasl.chatkitlight.ui.view;
 
 import android.content.Context;
 import android.util.AttributeSet;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -14,12 +13,15 @@ import androidx.recyclerview.widget.RecyclerView;
 import ir.vasl.chatkitlight.model.ConversationModel;
 import ir.vasl.chatkitlight.ui.adapter.ConversationAdapter;
 import ir.vasl.chatkitlight.ui.callback.ConversationListListener;
+import ir.vasl.chatkitlight.ui.callback.DialogMenuListener;
+import ir.vasl.chatkitlight.ui.dialogs.DialogChatMenu;
 import ir.vasl.chatkitlight.viewmodel.ConversationListViewModel;
 
-public class ConversationList extends RecyclerView implements ConversationListListener {
+public class ConversationList extends RecyclerView implements ConversationListListener, DialogMenuListener {
 
     private ConversationAdapter adapter;
     private ConversationListViewModel conversationListViewModel;
+    private DialogMenuListener dialogMenuListener;
 
     private int currItemSize = 0;
 
@@ -82,9 +84,34 @@ public class ConversationList extends RecyclerView implements ConversationListLi
         });
     }
 
+    public void setDialogMenuListener(DialogMenuListener dialogMenuListener) {
+        this.dialogMenuListener = dialogMenuListener;
+    }
+
     @Override
     public void onConversationItemClicked(Object object) {
-        Toast.makeText(getContext(), "Item Clicked ", Toast.LENGTH_SHORT).show();
+        DialogChatMenu dialogChatMenu = new DialogChatMenu(getContext());
+        dialogChatMenu.setMenuItem(object);
+        dialogChatMenu.setDialogMenuListener(this);
+        dialogChatMenu.show();
+    }
+
+    @Override
+    public void onCopyMessageClicked(Object object) {
+        if (dialogMenuListener != null)
+            dialogMenuListener.onCopyMessageClicked(object);
+    }
+
+    @Override
+    public void onResendMessageClicked(Object object) {
+        if (dialogMenuListener != null)
+            dialogMenuListener.onResendMessageClicked(object);
+    }
+
+    @Override
+    public void onDeleteMessageClicked(Object object) {
+        if (dialogMenuListener != null)
+            dialogMenuListener.onDeleteMessageClicked(object);
     }
 
 }

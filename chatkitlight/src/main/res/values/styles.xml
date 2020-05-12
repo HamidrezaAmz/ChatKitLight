@@ -21,4 +21,11 @@
         <item name="android:fontFamily">@font/app_font</item>
     </style>
 
+    <style name="Widget.Button" parent="android:Widget">
+        <item name="android:textColor">@color/white</item>
+        <item name="android:padding">@dimen/global_padding_extra</item>
+        <item name="android:gravity">center</item>
+        <item name="fontFamily">@font/app_font</item>
+    </style>
+
 </resources>

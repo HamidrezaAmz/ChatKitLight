@@ -160,4 +160,5 @@ public class ConversationAdapter extends PagedListAdapter<ConversationModel, Bas
         if (conversationListListener != null)
             conversationListListener.onConversationItemClicked(object);
     }
+
 }
