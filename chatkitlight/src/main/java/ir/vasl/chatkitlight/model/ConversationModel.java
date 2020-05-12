@@ -175,4 +175,5 @@ public class ConversationModel {
                 model.conversationStatus.getValue().equals(conversationStatus.getValue());
 
     }
+
 }

@@ -161,10 +161,4 @@ public class ConversationAdapter extends PagedListAdapter<ConversationModel, Bas
             conversationListListener.onConversationItemClicked(object);
     }
 
-    @Override
-    public void onConversationItemLongClicked(Object object) {
-        if (conversationListListener != null)
-            conversationListListener.onConversationItemLongClicked(object);
-    }
-
 }

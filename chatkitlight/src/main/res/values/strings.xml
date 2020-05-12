@@ -1,5 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-
+    <string name="copy_message">Copy Message</string>
+    <string name="resend_message">Resend Message</string>
+    <string name="delete_message">Delete Message</string>
 </resources>
