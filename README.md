@@ -37,7 +37,7 @@ Step 2. Add the dependency
 
 ```gradle
 dependencies {
-    implementation 'com.github.HamidrezaAmz:ChatKitLight:1.0.0'
+    implementation 'com.github.HamidrezaAmz:ChatKitLight:$LASTES_VERSION'
 }
 ```
 
