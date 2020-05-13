@@ -35,7 +35,7 @@
     <color name="dialog_unread_text">@color/white</color>
     <color name="dialog_unread_bubble">@color/dark_mint</color>
 
-    <color name="client_bubble_background">#D53346</color>
+    <color name="client_bubble_background">#901927</color>
     <color name="server_bubble_background">#363232</color>
 
 </resources>
