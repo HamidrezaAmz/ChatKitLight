@@ -41,7 +41,7 @@ public class DialogChatMenu extends BaseDialog implements View.OnClickListener {
 
     @Override
     protected int getDialogLayout() {
-        return R.layout.view_dialog_chat_menu;
+        return R.layout.layout_dialog_chat_menu;
     }
 
     @Override

@@ -4,4 +4,5 @@
     <string name="copy_message">Copy Message</string>
     <string name="resend_message">Resend Message</string>
     <string name="delete_message">Delete Message</string>
+    <string name="hint_enter_a_message">Enter your message</string>
 </resources>

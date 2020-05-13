@@ -14,12 +14,8 @@ import androidx.lifecycle.ViewModelProvider;
 import java.util.UUID;
 
 import ir.vasl.chatkitlight.model.ConversationModel;
-import ir.vasl.chatkitlight.ui.callback.AttachmentsListener;
-import ir.vasl.chatkitlight.ui.callback.DialogMenuListener;
-import ir.vasl.chatkitlight.ui.callback.InputListener;
-import ir.vasl.chatkitlight.ui.callback.TypingListener;
-import ir.vasl.chatkitlight.ui.view.ConversationInput;
-import ir.vasl.chatkitlight.ui.view.ConversationList;
+import ir.vasl.chatkitlight.ui.callback.ConversationViewListener;
+import ir.vasl.chatkitlight.ui.view.ConversationView;
 import ir.vasl.chatkitlight.utils.TimeUtils;
 import ir.vasl.chatkitlight.utils.globalEnums.ConversationStatus;
 import ir.vasl.chatkitlight.utils.globalEnums.ConversationType;
@@ -28,32 +24,25 @@ import ir.vasl.chatkitlight.viewmodel.factory.ConversationListViewModelFactory;
 
 public class MainActivity
         extends AppCompatActivity
-        implements TypingListener, AttachmentsListener, InputListener, DialogMenuListener {
-
-    private ConversationInput conversationInput;
-    private ConversationList conversationList;
-    private ConversationListViewModel conversationListViewModel;
-
-    private String chatID = "tempChatId";
+        implements ConversationViewListener {
 
     private Toolbar toolbar;
+    private ConversationListViewModel conversationListViewModel;
+    private ConversationView conversationView;
+
+    private static final String chatID = "tempChatId";
+    private static final String TAG = "MainActivity";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        toolbar = findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
-
         LocaleHelper.setApplicationLanguage(this);
 
-        conversationInput = findViewById(R.id.conversationInput);
-        conversationList = findViewById(R.id.conversationList);
+        toolbar = findViewById(R.id.toolbar);
+        conversationView = findViewById(R.id.conversationView);
 
-        conversationInput.setInputListener(this);
-        conversationInput.setAttachmentsListener(this);
-        conversationInput.setTypingListener(this);
-        conversationList.setDialogMenuListener(this);
+        setSupportActionBar(toolbar);
 
         initViewModel();
     }
@@ -66,7 +55,8 @@ public class MainActivity
 
     private void initViewModel() {
         conversationListViewModel = new ViewModelProvider(this, new ConversationListViewModelFactory(getApplication(), chatID)).get(ConversationListViewModel.class);
-        conversationList.setConversationListViewModel(conversationListViewModel);
+        conversationView.setConversationListViewModel(conversationListViewModel);
+        conversationView.setConversationViewListener(this);
     }
 
     @Override
@@ -89,27 +79,7 @@ public class MainActivity
     }
 
     @Override
-    public void onAddAttachments() {
-        // Toast.makeText(this, "onAddAttachments", Toast.LENGTH_SHORT).show();
-    }
-
-    @Override
-    public void onStartTyping() {
-        // Toast.makeText(this, "onStartTyping", Toast.LENGTH_SHORT).show();
-    }
-
-    @Override
-    public void onStopTyping() {
-        // Toast.makeText(this, "onStopTyping", Toast.LENGTH_SHORT).show();
-    }
-
-    @Override
-    public boolean onSubmit(CharSequence input) {
-        createNewConversation(input);
-        return true;
-    }
-
-    private void createNewConversation(CharSequence input) {
+    public void onSubmit(CharSequence input) {
 
         ConversationModel conversationModel = new ConversationModel(chatID, UUID.randomUUID().toString());
         conversationModel.setTitle("");
@@ -155,7 +125,6 @@ public class MainActivity
             }
 
         }.start();
-
     }
 
     @Override
@@ -170,8 +139,12 @@ public class MainActivity
 
     @Override
     public void onDeleteMessageClicked(Object object) {
-        if (object instanceof ConversationModel) {
+        if (object instanceof ConversationModel)
             conversationListViewModel.removeConversationModel((ConversationModel) object);
-        }
+    }
+
+    @Override
+    public void onSwipeRefresh() {
+        conversationView.hideSwipeRefresh();
     }
 }
