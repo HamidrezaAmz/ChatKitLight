@@ -46,4 +46,9 @@
 
         <attr name="delayTypingStatus" format="integer" />
     </declare-styleable>
+
+    <declare-styleable name="ConversationView">
+        <attr name="canShowDialog" format="boolean" />
+    </declare-styleable>
+
 </resources>
