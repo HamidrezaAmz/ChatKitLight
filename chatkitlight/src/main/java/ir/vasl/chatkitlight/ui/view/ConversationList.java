@@ -24,6 +24,7 @@ public class ConversationList extends RecyclerView implements ConversationListLi
     private DialogMenuListener dialogMenuListener;
 
     private int currItemSize = 0;
+    private boolean canShowDialog = false;
 
     public ConversationList(@NonNull Context context) {
         super(context);
@@ -88,8 +89,14 @@ public class ConversationList extends RecyclerView implements ConversationListLi
         this.dialogMenuListener = dialogMenuListener;
     }
 
+    public void setCanShowDialog(boolean canShowDialog) {
+        this.canShowDialog = canShowDialog;
+    }
+
     @Override
     public void onConversationItemClicked(Object object) {
+        if (!canShowDialog) return;
+
         DialogChatMenu dialogChatMenu = new DialogChatMenu(getContext());
         dialogChatMenu.setMenuItem(object);
         dialogChatMenu.setDialogMenuListener(this);

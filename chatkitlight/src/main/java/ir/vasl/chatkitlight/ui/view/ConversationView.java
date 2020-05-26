@@ -5,7 +5,9 @@ import android.util.AttributeSet;
 import android.view.View;
 import android.widget.FrameLayout;
 
+import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.recyclerview.widget.RecyclerView;
 
 import com.orangegangsters.github.swipyrefreshlayout.library.SwipyRefreshLayout;
 import com.orangegangsters.github.swipyrefreshlayout.library.SwipyRefreshLayoutDirection;
@@ -23,27 +25,34 @@ public class ConversationView
         implements TypingListener, AttachmentsListener, InputListener, DialogMenuListener, SwipyRefreshLayout.OnRefreshListener {
 
     private ConversationViewListener conversationViewListener;
-    private SwipyRefreshLayout swipyRefreshLayout;
     private ConversationInput conversationInput;
     private ConversationList conversationList;
+    private SwipyRefreshLayout swipyRefreshLayout;
 
     public ConversationView(Context context) {
         super(context);
-        initConversationView();
+        init(context);
     }
 
     public ConversationView(Context context, @Nullable AttributeSet attrs) {
         super(context, attrs);
-        initConversationView();
+        init(context, attrs);
     }
 
     public ConversationView(Context context, @Nullable AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
-        initConversationView();
+        init(context, attrs);
     }
 
-    private void initConversationView() {
-        View viewConversation = inflate(getContext(), R.layout.layout_conversation_view, this);
+    private void init(Context context, AttributeSet attrs) {
+        init(context);
+        ConversationViewStyle style = ConversationViewStyle.parse(context, attrs);
+
+        conversationList.setCanShowDialog(style.canShowDialog());
+    }
+
+    private void init(Context context) {
+        View viewConversation = inflate(context, R.layout.layout_conversation_view, this);
 
         // conversation view items
         swipyRefreshLayout = viewConversation.findViewById(R.id.swipyRefreshLayout);
@@ -54,9 +63,11 @@ public class ConversationView
         conversationInput.setInputListener(this);
         conversationInput.setAttachmentsListener(this);
         conversationInput.setTypingListener(this);
-        conversationList.setDialogMenuListener(this);
         swipyRefreshLayout.setOnRefreshListener(this);
+        conversationList.setDialogMenuListener(this);
 
+        // fix recyclerview conflict with swipe refresh
+        conversationList.addOnScrollListener(scrollListener);
     }
 
     public void setConversationViewListener(ConversationViewListener conversationViewListener) {
@@ -125,4 +136,15 @@ public class ConversationView
     public void showSwipeRefresh() {
         swipyRefreshLayout.setRefreshing(true);
     }
+
+    private RecyclerView.OnScrollListener scrollListener = new RecyclerView.OnScrollListener() {
+
+        private static final int DIRECTION_UP = -1;
+
+        @Override
+        public void onScrolled(@NonNull RecyclerView recyclerView, int dx, int dy) {
+            super.onScrolled(recyclerView, dx, dy);
+            swipyRefreshLayout.setEnabled((recyclerView.canScrollVertically(DIRECTION_UP)));
+        }
+    };
 }
