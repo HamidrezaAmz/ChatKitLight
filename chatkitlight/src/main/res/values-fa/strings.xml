@@ -4,6 +4,6 @@
     <string name="copy_message">کپی کردن پیام</string>
     <string name="resend_message">ارسال مجدد</string>
     <string name="delete_message">حذف پیام</string>
-    <string name="hint_enter_a_message">Enter your message</string>
+    <string name="hint_enter_a_message">پیام خودت رو بنویس</string>
 
 </resources>
