@@ -1,6 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
+    <style name="ChatKitTheme">
+        <item name="clientBubbleColor">@color/client_bubble_background</item>
+        <item name="serverBubbleColor">@color/server_bubble_background</item>
+    </style>
+
     <style name="TextViewTitleStyle" parent="@android:style/TextAppearance.Medium">
         <item name="android:textSize">14sp</item>
         <item name="android:textColor">@color/white</item>

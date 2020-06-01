@@ -7,6 +7,7 @@ import android.widget.FrameLayout;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.orangegangsters.github.swipyrefreshlayout.library.SwipyRefreshLayout;
@@ -49,6 +50,10 @@ public class ConversationView
         ConversationViewStyle style = ConversationViewStyle.parse(context, attrs);
 
         conversationList.setCanShowDialog(style.canShowDialog());
+        conversationList.setClientBubbleColor(style.getClientBubbleColor());
+        conversationList.setServerBubbleColor(style.getServerBubbleColor());
+
+        conversationList.initialize();
     }
 
     private void init(Context context) {
@@ -86,10 +91,16 @@ public class ConversationView
 
     @Override
     public boolean onSubmit(CharSequence input) {
+
+        String message = input.toString().trim();
+        if (message.isEmpty())
+            return false;
+
         if (conversationViewListener != null) {
-            conversationViewListener.onSubmit(input);
+            conversationViewListener.onSubmit(message);
             return true;
         }
+
         return false;
     }
 
@@ -144,7 +155,14 @@ public class ConversationView
         @Override
         public void onScrolled(@NonNull RecyclerView recyclerView, int dx, int dy) {
             super.onScrolled(recyclerView, dx, dy);
-            swipyRefreshLayout.setEnabled((recyclerView.canScrollVertically(DIRECTION_UP)));
+
+            LinearLayoutManager manager = ((LinearLayoutManager) recyclerView.getLayoutManager());
+            if (manager != null) {
+                if (manager.findFirstCompletelyVisibleItemPosition() == 0)
+                    swipyRefreshLayout.setEnabled(true);
+                else
+                    swipyRefreshLayout.setEnabled((recyclerView.canScrollVertically(DIRECTION_UP)));
+            }
         }
     };
 }

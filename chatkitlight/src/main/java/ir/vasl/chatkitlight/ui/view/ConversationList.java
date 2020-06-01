@@ -25,27 +25,22 @@ public class ConversationList extends RecyclerView implements ConversationListLi
 
     private int currItemSize = 0;
     private boolean canShowDialog = false;
+    private int clientBubbleColor = -1;
+    private int serverBubbleColor = -1;
 
     public ConversationList(@NonNull Context context) {
         super(context);
-        initialize();
     }
 
     public ConversationList(@NonNull Context context, @Nullable AttributeSet attrs) {
         super(context, attrs);
-        initialize();
     }
 
     public ConversationList(@NonNull Context context, @Nullable AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
-        initialize();
     }
 
-    private void initialize() {
-        initAdapter();
-    }
-
-    private void initAdapter() {
+    public void initialize() {
 
         this.setHasFixedSize(false);
         this.setNestedScrollingEnabled(false);
@@ -77,7 +72,6 @@ public class ConversationList extends RecyclerView implements ConversationListLi
             @Override
             public void onChanged(PagedList<ConversationModel> conversationModels) {
                 adapter.submitList(conversationModels);
-
                 if (currItemSize != 0 && currItemSize < conversationModels.size())
                     smoothScrollToPosition(conversationModels.size());
                 currItemSize = conversationModels.size();
@@ -91,6 +85,14 @@ public class ConversationList extends RecyclerView implements ConversationListLi
 
     public void setCanShowDialog(boolean canShowDialog) {
         this.canShowDialog = canShowDialog;
+    }
+
+    public void setClientBubbleColor(int clientBubbleColor) {
+        this.clientBubbleColor = clientBubbleColor;
+    }
+
+    public void setServerBubbleColor(int serverBubbleColor) {
+        this.serverBubbleColor = serverBubbleColor;
     }
 
     @Override
