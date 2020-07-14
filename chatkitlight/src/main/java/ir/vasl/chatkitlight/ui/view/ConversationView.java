@@ -2,18 +2,28 @@ package ir.vasl.chatkitlight.ui.view;
 
 import android.content.Context;
 import android.util.AttributeSet;
+import android.util.Log;
 import android.view.View;
+import android.view.ViewGroup;
+import android.widget.EditText;
 import android.widget.FrameLayout;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.orangegangsters.github.swipyrefreshlayout.library.SwipyRefreshLayout;
 import com.orangegangsters.github.swipyrefreshlayout.library.SwipyRefreshLayoutDirection;
 
+import java.util.ArrayList;
+
 import ir.vasl.chatkitlight.R;
+import ir.vasl.chatkitlight.ui.audio.AttachmentOption;
+import ir.vasl.chatkitlight.ui.audio.AttachmentOptionsListener;
+import ir.vasl.chatkitlight.ui.audio.AudioRecordView;
 import ir.vasl.chatkitlight.ui.callback.AttachmentsListener;
 import ir.vasl.chatkitlight.ui.callback.ConversationViewListener;
 import ir.vasl.chatkitlight.ui.callback.DialogMenuListener;
@@ -26,7 +36,7 @@ public class ConversationView
         implements TypingListener, AttachmentsListener, InputListener, DialogMenuListener, SwipyRefreshLayout.OnRefreshListener {
 
     private ConversationViewListener conversationViewListener;
-    private ConversationInput conversationInput;
+    private AudioRecordView conversationInput;
     private ConversationList conversationList;
     private SwipyRefreshLayout swipyRefreshLayout;
 
@@ -57,17 +67,29 @@ public class ConversationView
     }
 
     private void init(Context context) {
-        View viewConversation = inflate(context, R.layout.layout_conversation_view, this);
+        ViewGroup viewConversation = (ViewGroup) inflate(context, R.layout.layout_conversation_view, this);
 
         // conversation view items
         swipyRefreshLayout = viewConversation.findViewById(R.id.swipyRefreshLayout);
         conversationList = viewConversation.findViewById(R.id.conversationList);
-        conversationInput = viewConversation.findViewById(R.id.conversationInput);
-
-        // conversation view listeners
-        conversationInput.setInputListener(this);
-        conversationInput.setAttachmentsListener(this);
-        conversationInput.setTypingListener(this);
+        conversationInput = new AudioRecordView();
+        conversationInput.initView(viewConversation);
+        conversationInput.showCameraIcon(false);
+        conversationInput.setAttachmentOptions(AttachmentOption.getDefaultList(), new AttachmentOptionsListener() {
+            @Override
+            public void onClick(AttachmentOption attachmentOption) {
+                Toast.makeText(context, "Attach " + attachmentOption.getTitle(), Toast.LENGTH_SHORT).show();
+            }
+        });
+        conversationInput.getSendView().setOnClickListener(new OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                String msg = conversationInput.getMessageView().getText().toString();
+                conversationInput.getMessageView().setText("");
+                onSubmit(msg);
+            }
+        });
+//        conversationInput.setTypingListener(this);
         swipyRefreshLayout.setOnRefreshListener(this);
         conversationList.setDialogMenuListener(this);
 

@@ -5,4 +5,7 @@
     <string name="resend_message">Resend Message</string>
     <string name="delete_message">Delete Message</string>
     <string name="hint_enter_a_message">Enter your message</string>
+    <string name="slide_to_cancel">"Slide to cancel"</string>
+    <string name="type_a_message">Type a message</string>
+    <bool name="is_right_to_left">false</bool>
 </resources>
