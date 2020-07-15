@@ -144,7 +144,7 @@ public class ConversationInput
     }
 
     private void onAddAttachments() {
-        if (attachmentsListener != null) attachmentsListener.onAddAttachments();
+//        if (attachmentsListener != null) attachmentsListener.onAddAttachments();
     }
 
     private void init(Context context, AttributeSet attrs) {

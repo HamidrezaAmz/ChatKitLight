@@ -33,7 +33,12 @@ import ir.vasl.chatkitlight.viewmodel.ConversationListViewModel;
 
 public class ConversationView
         extends FrameLayout
-        implements TypingListener, AttachmentsListener, InputListener, DialogMenuListener, SwipyRefreshLayout.OnRefreshListener {
+        implements TypingListener,
+        AttachmentsListener,
+        InputListener,
+        DialogMenuListener,
+        SwipyRefreshLayout.OnRefreshListener,
+        AudioRecordView.RecordingListener {
 
     private ConversationViewListener conversationViewListener;
     private AudioRecordView conversationInput;
@@ -78,7 +83,7 @@ public class ConversationView
         conversationInput.setAttachmentOptions(AttachmentOption.getDefaultList(), new AttachmentOptionsListener() {
             @Override
             public void onClick(AttachmentOption attachmentOption) {
-                Toast.makeText(context, "Attach " + attachmentOption.getTitle(), Toast.LENGTH_SHORT).show();
+                onAddAttachments(attachmentOption);
             }
         });
         conversationInput.getSendView().setOnClickListener(new OnClickListener() {
@@ -89,10 +94,9 @@ public class ConversationView
                 onSubmit(msg);
             }
         });
-//        conversationInput.setTypingListener(this);
         swipyRefreshLayout.setOnRefreshListener(this);
         conversationList.setDialogMenuListener(this);
-
+        conversationInput.setRecordingListener(this);
         // fix recyclerview conflict with swipe refresh
         conversationList.addOnScrollListener(scrollListener);
     }
@@ -103,12 +107,6 @@ public class ConversationView
 
     public void setConversationListViewModel(ConversationListViewModel conversationListViewModel) {
         conversationList.setConversationListViewModel(conversationListViewModel);
-    }
-
-    @Override
-    public void onAddAttachments() {
-        if (conversationViewListener != null)
-            conversationViewListener.onAddAttachments();
     }
 
     @Override
@@ -187,4 +185,33 @@ public class ConversationView
             }
         }
     };
+
+    @Override
+    public void onAddAttachments(AttachmentOption option) {
+        if (conversationViewListener != null)
+            conversationViewListener.onAddAttachments(option);
+    }
+
+    @Override
+    public void onRecordingStarted() {
+        if (conversationViewListener != null)
+            conversationViewListener.onVoiceRecordStarted();
+    }
+
+    @Override
+    public void onRecordingLocked() {
+
+    }
+
+    @Override
+    public void onRecordingCompleted() {
+        if (conversationViewListener != null)
+            conversationViewListener.onVoiceRecordStarted();
+    }
+
+    @Override
+    public void onRecordingCanceled() {
+        if (conversationViewListener != null)
+            conversationViewListener.onVoiceRecordCanceled();
+    }
 }

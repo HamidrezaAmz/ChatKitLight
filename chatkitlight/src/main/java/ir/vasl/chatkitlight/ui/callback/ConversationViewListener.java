@@ -1,8 +1,10 @@
 package ir.vasl.chatkitlight.ui.callback;
 
+import ir.vasl.chatkitlight.ui.audio.AttachmentOption;
+
 public interface ConversationViewListener<T> {
 
-    default void onAddAttachments() {
+    default void onAddAttachments(AttachmentOption option) {
     }
 
     default void onSubmit(CharSequence input) {
@@ -34,5 +36,11 @@ public interface ConversationViewListener<T> {
 
     default void onSwipeRefresh() {
     }
+
+    default void onVoiceRecordStarted(){}
+
+    default void onVoiceRecordStopped(){}
+
+    default void onVoiceRecordCanceled(){}
 
 }
