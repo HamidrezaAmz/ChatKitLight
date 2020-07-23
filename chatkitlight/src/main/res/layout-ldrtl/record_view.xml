@@ -257,6 +257,7 @@
                 android:textColor="@color/warm_grey"
                 android:elevation="2dp"
                 android:gravity="center"
+                android:layout_gravity="right"
                 android:padding="8dp"
                 android:fontFamily="@font/iransans"
                 android:text="0:00"

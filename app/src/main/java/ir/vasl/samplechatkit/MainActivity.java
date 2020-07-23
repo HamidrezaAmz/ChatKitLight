@@ -91,7 +91,7 @@ public class MainActivity
 
         conversationListViewModel.addNewConversation(conversationModel);
 
-        new CountDownTimer(5000, 1000) {
+        new CountDownTimer(2000, 1000) {
 
             public void onTick(long millisUntilFinished) {
                 Log.i("OnTick", "seconds remaining: " + millisUntilFinished / 1000);
@@ -103,7 +103,7 @@ public class MainActivity
 
         }.start();
 
-        new CountDownTimer(7000, 1000) {
+        new CountDownTimer(3500, 1000) {
 
             public void onTick(long millisUntilFinished) {
                 Log.i("OnTick", "seconds remaining: " + millisUntilFinished / 1000);
@@ -115,7 +115,7 @@ public class MainActivity
 
         }.start();
 
-        new CountDownTimer(10000, 1000) {
+        new CountDownTimer(5000, 1000) {
 
             public void onTick(long millisUntilFinished) {
                 Log.i("OnTick", "seconds remaining: " + millisUntilFinished / 1000);

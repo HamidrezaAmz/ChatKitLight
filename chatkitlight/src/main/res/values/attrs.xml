@@ -53,4 +53,10 @@
         <attr name="serverBubbleColor" format="reference" />
     </declare-styleable>
 
+    <declare-styleable name="ImageViewCustom">
+        <attr name="square_image" format="boolean" />
+        <attr name="round_image" format="boolean" />
+        <attr name="aspect_ratio" format="boolean" />
+    </declare-styleable>
+
 </resources>

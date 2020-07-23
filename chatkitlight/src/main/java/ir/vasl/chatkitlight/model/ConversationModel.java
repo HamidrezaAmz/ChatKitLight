@@ -15,9 +15,10 @@ import ir.vasl.chatkitlight.R;
 import ir.vasl.chatkitlight.utils.Constants;
 import ir.vasl.chatkitlight.utils.globalEnums.ConversationStatus;
 import ir.vasl.chatkitlight.utils.globalEnums.ConversationType;
+import ir.vasl.chatkitlight.utils.globalEnums.FileType;
 
 @Entity(tableName = Constants.TABLE_NAME)
-@TypeConverters({ConversationStatus.class, ConversationType.class})
+@TypeConverters({ConversationStatus.class, ConversationType.class, FileType.class})
 public class ConversationModel {
 
     @NonNull
@@ -47,6 +48,12 @@ public class ConversationModel {
 
     @ColumnInfo(name = "conversationType")
     private ConversationType conversationType = ConversationType.UNDEFINE;
+
+    @ColumnInfo(name = "fileType")
+    private FileType fileType = FileType.NONE;
+
+    @ColumnInfo(name = "fileAddress")
+    private String fileAddress= "";
 
     public ConversationModel() {
     }
@@ -131,6 +138,22 @@ public class ConversationModel {
 
     public void setConversationType(ConversationType conversationType) {
         this.conversationType = conversationType;
+    }
+
+    public FileType getFileType() {
+        return fileType;
+    }
+
+    public void setFileType(FileType fileType) {
+        this.fileType = fileType;
+    }
+
+    public String getFileAddress() {
+        return fileAddress;
+    }
+
+    public void setFileAddress(String fileAddress) {
+        this.fileAddress = fileAddress;
     }
 
     @BindingAdapter("conversationStatusIcon")

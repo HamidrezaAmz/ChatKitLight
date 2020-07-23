@@ -13,7 +13,7 @@ public class DatabaseLayer {
     private ChatKitDatabase chatKitDatabase;
 
     private DatabaseLayer() {
-        chatKitDatabase = Room.databaseBuilder(application, ChatKitDatabase.class, Constants.DATABASE_NAME).allowMainThreadQueries().build();
+        chatKitDatabase = Room.databaseBuilder(application, ChatKitDatabase.class, Constants.DATABASE_NAME).allowMainThreadQueries().addMigrations(DbMigration.MIGRATION_1_2).build();
         DatabaseLayer = this;
     }
 
