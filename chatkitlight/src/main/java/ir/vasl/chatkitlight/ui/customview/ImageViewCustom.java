@@ -12,6 +12,8 @@ import androidx.appcompat.widget.AppCompatImageView;
 import androidx.core.graphics.drawable.RoundedBitmapDrawable;
 import androidx.core.graphics.drawable.RoundedBitmapDrawableFactory;
 
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.RequestBuilder;
 import com.bumptech.glide.load.Transformation;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.bumptech.glide.load.resource.bitmap.CenterCrop;
@@ -22,8 +24,6 @@ import java.io.File;
 
 import ir.vasl.chatkitlight.R;
 import ir.vasl.chatkitlight.utils.AndroidUtils;
-import ir.vasl.chatkitlight.utils.GlideApp;
-
 public class ImageViewCustom extends AppCompatImageView {
 
     boolean imageSquare = false;
@@ -75,13 +75,14 @@ public class ImageViewCustom extends AppCompatImageView {
 
     public void setImageUrl(File file) {
         try {
-            GlideApp
-                    .with(getContext())
+            Glide.with(getContext())
+                    .asFile()
                     .load(file)
                     .diskCacheStrategy(DiskCacheStrategy.NONE)
                     .skipMemoryCache(true)
                     .centerCrop()
                     .into(this);
+
         } catch (Exception e) {
             Log.e("tag",e.getMessage());
         }
@@ -93,8 +94,9 @@ public class ImageViewCustom extends AppCompatImageView {
 
     public void setImageUrl(String url) {
         try {
-            GlideApp
-                    .with(getContext())
+
+
+            Glide.with(getContext())
                     .load(url)
                     .diskCacheStrategy(DiskCacheStrategy.NONE)
                     .skipMemoryCache(true)
@@ -107,8 +109,7 @@ public class ImageViewCustom extends AppCompatImageView {
 
     public void setImageUrl(Bitmap bitmap) {
         try {
-            GlideApp
-                    .with(getContext())
+            Glide.with(getContext())
                     .load(bitmap)
                     .diskCacheStrategy(DiskCacheStrategy.NONE)
                     .skipMemoryCache(true)
@@ -121,8 +122,7 @@ public class ImageViewCustom extends AppCompatImageView {
 
     public void setImageUrlRound(String url) {
         try {
-            GlideApp
-                    .with(getContext())
+            Glide.with(getContext())
                     .load(url)
                     .apply(RequestOptions.circleCropTransform())
                     .into(this);
@@ -133,8 +133,7 @@ public class ImageViewCustom extends AppCompatImageView {
 
     public void setImageUrlRound(Uri uri) {
         try {
-            GlideApp
-                    .with(getContext())
+            Glide.with(getContext())
                     .load(uri)
                     .apply(RequestOptions.circleCropTransform())
                     .into(this);
@@ -145,8 +144,7 @@ public class ImageViewCustom extends AppCompatImageView {
 
     public void setImageUrlRound(String url, int placeHolder) {
         try {
-            GlideApp
-                    .with(getContext())
+            Glide.with(getContext())
                     .load(url)
                     .placeholder(placeHolder)
                     .error(placeHolder)
@@ -159,8 +157,7 @@ public class ImageViewCustom extends AppCompatImageView {
 
     public void setImageUrl(String url, int placeHolder) {
         try {
-            GlideApp
-                    .with(getContext())
+            Glide.with(getContext())
                     .load(url)
                     .placeholder(placeHolder)
                     .diskCacheStrategy(DiskCacheStrategy.NONE)
@@ -175,8 +172,7 @@ public class ImageViewCustom extends AppCompatImageView {
     public void setImageUrl(String url, boolean circle) {
         try {
             if (circle) {
-                GlideApp
-                        .with(getContext())
+                Glide.with(getContext())
                         .load(url)
                         .diskCacheStrategy(DiskCacheStrategy.NONE)
                         .skipMemoryCache(false)
@@ -184,8 +180,7 @@ public class ImageViewCustom extends AppCompatImageView {
                         .optionalCircleCrop()
                         .into(this);
             } else {
-                GlideApp
-                        .with(getContext())
+                Glide.with(getContext())
                         .load(url)
                         .diskCacheStrategy(DiskCacheStrategy.NONE)
                         .skipMemoryCache(false)
@@ -199,8 +194,7 @@ public class ImageViewCustom extends AppCompatImageView {
 
     public void setImageUrl(int resource) {
         try {
-            GlideApp
-                    .with(getContext())
+            Glide.with(getContext())
                     .load(resource)
                     .diskCacheStrategy(DiskCacheStrategy.NONE)
                     .skipMemoryCache(false)
@@ -212,8 +206,8 @@ public class ImageViewCustom extends AppCompatImageView {
 
     public void setImageUrlCurve(String url, int radius) {
         try {
-            GlideApp
-                    .with(getContext())
+
+            Glide.with(getContext())
                     .load(url)
                     .apply(new RequestOptions().transform(new CenterCrop(), new RoundedCorners(((int) AndroidUtils.convertDpToPixel(radius, getContext())))))
                     .placeholder(R.drawable.background_global_place_holder)
@@ -225,8 +219,7 @@ public class ImageViewCustom extends AppCompatImageView {
 
     public void setImageUrlCurve(int res, int radius) {
         try {
-            GlideApp
-                    .with(getContext())
+            Glide.with(getContext())
                     .load(res)
                     .centerCrop()
                     .apply(RequestOptions.bitmapTransform(new RoundedCorners(((int) AndroidUtils.convertDpToPixel(radius, getContext())))))
@@ -238,8 +231,7 @@ public class ImageViewCustom extends AppCompatImageView {
 
     public void setImageBitmapRound(Bitmap bitmap, int placeHolder) {
         try {
-            GlideApp
-                    .with(getContext())
+            Glide.with(getContext())
                     .load(bitmap)
                     .placeholder(placeHolder)
                     .apply(RequestOptions.circleCropTransform())
@@ -251,8 +243,7 @@ public class ImageViewCustom extends AppCompatImageView {
 
     public void setImageUriRound(Uri uri, int placeHolder) {
         try {
-            GlideApp
-                    .with(getContext())
+            Glide.with(getContext())
                     .load(uri)
                     .placeholder(placeHolder)
                     .apply(RequestOptions.circleCropTransform().error(R.drawable.background_global_place_holder))
@@ -265,8 +256,7 @@ public class ImageViewCustom extends AppCompatImageView {
 
     public void setImageUriWithPlaceHolder(Uri uri, int placeHolder) {
         try {
-            GlideApp
-                    .with(getContext())
+            Glide.with(getContext())
                     .load(uri)
                     .placeholder(placeHolder)
                     .error(placeHolder)
@@ -281,8 +271,7 @@ public class ImageViewCustom extends AppCompatImageView {
             Bitmap placeholder = BitmapFactory.decodeResource(getResources(), placeHolder);
             RoundedBitmapDrawable circularBitmapDrawable = RoundedBitmapDrawableFactory.create(getResources(), placeholder);
             circularBitmapDrawable.setCircular(true);
-            GlideApp
-                    .with(getContext())
+            Glide.with(getContext())
                     .load(uri)
                     .placeholder(circularBitmapDrawable)
                     .error(circularBitmapDrawable)
@@ -295,8 +284,7 @@ public class ImageViewCustom extends AppCompatImageView {
 
     public void setImageUrlWithPlaceHolder(String url, int placeHolder) {
         try {
-            GlideApp
-                    .with(getContext())
+            Glide.with(getContext())
                     .load(url)
                     .placeholder(placeHolder)
                     .error(placeHolder)
@@ -311,8 +299,7 @@ public class ImageViewCustom extends AppCompatImageView {
             Bitmap placeholder = BitmapFactory.decodeResource(getResources(), placeHolder);
             RoundedBitmapDrawable circularBitmapDrawable = RoundedBitmapDrawableFactory.create(getResources(), placeholder);
             circularBitmapDrawable.setCircular(true);
-            GlideApp
-                    .with(getContext())
+            Glide.with(getContext())
                     .load(url)
                     .placeholder(circularBitmapDrawable)
                     .error(circularBitmapDrawable)
@@ -325,8 +312,7 @@ public class ImageViewCustom extends AppCompatImageView {
 
     public void setImageUrlCurveWithRadius(int res, int radius, int placeHolder) {
         try {
-            GlideApp
-                    .with(getContext())
+            Glide.with(getContext())
                     .load(res)
                     .centerCrop()
                     .placeholder(placeHolder)
@@ -339,8 +325,7 @@ public class ImageViewCustom extends AppCompatImageView {
 
     public void setImageUrlCurveWithRadius(String url, int radius, int placeHolder) {
         try {
-            GlideApp
-                    .with(getContext())
+            Glide.with(getContext())
                     .load(url)
                     .centerCrop()
                     .placeholder(placeHolder)
