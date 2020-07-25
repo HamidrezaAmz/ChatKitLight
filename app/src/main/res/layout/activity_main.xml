@@ -14,10 +14,20 @@
         android:minHeight="?attr/actionBarSize"
         app:theme="@style/ToolBarStyle" />
 
+
     <ir.vasl.chatkitlight.ui.view.ConversationView
         android:id="@+id/conversationView"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         app:canShowDialog="true" />
+
+    <ir.vasl.chatkitlight.ui.customview.ImageViewCustom
+        android:id="@+id/image2"
+        android:layout_width="150dp"
+        android:layout_height="200dp"
+        android:layout_gravity="center"
+        android:scaleType="centerCrop"
+        android:layout_marginTop="-300dp"/>
+
 
 </LinearLayout>

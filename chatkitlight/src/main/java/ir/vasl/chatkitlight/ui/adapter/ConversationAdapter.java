@@ -43,22 +43,96 @@ public class ConversationAdapter extends PagedListAdapter<ConversationModel, Bas
     public BaseViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         LayoutInflater inflater = LayoutInflater.from(parent.getContext());
 
-        switch (ConversationType.get(viewType)) {
-            case CLIENT:
-                ViewConversationClientBinding clientBinding = DataBindingUtil.inflate(inflater, R.layout.view_conversation_client, parent, false);
-                return new ConversationViewHolder(clientBinding);
+        if(viewType >= 10000){
+            switch (ConversationType.get(viewType - 10000)) {
+                case CLIENT:
+                    ViewConversationClientAudioBinding clientBinding = DataBindingUtil.inflate(inflater, R.layout.view_conversation_client_audio, parent, false);
+                    return new ConversationViewHolder(clientBinding);
 
-            case SERVER:
-                ViewConversationServerBinding serverBinding = DataBindingUtil.inflate(inflater, R.layout.view_conversation_server, parent, false);
-                return new ConversationViewHolder(serverBinding);
+                case SERVER:
+                    ViewConversationServerAudioBinding serverBinding = DataBindingUtil.inflate(inflater, R.layout.view_conversation_server_audio, parent, false);
+                    return new ConversationViewHolder(serverBinding);
 
-            case EMPTY:
-                ViewConversationEmptyBinding emptyBinding = DataBindingUtil.inflate(inflater, R.layout.view_conversation_empty, parent, false);
-                return new ConversationViewHolder(emptyBinding);
+                case EMPTY:
+                    ViewConversationEmptyBinding emptyBinding = DataBindingUtil.inflate(inflater, R.layout.view_conversation_empty, parent, false);
+                    return new ConversationViewHolder(emptyBinding);
 
-            default:
-                ViewConversationUnsupportedBinding unsupportedBinding = DataBindingUtil.inflate(inflater, R.layout.view_conversation_unsupported, parent, false);
-                return new ConversationViewHolder(unsupportedBinding);
+                default:
+                    ViewConversationUnsupportedBinding unsupportedBinding = DataBindingUtil.inflate(inflater, R.layout.view_conversation_unsupported, parent, false);
+                    return new ConversationViewHolder(unsupportedBinding);
+            }
+        } else if(viewType >= 1000){
+            switch (ConversationType.get(viewType - 1000)) {
+                case CLIENT:
+                    ViewConversationClientImageBinding clientBinding = DataBindingUtil.inflate(inflater, R.layout.view_conversation_client_image, parent, false);
+                    return new ConversationViewHolder(clientBinding);
+
+                case SERVER:
+                    ViewConversationServerImageBinding serverBinding = DataBindingUtil.inflate(inflater, R.layout.view_conversation_server_image, parent, false);
+                    return new ConversationViewHolder(serverBinding);
+
+                case EMPTY:
+                    ViewConversationEmptyBinding emptyBinding = DataBindingUtil.inflate(inflater, R.layout.view_conversation_empty, parent, false);
+                    return new ConversationViewHolder(emptyBinding);
+
+                default:
+                    ViewConversationUnsupportedBinding unsupportedBinding = DataBindingUtil.inflate(inflater, R.layout.view_conversation_unsupported, parent, false);
+                    return new ConversationViewHolder(unsupportedBinding);
+            }
+        } else if(viewType >= 100){
+            switch (ConversationType.get(viewType - 100)) {
+                case CLIENT:
+                    ViewConversationClientVideoBinding clientBinding = DataBindingUtil.inflate(inflater, R.layout.view_conversation_client_video, parent, false);
+                    return new ConversationViewHolder(clientBinding);
+
+                case SERVER:
+                    ViewConversationServerVideoBinding serverBinding = DataBindingUtil.inflate(inflater, R.layout.view_conversation_server_video, parent, false);
+                    return new ConversationViewHolder(serverBinding);
+
+                case EMPTY:
+                    ViewConversationEmptyBinding emptyBinding = DataBindingUtil.inflate(inflater, R.layout.view_conversation_empty, parent, false);
+                    return new ConversationViewHolder(emptyBinding);
+
+                default:
+                    ViewConversationUnsupportedBinding unsupportedBinding = DataBindingUtil.inflate(inflater, R.layout.view_conversation_unsupported, parent, false);
+                    return new ConversationViewHolder(unsupportedBinding);
+            }
+        } else if (viewType >= 10){
+            switch (ConversationType.get(viewType - 10)) {
+                case CLIENT:
+                    ViewConversationClientFileBinding clientBinding = DataBindingUtil.inflate(inflater, R.layout.view_conversation_client_file, parent, false);
+                    return new ConversationViewHolder(clientBinding);
+
+                case SERVER:
+                    ViewConversationServerFileBinding serverBinding = DataBindingUtil.inflate(inflater, R.layout.view_conversation_server_file, parent, false);
+                    return new ConversationViewHolder(serverBinding);
+
+                case EMPTY:
+                    ViewConversationEmptyBinding emptyBinding = DataBindingUtil.inflate(inflater, R.layout.view_conversation_empty, parent, false);
+                    return new ConversationViewHolder(emptyBinding);
+
+                default:
+                    ViewConversationUnsupportedBinding unsupportedBinding = DataBindingUtil.inflate(inflater, R.layout.view_conversation_unsupported, parent, false);
+                    return new ConversationViewHolder(unsupportedBinding);
+            }
+        } else {
+            switch (ConversationType.get(viewType)) {
+                case CLIENT:
+                    ViewConversationClientBinding clientBinding = DataBindingUtil.inflate(inflater, R.layout.view_conversation_client, parent, false);
+                    return new ConversationViewHolder(clientBinding);
+
+                case SERVER:
+                    ViewConversationServerBinding serverBinding = DataBindingUtil.inflate(inflater, R.layout.view_conversation_server, parent, false);
+                    return new ConversationViewHolder(serverBinding);
+
+                case EMPTY:
+                    ViewConversationEmptyBinding emptyBinding = DataBindingUtil.inflate(inflater, R.layout.view_conversation_empty, parent, false);
+                    return new ConversationViewHolder(emptyBinding);
+
+                default:
+                    ViewConversationUnsupportedBinding unsupportedBinding = DataBindingUtil.inflate(inflater, R.layout.view_conversation_unsupported, parent, false);
+                    return new ConversationViewHolder(unsupportedBinding);
+            }
         }
     }
 
@@ -106,6 +180,7 @@ public class ConversationAdapter extends PagedListAdapter<ConversationModel, Bas
                     holder.onBind(position);
                     ((ConversationViewHolder) holder).clientImageBinding.setConversationModel(model);
                     ((ConversationViewHolder) holder).clientImageBinding.setConversationListListener(this);
+                    ((ConversationViewHolder) holder).clientImageBinding.imageViewImage.setImageUrlCurve(getItem(position).getFileAddress(), 12);
                     break;
                 }
 
@@ -113,6 +188,8 @@ public class ConversationAdapter extends PagedListAdapter<ConversationModel, Bas
                     ConversationModel model = getItem(position);
                     ((ConversationViewHolder) holder).serverImageBinding.setConversationModel(model);
                     ((ConversationViewHolder) holder).serverImageBinding.setConversationListListener(this);
+                    ((ConversationViewHolder) holder).serverImageBinding.imageViewImage.setImageUrlCurve(getItem(position).getFileAddress(), 12);
+
                     break;
                 }
 
@@ -132,6 +209,8 @@ public class ConversationAdapter extends PagedListAdapter<ConversationModel, Bas
                     holder.onBind(position);
                     ((ConversationViewHolder) holder).clientVideoBinding.setConversationModel(model);
                     ((ConversationViewHolder) holder).clientVideoBinding.setConversationListListener(this);
+                    ((ConversationViewHolder) holder).clientVideoBinding.imageViewImage.setImageUrlCurve(getItem(position).getFileAddress(), 12);
+
                     break;
                 }
 
@@ -139,6 +218,8 @@ public class ConversationAdapter extends PagedListAdapter<ConversationModel, Bas
                     ConversationModel model = getItem(position);
                     ((ConversationViewHolder) holder).serverVideoBinding.setConversationModel(model);
                     ((ConversationViewHolder) holder).serverVideoBinding.setConversationListListener(this);
+                    ((ConversationViewHolder) holder).serverVideoBinding.imageViewImage.setImageUrlCurve(getItem(position).getFileAddress(), 12);
+
                     break;
                 }
 
@@ -289,13 +370,11 @@ public class ConversationAdapter extends PagedListAdapter<ConversationModel, Bas
         public ConversationViewHolder(ViewConversationClientImageBinding clientImageBinding) {
             super(clientImageBinding.getRoot());
             this.clientImageBinding = clientImageBinding;
-            clientImageBinding.imageViewImage.setImageUrlCurve(getItem(getBindingAdapterPosition()).getFileAddress(), 12);
         }
 
         public ConversationViewHolder(ViewConversationClientVideoBinding clientVideoBinding) {
             super(clientVideoBinding.getRoot());
             this.clientVideoBinding = clientVideoBinding;
-            clientVideoBinding.imageViewImage.setImageUrlCurve(getItem(getBindingAdapterPosition()).getFileAddress(), 12);
         }
 
         public ConversationViewHolder(ViewConversationClientAudioBinding clientAudioBinding) {
@@ -311,13 +390,11 @@ public class ConversationAdapter extends PagedListAdapter<ConversationModel, Bas
         public ConversationViewHolder(ViewConversationServerImageBinding serverImageBinding) {
             super(serverImageBinding.getRoot());
             this.serverImageBinding = serverImageBinding;
-            serverImageBinding.imageViewImage.setImageUrlCurve(getItem(getBindingAdapterPosition()).getFileAddress(), 12);
         }
 
         public ConversationViewHolder(ViewConversationServerVideoBinding serverVideoBinding) {
             super(serverVideoBinding.getRoot());
             this.serverVideoBinding = serverVideoBinding;
-            serverVideoBinding.imageViewImage.setImageUrlCurve(getItem(getBindingAdapterPosition()).getFileAddress(), 12);
         }
 
         public ConversationViewHolder(ViewConversationServerAudioBinding serverAudioBinding) {

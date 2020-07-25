@@ -1,4 +1,4 @@
-package com.armanvarzesh.client.util.helper;
+package ir.vasl.samplechatkit;
 
 import android.Manifest;
 import android.app.Activity;
