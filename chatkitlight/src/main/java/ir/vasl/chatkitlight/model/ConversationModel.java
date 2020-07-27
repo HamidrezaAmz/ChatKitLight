@@ -68,6 +68,8 @@ public class ConversationModel {
         this.time = model.time;
         this.conversationStatus = model.conversationStatus;
         this.conversationType = model.conversationType;
+        this.fileAddress = model.fileAddress;
+        this.fileType = model.fileType;
     }
 
     @Ignore
@@ -195,7 +197,8 @@ public class ConversationModel {
                 model.getMessage().equals(message) &&
                 model.getTitle().equals(title) &&
                 model.getTime().equals(time) &&
-                model.conversationStatus.getValue().equals(conversationStatus.getValue());
+                model.conversationStatus.getValue().equals(conversationStatus.getValue()) &&
+                model.fileAddress.equals(fileAddress);
 
     }
 

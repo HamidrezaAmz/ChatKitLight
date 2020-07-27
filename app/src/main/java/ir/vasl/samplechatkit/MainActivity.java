@@ -23,6 +23,7 @@ import java.util.ArrayList;
 import java.util.UUID;
 
 import droidninja.filepicker.FilePickerBuilder;
+import ir.vasl.chatkitlight.database.ChatDao;
 import ir.vasl.chatkitlight.model.ConversationModel;
 import ir.vasl.chatkitlight.ui.audio.AttachmentOption;
 import ir.vasl.chatkitlight.ui.callback.ConversationViewListener;

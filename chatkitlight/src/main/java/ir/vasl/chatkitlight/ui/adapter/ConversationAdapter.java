@@ -1,6 +1,10 @@
 package ir.vasl.chatkitlight.ui.adapter;
 
+import android.content.Intent;
+import android.net.Uri;
+import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.View;
 import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
@@ -370,6 +374,17 @@ public class ConversationAdapter extends PagedListAdapter<ConversationModel, Bas
         public ConversationViewHolder(ViewConversationClientImageBinding clientImageBinding) {
             super(clientImageBinding.getRoot());
             this.clientImageBinding = clientImageBinding;
+            this.clientImageBinding.imageViewImage.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    if(getBindingAdapterPosition() == -1)
+                        return;
+                    Intent viewIntent = new Intent(Intent.ACTION_VIEW);
+                    viewIntent.setDataAndType(Uri.parse(getItem(getBindingAdapterPosition()).getFileAddress()), "image/*");
+                    Intent chooserIntent = Intent.createChooser(viewIntent, "Open in...");
+                    ConversationViewHolder.this.clientImageBinding.getRoot().getContext().startActivity(chooserIntent);
+                }
+            });
         }
 
         public ConversationViewHolder(ViewConversationClientVideoBinding clientVideoBinding) {
@@ -390,6 +405,17 @@ public class ConversationAdapter extends PagedListAdapter<ConversationModel, Bas
         public ConversationViewHolder(ViewConversationServerImageBinding serverImageBinding) {
             super(serverImageBinding.getRoot());
             this.serverImageBinding = serverImageBinding;
+            this.serverImageBinding.imageViewImage.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    if(getBindingAdapterPosition() == -1 || getItem(getBindingAdapterPosition()) == null)
+                        return;
+                    Intent viewIntent = new Intent(Intent.ACTION_VIEW);
+                    viewIntent.setDataAndType(Uri.parse(getItem(getBindingAdapterPosition()).getFileAddress()), "image/*");
+                    Intent chooserIntent = Intent.createChooser(viewIntent, "Open in...");
+                    ConversationViewHolder.this.serverImageBinding.getRoot().getContext().startActivity(chooserIntent);
+                }
+            });
         }
 
         public ConversationViewHolder(ViewConversationServerVideoBinding serverVideoBinding) {
