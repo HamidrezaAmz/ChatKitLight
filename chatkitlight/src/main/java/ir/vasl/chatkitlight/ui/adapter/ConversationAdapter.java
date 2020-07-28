@@ -390,16 +390,49 @@ public class ConversationAdapter extends PagedListAdapter<ConversationModel, Bas
         public ConversationViewHolder(ViewConversationClientVideoBinding clientVideoBinding) {
             super(clientVideoBinding.getRoot());
             this.clientVideoBinding = clientVideoBinding;
+            this.clientVideoBinding.imageViewImage.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    if(getBindingAdapterPosition() == -1)
+                        return;
+                    Intent viewIntent = new Intent(Intent.ACTION_VIEW);
+                    viewIntent.setDataAndType(Uri.parse(getItem(getBindingAdapterPosition()).getFileAddress()), "video/*");
+                    Intent chooserIntent = Intent.createChooser(viewIntent, "Open in...");
+                    ConversationViewHolder.this.clientVideoBinding.getRoot().getContext().startActivity(chooserIntent);
+                }
+            });
         }
 
         public ConversationViewHolder(ViewConversationClientAudioBinding clientAudioBinding) {
             super(clientAudioBinding.getRoot());
             this.clientAudioBinding = clientAudioBinding;
+            this.clientAudioBinding.frameLayoutFile.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    if(getBindingAdapterPosition() == -1)
+                        return;
+                    Intent viewIntent = new Intent(Intent.ACTION_VIEW);
+                    viewIntent.setDataAndType(Uri.parse(getItem(getBindingAdapterPosition()).getFileAddress()), "*/*");
+                    Intent chooserIntent = Intent.createChooser(viewIntent, "Open in...");
+                    ConversationViewHolder.this.clientAudioBinding.getRoot().getContext().startActivity(chooserIntent);
+                }
+            });
         }
 
         public ConversationViewHolder(ViewConversationClientFileBinding clientFileBinding) {
             super(clientFileBinding.getRoot());
             this.clientFileBinding = clientFileBinding;
+            this.clientFileBinding.frameLayoutFile.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    if(getBindingAdapterPosition() == -1)
+                        return;
+                    Intent viewIntent = new Intent(Intent.ACTION_VIEW);
+                    viewIntent.setDataAndType(Uri.parse(getItem(getBindingAdapterPosition()).getFileAddress()), "*/*");
+                    Intent chooserIntent = Intent.createChooser(viewIntent, "Open in...");
+                    ConversationViewHolder.this.clientFileBinding.getRoot().getContext().startActivity(chooserIntent);
+                }
+            });
         }
 
         public ConversationViewHolder(ViewConversationServerImageBinding serverImageBinding) {
@@ -421,16 +454,49 @@ public class ConversationAdapter extends PagedListAdapter<ConversationModel, Bas
         public ConversationViewHolder(ViewConversationServerVideoBinding serverVideoBinding) {
             super(serverVideoBinding.getRoot());
             this.serverVideoBinding = serverVideoBinding;
+            this.serverVideoBinding.imageViewImage.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    if(getBindingAdapterPosition() == -1)
+                        return;
+                    Intent viewIntent = new Intent(Intent.ACTION_VIEW);
+                    viewIntent.setDataAndType(Uri.parse(getItem(getBindingAdapterPosition()).getFileAddress()), "video/*");
+                    Intent chooserIntent = Intent.createChooser(viewIntent, "Open in...");
+                    ConversationViewHolder.this.serverVideoBinding.getRoot().getContext().startActivity(chooserIntent);
+                }
+            });
         }
 
         public ConversationViewHolder(ViewConversationServerAudioBinding serverAudioBinding) {
             super(serverAudioBinding.getRoot());
             this.serverAudioBinding = serverAudioBinding;
+            this.serverAudioBinding.frameLayoutFile.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    if(getBindingAdapterPosition() == -1)
+                        return;
+                    Intent viewIntent = new Intent(Intent.ACTION_VIEW);
+                    viewIntent.setDataAndType(Uri.parse(getItem(getBindingAdapterPosition()).getFileAddress()), "*/*");
+                    Intent chooserIntent = Intent.createChooser(viewIntent, "Open in...");
+                    ConversationViewHolder.this.serverAudioBinding.getRoot().getContext().startActivity(chooserIntent);
+                }
+            });
         }
 
         public ConversationViewHolder(ViewConversationServerFileBinding serverFileBinding) {
             super(serverFileBinding.getRoot());
             this.serverFileBinding = serverFileBinding;
+            this.serverFileBinding.frameLayoutFile.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    if(getBindingAdapterPosition() == -1)
+                        return;
+                    Intent viewIntent = new Intent(Intent.ACTION_VIEW);
+                    viewIntent.setDataAndType(Uri.parse(getItem(getBindingAdapterPosition()).getFileAddress()), "*/*");
+                    Intent chooserIntent = Intent.createChooser(viewIntent, "Open in...");
+                    ConversationViewHolder.this.serverFileBinding.getRoot().getContext().startActivity(chooserIntent);
+                }
+            });
         }
     }
 

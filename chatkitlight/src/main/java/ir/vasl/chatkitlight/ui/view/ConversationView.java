@@ -206,7 +206,7 @@ public class ConversationView
     @Override
     public void onRecordingCompleted() {
         if (conversationViewListener != null)
-            conversationViewListener.onVoiceRecordStarted();
+            conversationViewListener.onVoiceRecordStopped();
     }
 
     @Override
