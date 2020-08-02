@@ -51,6 +51,7 @@
         <attr name="canShowDialog" format="boolean" />
         <attr name="clientBubbleColor" format="reference" />
         <attr name="serverBubbleColor" format="reference" />
+        <attr name="chatStyle" format="integer" />
     </declare-styleable>
 
     <declare-styleable name="ImageViewCustom">

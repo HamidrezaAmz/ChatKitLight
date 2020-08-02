@@ -21,6 +21,7 @@ import com.orangegangsters.github.swipyrefreshlayout.library.SwipyRefreshLayoutD
 import java.util.ArrayList;
 
 import ir.vasl.chatkitlight.R;
+import ir.vasl.chatkitlight.model.ChatStyleEnum;
 import ir.vasl.chatkitlight.ui.audio.AttachmentOption;
 import ir.vasl.chatkitlight.ui.audio.AttachmentOptionsListener;
 import ir.vasl.chatkitlight.ui.audio.AudioRecordView;
@@ -67,7 +68,16 @@ public class ConversationView
         conversationList.setCanShowDialog(style.canShowDialog());
         conversationList.setClientBubbleColor(style.getClientBubbleColor());
         conversationList.setServerBubbleColor(style.getServerBubbleColor());
-
+        ChatStyleEnum chatStyleEnum = ChatStyleEnum.DEFAULT;
+        switch (style.getChatStyle()){
+            case 1:
+                chatStyleEnum = ChatStyleEnum.ARMAN_VARZESH;
+                break;
+            case 2:
+                chatStyleEnum = ChatStyleEnum.LAWONE;
+                break;
+        }
+        conversationList.setChatStyle(chatStyleEnum);
         conversationList.initialize();
     }
 

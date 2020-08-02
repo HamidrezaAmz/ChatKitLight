@@ -10,6 +10,7 @@ import androidx.paging.PagedList;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import ir.vasl.chatkitlight.model.ChatStyleEnum;
 import ir.vasl.chatkitlight.model.ConversationModel;
 import ir.vasl.chatkitlight.ui.adapter.ConversationAdapter;
 import ir.vasl.chatkitlight.ui.callback.ConversationListListener;
@@ -27,6 +28,8 @@ public class ConversationList extends RecyclerView implements ConversationListLi
     private boolean canShowDialog = false;
     private int clientBubbleColor = -1;
     private int serverBubbleColor = -1;
+
+    private ChatStyleEnum chatStyle = ChatStyleEnum.DEFAULT;
 
     public ConversationList(@NonNull Context context) {
         super(context);
@@ -89,6 +92,14 @@ public class ConversationList extends RecyclerView implements ConversationListLi
 
     public void setClientBubbleColor(int clientBubbleColor) {
         this.clientBubbleColor = clientBubbleColor;
+    }
+
+    public ChatStyleEnum getChatStyle() {
+        return chatStyle;
+    }
+
+    public void setChatStyle(ChatStyleEnum chatStyle) {
+        this.chatStyle = chatStyle;
     }
 
     public void setServerBubbleColor(int serverBubbleColor) {
