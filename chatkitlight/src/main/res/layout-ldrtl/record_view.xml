@@ -88,7 +88,8 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:background="@color/dark_grey_two"
-                        android:orientation="horizontal">
+                        android:orientation="horizontal"
+                        android:id="@+id/linearLayout_input">
 
                         <ImageView
                             android:id="@+id/imageViewCamera"

@@ -37,6 +37,7 @@ import java.util.Timer;
 import java.util.TimerTask;
 
 import ir.vasl.chatkitlight.R;
+import ir.vasl.chatkitlight.utils.globalEnums.ChatStyleEnum;
 
 /**
  * Created by Varun John on 4 Dec, 2018
@@ -115,6 +116,16 @@ public class AudioRecordView {
     private boolean showCameraIcon = true, showAttachmentIcon = true, showEmojiIcon = true;
     private boolean removeAttachmentOptionAnimation;
 
+    private ChatStyleEnum chatStyle = ChatStyleEnum.DEFAULT;
+
+    public void setChatStyle(ChatStyleEnum chatStyleEnum) {
+        this.chatStyle = chatStyleEnum;
+    }
+
+    public ChatStyleEnum getChatStyle() {
+        return chatStyle;
+    }
+
     public void initView(ViewGroup view) {
 
         if (view == null) {
@@ -125,7 +136,17 @@ public class AudioRecordView {
         context = view.getContext();
 
 //        view.removeAllViews();
-        view.addView(LayoutInflater.from(view.getContext()).inflate(R.layout.record_view, view, false));
+        View inputView = LayoutInflater.from(view.getContext()).inflate(R.layout.record_view, view, false);
+        switch (chatStyle){
+            case DEFAULT:
+            case ARMAN_VARZESH:
+                inputView.findViewById(R.id.linearLayout_input).setBackgroundColor(context.getResources().getColor(R.color.dark_grey_two));
+                break;
+            case LAWONE:
+                inputView.findViewById(R.id.linearLayout_input).setBackgroundColor(context.getResources().getColor(R.color.warm_grey));
+                break;
+        }
+        view.addView(inputView);
 
         timeFormatter = new SimpleDateFormat("m:ss", Locale.getDefault());
 

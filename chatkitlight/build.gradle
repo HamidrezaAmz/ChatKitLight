@@ -33,6 +33,18 @@ android {
     dataBinding {
         enabled = true
     }
+
+    sourceSets {
+        main {
+            res.srcDirs =
+                    [
+                            'src/main/res/layouts/av',
+                            'src/main/res/layouts/lawone',
+                            'src/main/res/layouts/general',
+                            'src/main/res'
+                    ]
+        }
+    }
 }
 
 dependencies {

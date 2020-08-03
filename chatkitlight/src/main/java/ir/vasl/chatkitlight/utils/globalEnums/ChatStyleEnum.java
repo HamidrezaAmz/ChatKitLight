@@ -1,4 +1,4 @@
-package ir.vasl.chatkitlight.model;
+package ir.vasl.chatkitlight.utils.globalEnums;
 
 public enum ChatStyleEnum {
     DEFAULT(0),

@@ -1,0 +1,121 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+
+        <import type="android.view.View" />
+
+        <import type="ir.vasl.chatkitlight.utils.TimeUtils" />
+
+        <variable
+            name="conversationModel"
+            type="ir.vasl.chatkitlight.model.ConversationModel" />
+
+        <variable
+            name="conversationListListener"
+            type="ir.vasl.chatkitlight.ui.callback.ConversationListListener" />
+    </data>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/global_margin"
+        android:layout_marginBottom="@dimen/global_margin"
+        android:onClick="@{() -> conversationListListener.onConversationItemClicked(conversationModel)}"
+        android:orientation="vertical">
+
+        <androidx.appcompat.widget.AppCompatImageView
+            android:layout_width="41.88dp"
+            android:layout_height="60dp"
+            android:background="@drawable/ic_half_circle_left"
+            android:layout_alignLeft="@id/imageView_avatar"
+            android:layout_marginLeft="-5dp"
+            android:layout_centerVertical="true"
+            android:layout_alignBaseline="@id/imageView_avatar"
+            />
+
+        <LinearLayout
+            android:layout_width="@dimen/conversation_max_width"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:background="@drawable/lawone_shape_curve_client"
+            android:orientation="vertical"
+            android:id="@+id/linearLayout_bubble"
+            android:paddingRight="@dimen/global_padding_middle"
+            android:paddingLeft="30dp"
+            android:paddingTop="@dimen/global_padding_middle"
+            android:paddingBottom="@dimen/global_padding_middle"
+            >
+
+            <TextView
+                style="@style/TextViewTitleStyle"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@{ conversationModel.title}"
+                android:visibility='@{ conversationModel.title.equals("") ? View.GONE : View.VISIBLE }' />
+
+            <TextView
+                style="@style/TextViewSubTitleStyle"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@{ conversationModel.message}"
+                android:visibility='@{ conversationModel.message.equals("") ? View.GONE : View.VISIBLE }' />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="right|center_vertical"
+                android:orientation="horizontal">
+
+                <androidx.appcompat.widget.AppCompatImageView
+                    android:id="@+id/image"
+                    style="@style/TextViewSubTitleStyle"
+                    conversationStatusIcon="@{conversationModel.conversationStatus}"
+                    android:layout_width="15dp"
+                    android:layout_height="15dp"
+                    android:tint="@color/white"
+                    android:visibility='@{ conversationModel.conversationStatus.equals(null) ? View.GONE : View.VISIBLE  }' />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/global_margin"
+                    android:layout_marginEnd="@dimen/global_margin"
+                    android:text="@{conversationModel.time}"
+                    android:textColor="@color/warm_grey_five"
+                    android:textSize="12sp"
+                    android:textStyle="bold"
+                    android:visibility='@{conversationModel.time.equals("") ? View.GONE : View.VISIBLE }' />
+
+            </LinearLayout>
+
+        </LinearLayout>
+
+        <ir.vasl.chatkitlight.ui.customview.ImageViewCustom
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:id="@+id/imageView_avatar"
+            android:layout_toLeftOf="@id/linearLayout_bubble"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="-25dp"
+            android:scaleType="centerInside"
+            app:round_image="true"
+            android:paddingBottom="10dp"
+            android:paddingTop="2dp"
+            bannerImage="@{conversationModel.imageUrl}"
+            />
+
+        <androidx.appcompat.widget.AppCompatImageView
+            android:layout_width="75dp"
+            android:layout_height="75dp"
+            android:background="@drawable/ic_lawone_tilted"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="@dimen/global_margin"
+            />
+
+    </RelativeLayout>
+
+</layout>
+

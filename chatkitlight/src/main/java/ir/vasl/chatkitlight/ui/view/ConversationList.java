@@ -2,6 +2,7 @@ package ir.vasl.chatkitlight.ui.view;
 
 import android.content.Context;
 import android.util.AttributeSet;
+import android.util.Log;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -10,7 +11,7 @@ import androidx.paging.PagedList;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import ir.vasl.chatkitlight.model.ChatStyleEnum;
+import ir.vasl.chatkitlight.utils.globalEnums.ChatStyleEnum;
 import ir.vasl.chatkitlight.model.ConversationModel;
 import ir.vasl.chatkitlight.ui.adapter.ConversationAdapter;
 import ir.vasl.chatkitlight.ui.callback.ConversationListListener;

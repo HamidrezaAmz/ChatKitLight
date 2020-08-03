@@ -102,6 +102,7 @@ public class MainActivity
         conversationModel.setTime(TimeUtils.getCurrTime());
         conversationModel.setConversationType(ConversationType.CLIENT);
         conversationModel.setConversationStatus(ConversationStatus.SENDING);
+        conversationModel.setImageUrl("https://via.placeholder.com/150");
         if(imageUri != null) {
             conversationModel.setFileType(FileType.IMAGE);
             conversationModel.setFileAddress(imageUri.toString());

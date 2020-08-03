@@ -2,26 +2,20 @@ package ir.vasl.chatkitlight.ui.view;
 
 import android.content.Context;
 import android.util.AttributeSet;
-import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.EditText;
 import android.widget.FrameLayout;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.orangegangsters.github.swipyrefreshlayout.library.SwipyRefreshLayout;
 import com.orangegangsters.github.swipyrefreshlayout.library.SwipyRefreshLayoutDirection;
 
-import java.util.ArrayList;
-
 import ir.vasl.chatkitlight.R;
-import ir.vasl.chatkitlight.model.ChatStyleEnum;
+import ir.vasl.chatkitlight.utils.globalEnums.ChatStyleEnum;
 import ir.vasl.chatkitlight.ui.audio.AttachmentOption;
 import ir.vasl.chatkitlight.ui.audio.AttachmentOptionsListener;
 import ir.vasl.chatkitlight.ui.audio.AudioRecordView;
@@ -46,6 +40,8 @@ public class ConversationView
     private ConversationList conversationList;
     private SwipyRefreshLayout swipyRefreshLayout;
 
+    private ChatStyleEnum chatStyleEnum = ChatStyleEnum.DEFAULT;
+
     public ConversationView(Context context) {
         super(context);
         init(context);
@@ -62,13 +58,7 @@ public class ConversationView
     }
 
     private void init(Context context, AttributeSet attrs) {
-        init(context);
         ConversationViewStyle style = ConversationViewStyle.parse(context, attrs);
-
-        conversationList.setCanShowDialog(style.canShowDialog());
-        conversationList.setClientBubbleColor(style.getClientBubbleColor());
-        conversationList.setServerBubbleColor(style.getServerBubbleColor());
-        ChatStyleEnum chatStyleEnum = ChatStyleEnum.DEFAULT;
         switch (style.getChatStyle()){
             case 1:
                 chatStyleEnum = ChatStyleEnum.ARMAN_VARZESH;
@@ -77,17 +67,21 @@ public class ConversationView
                 chatStyleEnum = ChatStyleEnum.LAWONE;
                 break;
         }
+        init(context);
+        conversationList.setCanShowDialog(style.canShowDialog());
+        conversationList.setClientBubbleColor(style.getClientBubbleColor());
+        conversationList.setServerBubbleColor(style.getServerBubbleColor());
         conversationList.setChatStyle(chatStyleEnum);
         conversationList.initialize();
     }
 
     private void init(Context context) {
         ViewGroup viewConversation = (ViewGroup) inflate(context, R.layout.layout_conversation_view, this);
-
         // conversation view items
         swipyRefreshLayout = viewConversation.findViewById(R.id.swipyRefreshLayout);
         conversationList = viewConversation.findViewById(R.id.conversationList);
         conversationInput = new AudioRecordView();
+        conversationInput.setChatStyle(chatStyleEnum);
         conversationInput.initView(viewConversation);
         conversationInput.showCameraIcon(false);
         conversationInput.setAttachmentOptions(AttachmentOption.getDefaultList(), new AttachmentOptionsListener() {
@@ -109,6 +103,15 @@ public class ConversationView
         conversationInput.setRecordingListener(this);
         // fix recyclerview conflict with swipe refresh
         conversationList.addOnScrollListener(scrollListener);
+        switch (chatStyleEnum){
+            case DEFAULT:
+            case ARMAN_VARZESH:
+                viewConversation.findViewById(R.id.frameLayout_root).setBackgroundColor(context.getResources().getColor(R.color.black));
+                break;
+            case LAWONE:
+                viewConversation.findViewById(R.id.frameLayout_root).setBackgroundColor(context.getResources().getColor(R.color.white));
+                break;
+        }
     }
 
     public void setConversationViewListener(ConversationViewListener conversationViewListener) {

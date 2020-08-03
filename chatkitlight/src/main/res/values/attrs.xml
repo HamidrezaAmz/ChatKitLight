@@ -51,7 +51,11 @@
         <attr name="canShowDialog" format="boolean" />
         <attr name="clientBubbleColor" format="reference" />
         <attr name="serverBubbleColor" format="reference" />
-        <attr name="chatStyle" format="integer" />
+        <attr name="chatStyle">
+            <flag name="default_value" value="0"/>
+            <flag name="arman_varzesh" value="1"/>
+            <flag name="lawone" value="2"/>
+        </attr>
     </declare-styleable>
 
     <declare-styleable name="ImageViewCustom">
