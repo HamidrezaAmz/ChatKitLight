@@ -26,6 +26,7 @@ import ir.vasl.chatkitlight.databinding.ViewConversationServerFileBinding;
 import ir.vasl.chatkitlight.databinding.ViewConversationServerImageBinding;
 import ir.vasl.chatkitlight.databinding.ViewConversationServerVideoBinding;
 import ir.vasl.chatkitlight.databinding.ViewConversationUnsupportedBinding;
+import ir.vasl.chatkitlight.model.ChatStyleEnum;
 import ir.vasl.chatkitlight.model.ConversationModel;
 import ir.vasl.chatkitlight.ui.base.BaseViewHolder;
 import ir.vasl.chatkitlight.ui.callback.ConversationListListener;
@@ -35,10 +36,12 @@ import ir.vasl.chatkitlight.utils.globalEnums.ConversationType;
 public class ConversationAdapter extends PagedListAdapter<ConversationModel, BaseViewHolder> implements ConversationListListener {
 
     private ConversationListListener conversationListListener;
+    private ChatStyleEnum chatStyleEnum = ChatStyleEnum.DEFAULT;
 
-    public ConversationAdapter(ConversationListListener conversationListListener) {
+    public ConversationAdapter(ConversationListListener conversationListListener, ChatStyleEnum chatStyleEnum) {
         super(new ConversationDiffCallback());
         this.setHasStableIds(true);
+        this.chatStyleEnum = chatStyleEnum;
         this.conversationListListener = conversationListListener;
     }
 
@@ -46,98 +49,14 @@ public class ConversationAdapter extends PagedListAdapter<ConversationModel, Bas
     @Override
     public BaseViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         LayoutInflater inflater = LayoutInflater.from(parent.getContext());
-
-        if(viewType >= 10000){
-            switch (ConversationType.get(viewType - 10000)) {
-                case CLIENT:
-                    ViewConversationClientAudioBinding clientBinding = DataBindingUtil.inflate(inflater, R.layout.view_conversation_client_audio, parent, false);
-                    return new ConversationViewHolder(clientBinding);
-
-                case SERVER:
-                    ViewConversationServerAudioBinding serverBinding = DataBindingUtil.inflate(inflater, R.layout.view_conversation_server_audio, parent, false);
-                    return new ConversationViewHolder(serverBinding);
-
-                case EMPTY:
-                    ViewConversationEmptyBinding emptyBinding = DataBindingUtil.inflate(inflater, R.layout.view_conversation_empty, parent, false);
-                    return new ConversationViewHolder(emptyBinding);
-
-                default:
-                    ViewConversationUnsupportedBinding unsupportedBinding = DataBindingUtil.inflate(inflater, R.layout.view_conversation_unsupported, parent, false);
-                    return new ConversationViewHolder(unsupportedBinding);
-            }
-        } else if(viewType >= 1000){
-            switch (ConversationType.get(viewType - 1000)) {
-                case CLIENT:
-                    ViewConversationClientImageBinding clientBinding = DataBindingUtil.inflate(inflater, R.layout.view_conversation_client_image, parent, false);
-                    return new ConversationViewHolder(clientBinding);
-
-                case SERVER:
-                    ViewConversationServerImageBinding serverBinding = DataBindingUtil.inflate(inflater, R.layout.view_conversation_server_image, parent, false);
-                    return new ConversationViewHolder(serverBinding);
-
-                case EMPTY:
-                    ViewConversationEmptyBinding emptyBinding = DataBindingUtil.inflate(inflater, R.layout.view_conversation_empty, parent, false);
-                    return new ConversationViewHolder(emptyBinding);
-
-                default:
-                    ViewConversationUnsupportedBinding unsupportedBinding = DataBindingUtil.inflate(inflater, R.layout.view_conversation_unsupported, parent, false);
-                    return new ConversationViewHolder(unsupportedBinding);
-            }
-        } else if(viewType >= 100){
-            switch (ConversationType.get(viewType - 100)) {
-                case CLIENT:
-                    ViewConversationClientVideoBinding clientBinding = DataBindingUtil.inflate(inflater, R.layout.view_conversation_client_video, parent, false);
-                    return new ConversationViewHolder(clientBinding);
-
-                case SERVER:
-                    ViewConversationServerVideoBinding serverBinding = DataBindingUtil.inflate(inflater, R.layout.view_conversation_server_video, parent, false);
-                    return new ConversationViewHolder(serverBinding);
-
-                case EMPTY:
-                    ViewConversationEmptyBinding emptyBinding = DataBindingUtil.inflate(inflater, R.layout.view_conversation_empty, parent, false);
-                    return new ConversationViewHolder(emptyBinding);
-
-                default:
-                    ViewConversationUnsupportedBinding unsupportedBinding = DataBindingUtil.inflate(inflater, R.layout.view_conversation_unsupported, parent, false);
-                    return new ConversationViewHolder(unsupportedBinding);
-            }
-        } else if (viewType >= 10){
-            switch (ConversationType.get(viewType - 10)) {
-                case CLIENT:
-                    ViewConversationClientFileBinding clientBinding = DataBindingUtil.inflate(inflater, R.layout.view_conversation_client_file, parent, false);
-                    return new ConversationViewHolder(clientBinding);
-
-                case SERVER:
-                    ViewConversationServerFileBinding serverBinding = DataBindingUtil.inflate(inflater, R.layout.view_conversation_server_file, parent, false);
-                    return new ConversationViewHolder(serverBinding);
-
-                case EMPTY:
-                    ViewConversationEmptyBinding emptyBinding = DataBindingUtil.inflate(inflater, R.layout.view_conversation_empty, parent, false);
-                    return new ConversationViewHolder(emptyBinding);
-
-                default:
-                    ViewConversationUnsupportedBinding unsupportedBinding = DataBindingUtil.inflate(inflater, R.layout.view_conversation_unsupported, parent, false);
-                    return new ConversationViewHolder(unsupportedBinding);
-            }
-        } else {
-            switch (ConversationType.get(viewType)) {
-                case CLIENT:
-                    ViewConversationClientBinding clientBinding = DataBindingUtil.inflate(inflater, R.layout.view_conversation_client, parent, false);
-                    return new ConversationViewHolder(clientBinding);
-
-                case SERVER:
-                    ViewConversationServerBinding serverBinding = DataBindingUtil.inflate(inflater, R.layout.view_conversation_server, parent, false);
-                    return new ConversationViewHolder(serverBinding);
-
-                case EMPTY:
-                    ViewConversationEmptyBinding emptyBinding = DataBindingUtil.inflate(inflater, R.layout.view_conversation_empty, parent, false);
-                    return new ConversationViewHolder(emptyBinding);
-
-                default:
-                    ViewConversationUnsupportedBinding unsupportedBinding = DataBindingUtil.inflate(inflater, R.layout.view_conversation_unsupported, parent, false);
-                    return new ConversationViewHolder(unsupportedBinding);
-            }
+        switch (chatStyleEnum){
+            case DEFAULT:
+            case ARMAN_VARZESH:
+                return AvViewHolderCreator(parent, inflater, viewType);
+            case LAWONE:
+                return LawoneViewHolderCreator(parent, inflater, viewType);
         }
+        return null; //chatStyle is non-defined? impossible
     }
 
     @Override
@@ -504,6 +423,194 @@ public class ConversationAdapter extends PagedListAdapter<ConversationModel, Bas
     public void onConversationItemClicked(Object object) {
         if (conversationListListener != null)
             conversationListListener.onConversationItemClicked(object);
+    }
+
+    private BaseViewHolder LawoneViewHolderCreator(ViewGroup parent, LayoutInflater inflater, int viewType) {
+        if(viewType >= 10000){
+            switch (ConversationType.get(viewType - 10000)) {
+                case CLIENT:
+                    ViewConversationClientAudioBinding clientBinding = DataBindingUtil.inflate(inflater, R.layout.view_conversation_client_audio, parent, false);
+                    return new ConversationViewHolder(clientBinding);
+
+                case SERVER:
+                    ViewConversationServerAudioBinding serverBinding = DataBindingUtil.inflate(inflater, R.layout.view_conversation_server_audio, parent, false);
+                    return new ConversationViewHolder(serverBinding);
+
+                case EMPTY:
+                    ViewConversationEmptyBinding emptyBinding = DataBindingUtil.inflate(inflater, R.layout.view_conversation_empty, parent, false);
+                    return new ConversationViewHolder(emptyBinding);
+
+                default:
+                    ViewConversationUnsupportedBinding unsupportedBinding = DataBindingUtil.inflate(inflater, R.layout.view_conversation_unsupported, parent, false);
+                    return new ConversationViewHolder(unsupportedBinding);
+            }
+        } else if(viewType >= 1000){
+            switch (ConversationType.get(viewType - 1000)) {
+                case CLIENT:
+                    ViewConversationClientImageBinding clientBinding = DataBindingUtil.inflate(inflater, R.layout.view_conversation_client_image, parent, false);
+                    return new ConversationViewHolder(clientBinding);
+
+                case SERVER:
+                    ViewConversationServerImageBinding serverBinding = DataBindingUtil.inflate(inflater, R.layout.view_conversation_server_image, parent, false);
+                    return new ConversationViewHolder(serverBinding);
+
+                case EMPTY:
+                    ViewConversationEmptyBinding emptyBinding = DataBindingUtil.inflate(inflater, R.layout.view_conversation_empty, parent, false);
+                    return new ConversationViewHolder(emptyBinding);
+
+                default:
+                    ViewConversationUnsupportedBinding unsupportedBinding = DataBindingUtil.inflate(inflater, R.layout.view_conversation_unsupported, parent, false);
+                    return new ConversationViewHolder(unsupportedBinding);
+            }
+        } else if(viewType >= 100){
+            switch (ConversationType.get(viewType - 100)) {
+                case CLIENT:
+                    ViewConversationClientVideoBinding clientBinding = DataBindingUtil.inflate(inflater, R.layout.view_conversation_client_video, parent, false);
+                    return new ConversationViewHolder(clientBinding);
+
+                case SERVER:
+                    ViewConversationServerVideoBinding serverBinding = DataBindingUtil.inflate(inflater, R.layout.view_conversation_server_video, parent, false);
+                    return new ConversationViewHolder(serverBinding);
+
+                case EMPTY:
+                    ViewConversationEmptyBinding emptyBinding = DataBindingUtil.inflate(inflater, R.layout.view_conversation_empty, parent, false);
+                    return new ConversationViewHolder(emptyBinding);
+
+                default:
+                    ViewConversationUnsupportedBinding unsupportedBinding = DataBindingUtil.inflate(inflater, R.layout.view_conversation_unsupported, parent, false);
+                    return new ConversationViewHolder(unsupportedBinding);
+            }
+        } else if (viewType >= 10){
+            switch (ConversationType.get(viewType - 10)) {
+                case CLIENT:
+                    ViewConversationClientFileBinding clientBinding = DataBindingUtil.inflate(inflater, R.layout.view_conversation_client_file, parent, false);
+                    return new ConversationViewHolder(clientBinding);
+
+                case SERVER:
+                    ViewConversationServerFileBinding serverBinding = DataBindingUtil.inflate(inflater, R.layout.view_conversation_server_file, parent, false);
+                    return new ConversationViewHolder(serverBinding);
+
+                case EMPTY:
+                    ViewConversationEmptyBinding emptyBinding = DataBindingUtil.inflate(inflater, R.layout.view_conversation_empty, parent, false);
+                    return new ConversationViewHolder(emptyBinding);
+
+                default:
+                    ViewConversationUnsupportedBinding unsupportedBinding = DataBindingUtil.inflate(inflater, R.layout.view_conversation_unsupported, parent, false);
+                    return new ConversationViewHolder(unsupportedBinding);
+            }
+        } else {
+            switch (ConversationType.get(viewType)) {
+                case CLIENT:
+                    ViewConversationClientBinding clientBinding = DataBindingUtil.inflate(inflater, R.layout.view_conversation_client, parent, false);
+                    return new ConversationViewHolder(clientBinding);
+
+                case SERVER:
+                    ViewConversationServerBinding serverBinding = DataBindingUtil.inflate(inflater, R.layout.view_conversation_server, parent, false);
+                    return new ConversationViewHolder(serverBinding);
+
+                case EMPTY:
+                    ViewConversationEmptyBinding emptyBinding = DataBindingUtil.inflate(inflater, R.layout.view_conversation_empty, parent, false);
+                    return new ConversationViewHolder(emptyBinding);
+
+                default:
+                    ViewConversationUnsupportedBinding unsupportedBinding = DataBindingUtil.inflate(inflater, R.layout.view_conversation_unsupported, parent, false);
+                    return new ConversationViewHolder(unsupportedBinding);
+            }
+        }
+    }
+
+    private BaseViewHolder AvViewHolderCreator(ViewGroup parent, LayoutInflater inflater, int viewType) {
+        if(viewType >= 10000){
+            switch (ConversationType.get(viewType - 10000)) {
+                case CLIENT:
+                    ViewConversationClientAudioBinding clientBinding = DataBindingUtil.inflate(inflater, R.layout.view_conversation_client_audio, parent, false);
+                    return new ConversationViewHolder(clientBinding);
+
+                case SERVER:
+                    ViewConversationServerAudioBinding serverBinding = DataBindingUtil.inflate(inflater, R.layout.view_conversation_server_audio, parent, false);
+                    return new ConversationViewHolder(serverBinding);
+
+                case EMPTY:
+                    ViewConversationEmptyBinding emptyBinding = DataBindingUtil.inflate(inflater, R.layout.view_conversation_empty, parent, false);
+                    return new ConversationViewHolder(emptyBinding);
+
+                default:
+                    ViewConversationUnsupportedBinding unsupportedBinding = DataBindingUtil.inflate(inflater, R.layout.view_conversation_unsupported, parent, false);
+                    return new ConversationViewHolder(unsupportedBinding);
+            }
+        } else if(viewType >= 1000){
+            switch (ConversationType.get(viewType - 1000)) {
+                case CLIENT:
+                    ViewConversationClientImageBinding clientBinding = DataBindingUtil.inflate(inflater, R.layout.view_conversation_client_image, parent, false);
+                    return new ConversationViewHolder(clientBinding);
+
+                case SERVER:
+                    ViewConversationServerImageBinding serverBinding = DataBindingUtil.inflate(inflater, R.layout.view_conversation_server_image, parent, false);
+                    return new ConversationViewHolder(serverBinding);
+
+                case EMPTY:
+                    ViewConversationEmptyBinding emptyBinding = DataBindingUtil.inflate(inflater, R.layout.view_conversation_empty, parent, false);
+                    return new ConversationViewHolder(emptyBinding);
+
+                default:
+                    ViewConversationUnsupportedBinding unsupportedBinding = DataBindingUtil.inflate(inflater, R.layout.view_conversation_unsupported, parent, false);
+                    return new ConversationViewHolder(unsupportedBinding);
+            }
+        } else if(viewType >= 100){
+            switch (ConversationType.get(viewType - 100)) {
+                case CLIENT:
+                    ViewConversationClientVideoBinding clientBinding = DataBindingUtil.inflate(inflater, R.layout.view_conversation_client_video, parent, false);
+                    return new ConversationViewHolder(clientBinding);
+
+                case SERVER:
+                    ViewConversationServerVideoBinding serverBinding = DataBindingUtil.inflate(inflater, R.layout.view_conversation_server_video, parent, false);
+                    return new ConversationViewHolder(serverBinding);
+
+                case EMPTY:
+                    ViewConversationEmptyBinding emptyBinding = DataBindingUtil.inflate(inflater, R.layout.view_conversation_empty, parent, false);
+                    return new ConversationViewHolder(emptyBinding);
+
+                default:
+                    ViewConversationUnsupportedBinding unsupportedBinding = DataBindingUtil.inflate(inflater, R.layout.view_conversation_unsupported, parent, false);
+                    return new ConversationViewHolder(unsupportedBinding);
+            }
+        } else if (viewType >= 10){
+            switch (ConversationType.get(viewType - 10)) {
+                case CLIENT:
+                    ViewConversationClientFileBinding clientBinding = DataBindingUtil.inflate(inflater, R.layout.view_conversation_client_file, parent, false);
+                    return new ConversationViewHolder(clientBinding);
+
+                case SERVER:
+                    ViewConversationServerFileBinding serverBinding = DataBindingUtil.inflate(inflater, R.layout.view_conversation_server_file, parent, false);
+                    return new ConversationViewHolder(serverBinding);
+
+                case EMPTY:
+                    ViewConversationEmptyBinding emptyBinding = DataBindingUtil.inflate(inflater, R.layout.view_conversation_empty, parent, false);
+                    return new ConversationViewHolder(emptyBinding);
+
+                default:
+                    ViewConversationUnsupportedBinding unsupportedBinding = DataBindingUtil.inflate(inflater, R.layout.view_conversation_unsupported, parent, false);
+                    return new ConversationViewHolder(unsupportedBinding);
+            }
+        } else {
+            switch (ConversationType.get(viewType)) {
+                case CLIENT:
+                    ViewConversationClientBinding clientBinding = DataBindingUtil.inflate(inflater, R.layout.view_conversation_client, parent, false);
+                    return new ConversationViewHolder(clientBinding);
+
+                case SERVER:
+                    ViewConversationServerBinding serverBinding = DataBindingUtil.inflate(inflater, R.layout.view_conversation_server, parent, false);
+                    return new ConversationViewHolder(serverBinding);
+
+                case EMPTY:
+                    ViewConversationEmptyBinding emptyBinding = DataBindingUtil.inflate(inflater, R.layout.view_conversation_empty, parent, false);
+                    return new ConversationViewHolder(emptyBinding);
+
+                default:
+                    ViewConversationUnsupportedBinding unsupportedBinding = DataBindingUtil.inflate(inflater, R.layout.view_conversation_unsupported, parent, false);
+                    return new ConversationViewHolder(unsupportedBinding);
+            }
+        }
     }
 
 }

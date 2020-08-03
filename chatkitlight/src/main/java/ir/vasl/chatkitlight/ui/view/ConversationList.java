@@ -54,7 +54,7 @@ public class ConversationList extends RecyclerView implements ConversationListLi
         layoutManager.setStackFromEnd(true);
         layoutManager.setSmoothScrollbarEnabled(false);
 
-        this.adapter = new ConversationAdapter(this);
+        this.adapter = new ConversationAdapter(this, chatStyle);
         this.setLayoutManager(layoutManager);
         this.setItemAnimator(null);
         this.setAdapter(adapter);
