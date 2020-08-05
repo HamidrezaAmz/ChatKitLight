@@ -20,4 +20,8 @@ public interface DialogMenuListener<T> {
     default void onDeleteMessageClicked(T t) {
     }
 
+    default void shouldPaginateNow(){
+
+    }
+
 }

@@ -57,6 +57,7 @@ public class ConversationList extends RecyclerView implements ConversationListLi
 
         this.adapter = new ConversationAdapter(this, chatStyle);
         this.setLayoutManager(layoutManager);
+        this.addOnScrollListener(scrollListener);
         this.setItemAnimator(null);
         this.setAdapter(adapter);
         this.adapter.notifyDataSetChanged();
@@ -133,5 +134,20 @@ public class ConversationList extends RecyclerView implements ConversationListLi
         if (dialogMenuListener != null)
             dialogMenuListener.onDeleteMessageClicked(object);
     }
+
+    RecyclerView.OnScrollListener scrollListener = new OnScrollListener() {
+        @Override
+        public void onScrolled(@NonNull RecyclerView recyclerView, int dx, int dy) {
+            super.onScrolled(recyclerView, dx, dy);
+            if(recyclerView.getLayoutManager() == null)
+                return;
+            int visibleItemCount = recyclerView.getLayoutManager().getChildCount();
+            int totalItemCount = recyclerView.getLayoutManager().getItemCount();
+            int firstVisibleItemPosition = ((LinearLayoutManager) recyclerView.getLayoutManager()).findFirstVisibleItemPosition();
+            if ((visibleItemCount + firstVisibleItemPosition) >= totalItemCount) {
+                dialogMenuListener.shouldPaginateNow();
+            }
+        }
+    };
 
 }
