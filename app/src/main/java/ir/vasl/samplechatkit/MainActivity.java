@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.CountDownTimer;
+import android.os.Handler;
 import android.os.Parcelable;
 import android.util.Log;
 import android.view.Menu;
@@ -20,10 +21,13 @@ import androidx.core.app.ActivityCompat;
 import androidx.lifecycle.ViewModelProvider;
 
 import java.util.ArrayList;
+import java.util.List;
 import java.util.UUID;
 
 import droidninja.filepicker.FilePickerBuilder;
 import ir.vasl.chatkitlight.database.ChatDao;
+import ir.vasl.chatkitlight.database.ChatKitDatabase;
+import ir.vasl.chatkitlight.database.DatabaseLayer;
 import ir.vasl.chatkitlight.model.ConversationModel;
 import ir.vasl.chatkitlight.ui.audio.AttachmentOption;
 import ir.vasl.chatkitlight.ui.callback.ConversationViewListener;
