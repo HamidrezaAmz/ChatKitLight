@@ -904,14 +904,17 @@ public class ConversationAdapter extends PagedListAdapter<ConversationModel, Bas
                         }).show();
                         return;
                     }
-                    if (FileHelper.checkFileExistence(context, FileHelper.getFileName(getItem(getBindingAdapterPosition()).getFileAddress()))) {
+                    if (FileHelper.checkFileExistence(context, FileHelper.getFileName(
+                            getItem(getBindingAdapterPosition()).getFileAddress()))) {
                         String fileName = FileHelper.getFileName(getItem(getBindingAdapterPosition()).getFileAddress());
                         Intent viewIntent = new Intent(Intent.ACTION_VIEW);
-                        viewIntent.setDataAndType(Uri.parse(context.getExternalFilesDir(null).toString() + "/" + fileName), "*/*");
+                        viewIntent.setDataAndType(Uri.parse(context.getExternalFilesDir(null).toString() + "/" + fileName),
+                                FileHelper.getMimeType(context, Uri.parse(getItem(getBindingAdapterPosition()).getFileAddress())));
                         Intent chooserIntent = Intent.createChooser(viewIntent, "Open in...");
                         ConversationViewHolder.this.lawoneClientFileBinding.getRoot().getContext().startActivity(chooserIntent);
                     } else {
-                        downloadRequest = FileHelper.downloadFile(context, getItem(getBindingAdapterPosition()).getFileAddress(), new DownloadStatusListenerV1() {
+                        downloadRequest = FileHelper.downloadFile(context, getItem(getBindingAdapterPosition()).getFileAddress(),
+                                new DownloadStatusListenerV1() {
                             @Override
                             public void onDownloadComplete(DownloadRequest downloadRequest) {
                                 lawoneClientFileBinding.imageViewCheckmark.setVisibility(View.VISIBLE);
@@ -1003,7 +1006,8 @@ public class ConversationAdapter extends PagedListAdapter<ConversationModel, Bas
                     if (FileHelper.checkFileExistence(context, FileHelper.getFileName(getItem(getBindingAdapterPosition()).getFileAddress()))) {
                         String fileName = FileHelper.getFileName(getItem(getBindingAdapterPosition()).getFileAddress());
                         Intent viewIntent = new Intent(Intent.ACTION_VIEW);
-                        viewIntent.setDataAndType(Uri.parse(context.getExternalFilesDir(null).toString() + "/" + fileName), "*/*");
+                        viewIntent.setDataAndType(Uri.parse(context.getExternalFilesDir(null).toString() + "/" + fileName),
+                                FileHelper.getMimeType(context, Uri.parse(getItem(getBindingAdapterPosition()).getFileAddress())));
                         Intent chooserIntent = Intent.createChooser(viewIntent, "Open in...");
                         ConversationViewHolder.this.lawoneServerFileBinding.getRoot().getContext().startActivity(chooserIntent);
                     } else {
