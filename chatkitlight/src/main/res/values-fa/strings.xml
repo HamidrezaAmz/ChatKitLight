@@ -7,5 +7,7 @@
     <string name="hint_enter_a_message">پیام خودت رو بنویس</string>
     <string name="type_a_message">پیام خود را بنویسید</string>
     <string name="slide_to_cancel">برای لغو به کنار بکشید</string>
+    <string name="permission_needed">جهت دسترسی و دانلود فایل لطفا مجوز دسترسی حافظه را اعطا کنید</string>
+    <string name="ok">باشه</string>
 
 </resources>

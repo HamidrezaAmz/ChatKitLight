@@ -14,4 +14,8 @@ public interface ConversationListListener<T> {
     default void onConversationItemLongClicked(T t) {
     }
 
+    default void requestStoragePermission(){
+
+    }
+
 }

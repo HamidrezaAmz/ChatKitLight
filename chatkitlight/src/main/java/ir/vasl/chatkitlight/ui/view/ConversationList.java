@@ -118,6 +118,12 @@ public class ConversationList extends RecyclerView implements ConversationListLi
     }
 
     @Override
+    public void requestStoragePermission() {
+        if (dialogMenuListener != null)
+            dialogMenuListener.requestStoragePermission();
+    }
+
+    @Override
     public void onCopyMessageClicked(Object object) {
         if (dialogMenuListener != null)
             dialogMenuListener.onCopyMessageClicked(object);

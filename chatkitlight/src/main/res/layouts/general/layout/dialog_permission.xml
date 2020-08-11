@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@drawable/shape_curve_menu">
+
+    <TextView
+        android:id="@+id/tvMessage"
+        style="@style/TextViewSubTitleStyle"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:padding="@dimen/global_padding_extra"
+        android:text="@string/permission_needed"
+        android:textColor="@color/white"
+        android:textSize="15sp" />
+
+    <TextView
+        android:id="@+id/textView_accept"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/tvMessage"
+        android:background="@color/dark_grey_two"
+        android:gravity="center"
+        android:padding="@dimen/global_padding_extra"
+        android:text="@string/ok"
+        android:textColor="@color/white"
+        android:textSize="15sp" />
+
+</RelativeLayout>

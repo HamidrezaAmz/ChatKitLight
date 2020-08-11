@@ -11,7 +11,7 @@ android {
         minSdkVersion 21
         targetSdkVersion 29
         versionCode 12
-        versionName "2.0.8.1"
+        versionName "2.0.10"
         vectorDrawables.useSupportLibrary = true
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
@@ -66,9 +66,10 @@ dependencies {
     implementation "androidx.lifecycle:lifecycle-extensions:$lifecycle_version"
     implementation "androidx.lifecycle:lifecycle-common-java8:$lifecycle_version"
 
-    // image and ui
+    // chat multimedia
     implementation "com.github.bumptech.glide:glide:4.11.0"
-    implementation 'com.gelitenight.waveview:waveview:1.0.0'
+    implementation 'me.itangqi.waveloadingview:library:0.3.5'
+    implementation 'com.mani:ThinDownloadManager:1.4.0'
 
     // repository
     api "androidx.paging:paging-runtime:2.1.2"

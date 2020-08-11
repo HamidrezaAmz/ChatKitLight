@@ -100,6 +100,8 @@ public class MainActivity
     @Override
     public void onSubmit(CharSequence input) {
 
+        List<ConversationModel> allModels = DatabaseLayer.getInstance(MyApplication.getApp()).getChatKitDatabase().getChatDao().getAllSimple(chatID);
+
         ConversationModel conversationModel = new ConversationModel(chatID, UUID.randomUUID().toString());
         conversationModel.setTitle("");
         conversationModel.setMessage(input.toString());
@@ -121,6 +123,7 @@ public class MainActivity
             }
 
             public void onFinish() {
+                List<ConversationModel> allModels = DatabaseLayer.getInstance(MyApplication.getApp()).getChatKitDatabase().getChatDao().getAllSimple(chatID);
                 conversationListViewModel.updateConversationStatus(conversationModel.getConversationId(), ConversationStatus.SENT);
             }
 
@@ -204,5 +207,12 @@ public class MainActivity
         imageUri = ((Uri) uri.get(0));
         Log.e(TAG, "onActivityResult: " + uri );
 
+    }
+
+    @Override
+    public void requestStoragePermission() {
+        ActivityCompat.requestPermissions(this,
+                new String[]{Manifest.permission.READ_EXTERNAL_STORAGE, Manifest.permission.WRITE_EXTERNAL_STORAGE},
+                199);
     }
 }

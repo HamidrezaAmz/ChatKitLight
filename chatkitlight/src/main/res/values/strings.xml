@@ -8,4 +8,6 @@
     <string name="slide_to_cancel">"Slide to cancel"</string>
     <string name="type_a_message">Type a message</string>
     <bool name="is_right_to_left">false</bool>
+    <string name="permission_needed">To access downloaded files please grant storage permissions</string>
+    <string name="ok">Ok</string>
 </resources>

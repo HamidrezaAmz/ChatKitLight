@@ -24,4 +24,8 @@ public interface DialogMenuListener<T> {
 
     }
 
+    default void requestStoragePermission(){
+
+    }
+
 }

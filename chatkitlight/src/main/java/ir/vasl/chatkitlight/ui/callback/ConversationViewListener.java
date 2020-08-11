@@ -43,4 +43,8 @@ public interface ConversationViewListener<T> {
 
     default void onVoiceRecordCanceled(){}
 
+    default void shouldPaginate(){}
+
+    default void requestStoragePermission(){}
+
 }

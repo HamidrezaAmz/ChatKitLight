@@ -1,16 +1,31 @@
 package ir.vasl.chatkitlight.ui.adapter;
 
+import android.Manifest;
+import android.animation.AnimatorSet;
+import android.animation.ObjectAnimator;
+import android.content.Context;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.net.Uri;
+import android.os.CountDownTimer;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.animation.DecelerateInterpolator;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.core.content.ContextCompat;
 import androidx.databinding.DataBindingUtil;
 import androidx.paging.PagedList;
 import androidx.paging.PagedListAdapter;
+
+import com.thin.downloadmanager.DownloadRequest;
+import com.thin.downloadmanager.DownloadStatusListenerV1;
+import com.thin.downloadmanager.ThinDownloadManager;
+
+import java.io.File;
 
 import ir.vasl.chatkitlight.R;
 import ir.vasl.chatkitlight.databinding.LawoneConversationClientBinding;
@@ -31,6 +46,10 @@ import ir.vasl.chatkitlight.databinding.ViewConversationServerFileBinding;
 import ir.vasl.chatkitlight.databinding.ViewConversationServerImageBinding;
 import ir.vasl.chatkitlight.databinding.ViewConversationServerVideoBinding;
 import ir.vasl.chatkitlight.databinding.ViewConversationUnsupportedBinding;
+import ir.vasl.chatkitlight.ui.callback.ClickCallback;
+import ir.vasl.chatkitlight.ui.dialogs.PermissionDialog;
+import ir.vasl.chatkitlight.utils.FileHelper;
+import ir.vasl.chatkitlight.utils.PermissionHelper;
 import ir.vasl.chatkitlight.utils.globalEnums.ChatStyleEnum;
 import ir.vasl.chatkitlight.model.ConversationModel;
 import ir.vasl.chatkitlight.ui.base.BaseViewHolder;
@@ -42,19 +61,23 @@ public class ConversationAdapter extends PagedListAdapter<ConversationModel, Bas
 
     private ConversationListListener conversationListListener;
     private ChatStyleEnum chatStyleEnum;
+    private Context context;
+    private ThinDownloadManager downloadManager;
 
     public ConversationAdapter(ConversationListListener conversationListListener, ChatStyleEnum chatStyleEnum) {
         super(new ConversationDiffCallback());
         this.setHasStableIds(true);
         this.chatStyleEnum = chatStyleEnum;
         this.conversationListListener = conversationListListener;
+        this.downloadManager = new ThinDownloadManager();
     }
 
     @NonNull
     @Override
     public BaseViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+        context = parent.getContext();
         LayoutInflater inflater = LayoutInflater.from(parent.getContext());
-        switch (chatStyleEnum){
+        switch (chatStyleEnum) {
             case DEFAULT:
             case ARMAN_VARZESH:
                 return AvViewHolderCreator(parent, inflater, viewType);
@@ -75,7 +98,7 @@ public class ConversationAdapter extends PagedListAdapter<ConversationModel, Bas
         if (getCurrentList() == null || getCurrentList().snapshot().size() == 0 || getItem(position) == null)
             return;
 
-        switch (chatStyleEnum){
+        switch (chatStyleEnum) {
             case DEFAULT:
             case ARMAN_VARZESH:
                 AvBinder(holder, position);
@@ -99,11 +122,11 @@ public class ConversationAdapter extends PagedListAdapter<ConversationModel, Bas
 
                 case SERVER: {
                     ConversationModel model = getItem(position);
+                    holder.onBind(position);
                     ((ConversationViewHolder) holder).serverAudioBinding.setConversationModel(model);
                     ((ConversationViewHolder) holder).serverAudioBinding.setConversationListListener(this);
                     break;
                 }
-
                 case EMPTY:
                     ((ConversationViewHolder) holder).emptyBinding.setConversationListListener(this);
                     break;
@@ -123,16 +146,13 @@ public class ConversationAdapter extends PagedListAdapter<ConversationModel, Bas
                     ((ConversationViewHolder) holder).lawoneClientImageBinding.imageViewImage.setImageUrlCurve(getItem(position).getFileAddress(), 12);
                     break;
                 }
-
                 case SERVER: {
                     ConversationModel model = getItem(position);
                     ((ConversationViewHolder) holder).lawoneServerImageBinding.setConversationModel(model);
                     ((ConversationViewHolder) holder).lawoneServerImageBinding.setConversationListListener(this);
                     ((ConversationViewHolder) holder).lawoneServerImageBinding.imageViewImage.setImageUrlCurve(getItem(position).getFileAddress(), 12);
-
                     break;
                 }
-
                 case EMPTY:
                     ((ConversationViewHolder) holder).emptyBinding.setConversationListListener(this);
                     break;
@@ -150,10 +170,8 @@ public class ConversationAdapter extends PagedListAdapter<ConversationModel, Bas
                     ((ConversationViewHolder) holder).clientVideoBinding.setConversationModel(model);
                     ((ConversationViewHolder) holder).clientVideoBinding.setConversationListListener(this);
                     ((ConversationViewHolder) holder).clientVideoBinding.imageViewImage.setImageUrlCurve(getItem(position).getFileAddress(), 12);
-
                     break;
                 }
-
                 case SERVER: {
                     ConversationModel model = getItem(position);
                     ((ConversationViewHolder) holder).serverVideoBinding.setConversationModel(model);
@@ -162,11 +180,9 @@ public class ConversationAdapter extends PagedListAdapter<ConversationModel, Bas
 
                     break;
                 }
-
                 case EMPTY:
                     ((ConversationViewHolder) holder).emptyBinding.setConversationListListener(this);
                     break;
-
                 case UNDEFINE:
                 default:
                     ((ConversationViewHolder) holder).unsupportedBinding.setConversationListListener(this);
@@ -181,18 +197,15 @@ public class ConversationAdapter extends PagedListAdapter<ConversationModel, Bas
                     ((ConversationViewHolder) holder).lawoneClientFileBinding.setConversationListListener(this);
                     break;
                 }
-
                 case SERVER: {
                     ConversationModel model = getItem(position);
                     ((ConversationViewHolder) holder).lawoneServerFileBinding.setConversationModel(model);
                     ((ConversationViewHolder) holder).lawoneServerFileBinding.setConversationListListener(this);
                     break;
                 }
-
                 case EMPTY:
                     ((ConversationViewHolder) holder).emptyBinding.setConversationListListener(this);
                     break;
-
                 case UNDEFINE:
                 default:
                     ((ConversationViewHolder) holder).unsupportedBinding.setConversationListListener(this);
@@ -207,18 +220,15 @@ public class ConversationAdapter extends PagedListAdapter<ConversationModel, Bas
                     ((ConversationViewHolder) holder).lawoneClientTextBinding.setConversationListListener(this);
                     break;
                 }
-
                 case SERVER: {
                     ConversationModel model = getItem(position);
                     ((ConversationViewHolder) holder).lawoneServerTextBinding.setConversationModel(model);
                     ((ConversationViewHolder) holder).lawoneServerTextBinding.setConversationListListener(this);
                     break;
                 }
-
                 case EMPTY:
                     ((ConversationViewHolder) holder).emptyBinding.setConversationListListener(this);
                     break;
-
                 case UNDEFINE:
                 default:
                     ((ConversationViewHolder) holder).unsupportedBinding.setConversationListListener(this);
@@ -237,18 +247,15 @@ public class ConversationAdapter extends PagedListAdapter<ConversationModel, Bas
                     ((ConversationViewHolder) holder).clientAudioBinding.setConversationListListener(this);
                     break;
                 }
-
                 case SERVER: {
                     ConversationModel model = getItem(position);
                     ((ConversationViewHolder) holder).serverAudioBinding.setConversationModel(model);
                     ((ConversationViewHolder) holder).serverAudioBinding.setConversationListListener(this);
                     break;
                 }
-
                 case EMPTY:
                     ((ConversationViewHolder) holder).emptyBinding.setConversationListListener(this);
                     break;
-
                 case UNDEFINE:
                 default:
                     ((ConversationViewHolder) holder).unsupportedBinding.setConversationListListener(this);
@@ -264,7 +271,6 @@ public class ConversationAdapter extends PagedListAdapter<ConversationModel, Bas
                     ((ConversationViewHolder) holder).clientImageBinding.imageViewImage.setImageUrlCurve(getItem(position).getFileAddress(), 12);
                     break;
                 }
-
                 case SERVER: {
                     ConversationModel model = getItem(position);
                     ((ConversationViewHolder) holder).serverImageBinding.setConversationModel(model);
@@ -388,7 +394,7 @@ public class ConversationAdapter extends PagedListAdapter<ConversationModel, Bas
         ConversationModel model = getItem(position);
         if (model == null || getItemCount() == 0)
             return ConversationType.EMPTY.getValue();
-        if(getItem(position).getFileType() != null) {
+        if (getItem(position).getFileType() != null) {
             switch (getItem(position).getFileType()) {
                 case NONE:
                     return model.getConversationType().getValue();
@@ -418,7 +424,7 @@ public class ConversationAdapter extends PagedListAdapter<ConversationModel, Bas
     }
 
     private BaseViewHolder LawoneViewHolderCreator(ViewGroup parent, LayoutInflater inflater, int viewType) {
-        if(viewType >= 10000){
+        if (viewType >= 10000) {
             switch (ConversationType.get(viewType - 10000)) {
                 case CLIENT:
                     ViewConversationClientAudioBinding clientBinding = DataBindingUtil.inflate(inflater, R.layout.view_conversation_client_audio, parent, false);
@@ -436,7 +442,7 @@ public class ConversationAdapter extends PagedListAdapter<ConversationModel, Bas
                     ViewConversationUnsupportedBinding unsupportedBinding = DataBindingUtil.inflate(inflater, R.layout.view_conversation_unsupported, parent, false);
                     return new ConversationViewHolder(unsupportedBinding);
             }
-        } else if(viewType >= 1000){
+        } else if (viewType >= 1000) {
             switch (ConversationType.get(viewType - 1000)) {
                 case CLIENT:
                     LawoneConversationClientImageBinding clientBinding = DataBindingUtil.inflate(inflater, R.layout.lawone_conversation_client_image, parent, false);
@@ -454,7 +460,7 @@ public class ConversationAdapter extends PagedListAdapter<ConversationModel, Bas
                     ViewConversationUnsupportedBinding unsupportedBinding = DataBindingUtil.inflate(inflater, R.layout.view_conversation_unsupported, parent, false);
                     return new ConversationViewHolder(unsupportedBinding);
             }
-        } else if(viewType >= 100){
+        } else if (viewType >= 100) {
             switch (ConversationType.get(viewType - 100)) {
                 case CLIENT:
                     ViewConversationClientVideoBinding clientBinding = DataBindingUtil.inflate(inflater, R.layout.view_conversation_client_video, parent, false);
@@ -472,7 +478,7 @@ public class ConversationAdapter extends PagedListAdapter<ConversationModel, Bas
                     ViewConversationUnsupportedBinding unsupportedBinding = DataBindingUtil.inflate(inflater, R.layout.view_conversation_unsupported, parent, false);
                     return new ConversationViewHolder(unsupportedBinding);
             }
-        } else if (viewType >= 10){
+        } else if (viewType >= 10) {
             switch (ConversationType.get(viewType - 10)) {
                 case CLIENT:
                     LawoneConversationClientFileBinding clientBinding = DataBindingUtil.inflate(inflater, R.layout.lawone_conversation_client_file, parent, false);
@@ -512,7 +518,7 @@ public class ConversationAdapter extends PagedListAdapter<ConversationModel, Bas
     }
 
     private BaseViewHolder AvViewHolderCreator(ViewGroup parent, LayoutInflater inflater, int viewType) {
-        if(viewType >= 10000){
+        if (viewType >= 10000) {
             switch (ConversationType.get(viewType - 10000)) {
                 case CLIENT:
                     ViewConversationClientAudioBinding clientBinding = DataBindingUtil.inflate(inflater, R.layout.view_conversation_client_audio, parent, false);
@@ -530,7 +536,7 @@ public class ConversationAdapter extends PagedListAdapter<ConversationModel, Bas
                     ViewConversationUnsupportedBinding unsupportedBinding = DataBindingUtil.inflate(inflater, R.layout.view_conversation_unsupported, parent, false);
                     return new ConversationViewHolder(unsupportedBinding);
             }
-        } else if(viewType >= 1000){
+        } else if (viewType >= 1000) {
             switch (ConversationType.get(viewType - 1000)) {
                 case CLIENT:
                     ViewConversationClientImageBinding clientBinding = DataBindingUtil.inflate(inflater, R.layout.view_conversation_client_image, parent, false);
@@ -548,7 +554,7 @@ public class ConversationAdapter extends PagedListAdapter<ConversationModel, Bas
                     ViewConversationUnsupportedBinding unsupportedBinding = DataBindingUtil.inflate(inflater, R.layout.view_conversation_unsupported, parent, false);
                     return new ConversationViewHolder(unsupportedBinding);
             }
-        } else if(viewType >= 100){
+        } else if (viewType >= 100) {
             switch (ConversationType.get(viewType - 100)) {
                 case CLIENT:
                     ViewConversationClientVideoBinding clientBinding = DataBindingUtil.inflate(inflater, R.layout.view_conversation_client_video, parent, false);
@@ -566,7 +572,7 @@ public class ConversationAdapter extends PagedListAdapter<ConversationModel, Bas
                     ViewConversationUnsupportedBinding unsupportedBinding = DataBindingUtil.inflate(inflater, R.layout.view_conversation_unsupported, parent, false);
                     return new ConversationViewHolder(unsupportedBinding);
             }
-        } else if (viewType >= 10){
+        } else if (viewType >= 10) {
             switch (ConversationType.get(viewType - 10)) {
                 case CLIENT:
                     ViewConversationClientFileBinding clientBinding = DataBindingUtil.inflate(inflater, R.layout.view_conversation_client_file, parent, false);
@@ -607,6 +613,8 @@ public class ConversationAdapter extends PagedListAdapter<ConversationModel, Bas
 
     private class ConversationViewHolder extends BaseViewHolder {
 
+        DownloadRequest downloadRequest = null;
+
         //DEFAULT - AV
         private ViewConversationClientBinding clientTextBinding;
         private ViewConversationClientImageBinding clientImageBinding;
@@ -640,6 +648,27 @@ public class ConversationAdapter extends PagedListAdapter<ConversationModel, Bas
 //        private ViewConversationUnsupportedBinding unsupportedBinding;
 
 
+        @Override
+        public void onBind(int position) {
+            super.onBind(position);
+            if (lawoneClientFileBinding != null) { //client file
+                if (FileHelper.checkFileExistence(context, FileHelper.getFileName(getItem(position).getFileAddress()))) {
+                    lawoneClientFileBinding.imageViewCheckmark.setVisibility(View.VISIBLE);
+                    lawoneClientFileBinding.waveView.setCenterTitle("");
+                    lawoneClientFileBinding.waveView.setProgressValue(100);
+                    lawoneClientFileBinding.waveView.setWaveColor(context.getResources().getColor(R.color.green));
+                }
+            }
+            if (lawoneServerFileBinding != null) { //server file
+                if (FileHelper.checkFileExistence(context, FileHelper.getFileName(getItem(position).getFileAddress()))) {
+                    lawoneServerFileBinding.imageViewCheckmark.setVisibility(View.VISIBLE);
+                    lawoneServerFileBinding.waveView.setCenterTitle("");
+                    lawoneServerFileBinding.waveView.setProgressValue(100);
+                    lawoneServerFileBinding.waveView.setWaveColor(context.getResources().getColor(R.color.green));
+                }
+            }
+        }
+
         // DEFAULT - AV CONSTRUCTORS
         public ConversationViewHolder(ViewConversationClientBinding clientTextBinding) {
             super(clientTextBinding.getRoot());
@@ -667,7 +696,7 @@ public class ConversationAdapter extends PagedListAdapter<ConversationModel, Bas
             this.clientImageBinding.imageViewImage.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    if(getBindingAdapterPosition() == -1)
+                    if (getBindingAdapterPosition() == -1)
                         return;
                     Intent viewIntent = new Intent(Intent.ACTION_VIEW);
                     viewIntent.setDataAndType(Uri.parse(getItem(getBindingAdapterPosition()).getFileAddress()), "image/*");
@@ -683,7 +712,7 @@ public class ConversationAdapter extends PagedListAdapter<ConversationModel, Bas
             this.clientVideoBinding.imageViewImage.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    if(getBindingAdapterPosition() == -1)
+                    if (getBindingAdapterPosition() == -1)
                         return;
                     Intent viewIntent = new Intent(Intent.ACTION_VIEW);
                     viewIntent.setDataAndType(Uri.parse(getItem(getBindingAdapterPosition()).getFileAddress()), "video/*");
@@ -699,7 +728,7 @@ public class ConversationAdapter extends PagedListAdapter<ConversationModel, Bas
             this.clientAudioBinding.frameLayoutFile.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    if(getBindingAdapterPosition() == -1)
+                    if (getBindingAdapterPosition() == -1)
                         return;
                     Intent viewIntent = new Intent(Intent.ACTION_VIEW);
                     viewIntent.setDataAndType(Uri.parse(getItem(getBindingAdapterPosition()).getFileAddress()), "*/*");
@@ -715,7 +744,7 @@ public class ConversationAdapter extends PagedListAdapter<ConversationModel, Bas
             this.clientFileBinding.frameLayoutFile.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    if(getBindingAdapterPosition() == -1)
+                    if (getBindingAdapterPosition() == -1)
                         return;
                     Intent viewIntent = new Intent(Intent.ACTION_VIEW);
                     viewIntent.setDataAndType(Uri.parse(getItem(getBindingAdapterPosition()).getFileAddress()), "*/*");
@@ -731,7 +760,7 @@ public class ConversationAdapter extends PagedListAdapter<ConversationModel, Bas
             this.serverImageBinding.imageViewImage.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    if(getBindingAdapterPosition() == -1 || getItem(getBindingAdapterPosition()) == null)
+                    if (getBindingAdapterPosition() == -1 || getItem(getBindingAdapterPosition()) == null)
                         return;
                     Intent viewIntent = new Intent(Intent.ACTION_VIEW);
                     viewIntent.setDataAndType(Uri.parse(getItem(getBindingAdapterPosition()).getFileAddress()), "image/*");
@@ -747,7 +776,7 @@ public class ConversationAdapter extends PagedListAdapter<ConversationModel, Bas
             this.serverVideoBinding.imageViewImage.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    if(getBindingAdapterPosition() == -1)
+                    if (getBindingAdapterPosition() == -1)
                         return;
                     Intent viewIntent = new Intent(Intent.ACTION_VIEW);
                     viewIntent.setDataAndType(Uri.parse(getItem(getBindingAdapterPosition()).getFileAddress()), "video/*");
@@ -763,7 +792,7 @@ public class ConversationAdapter extends PagedListAdapter<ConversationModel, Bas
             this.serverAudioBinding.frameLayoutFile.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    if(getBindingAdapterPosition() == -1)
+                    if (getBindingAdapterPosition() == -1)
                         return;
                     Intent viewIntent = new Intent(Intent.ACTION_VIEW);
                     viewIntent.setDataAndType(Uri.parse(getItem(getBindingAdapterPosition()).getFileAddress()), "*/*");
@@ -779,7 +808,7 @@ public class ConversationAdapter extends PagedListAdapter<ConversationModel, Bas
             this.serverFileBinding.frameLayoutFile.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    if(getBindingAdapterPosition() == -1)
+                    if (getBindingAdapterPosition() == -1)
                         return;
                     Intent viewIntent = new Intent(Intent.ACTION_VIEW);
                     viewIntent.setDataAndType(Uri.parse(getItem(getBindingAdapterPosition()).getFileAddress()), "*/*");
@@ -816,7 +845,7 @@ public class ConversationAdapter extends PagedListAdapter<ConversationModel, Bas
             this.lawoneClientImageBinding.imageViewImage.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    if(getBindingAdapterPosition() == -1)
+                    if (getBindingAdapterPosition() == -1)
                         return;
                     Intent viewIntent = new Intent(Intent.ACTION_VIEW);
                     viewIntent.setDataAndType(Uri.parse(getItem(getBindingAdapterPosition()).getFileAddress()), "image/*");
@@ -864,12 +893,44 @@ public class ConversationAdapter extends PagedListAdapter<ConversationModel, Bas
             this.lawoneClientFileBinding.frameLayoutFile.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    if(getBindingAdapterPosition() == -1)
+                    if (getBindingAdapterPosition() == -1)
                         return;
-                    Intent viewIntent = new Intent(Intent.ACTION_VIEW);
-                    viewIntent.setDataAndType(Uri.parse(getItem(getBindingAdapterPosition()).getFileAddress()), "*/*");
-                    Intent chooserIntent = Intent.createChooser(viewIntent, "Open in...");
-                    ConversationViewHolder.this.clientFileBinding.getRoot().getContext().startActivity(chooserIntent);
+                    if (!PermissionHelper.checkStoragePermission(context)) {
+                        new PermissionDialog(context, new ClickCallback() {
+                            @Override
+                            public void acceptClicked() {
+                                conversationListListener.requestStoragePermission();
+                            }
+                        }).show();
+                        return;
+                    }
+                    if (FileHelper.checkFileExistence(context, FileHelper.getFileName(getItem(getBindingAdapterPosition()).getFileAddress()))) {
+                        String fileName = FileHelper.getFileName(getItem(getBindingAdapterPosition()).getFileAddress());
+                        Intent viewIntent = new Intent(Intent.ACTION_VIEW);
+                        viewIntent.setDataAndType(Uri.parse(context.getExternalFilesDir(null).toString() + "/" + fileName), "*/*");
+                        Intent chooserIntent = Intent.createChooser(viewIntent, "Open in...");
+                        ConversationViewHolder.this.lawoneClientFileBinding.getRoot().getContext().startActivity(chooserIntent);
+                    } else {
+                        downloadRequest = FileHelper.downloadFile(context, getItem(getBindingAdapterPosition()).getFileAddress(), new DownloadStatusListenerV1() {
+                            @Override
+                            public void onDownloadComplete(DownloadRequest downloadRequest) {
+                                lawoneClientFileBinding.imageViewCheckmark.setVisibility(View.VISIBLE);
+                                lawoneClientFileBinding.waveView.setWaveColor(context.getResources().getColor(R.color.green));
+                            }
+
+                            @Override
+                            public void onDownloadFailed(DownloadRequest downloadRequest, int errorCode, String errorMessage) {
+                            }
+
+                            @Override
+                            public void onProgress(DownloadRequest downloadRequest, long totalBytes, long downloadedBytes, int progress) {
+                                lawoneClientFileBinding.waveView.setCenterTitle("");
+                                lawoneClientFileBinding.waveView.setProgressValue(progress);
+                                lawoneClientFileBinding.waveView.startAnimation();
+                            }
+                        });
+                        downloadManager.add(downloadRequest);
+                    }
                 }
             });
         }
@@ -880,7 +941,7 @@ public class ConversationAdapter extends PagedListAdapter<ConversationModel, Bas
             this.lawoneServerImageBinding.imageViewImage.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    if(getBindingAdapterPosition() == -1 || getItem(getBindingAdapterPosition()) == null)
+                    if (getBindingAdapterPosition() == -1 || getItem(getBindingAdapterPosition()) == null)
                         return;
                     Intent viewIntent = new Intent(Intent.ACTION_VIEW);
                     viewIntent.setDataAndType(Uri.parse(getItem(getBindingAdapterPosition()).getFileAddress()), "image/*");
@@ -928,15 +989,46 @@ public class ConversationAdapter extends PagedListAdapter<ConversationModel, Bas
             this.lawoneServerFileBinding.frameLayoutFile.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    if(getBindingAdapterPosition() == -1)
+                    if (getBindingAdapterPosition() == -1)
                         return;
-                    Intent viewIntent = new Intent(Intent.ACTION_VIEW);
-                    viewIntent.setDataAndType(Uri.parse(getItem(getBindingAdapterPosition()).getFileAddress()), "*/*");
-                    Intent chooserIntent = Intent.createChooser(viewIntent, "Open in...");
-                    ConversationViewHolder.this.serverFileBinding.getRoot().getContext().startActivity(chooserIntent);
+                    if (!PermissionHelper.checkStoragePermission(context)) {
+                        new PermissionDialog(context, new ClickCallback() {
+                            @Override
+                            public void acceptClicked() {
+                                conversationListListener.requestStoragePermission();
+                            }
+                        }).show();
+                        return;
+                    }
+                    if (FileHelper.checkFileExistence(context, FileHelper.getFileName(getItem(getBindingAdapterPosition()).getFileAddress()))) {
+                        String fileName = FileHelper.getFileName(getItem(getBindingAdapterPosition()).getFileAddress());
+                        Intent viewIntent = new Intent(Intent.ACTION_VIEW);
+                        viewIntent.setDataAndType(Uri.parse(context.getExternalFilesDir(null).toString() + "/" + fileName), "*/*");
+                        Intent chooserIntent = Intent.createChooser(viewIntent, "Open in...");
+                        ConversationViewHolder.this.lawoneServerFileBinding.getRoot().getContext().startActivity(chooserIntent);
+                    } else {
+                        downloadRequest = FileHelper.downloadFile(context, getItem(getBindingAdapterPosition()).getFileAddress(), new DownloadStatusListenerV1() {
+                            @Override
+                            public void onDownloadComplete(DownloadRequest downloadRequest) {
+                                lawoneServerFileBinding.imageViewCheckmark.setVisibility(View.VISIBLE);
+                                lawoneServerFileBinding.waveView.setWaveColor(context.getResources().getColor(R.color.green));
+                            }
+
+                            @Override
+                            public void onDownloadFailed(DownloadRequest downloadRequest, int errorCode, String errorMessage) {
+                            }
+
+                            @Override
+                            public void onProgress(DownloadRequest downloadRequest, long totalBytes, long downloadedBytes, int progress) {
+                                lawoneServerFileBinding.waveView.setCenterTitle("");
+                                lawoneServerFileBinding.waveView.setProgressValue(progress);
+                                lawoneServerFileBinding.waveView.startAnimation();
+                            }
+                        });
+                        downloadManager.add(downloadRequest);
+                    }
                 }
             });
         }
     }
-
 }

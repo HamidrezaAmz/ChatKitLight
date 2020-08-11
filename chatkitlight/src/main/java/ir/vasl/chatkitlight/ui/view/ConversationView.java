@@ -1,5 +1,6 @@
 package ir.vasl.chatkitlight.ui.view;
 
+import android.Manifest;
 import android.content.Context;
 import android.util.AttributeSet;
 import android.view.View;
@@ -8,6 +9,7 @@ import android.widget.FrameLayout;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.core.app.ActivityCompat;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -200,6 +202,12 @@ public class ConversationView
     };
 
     @Override
+    public void requestStoragePermission() {
+        if (conversationViewListener != null)
+            conversationViewListener.requestStoragePermission();
+    }
+
+    @Override
     public void onAddAttachments(AttachmentOption option) {
         if (conversationViewListener != null)
             conversationViewListener.onAddAttachments(option);
@@ -227,4 +235,11 @@ public class ConversationView
         if (conversationViewListener != null)
             conversationViewListener.onVoiceRecordCanceled();
     }
+
+    @Override
+    public void shouldPaginateNow() {
+        if (conversationViewListener != null)
+            conversationViewListener.shouldPaginate();
+    }
+
 }
