@@ -8,7 +8,7 @@ public enum FileType {
     DOCUMENT("DOCUMENT", 10),
     VIDEO("VIDEO", 100),
     IMAGE("IMAGE", 1000),
-    AUDIO("AUDIO", 10000),
+    AUDIO("VOICE", 10000),
     ;
 
     private String valueStr;
