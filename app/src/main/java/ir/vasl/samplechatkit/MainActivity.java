@@ -110,8 +110,9 @@ public class MainActivity
         conversationModel.setConversationStatus(ConversationStatus.SENDING);
         conversationModel.setImageUrl("https://via.placeholder.com/150");
         if(imageUri != null) {
-            conversationModel.setFileType(FileType.IMAGE);
-            conversationModel.setFileAddress(imageUri.toString());
+            conversationModel.setFileType(FileType.DOCUMENT);
+//            conversationModel.setFileAddress(imageUri.toString());
+            conversationModel.setFileAddress("https://www.w3.org/WAI/ER/tests/xhtml/testfiles/resources/pdf/dummy.pdf");
         }
 
         conversationListViewModel.addNewConversation(conversationModel);
@@ -124,6 +125,10 @@ public class MainActivity
 
             public void onFinish() {
                 List<ConversationModel> allModels = DatabaseLayer.getInstance(MyApplication.getApp()).getChatKitDatabase().getChatDao().getAllSimple(chatID);
+
+                for (int i = 0; i < allModels.size(); i++) {
+                    Log.e(TAG, "AFTER SUBMIT: " + allModels.get(i).getId() + " " + allModels.get(i).getMessage() );
+                }
                 conversationListViewModel.updateConversationStatus(conversationModel.getConversationId(), ConversationStatus.SENT);
             }
 

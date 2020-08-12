@@ -49,10 +49,12 @@
                     style="@style/TextViewTitleStyle"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginRight="42dp"
-                    android:text="@{ conversationModel.title}"
-                    android:visibility='@{ conversationModel.title.equals("") ? View.GONE : View.VISIBLE }' />
-
+                    android:layout_marginRight="45dp"
+                    android:layout_marginLeft="20dp"
+                    android:gravity="right"
+                    android:textSize="13sp"
+                    android:text='@{!conversationModel.title.equals("") ? conversationModel.title : conversationModel.fileAddress.substring(conversationModel.fileAddress.lastIndexOf("/") + 1)}'
+                />
             </FrameLayout>
 
             <TextView
@@ -60,6 +62,9 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="@{ conversationModel.message}"
+                android:textSize="13sp"
+                android:layout_marginTop="6dp"
+                android:layout_marginRight="25dp"
                 android:visibility='@{ conversationModel.message.equals("") ? View.GONE : View.VISIBLE }' />
 
             <LinearLayout

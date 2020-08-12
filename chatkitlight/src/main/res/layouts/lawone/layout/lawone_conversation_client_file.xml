@@ -29,7 +29,6 @@
             android:layout_width="@dimen/conversation_max_width"
             android:layout_height="wrap_content"
             android:layout_alignParentRight="true"
-            android:layout_marginRight="33dp"
             android:background="@drawable/lawone_shape_curve_client"
             android:orientation="vertical"
             android:id="@+id/linearLayour_bubble"
@@ -51,16 +50,19 @@
                     style="@style/TextViewTitleStyle"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginRight="42dp"
-                    android:text="@{ conversationModel.title}"
-                    android:visibility='@{ conversationModel.title.equals("") ? View.GONE : View.VISIBLE }' />
-
+                    android:layout_marginRight="45dp"
+                    android:layout_marginLeft="20dp"
+                    android:gravity="right"
+                    android:text='@{!conversationModel.title.equals("") ? conversationModel.title : conversationModel.fileAddress.substring(conversationModel.fileAddress.lastIndexOf("/") + 1)}'
+                    />
             </FrameLayout>
 
             <TextView
                 style="@style/TextViewSubTitleStyle"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginTop="6dp"
+                android:layout_marginLeft="25dp"
                 android:text="@{ conversationModel.message}"
                 android:visibility='@{ conversationModel.message.equals("") ? View.GONE : View.VISIBLE }' />
 

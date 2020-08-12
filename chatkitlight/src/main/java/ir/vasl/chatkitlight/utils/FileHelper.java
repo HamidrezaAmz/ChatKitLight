@@ -3,6 +3,7 @@ package ir.vasl.chatkitlight.utils;
 import android.Manifest;
 import android.content.ContentResolver;
 import android.content.Context;
+import android.content.Intent;
 import android.net.Uri;
 import android.os.Environment;
 import android.util.Log;
@@ -16,6 +17,9 @@ import com.thin.downloadmanager.DownloadRequest;
 import com.thin.downloadmanager.DownloadStatusListenerV1;
 
 import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.IOException;
 
 public class FileHelper {
 
@@ -27,17 +31,16 @@ public class FileHelper {
     }
 
     public static boolean checkFileExistence(Context context, String fileName){
-        return new File(context.getExternalFilesDir(null).toString() + "/" + fileName).exists();
+        return new File(context.getExternalFilesDir(null).toString() + "/chatkit/", fileName).exists();
     }
 
     public static DownloadRequest downloadFile(Context context, String url, DownloadStatusListenerV1 downloadListener){
         String fileName = FileHelper.getFileName(url);
-        String dir = context.getExternalFilesDir(null).toString() + "/" + fileName ;
+        String dir = context.getExternalFilesDir(null).toString() + "/chatkit/" + fileName ;
         return new DownloadRequest(Uri.parse(url))
                 .setRetryPolicy(new DefaultRetryPolicy())
                 .setDestinationURI(Uri.parse(dir))
                 .setPriority(DownloadRequest.Priority.HIGH)
-
                 .setStatusListener(downloadListener);
     }
 
@@ -53,5 +56,47 @@ public class FileHelper {
                     fileExtension.toLowerCase());
         }
         return mimeType;
+    }
+
+    public static void openFile(Context context, String fileAddress) {
+        String fileName = getFileName(fileAddress);
+        Intent viewIntent = new Intent(Intent.ACTION_VIEW);
+        viewIntent.setDataAndType(
+                FileProvider.getUriForFile(context, context.getApplicationContext().getPackageName() + ".provider" ,
+                        new File(context.getExternalFilesDir(null).toString() + "/chatkit/", fileName)),
+                getMimeType(context, Uri.parse(fileAddress)));
+        viewIntent.setFlags(Intent.FLAG_ACTIVITY_NO_HISTORY);
+        viewIntent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
+        Intent chooserIntent = Intent.createChooser(viewIntent, "انتخاب کنید");
+        context.startActivity(chooserIntent);
+    }
+
+    public static byte[] getFileBytes(Context context, String fileAddress){
+        byte[] result = new byte[Integer.MAX_VALUE];
+        String fileName = getFileName(fileAddress);
+        File file = new File(context.getExternalFilesDir(null).toString() + "/chatkit/", fileName);
+        FileInputStream fis = null;
+        try {
+            fis = new FileInputStream(file);
+
+            byte buffer[] = new byte[4096];
+            int read = 0;
+            int all = 0;
+
+            while((read = fis.read(buffer)) != -1) {
+                all += read;
+                System.arraycopy(buffer, 0, result, all, buffer.length);
+            }
+        } catch (Exception e) {
+            System.out.println("File not found: " + e.toString());
+        } finally {
+            try {
+                if (fis != null) {
+                    fis.close();
+                }
+            } catch (IOException ignored) {
+            }
+        }
+        return result;
     }
 }
