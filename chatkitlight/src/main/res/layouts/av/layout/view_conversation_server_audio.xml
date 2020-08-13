@@ -96,7 +96,7 @@
             android:layout_height="55dp"
             android:layout_centerVertical="true"
             android:layout_marginLeft="-27.5dp"
-            android:layout_toRightOf="@+id/linearLayour_bubble"
+            android:layout_toRightOf="@id/linearLayout_bubble"
             app:wlv_borderColor="@color/white"
             app:wlv_borderWidth="3dp"
             app:wlv_progressValue="0"
@@ -115,7 +115,7 @@
             android:layout_height="50dp"
             android:layout_centerVertical="true"
             android:layout_marginLeft="-27.5dp"
-            android:layout_toRightOf="@+id/linearLayour_bubble"
+            android:layout_toRightOf="@id/linearLayout_bubble"
             android:scaleType="centerInside"
             android:visibility="gone"
             app:srcCompat="@drawable/checkmark_white" />
