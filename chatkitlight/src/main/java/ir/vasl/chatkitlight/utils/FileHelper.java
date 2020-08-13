@@ -20,6 +20,7 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.util.Arrays;
 
 public class FileHelper {
 
@@ -30,18 +31,23 @@ public class FileHelper {
         else return "";
     }
 
-    public static boolean checkFileExistence(Context context, String fileName){
+    public static boolean checkFileExistence(Context context, String fileName) {
         return new File(context.getExternalFilesDir(null).toString() + "/chatkit/", fileName).exists();
     }
 
-    public static DownloadRequest downloadFile(Context context, String url, DownloadStatusListenerV1 downloadListener){
+    public static DownloadRequest downloadFile(Context context, String url, DownloadStatusListenerV1 downloadListener) {
         String fileName = FileHelper.getFileName(url);
-        String dir = context.getExternalFilesDir(null).toString() + "/chatkit/" + fileName ;
+        String dir = context.getExternalFilesDir(null).toString() + "/chatkit/" + fileName;
         return new DownloadRequest(Uri.parse(url))
                 .setRetryPolicy(new DefaultRetryPolicy())
                 .setDestinationURI(Uri.parse(dir))
                 .setPriority(DownloadRequest.Priority.HIGH)
                 .setStatusListener(downloadListener);
+    }
+
+    public static Uri getFileUri(Context context, String fileName) {
+        return FileProvider.getUriForFile(context, context.getApplicationContext().getPackageName() + ".provider",
+                new File(context.getExternalFilesDir(null).toString() + "/chatkit/", fileName));
     }
 
     public static String getMimeType(Context context, Uri uri) {
@@ -62,7 +68,7 @@ public class FileHelper {
         String fileName = getFileName(fileAddress);
         Intent viewIntent = new Intent(Intent.ACTION_VIEW);
         viewIntent.setDataAndType(
-                FileProvider.getUriForFile(context, context.getApplicationContext().getPackageName() + ".provider" ,
+                FileProvider.getUriForFile(context, context.getApplicationContext().getPackageName() + ".provider",
                         new File(context.getExternalFilesDir(null).toString() + "/chatkit/", fileName)),
                 getMimeType(context, Uri.parse(fileAddress)));
         viewIntent.setFlags(Intent.FLAG_ACTIVITY_NO_HISTORY);
@@ -71,19 +77,18 @@ public class FileHelper {
         context.startActivity(chooserIntent);
     }
 
-    public static byte[] getFileBytes(Context context, String fileAddress){
-        byte[] result = new byte[Integer.MAX_VALUE];
+    public static byte[] getFileBytes(Context context, String fileAddress) {
+        Log.e("tag", "getFileBytes: " + Runtime.getRuntime().freeMemory());
+        byte[] result = new byte[((int) Runtime.getRuntime().freeMemory())];
         String fileName = getFileName(fileAddress);
         File file = new File(context.getExternalFilesDir(null).toString() + "/chatkit/", fileName);
         FileInputStream fis = null;
+        int all = 0;
         try {
             fis = new FileInputStream(file);
-
             byte buffer[] = new byte[4096];
             int read = 0;
-            int all = 0;
-
-            while((read = fis.read(buffer)) != -1) {
+            while ((read = fis.read(buffer)) != -1) {
                 all += read;
                 System.arraycopy(buffer, 0, result, all, buffer.length);
             }
@@ -97,6 +102,6 @@ public class FileHelper {
             } catch (IOException ignored) {
             }
         }
-        return result;
+        return Arrays.copyOfRange(result, 0 , all - 1);
     }
 }

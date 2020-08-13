@@ -44,14 +44,16 @@
                     android:layout_height="40dp"
                     android:layout_gravity="right"
                     android:scaleType="centerInside"
-                    app:srcCompat="@drawable/ic_attachment_audio" />
+                    android:padding="8dp"
+                    android:background="@drawable/shape_curve_menu"
+                    app:srcCompat="@drawable/ic_play" />
 
                 <TextView
                     style="@style/TextViewTitleStyle"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginRight="42dp"
-                    android:text='@{conversationModel.fileAddress.substring(conversationModel.fileAddress.lastIndexOf("/" + 1))}' />
+                    android:text='@{conversationModel.fileAddress.substring(conversationModel.fileAddress.lastIndexOf("/") + 1)}' />
             </FrameLayout>
 
             <rm.com.audiowave.AudioWaveView

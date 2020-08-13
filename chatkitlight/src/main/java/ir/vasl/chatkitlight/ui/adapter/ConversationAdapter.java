@@ -6,9 +6,11 @@ import android.animation.ObjectAnimator;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.media.MediaPlayer;
 import android.net.Uri;
 import android.os.CountDownTimer;
 import android.os.Environment;
+import android.os.Handler;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -28,6 +30,7 @@ import com.thin.downloadmanager.DownloadStatusListenerV1;
 import com.thin.downloadmanager.ThinDownloadManager;
 
 import java.io.File;
+import java.io.IOException;
 
 import ir.vasl.chatkitlight.R;
 import ir.vasl.chatkitlight.databinding.LawoneConversationClientBinding;
@@ -616,6 +619,8 @@ public class ConversationAdapter extends PagedListAdapter<ConversationModel, Bas
     private class ConversationViewHolder extends BaseViewHolder {
 
         DownloadRequest downloadRequest = null;
+        boolean isPlayingAudio = false;
+        MediaPlayer mp;
 
         //DEFAULT - AV
         private ViewConversationClientBinding clientTextBinding;
@@ -669,13 +674,22 @@ public class ConversationAdapter extends PagedListAdapter<ConversationModel, Bas
                     lawoneServerFileBinding.waveView.setWaveColor(context.getResources().getColor(R.color.green));
                 }
             }
-            if (clientAudioBinding != null) { //server file
+            if (clientAudioBinding != null) { //client audio
                 if (FileHelper.checkFileExistence(context, FileHelper.getFileName(getItem(position).getFileAddress()))) {
                     clientAudioBinding.imageViewCheckmark.setVisibility(View.VISIBLE);
                     clientAudioBinding.waveView.setCenterTitle("");
                     clientAudioBinding.waveView.setProgressValue(100);
                     clientAudioBinding.waveView.setWaveColor(context.getResources().getColor(R.color.green));
                     clientAudioBinding.wave.setRawData(FileHelper.getFileBytes(context, getItem(getBindingAdapterPosition()).getFileAddress()));
+                }
+            }
+            if (serverAudioBinding != null) { //server audio
+                if (FileHelper.checkFileExistence(context, FileHelper.getFileName(getItem(position).getFileAddress()))) {
+                    serverAudioBinding.imageViewCheckmark.setVisibility(View.VISIBLE);
+                    serverAudioBinding.waveView.setCenterTitle("");
+                    serverAudioBinding.waveView.setProgressValue(100);
+                    serverAudioBinding.waveView.setWaveColor(context.getResources().getColor(R.color.green));
+                    serverAudioBinding.wave.setRawData(FileHelper.getFileBytes(context, getItem(getBindingAdapterPosition()).getFileAddress()));
                 }
             }
         }
@@ -746,7 +760,14 @@ public class ConversationAdapter extends PagedListAdapter<ConversationModel, Bas
                         return;
                     }
                     if (FileHelper.checkFileExistence(context, FileHelper.getFileName(getItem(getBindingAdapterPosition()).getFileAddress()))) {
-                        FileHelper.openFile(context, getItem(getBindingAdapterPosition()).getFileAddress());
+                        mp = new MediaPlayer();
+                        try {
+                            mp.setDataSource(getItem(getBindingAdapterPosition()).getFileAddress());
+                            mp.prepareAsync();
+                            mp.setOnPreparedListener(MediaPlayer::start);
+                        } catch (Exception e) {
+                            e.printStackTrace();
+                        }
                     } else {
                         downloadRequest = FileHelper.downloadFile(context, getItem(getBindingAdapterPosition()).getFileAddress(),
                                 new DownloadStatusListenerV1() {
@@ -828,12 +849,44 @@ public class ConversationAdapter extends PagedListAdapter<ConversationModel, Bas
             this.serverAudioBinding.frameLayoutFile.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    if (getBindingAdapterPosition() == -1)
+                    if (getBindingAdapterPosition() == -1 || getItem(getBindingAdapterPosition()) == null)
                         return;
-                    Intent viewIntent = new Intent(Intent.ACTION_VIEW);
-                    viewIntent.setDataAndType(Uri.parse(getItem(getBindingAdapterPosition()).getFileAddress()), "*/*");
-                    Intent chooserIntent = Intent.createChooser(viewIntent, "Open in...");
-                    ConversationViewHolder.this.serverAudioBinding.getRoot().getContext().startActivity(chooserIntent);
+                    if (!PermissionHelper.checkStoragePermission(context)) {
+                        new PermissionDialog(context, () -> conversationListListener.requestStoragePermission()).show();
+                        return;
+                    }
+                    if (FileHelper.checkFileExistence(context, FileHelper.getFileName(getItem(getBindingAdapterPosition()).getFileAddress()))) {
+                        mp = new MediaPlayer();
+                        try {
+                            mp.setDataSource(getItem(getBindingAdapterPosition()).getFileAddress());
+                            mp.prepareAsync();
+                            mp.setOnPreparedListener(MediaPlayer::start);
+                        } catch (Exception e) {
+                            e.printStackTrace();
+                        }
+                    } else {
+                        downloadRequest = FileHelper.downloadFile(context, getItem(getBindingAdapterPosition()).getFileAddress(),
+                                new DownloadStatusListenerV1() {
+                                    @Override
+                                    public void onDownloadComplete(DownloadRequest downloadRequest) {
+                                        serverAudioBinding.imageViewCheckmark.setVisibility(View.VISIBLE);
+                                        serverAudioBinding.waveView.setWaveColor(context.getResources().getColor(R.color.green));
+                                        serverAudioBinding.wave.setRawData(FileHelper.getFileBytes(context, getItem(getBindingAdapterPosition()).getFileAddress()));
+                                    }
+
+                                    @Override
+                                    public void onDownloadFailed(DownloadRequest downloadRequest, int errorCode, String errorMessage) {
+                                    }
+
+                                    @Override
+                                    public void onProgress(DownloadRequest downloadRequest, long totalBytes, long downloadedBytes, int progress) {
+                                        serverAudioBinding.waveView.setCenterTitle("");
+                                        serverAudioBinding.waveView.setProgressValue(progress);
+                                        serverAudioBinding.waveView.startAnimation();
+                                    }
+                                });
+                        downloadManager.add(downloadRequest);
+                    }
                 }
             });
         }

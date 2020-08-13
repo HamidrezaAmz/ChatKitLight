@@ -110,9 +110,9 @@ public class MainActivity
         conversationModel.setConversationStatus(ConversationStatus.SENDING);
         conversationModel.setImageUrl("https://via.placeholder.com/150");
         if(imageUri != null) {
-            conversationModel.setFileType(FileType.DOCUMENT);
+            conversationModel.setFileType(FileType.AUDIO);
 //            conversationModel.setFileAddress(imageUri.toString());
-            conversationModel.setFileAddress("https://www.w3.org/WAI/ER/tests/xhtml/testfiles/resources/pdf/dummy.pdf");
+            conversationModel.setFileAddress("https://www.kozco.com/tech/piano2.wav");
         }
 
         conversationListViewModel.addNewConversation(conversationModel);
