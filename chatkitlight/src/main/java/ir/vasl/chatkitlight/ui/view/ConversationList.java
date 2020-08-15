@@ -11,6 +11,8 @@ import androidx.paging.PagedList;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import java.util.logging.Handler;
+
 import ir.vasl.chatkitlight.utils.globalEnums.ChatStyleEnum;
 import ir.vasl.chatkitlight.model.ConversationModel;
 import ir.vasl.chatkitlight.ui.adapter.ConversationAdapter;
@@ -77,7 +79,12 @@ public class ConversationList extends RecyclerView implements ConversationListLi
             @Override
             public void onChanged(PagedList<ConversationModel> conversationModels) {
                 adapter.submitList(conversationModels);
-                scrollToPosition(0);
+                getHandler().postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+                        scrollToPosition(0);
+                    }
+                }, 100);
                 currItemSize = conversationModels.size();
             }
         });
