@@ -77,7 +77,7 @@ public class ConversationList extends RecyclerView implements ConversationListLi
             @Override
             public void onChanged(PagedList<ConversationModel> conversationModels) {
                 adapter.submitList(conversationModels);
-                smoothScrollToPosition(0);
+                scrollToPosition(0);
                 currItemSize = conversationModels.size();
             }
         });
