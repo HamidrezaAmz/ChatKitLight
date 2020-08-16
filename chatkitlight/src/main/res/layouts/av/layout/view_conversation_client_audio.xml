@@ -45,7 +45,8 @@
                     android:layout_gravity="right"
                     android:scaleType="centerInside"
                     android:padding="8dp"
-                    android:background="@drawable/shape_curve_menu"
+                    android:background="?attr/selectableItemBackground"
+                    android:id="@+id/imageView_play"
                     app:srcCompat="@drawable/ic_play" />
 
                 <TextView

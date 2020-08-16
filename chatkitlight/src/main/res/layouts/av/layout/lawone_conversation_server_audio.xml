@@ -40,7 +40,8 @@
                     android:layout_width="40dp"
                     android:layout_height="40dp"
                     android:layout_gravity="right"
-                    android:background="@drawable/shape_curve_menu"
+                    android:background="?attr/selectableItemBackground"
+                    android:id="@+id/imageView_play"
                     android:padding="8dp"
                     android:scaleType="centerInside"
                     app:srcCompat="@drawable/ic_play" />
