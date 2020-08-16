@@ -21,23 +21,31 @@ import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.Arrays;
+import java.util.Objects;
 
 public class FileHelper {
 
     public static String getFileName(String uri) {
+        String res = "";
+        if(uri == null)
+            return res;
         String[] split = uri.split("/");
         if (split.length > 0)
-            return split[split.length - 1];
-        else return "";
+            res = split[split.length - 1];
+        return res;
     }
 
     public static boolean checkFileExistence(Context context, String fileName) {
-        return new File(context.getExternalFilesDir(null).toString() + "/chatkit/", fileName).exists();
+        if(context.getExternalFilesDir(null) == null)
+            return false;
+        return new File(Objects.requireNonNull(context.getExternalFilesDir(null)).toString() + "/chatkit/", fileName).exists();
     }
 
     public static DownloadRequest downloadFile(Context context, String url, DownloadStatusListenerV1 downloadListener) {
+        if(context.getExternalFilesDir(null) == null)
+            return null;
         String fileName = FileHelper.getFileName(url);
-        String dir = context.getExternalFilesDir(null).toString() + "/chatkit/" + fileName;
+        String dir = Objects.requireNonNull(context.getExternalFilesDir(null)).toString() + "/chatkit/" + fileName;
         return new DownloadRequest(Uri.parse(url))
                 .setRetryPolicy(new DefaultRetryPolicy())
                 .setDestinationURI(Uri.parse(dir))
@@ -46,8 +54,10 @@ public class FileHelper {
     }
 
     public static Uri getFileUri(Context context, String fileName) {
+        if(context.getExternalFilesDir(null) == null)
+            return null;
         return FileProvider.getUriForFile(context, context.getApplicationContext().getPackageName() + ".provider",
-                new File(context.getExternalFilesDir(null).toString() + "/chatkit/", fileName));
+                new File(Objects.requireNonNull(context.getExternalFilesDir(null)).toString() + "/chatkit/", fileName));
     }
 
     public static String getMimeType(Context context, Uri uri) {
@@ -65,11 +75,13 @@ public class FileHelper {
     }
 
     public static void openFile(Context context, String fileAddress) {
+        if(context.getExternalFilesDir(null) == null)
+            return;
         String fileName = getFileName(fileAddress);
         Intent viewIntent = new Intent(Intent.ACTION_VIEW);
         viewIntent.setDataAndType(
                 FileProvider.getUriForFile(context, context.getApplicationContext().getPackageName() + ".provider",
-                        new File(context.getExternalFilesDir(null).toString() + "/chatkit/", fileName)),
+                        new File(Objects.requireNonNull(context.getExternalFilesDir(null)).toString() + "/chatkit/", fileName)),
                 getMimeType(context, Uri.parse(fileAddress)));
         viewIntent.setFlags(Intent.FLAG_ACTIVITY_NO_HISTORY);
         viewIntent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
@@ -78,10 +90,11 @@ public class FileHelper {
     }
 
     public static byte[] getFileBytes(Context context, String fileAddress) {
-        Log.e("tag", "getFileBytes: " + Runtime.getRuntime().freeMemory());
+        if(context.getExternalFilesDir(null) == null)
+            return new byte[]{};
         byte[] result = new byte[((int) Runtime.getRuntime().freeMemory())];
         String fileName = getFileName(fileAddress);
-        File file = new File(context.getExternalFilesDir(null).toString() + "/chatkit/", fileName);
+        File file = new File(Objects.requireNonNull(context.getExternalFilesDir(null)).toString() + "/chatkit/", fileName);
         FileInputStream fis = null;
         int all = 0;
         try {
@@ -93,7 +106,7 @@ public class FileHelper {
                 System.arraycopy(buffer, 0, result, all, buffer.length);
             }
         } catch (Exception e) {
-            System.out.println("File not found: " + e.toString());
+            Log.e("tag", "getFileBytes: " + e.getMessage() );
         } finally {
             try {
                 if (fis != null) {

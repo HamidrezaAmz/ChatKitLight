@@ -47,6 +47,7 @@ public class MainActivity
     private Toolbar toolbar;
     private ConversationListViewModel conversationListViewModel;
     private ConversationView conversationView;
+    private PermissionHelper permissionHelper;
 
     private static final String chatID = "tempChatId";
     private static final String TAG = "MainActivity";
@@ -80,7 +81,6 @@ public class MainActivity
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.main_menu, menu);
         return true;
     }
@@ -179,8 +179,6 @@ public class MainActivity
     public void onSwipeRefresh() {
         conversationView.hideSwipeRefresh();
     }
-
-    PermissionHelper permissionHelper;
 
     @Override
     public void onAddAttachments(AttachmentOption option) {
