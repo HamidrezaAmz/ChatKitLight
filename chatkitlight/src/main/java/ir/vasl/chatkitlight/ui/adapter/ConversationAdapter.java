@@ -1016,7 +1016,7 @@ public class ConversationAdapter extends PagedListAdapter<ConversationModel, Bas
             super(serverFileBinding.getRoot());
             this.lawoneServerFileBinding = serverFileBinding;
             this.lawoneServerFileBinding.frameLayoutFile.setOnClickListener(v -> {
-                if (getBindingAdapterPosition() == -1)
+                if (getBindingAdapterPosition() == -1 || getItem(getBindingAdapterPosition()) == null)
                     return;
                 if (!PermissionHelper.checkStoragePermission(context)) {
                     new PermissionDialog(context, () -> conversationListListener.requestStoragePermission()).show();

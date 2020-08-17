@@ -102,7 +102,7 @@
             android:scaleType="centerInside"
             app:round_image="true"
             android:paddingBottom="10dp"
-            android:paddingTop="2dp"
+            android:paddingTop="2.5dp"
             bannerImage="@{conversationModel.imageUrl}"
             />
 

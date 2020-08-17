@@ -108,11 +108,12 @@ public class MainActivity
         conversationModel.setTime(TimeUtils.getCurrTime());
         conversationModel.setConversationType(ConversationType.CLIENT);
         conversationModel.setConversationStatus(ConversationStatus.SENDING);
-        conversationModel.setImageUrl("https://via.placeholder.com/150");
+        conversationModel.setImageUrl("https://www.w3schools.com/howto/img_avatar.png");
         if(imageUri != null) {
             conversationModel.setFileType(FileType.AUDIO);
 //            conversationModel.setFileAddress(imageUri.toString());
             conversationModel.setFileAddress("https://www.kozco.com/tech/piano2.wav");
+            findViewById(R.id.image2).setVisibility(View.GONE);
         }
 
         conversationListViewModel.addNewConversation(conversationModel);
@@ -205,6 +206,7 @@ public class MainActivity
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         ImageViewCustom image = findViewById(R.id.image2);
+        image.setVisibility(View.VISIBLE);
         ArrayList<Parcelable> uri = data.getParcelableArrayListExtra("SELECTED_PHOTOS");
         image.setImageUrl(((Uri) uri.get(0)));
         imageUri = ((Uri) uri.get(0));
