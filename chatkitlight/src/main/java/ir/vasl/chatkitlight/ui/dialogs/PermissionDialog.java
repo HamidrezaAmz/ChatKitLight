@@ -2,6 +2,8 @@ package ir.vasl.chatkitlight.ui.dialogs;
 
 import android.app.Dialog;
 import android.content.Context;
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.TextView;
@@ -13,8 +15,8 @@ import ir.vasl.chatkitlight.ui.callback.ClickCallback;
 
 public class PermissionDialog extends Dialog {
 
-    TextView textViewAccept;
-    ClickCallback callback;
+    private TextView textViewAccept;
+    private ClickCallback callback;
 
     public PermissionDialog(@NonNull Context context, ClickCallback callback) {
         super(context);
@@ -26,13 +28,13 @@ public class PermissionDialog extends Dialog {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.dialog_permission);
+        if (getWindow() != null)
+            getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
         textViewAccept = findViewById(R.id.textView_accept);
-        textViewAccept.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
+        textViewAccept.setOnClickListener(v -> {
+            if (callback != null)
                 callback.acceptClicked();
-                dismiss();
-            }
+            dismiss();
         });
     }
 }

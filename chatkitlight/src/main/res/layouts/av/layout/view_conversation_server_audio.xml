@@ -103,7 +103,7 @@
             app:wlv_progressValue="0"
             app:wlv_round_rectangle="true"
             app:wlv_shapeType="circle"
-            app:wlv_titleCenter="دانلود"
+            app:wlv_titleCenter="@string/download"
             app:wlv_titleCenterColor="@color/white"
             app:wlv_titleCenterSize="12sp"
             app:wlv_triangle_direction="north"
