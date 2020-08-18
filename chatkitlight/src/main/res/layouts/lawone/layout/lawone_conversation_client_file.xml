@@ -40,8 +40,8 @@
                 android:id="@+id/frameLayoutFile">
 
                 <androidx.appcompat.widget.AppCompatImageView
-                    android:layout_width="40dp"
-                    android:layout_height="40dp"
+                    android:layout_width="45dp"
+                    android:layout_height="45dp"
                     android:layout_gravity="right"
                     android:scaleType="centerInside"
                     app:srcCompat="@drawable/ic_attachment_document" />
@@ -53,6 +53,7 @@
                     android:layout_marginRight="45dp"
                     android:layout_marginLeft="20dp"
                     android:gravity="right"
+                    android:textColor="@color/lawone_client_text"
                     android:text='@{!conversationModel.title.equals("") ? conversationModel.title : conversationModel.fileAddress.substring(conversationModel.fileAddress.lastIndexOf("/") + 1)}'
                     />
             </FrameLayout>
@@ -63,6 +64,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="6dp"
                 android:layout_marginLeft="25dp"
+                android:textColor="@color/lawone_client_text"
                 android:text="@{ conversationModel.message}"
                 android:visibility='@{ conversationModel.message.equals("") ? View.GONE : View.VISIBLE }' />
 
@@ -87,7 +89,7 @@
                     android:layout_marginStart="@dimen/global_margin"
                     android:layout_marginEnd="@dimen/global_margin"
                     android:text="@{conversationModel.time}"
-                    android:textColor="@color/warm_grey_five"
+                    android:textColor="@color/lawone_client_text"
                     android:textSize="12sp"
                     android:textStyle="bold"
                     android:visibility='@{conversationModel.time.equals("") ? View.GONE : View.VISIBLE }' />
@@ -98,8 +100,8 @@
 
         <me.itangqi.waveloadingview.WaveLoadingView
             android:id="@+id/waveView"
-            android:layout_width="55dp"
-            android:layout_height="55dp"
+            android:layout_width="@dimen/download_circle_size"
+            android:layout_height="@dimen/download_circle_size"
             android:layout_toLeftOf="@id/linearLayour_bubble"
             android:layout_marginRight="-27.5dp"
             android:layout_centerVertical="true"

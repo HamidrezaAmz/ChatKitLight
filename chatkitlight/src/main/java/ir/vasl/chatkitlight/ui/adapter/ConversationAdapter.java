@@ -775,6 +775,7 @@ public class ConversationAdapter extends PagedListAdapter<ConversationModel, Bas
         public ConversationViewHolder(ViewConversationClientAudioBinding clientAudioBinding) {
             super(clientAudioBinding.getRoot());
             this.clientAudioBinding = clientAudioBinding;
+            this.clientAudioBinding.setIsPlaying(false);
             this.clientAudioBinding.frameLayoutFile.setOnClickListener(v -> {
                 if (getBindingAdapterPosition() == -1 || getItem(getBindingAdapterPosition()) == null)
                     return;
@@ -783,18 +784,23 @@ public class ConversationAdapter extends PagedListAdapter<ConversationModel, Bas
                     return;
                 }
                 if (FileHelper.checkFileExistence(context, FileHelper.getFileName(getItem(getBindingAdapterPosition()).getFileAddress()))) {
+                    if (this.clientAudioBinding.getIsPlaying()) {
+                        mp.pause();
+                        this.clientAudioBinding.setIsPlaying(false);
+                        return;
+                    }
                     mp = new MediaPlayer();
                     try {
-                        clientAudioBinding.imageViewPlay.setImageDrawable(context.getDrawable(R.drawable.ic_play));
                         mp.setDataSource(getItem(getBindingAdapterPosition()).getFileAddress());
                         mp.prepareAsync();
                         mp.setOnPreparedListener(mp -> {
                             mp.start();
-                            getAudioSeeker(clientAudioBinding.wave).start();
+                            getAudioSeeker(this.clientAudioBinding.wave).start();
+                            this.clientAudioBinding.setIsPlaying(true);
                         });
-                        mp.setOnCompletionListener(mp -> clientAudioBinding.imageViewPlay.setImageDrawable(context.getDrawable(R.drawable.ic_play)));
+                        mp.setOnCompletionListener(mp -> this.clientAudioBinding.setIsPlaying(false));
                         mp.setOnErrorListener((mp, what, extra) -> {
-                            clientAudioBinding.imageViewPlay.setImageDrawable(context.getDrawable(R.drawable.ic_play));
+                            this.clientAudioBinding.setIsPlaying(false);
                             return false;
                         });
                     } catch (Exception e) {
@@ -842,6 +848,7 @@ public class ConversationAdapter extends PagedListAdapter<ConversationModel, Bas
         public ConversationViewHolder(ViewConversationServerAudioBinding serverAudioBinding) {
             super(serverAudioBinding.getRoot());
             this.serverAudioBinding = serverAudioBinding;
+            this.serverAudioBinding.setIsPlaying(false);
             this.serverAudioBinding.frameLayoutFile.setOnClickListener(v -> {
                 if (getBindingAdapterPosition() == -1 || getItem(getBindingAdapterPosition()) == null)
                     return;
@@ -850,18 +857,23 @@ public class ConversationAdapter extends PagedListAdapter<ConversationModel, Bas
                     return;
                 }
                 if (FileHelper.checkFileExistence(context, FileHelper.getFileName(getItem(getBindingAdapterPosition()).getFileAddress()))) {
+                    if (this.serverAudioBinding.getIsPlaying()) {
+                        mp.pause();
+                        this.serverAudioBinding.setIsPlaying(false);
+                        return;
+                    }
                     mp = new MediaPlayer();
                     try {
-                        serverAudioBinding.imageViewPlay.setImageDrawable(context.getDrawable(R.drawable.ic_play));
                         mp.setDataSource(getItem(getBindingAdapterPosition()).getFileAddress());
                         mp.prepareAsync();
                         mp.setOnPreparedListener(mp -> {
                             mp.start();
                             getAudioSeeker(serverAudioBinding.wave).start();
+                            this.serverAudioBinding.setIsPlaying(true);
                         });
-                        mp.setOnCompletionListener(mp -> serverAudioBinding.imageViewPlay.setImageDrawable(context.getDrawable(R.drawable.ic_play)));
+                        mp.setOnCompletionListener(mp -> this.serverAudioBinding.setIsPlaying(false));
                         mp.setOnErrorListener((mp, what, extra) -> {
-                            serverAudioBinding.imageViewPlay.setImageDrawable(context.getDrawable(R.drawable.ic_play));
+                            this.serverAudioBinding.setIsPlaying(false);
                             return false;
                         });
                     } catch (Exception e) {
@@ -941,26 +953,33 @@ public class ConversationAdapter extends PagedListAdapter<ConversationModel, Bas
         public ConversationViewHolder(LawoneConversationClientAudioBinding clientAudioBinding) {
             super(clientAudioBinding.getRoot());
             this.lawoneClientAudioBinding = clientAudioBinding;
+            this.lawoneClientAudioBinding.setIsPlaying(false);
             this.lawoneClientAudioBinding.frameLayoutFile.setOnClickListener(v -> {
                 if (getBindingAdapterPosition() == -1 || getItem(getBindingAdapterPosition()) == null)
                     return;
+                
                 if (!PermissionHelper.checkStoragePermission(context)) {
                     new PermissionDialog(context, () -> conversationListListener.requestStoragePermission()).show();
                     return;
                 }
                 if (FileHelper.checkFileExistence(context, FileHelper.getFileName(getItem(getBindingAdapterPosition()).getFileAddress()))) {
-                    mp = new MediaPlayer();
+                    if (lawoneClientAudioBinding.getIsPlaying()) {
+                        mp.pause();
+                        lawoneClientAudioBinding.setIsPlaying(false);
+                        return;
+                    }
+                        mp = new MediaPlayer();
                     try {
-                        lawoneClientAudioBinding.imageViewPlay.setImageDrawable(context.getDrawable(R.drawable.ic_pause));
                         mp.setDataSource(getItem(getBindingAdapterPosition()).getFileAddress());
                         mp.prepareAsync();
                         mp.setOnPreparedListener(mp -> {
                             mp.start();
                             getAudioSeeker(lawoneClientAudioBinding.wave).start();
+                            lawoneClientAudioBinding.setIsPlaying(true);
                         });
-                        mp.setOnCompletionListener(mp -> lawoneClientAudioBinding.imageViewPlay.setImageDrawable(context.getDrawable(R.drawable.ic_play)));
+                        mp.setOnCompletionListener(mp -> lawoneClientAudioBinding.setIsPlaying(false));
                         mp.setOnErrorListener((mp, what, extra) -> {
-                            lawoneClientAudioBinding.imageViewPlay.setImageDrawable(context.getDrawable(R.drawable.ic_play));
+                            lawoneClientAudioBinding.setIsPlaying(false);
                             return false;
                         });
                     } catch (Exception e) {
@@ -978,6 +997,7 @@ public class ConversationAdapter extends PagedListAdapter<ConversationModel, Bas
         public ConversationViewHolder(LawoneConversationServerAudioBinding serverAudioBinding) {
             super(serverAudioBinding.getRoot());
             this.lawoneServerAudioBinding = serverAudioBinding;
+            this.lawoneServerAudioBinding.setIsPlaying(false);
             this.lawoneServerAudioBinding.frameLayoutFile.setOnClickListener(v -> {
                 if (getBindingAdapterPosition() == -1 || getItem(getBindingAdapterPosition()) == null)
                     return;
@@ -986,6 +1006,11 @@ public class ConversationAdapter extends PagedListAdapter<ConversationModel, Bas
                     return;
                 }
                 if (FileHelper.checkFileExistence(context, FileHelper.getFileName(getItem(getBindingAdapterPosition()).getFileAddress()))) {
+                    if (lawoneServerAudioBinding.getIsPlaying()) {
+                        mp.pause();
+                        lawoneServerAudioBinding.setIsPlaying(false);
+                        return;
+                    }
                     mp = new MediaPlayer();
                     try {
                         lawoneServerAudioBinding.imageViewPlay.setImageDrawable(context.getDrawable(R.drawable.ic_pause));
@@ -994,10 +1019,11 @@ public class ConversationAdapter extends PagedListAdapter<ConversationModel, Bas
                         mp.setOnPreparedListener(mp -> {
                             mp.start();
                             getAudioSeeker(lawoneServerAudioBinding.wave).start();
+                            lawoneServerAudioBinding.setIsPlaying(true);
                         });
-                        mp.setOnCompletionListener(mp -> lawoneServerAudioBinding.imageViewPlay.setImageDrawable(context.getDrawable(R.drawable.ic_play)));
+                        mp.setOnCompletionListener(mp -> lawoneServerAudioBinding.setIsPlaying(false));
                         mp.setOnErrorListener((mp, what, extra) -> {
-                            lawoneServerAudioBinding.imageViewPlay.setImageDrawable(context.getDrawable(R.drawable.ic_play));
+                            lawoneServerAudioBinding.setIsPlaying(false);
                             return false;
                         });
                     } catch (Exception e) {

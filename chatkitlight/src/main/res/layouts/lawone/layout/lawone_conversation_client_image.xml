@@ -75,7 +75,7 @@
                     android:layout_marginStart="@dimen/global_margin"
                     android:layout_marginEnd="@dimen/global_margin"
                     android:text="@{conversationModel.time}"
-                    android:textColor="@color/warm_grey_five"
+                    android:textColor="@color/lawone_client_text"
                     android:textSize="12sp"
                     android:textStyle="bold"
                     android:visibility='@{conversationModel.time.equals("") ? View.GONE : View.VISIBLE }' />

@@ -39,8 +39,8 @@
                 >
 
                 <androidx.appcompat.widget.AppCompatImageView
-                    android:layout_width="40dp"
-                    android:layout_height="40dp"
+                    android:layout_width="45dp"
+                    android:layout_height="45dp"
                     android:layout_gravity="right"
                     android:scaleType="centerInside"
                     app:srcCompat="@drawable/ic_attachment_document" />
@@ -90,8 +90,8 @@
 
         <me.itangqi.waveloadingview.WaveLoadingView
             android:id="@+id/waveView"
-            android:layout_width="55dp"
-            android:layout_height="55dp"
+            android:layout_width="@dimen/download_circle_size"
+            android:layout_height="@dimen/download_circle_size"
             android:layout_toRightOf="@id/linearLayour_bubble"
             android:layout_marginLeft="-27.5dp"
             android:layout_centerVertical="true"

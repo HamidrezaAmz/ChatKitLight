@@ -13,6 +13,10 @@
         <variable
             name="conversationListListener"
             type="ir.vasl.chatkitlight.ui.callback.ConversationListListener" />
+
+        <variable
+            name="isPlaying"
+            type="boolean" />
     </data>
 
     <RelativeLayout
@@ -36,15 +40,25 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
 
+                <View
+                    android:layout_width="45dp"
+                    android:layout_height="45dp"
+                    android:layout_gravity="right"
+                    android:background="@drawable/rounded_yellow"
+                    />
+
                 <androidx.appcompat.widget.AppCompatImageView
                     android:layout_width="40dp"
                     android:layout_height="40dp"
                     android:layout_gravity="right"
                     android:background="?attr/selectableItemBackground"
                     android:id="@+id/imageView_play"
+                    android:layout_marginTop="2.5dp"
+                    android:layout_marginRight="2.5dp"
                     android:padding="8dp"
                     android:scaleType="centerInside"
-                    app:srcCompat="@drawable/ic_play" />
+                    android:src="@{isPlaying? @drawable/ic_pause : @drawable/ic_play}"
+                    />
 
                 <TextView
                     style="@style/TextViewTitleStyle"
@@ -65,10 +79,10 @@
                 app:chunkHeight="28dp"
                 app:chunkRadius="1dp"
                 app:chunkSpacing="2dp"
-                app:chunkWidth="4dp"
+                app:chunkWidth="3dp"
                 app:minChunkHeight="2dp"
                 app:touchable="false"
-                app:waveColor="@android:color/white" />
+                app:waveColor="@color/lawone_yellow" />
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -93,8 +107,8 @@
 
         <me.itangqi.waveloadingview.WaveLoadingView
             android:id="@+id/waveView"
-            android:layout_width="55dp"
-            android:layout_height="55dp"
+            android:layout_width="@dimen/download_circle_size"
+            android:layout_height="@dimen/download_circle_size"
             android:layout_centerVertical="true"
             android:layout_marginLeft="-27.5dp"
             android:layout_toRightOf="@id/linearLayout_bubble"

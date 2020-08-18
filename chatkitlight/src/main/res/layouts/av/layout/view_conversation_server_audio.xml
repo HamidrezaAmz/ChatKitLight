@@ -13,6 +13,10 @@
         <variable
             name="conversationListListener"
             type="ir.vasl.chatkitlight.ui.callback.ConversationListListener" />
+
+        <variable
+            name="isPlaying"
+            type="boolean" />
     </data>
 
     <RelativeLayout
@@ -44,7 +48,8 @@
                     android:padding="8dp"
                     android:id="@+id/imageView_play"
                     android:scaleType="centerInside"
-                    app:srcCompat="@drawable/ic_play" />
+                    android:src="@{isPlaying ? @drawable/ic_pause : @drawable/ic_play}"
+                    />
 
                 <TextView
                     style="@style/TextViewTitleStyle"

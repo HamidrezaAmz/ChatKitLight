@@ -15,6 +15,10 @@
         <variable
             name="conversationListListener"
             type="ir.vasl.chatkitlight.ui.callback.ConversationListListener" />
+
+        <variable
+            name="isPlaying"
+            type="boolean" />
     </data>
 
     <RelativeLayout
@@ -39,39 +43,49 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
 
+                <View
+                    android:layout_width="45dp"
+                    android:layout_height="45dp"
+                    android:layout_gravity="right"
+                    android:background="@drawable/rounded_yellow"
+                    />
+
                 <androidx.appcompat.widget.AppCompatImageView
                     android:id="@+id/imageView_play"
                     android:layout_width="40dp"
                     android:layout_height="40dp"
+                    android:layout_marginTop="2.5dp"
+                    android:layout_marginRight="2.5dp"
                     android:layout_gravity="right"
                     android:scaleType="centerInside"
                     android:padding="8dp"
                     android:background="?attr/selectableItemBackgroundBorderless"
-                    app:srcCompat="@drawable/ic_play" />
-
+                    android:src="@{isPlaying ? @drawable/ic_pause : @drawable/ic_play}"
+                    />
 
                 <TextView
                     style="@style/TextViewTitleStyle"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginRight="42dp"
+                    android:textColor="@color/lawone_client_text"
                     android:text='@{conversationModel.fileAddress.substring(conversationModel.fileAddress.lastIndexOf("/") + 1)}' />
             </FrameLayout>
 
             <rm.com.audiowave.AudioWaveView
                 android:id="@+id/wave"
                 android:layout_width="match_parent"
-                android:layout_height="32dp"
+                android:layout_height="36dp"
                 android:layout_marginLeft="16dp"
                 android:layout_marginRight="2dp"
                 app:animateExpansion="false"
                 app:chunkHeight="28dp"
                 app:chunkRadius="1dp"
                 app:chunkSpacing="2dp"
-                app:chunkWidth="4dp"
+                app:chunkWidth="3dp"
                 app:minChunkHeight="2dp"
                 app:touchable="false"
-                app:waveColor="@android:color/white" />
+                app:waveColor="@color/lawone_yellow" />
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -94,7 +108,7 @@
                     android:layout_marginStart="@dimen/global_margin"
                     android:layout_marginEnd="@dimen/global_margin"
                     android:text="@{conversationModel.time}"
-                    android:textColor="@color/warm_grey_five"
+                    android:textColor="@color/lawone_client_text"
                     android:textSize="12sp"
                     android:textStyle="bold"
                     android:visibility='@{conversationModel.time.equals("") ? View.GONE : View.VISIBLE }' />
@@ -105,8 +119,8 @@
 
         <me.itangqi.waveloadingview.WaveLoadingView
             android:id="@+id/waveView"
-            android:layout_width="55dp"
-            android:layout_height="55dp"
+            android:layout_width="@dimen/download_circle_size"
+            android:layout_height="@dimen/download_circle_size"
             android:layout_centerVertical="true"
             android:layout_marginRight="-27.5dp"
             android:layout_toLeftOf="@id/linearLayour_bubble"
