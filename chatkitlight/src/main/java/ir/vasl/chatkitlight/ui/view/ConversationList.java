@@ -53,7 +53,7 @@ public class ConversationList extends RecyclerView implements ConversationListLi
         LinearLayoutManager layoutManager = new LinearLayoutManager(getContext());
         layoutManager.setOrientation(LinearLayoutManager.VERTICAL);
         layoutManager.setReverseLayout(true);
-        layoutManager.setStackFromEnd(true);
+        layoutManager.setStackFromEnd(false);
         layoutManager.setSmoothScrollbarEnabled(false);
 
         this.adapter = new ConversationAdapter(this, chatStyle);
