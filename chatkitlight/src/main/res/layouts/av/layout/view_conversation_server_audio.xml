@@ -45,7 +45,7 @@
                     android:id="@+id/imageView_play"
                     android:layout_width="40dp"
                     android:layout_height="40dp"
-                    android:layout_alignParentleft="true"
+                    android:layout_alignParentLeft="true"
                     android:background="?attr/selectableItemBackground"
                     android:padding="8dp"
                     android:scaleType="centerInside"
