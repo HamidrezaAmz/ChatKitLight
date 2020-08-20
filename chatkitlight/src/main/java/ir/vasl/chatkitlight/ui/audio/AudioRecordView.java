@@ -697,12 +697,6 @@ public class AudioRecordView {
             if (showAttachmentIcon) {
                 imageViewAttachment.setVisibility(View.VISIBLE);
             }
-            if (showCameraIcon) {
-                imageViewCamera.setVisibility(View.VISIBLE);
-            }
-            if (showEmojiIcon) {
-                imageViewEmoji.setVisibility(View.VISIBLE);
-            }
             imageViewStop.setVisibility(View.GONE);
             editTextMessage.requestFocus();
             layoutEffect2.setVisibility(View.GONE);
@@ -724,8 +718,6 @@ public class AudioRecordView {
         stopTrackingAction = false;
         editTextMessage.setVisibility(View.INVISIBLE);
         imageViewAttachment.setVisibility(View.INVISIBLE);
-        imageViewCamera.setVisibility(View.INVISIBLE);
-        imageViewEmoji.setVisibility(View.INVISIBLE);
         imageViewAudio.animate().scaleXBy(1f).scaleYBy(1f).setDuration(200).setInterpolator(new OvershootInterpolator()).start();
         timeText.setVisibility(View.VISIBLE);
         layoutLock.setVisibility(View.VISIBLE);
