@@ -6,6 +6,7 @@ import android.os.CountDownTimer;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.FrameLayout;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -691,8 +692,10 @@ public class ConversationAdapter extends PagedListAdapter<ConversationModel, Bas
                 public void onDownloadComplete(DownloadRequest downloadRequest) {
                     imageViewCheckmark.setVisibility(View.VISIBLE);
                     waveView.setWaveColor(context.getResources().getColor(R.color.green));
-                    if (wave != null)
+                    if (wave != null) {
                         wave.setRawData(FileHelper.getFileBytes(context, getItem(getBindingAdapterPosition()).getFileAddress()));
+                        wave.performClick();
+                    }
                 }
 
                 @Override
