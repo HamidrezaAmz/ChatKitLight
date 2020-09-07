@@ -51,6 +51,7 @@ import ir.vasl.chatkitlight.utils.globalEnums.ConversationType;
 import me.itangqi.waveloadingview.WaveLoadingView;
 import rm.com.audiowave.AudioWaveView;
 
+@SuppressWarnings("rawtypes")
 public class ConversationAdapter extends PagedListAdapter<ConversationModel, BaseViewHolder> implements ConversationListListener {
 
     private ConversationListListener conversationListListener;
