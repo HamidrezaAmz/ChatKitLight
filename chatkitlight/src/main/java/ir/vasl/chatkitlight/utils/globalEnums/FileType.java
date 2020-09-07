@@ -20,9 +20,9 @@ public enum FileType {
     }
 
     @TypeConverter
-    public static FileType getFileType(Integer numeral){
-        for(FileType ds : values()){
-            if(ds.getValue().equals(numeral)){
+    public static FileType getFileType(Integer numeral) {
+        for (FileType ds : values()) {
+            if (ds.getValue().equals(numeral)) {
                 return ds;
             }
         }
@@ -30,12 +30,12 @@ public enum FileType {
     }
 
     @TypeConverter
-    public static Integer getFileTypeInt(FileType status){
+    public static Integer getFileTypeInt(FileType status) {
 
-        if(status != null)
+        if (status != null)
             return status.getValue();
 
-        return  null;
+        return null;
     }
 
     public static FileType get(String value) {

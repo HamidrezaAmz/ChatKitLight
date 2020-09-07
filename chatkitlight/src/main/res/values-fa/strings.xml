@@ -10,5 +10,6 @@
     <string name="permission_needed">جهت دسترسی و دانلود فایل لطفا مجوز دسترسی حافظه را اعطا کنید</string>
     <string name="ok">باشه</string>
     <string name="download">دانلود</string>
+    <string name="choose">انتخاب کنید</string>
 
 </resources>

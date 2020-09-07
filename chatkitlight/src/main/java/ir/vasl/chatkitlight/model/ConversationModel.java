@@ -1,7 +1,5 @@
 package ir.vasl.chatkitlight.model;
 
-import android.graphics.drawable.Drawable;
-import android.util.Log;
 import android.widget.ImageView;
 
 import androidx.annotation.NonNull;
@@ -16,13 +14,8 @@ import androidx.room.PrimaryKey;
 import androidx.room.TypeConverters;
 
 import com.bumptech.glide.Glide;
-import com.bumptech.glide.load.DataSource;
-import com.bumptech.glide.load.engine.GlideException;
-import com.bumptech.glide.load.resource.bitmap.CenterCrop;
 import com.bumptech.glide.load.resource.bitmap.CenterInside;
-import com.bumptech.glide.request.RequestListener;
 import com.bumptech.glide.request.RequestOptions;
-import com.bumptech.glide.request.target.Target;
 
 import ir.vasl.chatkitlight.R;
 import ir.vasl.chatkitlight.utils.Constants;
@@ -233,7 +226,7 @@ public class ConversationModel {
                 model.getTitle().equals(title) &&
                 model.getTime().equals(time) &&
                 model.conversationStatus.getValue().equals(conversationStatus.getValue()) &&
-                ((model.fileAddress == null && fileAddress == null) || model.fileAddress.equals(fileAddress)) &&
+                ((model.fileAddress == null && fileAddress == null) || (model.fileAddress != null && model.fileAddress.equals(fileAddress))) &&
                 ((model.imageUrl == null && imageUrl == null) || model.getImageUrl().equals(imageUrl));
 
     }

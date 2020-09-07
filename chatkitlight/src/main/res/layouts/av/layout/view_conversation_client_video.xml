@@ -48,15 +48,13 @@
                     android:layout_width="30dp"
                     android:layout_height="30dp"
                     android:layout_gravity="center"
-                    app:srcCompat="@drawable/ic_play"
-                    />
+                    app:srcCompat="@drawable/ic_play" />
 
                 <ir.vasl.chatkitlight.ui.customview.ImageViewCustom
                     android:layout_width="match_parent"
                     android:layout_height="250dp"
                     android:id="@+id/imageView_image"
-                    android:scaleType="centerCrop"
-                    />
+                    android:scaleType="centerCrop" />
 
             </FrameLayout>
 

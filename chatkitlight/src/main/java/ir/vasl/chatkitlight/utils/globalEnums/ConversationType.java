@@ -19,9 +19,9 @@ public enum ConversationType {
     }
 
     @TypeConverter
-    public static ConversationType getConversationStatus(Integer numeral){
-        for(ConversationType ds : values()){
-            if(ds.getValue().equals(numeral)){
+    public static ConversationType getConversationStatus(Integer numeral) {
+        for (ConversationType ds : values()) {
+            if (ds.getValue().equals(numeral)) {
                 return ds;
             }
         }
@@ -29,12 +29,12 @@ public enum ConversationType {
     }
 
     @TypeConverter
-    public static Integer getConversationStatusInt(ConversationType status){
+    public static Integer getConversationStatusInt(ConversationType status) {
 
-        if(status != null)
+        if (status != null)
             return status.getValue();
 
-        return  null;
+        return null;
     }
 
     public static ConversationType get(String value) {

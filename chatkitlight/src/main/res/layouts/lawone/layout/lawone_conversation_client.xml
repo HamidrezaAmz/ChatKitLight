@@ -32,8 +32,7 @@
             android:layout_alignLeft="@id/imageView_avatar"
             android:layout_marginLeft="-5dp"
             android:layout_centerVertical="true"
-            android:layout_alignBaseline="@id/imageView_avatar"
-            />
+            android:layout_alignBaseline="@id/imageView_avatar" />
 
         <LinearLayout
             android:layout_width="@dimen/conversation_max_width"
@@ -45,8 +44,7 @@
             android:paddingRight="@dimen/global_padding_middle"
             android:paddingLeft="30dp"
             android:paddingTop="@dimen/global_padding_middle"
-            android:paddingBottom="@dimen/global_padding_middle"
-            >
+            android:paddingBottom="@dimen/global_padding_middle">
 
             <TextView
                 style="@style/TextViewTitleStyle"
@@ -105,8 +103,7 @@
             app:round_image="true"
             android:paddingBottom="10dp"
             android:paddingTop="2.5dp"
-            bannerImage="@{conversationModel.imageUrl}"
-            />
+            bannerImage="@{conversationModel.imageUrl}" />
 
         <androidx.appcompat.widget.AppCompatImageView
             android:layout_width="75dp"
@@ -114,8 +111,7 @@
             android:background="@drawable/ic_lawone_tilted"
             android:layout_alignParentRight="true"
             android:layout_centerVertical="true"
-            android:layout_marginRight="@dimen/global_margin"
-            />
+            android:layout_marginRight="@dimen/global_margin" />
 
     </RelativeLayout>
 

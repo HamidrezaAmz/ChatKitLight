@@ -6,7 +6,6 @@ import android.os.CountDownTimer;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.FrameLayout;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -960,7 +959,7 @@ public class ConversationAdapter extends PagedListAdapter<ConversationModel, Bas
             this.lawoneClientAudioBinding.frameLayoutFile.setOnClickListener(v -> {
                 if (getBindingAdapterPosition() == -1 || getItem(getBindingAdapterPosition()) == null)
                     return;
-                
+
                 if (!PermissionHelper.checkStoragePermission(context)) {
                     new PermissionDialog(context, () -> conversationListListener.requestStoragePermission()).show();
                     return;
@@ -971,7 +970,7 @@ public class ConversationAdapter extends PagedListAdapter<ConversationModel, Bas
                         lawoneClientAudioBinding.setIsPlaying(false);
                         return;
                     }
-                        mp = new MediaPlayer();
+                    mp = new MediaPlayer();
                     try {
                         mp.setDataSource(getItem(getBindingAdapterPosition()).getFileAddress());
                         mp.prepareAsync();

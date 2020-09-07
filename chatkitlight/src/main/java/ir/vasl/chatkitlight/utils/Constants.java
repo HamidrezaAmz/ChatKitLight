@@ -15,5 +15,10 @@ public class Constants {
     public static int DEFAULT_CLIENT_BUBBLE_COLOR = R.color.client_bubble_background;
     public static int DEFAULT_SERVER_BUBBLE_COLOR = R.color.server_bubble_background;
 
+    public static final int THEME_ARMAN_VARZESH_ORDINAL = 1;
+    public static final int THEME_LAWONE_ORDINAL = 2;
+
+    public static final String CHOOSE = "انتخاب کنید";
+
 
 }

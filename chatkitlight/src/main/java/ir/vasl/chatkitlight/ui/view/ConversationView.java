@@ -1,15 +1,12 @@
 package ir.vasl.chatkitlight.ui.view;
 
-import android.Manifest;
 import android.content.Context;
 import android.util.AttributeSet;
-import android.view.View;
 import android.view.ViewGroup;
 import android.widget.FrameLayout;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.core.app.ActivityCompat;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -17,7 +14,6 @@ import com.orangegangsters.github.swipyrefreshlayout.library.SwipyRefreshLayout;
 import com.orangegangsters.github.swipyrefreshlayout.library.SwipyRefreshLayoutDirection;
 
 import ir.vasl.chatkitlight.R;
-import ir.vasl.chatkitlight.utils.globalEnums.ChatStyleEnum;
 import ir.vasl.chatkitlight.ui.audio.AttachmentOption;
 import ir.vasl.chatkitlight.ui.audio.AttachmentOptionsListener;
 import ir.vasl.chatkitlight.ui.audio.AudioRecordView;
@@ -26,8 +22,11 @@ import ir.vasl.chatkitlight.ui.callback.ConversationViewListener;
 import ir.vasl.chatkitlight.ui.callback.DialogMenuListener;
 import ir.vasl.chatkitlight.ui.callback.InputListener;
 import ir.vasl.chatkitlight.ui.callback.TypingListener;
+import ir.vasl.chatkitlight.utils.Constants;
+import ir.vasl.chatkitlight.utils.globalEnums.ChatStyleEnum;
 import ir.vasl.chatkitlight.viewmodel.ConversationListViewModel;
 
+@SuppressWarnings("rawtypes")
 public class ConversationView
         extends FrameLayout
         implements TypingListener,
@@ -61,11 +60,11 @@ public class ConversationView
 
     private void init(Context context, AttributeSet attrs) {
         ConversationViewStyle style = ConversationViewStyle.parse(context, attrs);
-        switch (style.getChatStyle()){
-            case 1:
+        switch (style.getChatStyle()) {
+            case Constants.THEME_ARMAN_VARZESH_ORDINAL:
                 chatStyleEnum = ChatStyleEnum.ARMAN_VARZESH;
                 break;
-            case 2:
+            case Constants.THEME_LAWONE_ORDINAL:
                 chatStyleEnum = ChatStyleEnum.LAWONE;
                 break;
         }
@@ -92,20 +91,17 @@ public class ConversationView
                 onAddAttachments(attachmentOption);
             }
         });
-        conversationInput.getSendView().setOnClickListener(new OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                String msg = conversationInput.getMessageView().getText().toString();
-                conversationInput.getMessageView().setText("");
-                onSubmit(msg);
-            }
+        conversationInput.getSendView().setOnClickListener(v -> {
+            String msg = conversationInput.getMessageView().getText().toString();
+            conversationInput.getMessageView().setText("");
+            onSubmit(msg);
         });
         swipyRefreshLayout.setOnRefreshListener(this);
         conversationList.setDialogMenuListener(this);
         conversationInput.setRecordingListener(this);
         // fix recyclerview conflict with swipe refresh
         conversationList.addOnScrollListener(scrollListener);
-        switch (chatStyleEnum){
+        switch (chatStyleEnum) {
             case DEFAULT:
             case ARMAN_VARZESH:
                 viewConversation.findViewById(R.id.frameLayout_root).setBackgroundColor(context.getResources().getColor(R.color.black));
@@ -151,17 +147,21 @@ public class ConversationView
             conversationViewListener.onStopTyping();
     }
 
+    @SuppressWarnings("unchecked")
     @Override
     public void onCopyMessageClicked(Object object) {
         if (conversationViewListener != null)
             conversationViewListener.onCopyMessageClicked(object);
     }
 
+    @SuppressWarnings("unchecked")
     @Override
     public void onResendMessageClicked(Object object) {
         if (conversationViewListener != null)
             conversationViewListener.onResendMessageClicked(object);
     }
+
+    @SuppressWarnings("unchecked")
 
     @Override
     public void onDeleteMessageClicked(Object object) {

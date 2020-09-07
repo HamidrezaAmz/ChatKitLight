@@ -20,11 +20,11 @@ public interface DialogMenuListener<T> {
     default void onDeleteMessageClicked(T t) {
     }
 
-    default void shouldPaginateNow(){
+    default void shouldPaginateNow() {
 
     }
 
-    default void requestStoragePermission(){
+    default void requestStoragePermission() {
 
     }
 

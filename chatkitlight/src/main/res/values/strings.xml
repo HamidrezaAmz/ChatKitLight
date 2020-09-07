@@ -11,4 +11,5 @@
     <string name="permission_needed">To access downloaded files please grant storage permissions</string>
     <string name="ok">Ok</string>
     <string name="download">Download</string>
+    <string name="choose">Choose</string>
 </resources>

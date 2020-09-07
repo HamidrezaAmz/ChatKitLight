@@ -1,7 +1,6 @@
 package ir.vasl.chatkitlight.viewmodel;
 
 import android.app.Application;
-import android.util.Log;
 
 import androidx.annotation.NonNull;
 import androidx.lifecycle.AndroidViewModel;
@@ -36,11 +35,17 @@ public class ConversationListViewModel extends AndroidViewModel {
     }
 
     public void addNewConversation(ConversationModel conversationModel) {
-        DatabaseLayer.getInstance(application).getChatKitDatabase().getChatDao().insert(conversationModel);
+        DatabaseLayer.getInstance(application)
+                .getChatKitDatabase()
+                .getChatDao()
+                .insert(conversationModel);
     }
 
     public void addNewConversation(ArrayList<ConversationModel> conversationModels) {
-        DatabaseLayer.getInstance(application).getChatKitDatabase().getChatDao().insertAll(conversationModels);
+        DatabaseLayer.getInstance(application)
+                .getChatKitDatabase()
+                .getChatDao()
+                .insertAll(conversationModels);
     }
 
     public void updateConversationStatus(String conversationId, ConversationStatus conversationStatus) {
@@ -52,7 +57,10 @@ public class ConversationListViewModel extends AndroidViewModel {
             if (conversationModel.getConversationId().equals(conversationId)) {
                 ConversationModel model = new ConversationModel(conversationModel);
                 model.setConversationStatus(conversationStatus);
-                DatabaseLayer.getInstance(application).getChatKitDatabase().getChatDao().update(model);
+                DatabaseLayer.getInstance(application)
+                        .getChatKitDatabase()
+                        .getChatDao()
+                        .update(model);
             }
         }
     }
@@ -67,8 +75,14 @@ public class ConversationListViewModel extends AndroidViewModel {
                 ConversationModel model = new ConversationModel(conversationModel);
                 model.setConversationStatus(conversationStatus);
 
-                DatabaseLayer.getInstance(application).getChatKitDatabase().getChatDao().update(model);
-                DatabaseLayer.getInstance(application).getChatKitDatabase().getChatDao().swapId(conversationIdOld, conversationIdNew);
+                DatabaseLayer.getInstance(application)
+                        .getChatKitDatabase()
+                        .getChatDao()
+                        .update(model);
+                DatabaseLayer.getInstance(application)
+                        .getChatKitDatabase()
+                        .getChatDao()
+                        .swapId(conversationIdOld, conversationIdNew);
             }
         }
     }
@@ -83,20 +97,32 @@ public class ConversationListViewModel extends AndroidViewModel {
                 ConversationModel model = new ConversationModel(conversationModel);
                 model.setConversationStatus(conversationStatus);
 
-                DatabaseLayer.getInstance(application).getChatKitDatabase().getChatDao().update(model);
-                DatabaseLayer.getInstance(application).getChatKitDatabase().getChatDao().swapId(conversationIdOld, conversationIdNew, ChatID);
+                DatabaseLayer.getInstance(application)
+                        .getChatKitDatabase()
+                        .getChatDao()
+                        .update(model);
+                DatabaseLayer.getInstance(application)
+                        .getChatKitDatabase()
+                        .getChatDao()
+                        .swapId(conversationIdOld, conversationIdNew, ChatID);
             }
         }
     }
 
     public void removeConversationModel(ConversationModel conversationModel) {
         if (conversationModel != null) {
-            DatabaseLayer.getInstance(application).getChatKitDatabase().getChatDao().delete(conversationModel);
+            DatabaseLayer.getInstance(application)
+                    .getChatKitDatabase()
+                    .getChatDao()
+                    .delete(conversationModel);
         }
     }
 
     public void removeAllConversationModel() {
-        DatabaseLayer.getInstance(application).getChatKitDatabase().getChatDao().deleteAll();
+        DatabaseLayer.getInstance(application)
+                .getChatKitDatabase()
+                .getChatDao()
+                .deleteAll();
     }
 
 }

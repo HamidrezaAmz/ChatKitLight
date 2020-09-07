@@ -1,16 +1,13 @@
 package ir.vasl.chatkitlight.utils;
 
-import android.Manifest;
 import android.content.ContentResolver;
 import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
-import android.os.Environment;
 import android.util.Log;
 import android.webkit.MimeTypeMap;
 
 import androidx.core.content.FileProvider;
-
 
 import com.thin.downloadmanager.DefaultRetryPolicy;
 import com.thin.downloadmanager.DownloadRequest;
@@ -18,7 +15,6 @@ import com.thin.downloadmanager.DownloadStatusListenerV1;
 
 import java.io.File;
 import java.io.FileInputStream;
-import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.Arrays;
 import java.util.Objects;
@@ -27,7 +23,7 @@ public class FileHelper {
 
     public static String getFileName(String uri) {
         String res = "";
-        if(uri == null)
+        if (uri == null)
             return res;
         String[] split = uri.split("/");
         if (split.length > 0)
@@ -36,13 +32,13 @@ public class FileHelper {
     }
 
     public static boolean checkFileExistence(Context context, String fileName) {
-        if(context.getExternalFilesDir(null) == null)
+        if (context.getExternalFilesDir(null) == null)
             return false;
         return new File(Objects.requireNonNull(context.getExternalFilesDir(null)).toString() + "/chatkit/", fileName).exists();
     }
 
     public static DownloadRequest downloadFile(Context context, String url, DownloadStatusListenerV1 downloadListener) {
-        if(context.getExternalFilesDir(null) == null)
+        if (context.getExternalFilesDir(null) == null)
             return null;
         String fileName = FileHelper.getFileName(url);
         String dir = Objects.requireNonNull(context.getExternalFilesDir(null)).toString() + "/chatkit/" + fileName;
@@ -54,7 +50,7 @@ public class FileHelper {
     }
 
     public static Uri getFileUri(Context context, String fileName) {
-        if(context.getExternalFilesDir(null) == null)
+        if (context.getExternalFilesDir(null) == null)
             return null;
         return FileProvider.getUriForFile(context, context.getApplicationContext().getPackageName() + ".provider",
                 new File(Objects.requireNonNull(context.getExternalFilesDir(null)).toString() + "/chatkit/", fileName));
@@ -75,7 +71,7 @@ public class FileHelper {
     }
 
     public static void openFile(Context context, String fileAddress) {
-        if(context.getExternalFilesDir(null) == null)
+        if (context.getExternalFilesDir(null) == null)
             return;
         String fileName = getFileName(fileAddress);
         Intent viewIntent = new Intent(Intent.ACTION_VIEW);
@@ -85,12 +81,12 @@ public class FileHelper {
                 getMimeType(context, Uri.parse(fileAddress)));
         viewIntent.setFlags(Intent.FLAG_ACTIVITY_NO_HISTORY);
         viewIntent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
-        Intent chooserIntent = Intent.createChooser(viewIntent, "انتخاب کنید");
+        Intent chooserIntent = Intent.createChooser(viewIntent, Constants.CHOOSE);
         context.startActivity(chooserIntent);
     }
 
     public static byte[] getFileBytes(Context context, String fileAddress) {
-        if(context.getExternalFilesDir(null) == null)
+        if (context.getExternalFilesDir(null) == null)
             return new byte[]{};
         byte[] result = new byte[((int) Runtime.getRuntime().freeMemory())];
         String fileName = getFileName(fileAddress);
@@ -99,14 +95,14 @@ public class FileHelper {
         int all = 0;
         try {
             fis = new FileInputStream(file);
-            byte buffer[] = new byte[4096];
+            byte[] buffer = new byte[4096];
             int read = 0;
             while ((read = fis.read(buffer)) != -1) {
                 all += read;
                 System.arraycopy(buffer, 0, result, all, buffer.length);
             }
         } catch (Exception e) {
-            Log.e("tag", "getFileBytes: " + e.getMessage() );
+            Log.e("tag", "getFileBytes: " + e.getMessage());
         } finally {
             try {
                 if (fis != null) {
@@ -115,6 +111,6 @@ public class FileHelper {
             } catch (IOException ignored) {
             }
         }
-        return Arrays.copyOfRange(result, 0 , all - 1);
+        return Arrays.copyOfRange(result, 0, all - 1);
     }
 }

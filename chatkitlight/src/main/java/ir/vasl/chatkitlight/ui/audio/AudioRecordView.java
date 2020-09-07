@@ -137,7 +137,7 @@ public class AudioRecordView {
 
 //        view.removeAllViews();
         View inputView = LayoutInflater.from(view.getContext()).inflate(R.layout.record_view, view, false);
-        switch (chatStyle){
+        switch (chatStyle) {
             case DEFAULT:
             case ARMAN_VARZESH:
                 inputView.findViewById(R.id.linearLayout_input).setBackgroundColor(context.getResources().getColor(R.color.dark_grey_two));

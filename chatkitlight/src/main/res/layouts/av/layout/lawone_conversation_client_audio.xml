@@ -47,8 +47,7 @@
                     android:layout_width="45dp"
                     android:layout_height="45dp"
                     android:layout_gravity="right"
-                    android:background="@drawable/rounded_yellow"
-                    />
+                    android:background="@drawable/rounded_yellow" />
 
                 <androidx.appcompat.widget.AppCompatImageView
                     android:id="@+id/imageView_play"
@@ -60,8 +59,7 @@
                     android:scaleType="centerInside"
                     android:padding="8dp"
                     android:background="?attr/selectableItemBackgroundBorderless"
-                    android:src="@{isPlaying ? @drawable/ic_pause : @drawable/ic_play}"
-                    />
+                    android:src="@{isPlaying ? @drawable/ic_pause : @drawable/ic_play}" />
 
                 <TextView
                     style="@style/TextViewTitleStyle"
@@ -153,8 +151,7 @@
             android:background="@drawable/ic_lawone_tilted"
             android:layout_alignParentRight="true"
             android:layout_centerVertical="true"
-            android:layout_marginRight="@dimen/global_margin"
-            />
+            android:layout_marginRight="@dimen/global_margin" />
 
     </RelativeLayout>
 

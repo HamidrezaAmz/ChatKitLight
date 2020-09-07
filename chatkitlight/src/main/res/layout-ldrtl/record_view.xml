@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/root"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -133,7 +132,7 @@
                             android:paddingBottom="8dp"
                             android:textDirection="rtl"
                             android:textColorHint="@color/warm_grey"
-                            android:textColor="@color/white"/>
+                            android:textColor="@color/white" />
 
                         <ImageView
                             android:id="@+id/imageViewEmoji"

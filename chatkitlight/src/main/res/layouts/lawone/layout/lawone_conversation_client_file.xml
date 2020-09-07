@@ -54,8 +54,7 @@
                     android:layout_marginLeft="20dp"
                     android:gravity="right"
                     android:textColor="@color/lawone_client_text"
-                    android:text='@{!conversationModel.title.equals("") ? conversationModel.title : conversationModel.fileAddress.substring(conversationModel.fileAddress.lastIndexOf("/") + 1)}'
-                    />
+                    android:text='@{!conversationModel.title.equals("") ? conversationModel.title : conversationModel.fileAddress.substring(conversationModel.fileAddress.lastIndexOf("/") + 1)}' />
             </FrameLayout>
 
             <TextView
@@ -115,8 +114,7 @@
             app:wlv_titleCenterColor="@color/white"
             app:wlv_titleCenterSize="12sp"
             app:wlv_waveAmplitude="85"
-            app:wlv_waveColor="@color/red"
-            />
+            app:wlv_waveColor="@color/red" />
 
         <androidx.appcompat.widget.AppCompatImageView
             android:layout_width="50dp"
@@ -127,8 +125,7 @@
             app:srcCompat="@drawable/checkmark_white"
             android:scaleType="centerInside"
             android:visibility="gone"
-            android:id="@+id/imageView_checkmark"
-            />
+            android:id="@+id/imageView_checkmark" />
 
     </RelativeLayout>
 

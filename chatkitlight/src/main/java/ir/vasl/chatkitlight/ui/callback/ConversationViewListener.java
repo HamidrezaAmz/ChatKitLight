@@ -37,14 +37,19 @@ public interface ConversationViewListener<T> {
     default void onSwipeRefresh() {
     }
 
-    default void onVoiceRecordStarted(){}
+    default void onVoiceRecordStarted() {
+    }
 
-    default void onVoiceRecordStopped(){}
+    default void onVoiceRecordStopped() {
+    }
 
-    default void onVoiceRecordCanceled(){}
+    default void onVoiceRecordCanceled() {
+    }
 
-    default void shouldPaginate(){}
+    default void shouldPaginate() {
+    }
 
-    default void requestStoragePermission(){}
+    default void requestStoragePermission() {
+    }
 
 }

@@ -4,10 +4,6 @@ import android.content.Context;
 import android.content.res.Resources;
 import android.util.DisplayMetrics;
 
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.util.concurrent.TimeUnit;
-
 public class AndroidUtils {
 
     public static float convertDpToPixel(float dp, Context context) {

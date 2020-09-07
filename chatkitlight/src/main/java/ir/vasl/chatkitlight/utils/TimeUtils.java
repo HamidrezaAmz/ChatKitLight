@@ -14,13 +14,14 @@ public class TimeUtils {
         long cur_time = (Calendar.getInstance().getTimeInMillis());
         long time_elapsed = cur_time - timeAgo;
 
+        //noinspection UnnecessaryLocalVariable
         long seconds = time_elapsed;
-        int minutes = Math.round(time_elapsed / 60);
-        int hours = Math.round(time_elapsed / 3600);
-        int days = Math.round(time_elapsed / 86400);
-        int weeks = Math.round(time_elapsed / 604800);
-        int months = Math.round(time_elapsed / 2600640);
-        int years = Math.round(time_elapsed / 31207680);
+        int minutes = Math.round((float) time_elapsed / 60);
+        int hours = Math.round((float) time_elapsed / 3600);
+        int days = Math.round((float) time_elapsed / 86400);
+        int weeks = Math.round((float) time_elapsed / 604800);
+        int months = Math.round((float) time_elapsed / 2600640);
+        int years = Math.round((float) time_elapsed / 31207680);
 
         // Seconds
         if (seconds <= 60) {

@@ -13,7 +13,6 @@ import androidx.core.graphics.drawable.RoundedBitmapDrawable;
 import androidx.core.graphics.drawable.RoundedBitmapDrawableFactory;
 
 import com.bumptech.glide.Glide;
-import com.bumptech.glide.RequestBuilder;
 import com.bumptech.glide.load.Transformation;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.bumptech.glide.load.resource.bitmap.CenterCrop;
@@ -24,6 +23,7 @@ import java.io.File;
 
 import ir.vasl.chatkitlight.R;
 import ir.vasl.chatkitlight.utils.AndroidUtils;
+
 public class ImageViewCustom extends AppCompatImageView {
 
     boolean imageSquare = false;
@@ -49,8 +49,10 @@ public class ImageViewCustom extends AppCompatImageView {
             imageSquare = a.getBoolean(R.styleable.ImageViewCustom_square_image, false);
             imageRound = a.getBoolean(R.styleable.ImageViewCustom_round_image, false);
             imageAspectRatio = a.getBoolean(R.styleable.ImageViewCustom_aspect_ratio, false);
+            a.recycle();
         } catch (Exception ex) {
-            Log.e("tag",".getMessage()ImageViewCustom constructor ", ex);
+            Log.e("tag", ex.getMessage() == null ? "null error" : ex.getMessage());
+            ex.printStackTrace();
         }
     }
 
@@ -59,6 +61,7 @@ public class ImageViewCustom extends AppCompatImageView {
         super.onMeasure(widthMeasureSpec, heightMeasureSpec);
         try {
             if (imageSquare) {
+                //noinspection SuspiciousNameCombination
                 setMeasuredDimension(widthMeasureSpec, widthMeasureSpec);
             } else if (imageAspectRatio) {
                 // 16 * 9
@@ -69,7 +72,7 @@ public class ImageViewCustom extends AppCompatImageView {
                 setMeasuredDimension(width, height);
             }
         } catch (Exception e) {
-            Log.e("tag", "onMeasure: " + e.getMessage() );
+            Log.e("tag", "onMeasure: " + e.getMessage());
         }
     }
 
@@ -84,7 +87,7 @@ public class ImageViewCustom extends AppCompatImageView {
                     .into(this);
 
         } catch (Exception e) {
-            Log.e("tag",e.getMessage());
+            Log.e("tag", e.getMessage() == null ? "" : e.getMessage());
         }
     }
 
@@ -103,7 +106,7 @@ public class ImageViewCustom extends AppCompatImageView {
                     .fitCenter()
                     .into(this);
         } catch (Exception e) {
-            Log.e("tag",e.getMessage());
+            Log.e("tag", e.getMessage() == null ? "" : e.getMessage());
         }
     }
 
@@ -116,7 +119,7 @@ public class ImageViewCustom extends AppCompatImageView {
                     .fitCenter()
                     .into(this);
         } catch (Exception e) {
-            Log.e("tag",e.getMessage());
+            Log.e("tag", e.getMessage() == null ? "" : e.getMessage());
         }
     }
 
@@ -127,7 +130,7 @@ public class ImageViewCustom extends AppCompatImageView {
                     .apply(RequestOptions.circleCropTransform())
                     .into(this);
         } catch (Exception e) {
-            Log.e("tag",e.getMessage());
+            Log.e("tag", e.getMessage() == null ? "" : e.getMessage());
         }
     }
 
@@ -138,7 +141,7 @@ public class ImageViewCustom extends AppCompatImageView {
                     .apply(RequestOptions.circleCropTransform())
                     .into(this);
         } catch (Exception e) {
-            Log.e("tag",e.getMessage());
+            Log.e("tag", e.getMessage() == null ? "" : e.getMessage());
         }
     }
 
@@ -151,7 +154,7 @@ public class ImageViewCustom extends AppCompatImageView {
                     .apply(RequestOptions.circleCropTransform())
                     .into(this);
         } catch (Exception e) {
-            Log.e("tag",e.getMessage());
+            Log.e("tag", e.getMessage() == null ? "" : e.getMessage());
         }
     }
 
@@ -165,7 +168,7 @@ public class ImageViewCustom extends AppCompatImageView {
                     .centerCrop()
                     .into(this);
         } catch (Exception e) {
-            Log.e("tag",e.getMessage());
+            Log.e("tag", e.getMessage() == null ? "" : e.getMessage());
         }
     }
 
@@ -188,7 +191,7 @@ public class ImageViewCustom extends AppCompatImageView {
                         .into(this);
             }
         } catch (Exception e) {
-            Log.e("tag",e.getMessage());
+            Log.e("tag", e.getMessage() == null ? "" : e.getMessage());
         }
     }
 
@@ -200,7 +203,7 @@ public class ImageViewCustom extends AppCompatImageView {
                     .skipMemoryCache(false)
                     .into(this);
         } catch (Exception e) {
-            Log.e("tag", "setImageUrl: " + e.getMessage() );
+            Log.e("tag", e.getMessage() == null ? "" : e.getMessage());
         }
     }
 
@@ -213,7 +216,7 @@ public class ImageViewCustom extends AppCompatImageView {
                     .placeholder(R.drawable.background_global_place_holder)
                     .into(this);
         } catch (Exception e) {
-            e.printStackTrace();
+            Log.e("tag", e.getMessage() == null ? "" : e.getMessage());
         }
     }
 
@@ -225,7 +228,7 @@ public class ImageViewCustom extends AppCompatImageView {
                     .apply(RequestOptions.bitmapTransform(new RoundedCorners(((int) AndroidUtils.convertDpToPixel(radius, getContext())))))
                     .into(this);
         } catch (Exception e) {
-            e.printStackTrace();
+            Log.e("tag", e.getMessage() == null ? "" : e.getMessage());
         }
     }
 
@@ -237,7 +240,7 @@ public class ImageViewCustom extends AppCompatImageView {
                     .apply(RequestOptions.circleCropTransform())
                     .into(this);
         } catch (Exception e) {
-            e.printStackTrace();
+            Log.e("tag", e.getMessage() == null ? "" : e.getMessage());
         }
     }
 
@@ -250,7 +253,7 @@ public class ImageViewCustom extends AppCompatImageView {
                     .into(this);
 
         } catch (Exception e) {
-            e.printStackTrace();
+            Log.e("tag", e.getMessage() == null ? "" : e.getMessage());
         }
     }
 
@@ -262,7 +265,7 @@ public class ImageViewCustom extends AppCompatImageView {
                     .error(placeHolder)
                     .into(this);
         } catch (Exception e) {
-            Log.e("tag",e.getMessage());
+            Log.e("tag", e.getMessage() == null ? "" : e.getMessage());
         }
     }
 
@@ -278,7 +281,7 @@ public class ImageViewCustom extends AppCompatImageView {
                     .apply(RequestOptions.circleCropTransform())
                     .into(this);
         } catch (Exception e) {
-            Log.e("tag",e.getMessage());
+            Log.e("tag", e.getMessage() == null ? "" : e.getMessage());
         }
     }
 
@@ -290,7 +293,7 @@ public class ImageViewCustom extends AppCompatImageView {
                     .error(placeHolder)
                     .into(this);
         } catch (Exception e) {
-            Log.e("tag",e.getMessage());
+            Log.e("tag", e.getMessage() == null ? "" : e.getMessage());
         }
     }
 
@@ -306,7 +309,7 @@ public class ImageViewCustom extends AppCompatImageView {
                     .apply(RequestOptions.circleCropTransform())
                     .into(this);
         } catch (Exception e) {
-            Log.e("tag",e.getMessage());
+            Log.e("tag", e.getMessage() == null ? "" : e.getMessage());
         }
     }
 
@@ -319,7 +322,7 @@ public class ImageViewCustom extends AppCompatImageView {
                     .apply(RequestOptions.bitmapTransform(new RoundedCorners(radius)))
                     .into(this);
         } catch (Exception e) {
-            Log.e("tag",e.getMessage());
+            Log.e("tag", e.getMessage() == null ? "" : e.getMessage());
         }
     }
 
@@ -332,7 +335,7 @@ public class ImageViewCustom extends AppCompatImageView {
                     .apply(RequestOptions.bitmapTransform(new RoundedCorners(radius)))
                     .into(this);
         } catch (Exception e) {
-            Log.e("tag",e.getMessage());
+            Log.e("tag", e.getMessage() == null ? "" : e.getMessage());
         }
     }
 

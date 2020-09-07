@@ -2,6 +2,7 @@ package ir.vasl.chatkitlight.viewmodel.factory;
 
 import android.app.Application;
 
+import androidx.annotation.NonNull;
 import androidx.lifecycle.ViewModel;
 import androidx.lifecycle.ViewModelProvider;
 
@@ -17,8 +18,10 @@ public class ConversationListViewModelFactory implements ViewModelProvider.Facto
         mChatID = chatID;
     }
 
+    @SuppressWarnings("unchecked")
+    @NonNull
     @Override
-    public <T extends ViewModel> T create(Class<T> modelClass) {
+    public <T extends ViewModel> T create(@NonNull Class<T> modelClass) {
         return (T) new ConversationListViewModel(mApplication, mChatID);
     }
 }

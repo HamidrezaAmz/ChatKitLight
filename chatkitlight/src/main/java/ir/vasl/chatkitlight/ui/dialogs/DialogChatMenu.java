@@ -11,8 +11,10 @@ import ir.vasl.chatkitlight.R;
 import ir.vasl.chatkitlight.base.BaseDialog;
 import ir.vasl.chatkitlight.ui.callback.DialogMenuListener;
 
+@SuppressWarnings("rawtypes")
 public class DialogChatMenu extends BaseDialog implements View.OnClickListener {
 
+    @SuppressWarnings("FieldCanBeLocal")
     private AppCompatButton buttonCopy, buttonResend, buttonDelete;
 
     private DialogMenuListener dialogMenuListener;
@@ -57,6 +59,7 @@ public class DialogChatMenu extends BaseDialog implements View.OnClickListener {
         buttonDelete.setOnClickListener(this);
     }
 
+    @SuppressWarnings("unchecked")
     @Override
     public void onClick(View v) {
 

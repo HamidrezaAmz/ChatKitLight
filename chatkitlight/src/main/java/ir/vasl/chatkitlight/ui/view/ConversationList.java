@@ -3,35 +3,35 @@ package ir.vasl.chatkitlight.ui.view;
 import android.content.Context;
 import android.os.Handler;
 import android.util.AttributeSet;
-import android.util.Log;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.lifecycle.Observer;
-import androidx.paging.PagedList;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import ir.vasl.chatkitlight.utils.globalEnums.ChatStyleEnum;
-import ir.vasl.chatkitlight.model.ConversationModel;
 import ir.vasl.chatkitlight.ui.adapter.ConversationAdapter;
 import ir.vasl.chatkitlight.ui.callback.ConversationListListener;
 import ir.vasl.chatkitlight.ui.callback.DialogMenuListener;
 import ir.vasl.chatkitlight.ui.dialogs.DialogChatMenu;
+import ir.vasl.chatkitlight.utils.globalEnums.ChatStyleEnum;
 import ir.vasl.chatkitlight.viewmodel.ConversationListViewModel;
 
-public class ConversationList extends RecyclerView implements ConversationListListener, DialogMenuListener {
+@SuppressWarnings("rawtypes")
+public class ConversationList
+        extends RecyclerView
+        implements ConversationListListener,
+        DialogMenuListener {
 
     private ConversationAdapter adapter;
     private ConversationListViewModel conversationListViewModel;
     private DialogMenuListener dialogMenuListener;
-
-    private int currItemSize = 0;
-    private boolean canShowDialog = false;
-    private int clientBubbleColor = -1;
-    private int serverBubbleColor = -1;
-
     private ChatStyleEnum chatStyle = ChatStyleEnum.DEFAULT;
+    private boolean canShowDialog = false;
+
+    @SuppressWarnings("FieldCanBeLocal")
+    private int clientBubbleColor = -1; //todo -> this is going to be a custom attr
+    @SuppressWarnings("FieldCanBeLocal")
+    private int serverBubbleColor = -1; //todo -> this is going to be a custom attr
 
     public ConversationList(@NonNull Context context) {
         super(context);
@@ -74,18 +74,9 @@ public class ConversationList extends RecyclerView implements ConversationListLi
         if (conversationListViewModel == null)
             return;
 
-        conversationListViewModel.getLiveData().observeForever(new Observer<PagedList<ConversationModel>>() {
-            @Override
-            public void onChanged(PagedList<ConversationModel> conversationModels) {
-                adapter.submitList(conversationModels);
-                new Handler().postDelayed(new Runnable() {
-                    @Override
-                    public void run() {
-                        scrollToPosition(0);
-                    }
-                }, 100);
-                currItemSize = conversationModels.size();
-            }
+        conversationListViewModel.getLiveData().observeForever(conversationModels -> {
+            adapter.submitList(conversationModels);
+            new Handler().postDelayed(() -> scrollToPosition(0), 100);
         });
     }
 
@@ -115,8 +106,8 @@ public class ConversationList extends RecyclerView implements ConversationListLi
 
     @Override
     public void onConversationItemClicked(Object object) {
-        if (!canShowDialog) return;
-
+        if (!canShowDialog || getContext() == null)
+            return;
         DialogChatMenu dialogChatMenu = new DialogChatMenu(getContext());
         dialogChatMenu.setMenuItem(object);
         dialogChatMenu.setDialogMenuListener(this);
@@ -129,18 +120,21 @@ public class ConversationList extends RecyclerView implements ConversationListLi
             dialogMenuListener.requestStoragePermission();
     }
 
+    @SuppressWarnings("unchecked")
     @Override
     public void onCopyMessageClicked(Object object) {
         if (dialogMenuListener != null)
             dialogMenuListener.onCopyMessageClicked(object);
     }
 
+    @SuppressWarnings("unchecked")
     @Override
     public void onResendMessageClicked(Object object) {
         if (dialogMenuListener != null)
             dialogMenuListener.onResendMessageClicked(object);
     }
 
+    @SuppressWarnings("unchecked")
     @Override
     public void onDeleteMessageClicked(Object object) {
         if (dialogMenuListener != null)
@@ -151,7 +145,7 @@ public class ConversationList extends RecyclerView implements ConversationListLi
         @Override
         public void onScrolled(@NonNull RecyclerView recyclerView, int dx, int dy) {
             super.onScrolled(recyclerView, dx, dy);
-            if(recyclerView.getLayoutManager() == null)
+            if (recyclerView.getLayoutManager() == null)
                 return;
             int visibleItemCount = recyclerView.getLayoutManager().getChildCount();
             int totalItemCount = recyclerView.getLayoutManager().getItemCount();
