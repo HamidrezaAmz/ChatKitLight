@@ -27,6 +27,7 @@
             android:layout_width="@dimen/conversation_max_width"
             android:layout_height="wrap_content"
             android:minHeight="100dp"
+            android:layout_centerHorizontal="true"
             android:layout_gravity="left"
             android:background="@drawable/lawone_shape_curve_server"
             android:orientation="vertical"
@@ -44,6 +45,7 @@
                 style="@style/TextViewSubTitleStyle"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginLeft="40dp"
                 android:text="@{ conversationModel.message}"
                 android:visibility='@{ conversationModel.message.equals("") ? View.GONE : View.VISIBLE }' />
 
@@ -72,15 +74,15 @@
             android:layout_width="60dp"
             android:layout_height="60dp"
             android:id="@+id/imageView_avatar"
-            android:layout_toRightOf="@id/linearLayout_bubble"
+            android:layout_toLeftOf="@id/linearLayout_bubble"
             android:layout_centerVertical="true"
-            android:layout_marginLeft="-30dp"
+            android:layout_marginRight="-30dp"
             android:scaleType="fitXY"
             app:round_image="true"
             android:foregroundGravity="center"
             android:padding="3dp"
             android:background="@drawable/ring_gradient_avatar"
-            bannerImage="@{conversationModel.imageUrl}" />
+            app:srcCompat="@drawable/ic_system_avatar" />
 
         <androidx.appcompat.widget.AppCompatImageView
             android:layout_width="75dp"
@@ -88,7 +90,7 @@
             android:background="@drawable/ic_lawone_tilted_bright"
             android:layout_alignParentLeft="true"
             android:layout_centerVertical="true"
-            android:layout_marginLeft="@dimen/global_margin" />
+            android:layout_marginLeft="60dp" />
 
     </RelativeLayout>
 

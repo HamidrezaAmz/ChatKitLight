@@ -22,9 +22,9 @@ import java.util.Objects;
 public class FileHelper {
 
     public static String getFileName(String uri) {
-        String res = "";
+        String res = uri;
         if (uri == null)
-            return res;
+            return "";
         String[] split = uri.split("/");
         if (split.length > 0)
             res = split[split.length - 1];

@@ -8,6 +8,7 @@ public enum ConversationType {
     CLIENT("CLIENT", 1),
     SERVER("SERVER", 2),
     EMPTY("EMPTY", 3),
+    SYSTEM("SYSTEM", 4),
     ;
 
     private String valueStr;

@@ -27,6 +27,7 @@ import ir.vasl.chatkitlight.databinding.LawoneConversationServerAudioBinding;
 import ir.vasl.chatkitlight.databinding.LawoneConversationServerBinding;
 import ir.vasl.chatkitlight.databinding.LawoneConversationServerFileBinding;
 import ir.vasl.chatkitlight.databinding.LawoneConversationServerImageBinding;
+import ir.vasl.chatkitlight.databinding.SystemConversationBinding;
 import ir.vasl.chatkitlight.databinding.ViewConversationClientAudioBinding;
 import ir.vasl.chatkitlight.databinding.ViewConversationClientBinding;
 import ir.vasl.chatkitlight.databinding.ViewConversationClientFileBinding;
@@ -222,6 +223,11 @@ public class ConversationAdapter extends PagedListAdapter<ConversationModel, Bas
                 }
                 case EMPTY:
                     ((ConversationViewHolder) holder).emptyBinding.setConversationListListener(this);
+                    break;
+                case SYSTEM:
+                    ConversationModel model = getItem(position);
+                    ((ConversationViewHolder) holder).systemConversationBinding.setConversationModel(model);
+                    ((ConversationViewHolder) holder).systemConversationBinding.setConversationListListener(this);
                     break;
                 case UNDEFINE:
                 default:
@@ -504,6 +510,10 @@ public class ConversationAdapter extends PagedListAdapter<ConversationModel, Bas
                     ViewConversationEmptyBinding emptyBinding = DataBindingUtil.inflate(inflater, R.layout.view_conversation_empty, parent, false);
                     return new ConversationViewHolder(emptyBinding);
 
+                case SYSTEM:
+                    SystemConversationBinding systemBinding = DataBindingUtil.inflate(inflater, R.layout.system_conversation, parent, false);
+                    return new ConversationViewHolder(systemBinding);
+
                 default:
                     ViewConversationUnsupportedBinding unsupportedBinding = DataBindingUtil.inflate(inflater, R.layout.view_conversation_unsupported, parent, false);
                     return new ConversationViewHolder(unsupportedBinding);
@@ -629,14 +639,15 @@ public class ConversationAdapter extends PagedListAdapter<ConversationModel, Bas
         private LawoneConversationClientBinding lawoneClientTextBinding;
         private LawoneConversationClientImageBinding lawoneClientImageBinding;
         private LawoneConversationClientFileBinding lawoneClientFileBinding;
-        //        private ViewConversationClientVideoBinding clientVideoBinding;
         private LawoneConversationClientAudioBinding lawoneClientAudioBinding;
 
         private LawoneConversationServerBinding lawoneServerTextBinding;
         private LawoneConversationServerImageBinding lawoneServerImageBinding;
         private LawoneConversationServerFileBinding lawoneServerFileBinding;
-        //        private ViewConversationServerVideoBinding serverVideoBinding;
         private LawoneConversationServerAudioBinding lawoneServerAudioBinding;
+
+        //SYSTEM
+        private SystemConversationBinding systemConversationBinding;
 
         @Override
         public void onBind(int position) {
@@ -1060,6 +1071,11 @@ public class ConversationAdapter extends PagedListAdapter<ConversationModel, Bas
                         downloadManager.add(downloadRequest);
                 }
             });
+        }
+
+        public ConversationViewHolder(SystemConversationBinding systemConversationBinding) {
+            super(systemConversationBinding.getRoot());
+            this.systemConversationBinding = systemConversationBinding;
         }
     }
 }
