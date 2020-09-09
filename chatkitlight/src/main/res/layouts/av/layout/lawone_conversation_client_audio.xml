@@ -26,15 +26,15 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/global_margin"
         android:layout_marginBottom="@dimen/global_margin"
-        android:onClick="@{() -> conversationListListener.onConversationItemClicked(conversationModel)}"
-        android:orientation="vertical">
+        android:onClick="@{() -> conversationListListener.onConversationItemClicked(conversationModel)}">
 
-        <LinearLayout
+        <RelativeLayout
             android:id="@+id/linearLayour_bubble"
             android:layout_width="@dimen/conversation_max_width"
             android:layout_height="wrap_content"
-            android:layout_alignParentRight="true"
+            android:layout_marginRight="@dimen/chat_safe_margin"
             android:background="@drawable/lawone_shape_curve_client"
+            android:layout_alignParentRight="true"
             android:orientation="vertical"
             android:padding="@dimen/global_padding_middle">
 
@@ -46,18 +46,16 @@
                 <View
                     android:layout_width="45dp"
                     android:layout_height="45dp"
-                    android:layout_gravity="right"
+                    android:layout_gravity="left"
                     android:background="@drawable/rounded_yellow" />
 
                 <androidx.appcompat.widget.AppCompatImageView
                     android:id="@+id/imageView_play"
-                    android:layout_width="40dp"
-                    android:layout_height="40dp"
-                    android:layout_marginTop="2.5dp"
-                    android:layout_marginRight="2.5dp"
-                    android:layout_gravity="right"
+                    android:layout_width="45dp"
+                    android:layout_height="45dp"
+                    android:layout_gravity="left"
                     android:scaleType="centerInside"
-                    android:padding="8dp"
+                    android:padding="10dp"
                     android:background="?attr/selectableItemBackgroundBorderless"
                     android:src="@{isPlaying ? @drawable/ic_pause : @drawable/ic_play}" />
 
@@ -65,8 +63,9 @@
                     style="@style/TextViewTitleStyle"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginRight="42dp"
+                    android:layout_marginLeft="60dp"
                     android:textColor="@color/lawone_client_text"
+                    android:visibility="invisible"
                     android:text='@{conversationModel.fileAddress.substring(conversationModel.fileAddress.lastIndexOf("/") + 1)}' />
             </FrameLayout>
 
@@ -74,8 +73,8 @@
                 android:id="@+id/wave"
                 android:layout_width="match_parent"
                 android:layout_height="36dp"
-                android:layout_marginLeft="16dp"
-                android:layout_marginRight="2dp"
+                android:layout_marginLeft="50dp"
+                android:layout_marginRight="35dp"
                 app:animateExpansion="false"
                 app:chunkHeight="28dp"
                 app:chunkRadius="1dp"
@@ -89,6 +88,9 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:gravity="right|center_vertical"
+                android:layout_below="@id/frameLayoutFile"
+                android:layout_marginRight="16dp"
+                android:layout_marginLeft="16dp"
                 android:orientation="horizontal">
 
                 <androidx.appcompat.widget.AppCompatImageView
@@ -113,15 +115,15 @@
 
             </LinearLayout>
 
-        </LinearLayout>
+        </RelativeLayout>
 
         <me.itangqi.waveloadingview.WaveLoadingView
             android:id="@+id/waveView"
             android:layout_width="@dimen/download_circle_size"
             android:layout_height="@dimen/download_circle_size"
             android:layout_centerVertical="true"
-            android:layout_marginRight="-27.5dp"
-            android:layout_toLeftOf="@id/linearLayour_bubble"
+            android:layout_alignParentRight="true"
+            android:layout_marginRight="10dp"
             app:wlv_borderColor="@color/white"
             app:wlv_borderWidth="3dp"
             app:wlv_progressValue="0"
@@ -136,11 +138,11 @@
 
         <androidx.appcompat.widget.AppCompatImageView
             android:id="@+id/imageView_checkmark"
-            android:layout_width="50dp"
-            android:layout_height="50dp"
+            android:layout_width="65dp"
+            android:layout_height="65dp"
             android:layout_centerVertical="true"
-            android:layout_marginRight="-27.5dp"
-            android:layout_toLeftOf="@id/linearLayour_bubble"
+            android:layout_alignParentRight="true"
+            android:layout_marginRight="10dp"
             android:scaleType="centerInside"
             android:visibility="gone"
             app:srcCompat="@drawable/checkmark_white" />
@@ -151,7 +153,7 @@
             android:background="@drawable/ic_lawone_tilted"
             android:layout_alignParentRight="true"
             android:layout_centerVertical="true"
-            android:layout_marginRight="@dimen/global_margin" />
+            android:layout_marginRight="@dimen/chat_safe_margin" />
 
     </RelativeLayout>
 

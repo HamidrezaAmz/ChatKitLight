@@ -63,6 +63,8 @@
     <dimen name="unsupported_height">120dp</dimen>
     <string name="dialog_default_width_percentage" translatable="false">0.9f</string>
 
-    <dimen name="download_circle_size">55dp</dimen>
+    <dimen name="download_circle_size">65dp</dimen>
+
+    <dimen name="chat_safe_margin">40dp</dimen>
 
 </resources>

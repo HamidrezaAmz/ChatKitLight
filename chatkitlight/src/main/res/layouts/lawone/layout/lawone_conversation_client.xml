@@ -22,6 +22,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/global_margin"
         android:layout_marginBottom="@dimen/global_margin"
+        android:layout_marginRight="@dimen/chat_safe_margin"
         android:onClick="@{() -> conversationListListener.onConversationItemClicked(conversationModel)}"
         android:orientation="vertical">
 
@@ -87,6 +88,7 @@
         <ir.vasl.chatkitlight.ui.customview.ImageViewCustom
             android:layout_width="60dp"
             android:layout_height="60dp"
+            android:visibility="gone"
             android:id="@+id/imageView_avatar"
             android:layout_toLeftOf="@id/linearLayout_bubble"
             android:layout_centerVertical="true"

@@ -21,6 +21,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/global_margin"
         android:layout_marginBottom="@dimen/global_margin"
+        android:layout_marginRight="@dimen/chat_safe_margin"
         android:onClick="@{() -> conversationListListener.onConversationItemClicked(conversationModel)}"
         android:orientation="vertical">
 

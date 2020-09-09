@@ -26,13 +26,14 @@
         android:layout_marginBottom="@dimen/global_margin"
         android:onClick="@{ () -> conversationListListener.onConversationItemClicked(conversationModel)}">
 
-        <LinearLayout
+        <RelativeLayout
             android:id="@+id/linearLayout_bubble"
             android:layout_width="@dimen/conversation_max_width"
             android:layout_height="wrap_content"
             android:layout_alignParentLeft="true"
             android:background="@drawable/lawone_shape_curve_server"
             android:orientation="vertical"
+            android:layout_marginLeft="@dimen/chat_safe_margin"
             android:padding="@dimen/global_padding_middle">
 
             <FrameLayout
@@ -47,14 +48,12 @@
                     android:background="@drawable/rounded_yellow" />
 
                 <androidx.appcompat.widget.AppCompatImageView
-                    android:layout_width="40dp"
-                    android:layout_height="40dp"
+                    android:layout_width="45dp"
+                    android:layout_height="45dp"
                     android:layout_gravity="right"
                     android:background="?attr/selectableItemBackground"
                     android:id="@+id/imageView_play"
-                    android:layout_marginTop="2.5dp"
-                    android:layout_marginRight="2.5dp"
-                    android:padding="8dp"
+                    android:padding="10dp"
                     android:scaleType="centerInside"
                     android:src="@{isPlaying? @drawable/ic_pause : @drawable/ic_play}" />
 
@@ -62,6 +61,7 @@
                     style="@style/TextViewTitleStyle"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:visibility="invisible"
                     android:layout_marginRight="42dp"
                     android:text="@{ conversationModel.title}" />
 
@@ -71,8 +71,9 @@
                 android:id="@+id/wave"
                 android:layout_width="match_parent"
                 android:layout_height="32dp"
-                android:layout_marginRight="16dp"
-                android:layout_marginLeft="2dp"
+                android:layout_marginRight="44dp"
+                android:layout_marginLeft="30dp"
+                android:layout_marginTop="10dp"
                 app:animateExpansion="false"
                 app:chunkHeight="28dp"
                 app:chunkRadius="1dp"
@@ -85,6 +86,7 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_below="@id/frameLayoutFile"
                 android:gravity="right|center_vertical"
                 android:orientation="horizontal">
 
@@ -101,15 +103,15 @@
 
             </LinearLayout>
 
-        </LinearLayout>
+        </RelativeLayout>
 
         <me.itangqi.waveloadingview.WaveLoadingView
             android:id="@+id/waveView"
             android:layout_width="@dimen/download_circle_size"
             android:layout_height="@dimen/download_circle_size"
             android:layout_centerVertical="true"
-            android:layout_marginLeft="-27.5dp"
-            android:layout_toRightOf="@id/linearLayout_bubble"
+            android:layout_marginLeft="10dp"
+            android:layout_alignParentLeft="true"
             app:wlv_borderColor="@color/white"
             app:wlv_borderWidth="3dp"
             app:wlv_progressValue="0"
@@ -124,11 +126,11 @@
 
         <androidx.appcompat.widget.AppCompatImageView
             android:id="@+id/imageView_checkmark"
-            android:layout_width="50dp"
-            android:layout_height="50dp"
+            android:layout_width="@dimen/download_circle_size"
+            android:layout_height="@dimen/download_circle_size"
             android:layout_centerVertical="true"
-            android:layout_marginLeft="-27.5dp"
-            android:layout_toRightOf="@id/linearLayout_bubble"
+            android:layout_marginLeft="10dp"
+            android:layout_alignParentLeft="true"
             android:scaleType="centerInside"
             android:visibility="gone"
             app:srcCompat="@drawable/checkmark_white" />
@@ -139,7 +141,7 @@
             android:background="@drawable/ic_lawone_tilted_bright"
             android:layout_alignParentLeft="true"
             android:layout_centerVertical="true"
-            android:layout_marginLeft="@dimen/global_margin" />
+            android:layout_marginLeft="@dimen/chat_safe_margin" />
 
     </RelativeLayout>
 

@@ -43,6 +43,6 @@
     <color name="lawone_client_bubble_background">#E5E5E5</color>
     <color name="lawone_client_text">#656567</color>
     <color name="lawone_yellow">#E39F0E</color>
-    <color name="lawone_server_bubble_background">#485969</color>
+    <color name="lawone_server_bubble_background">#98B7B7</color>
 
 </resources>
