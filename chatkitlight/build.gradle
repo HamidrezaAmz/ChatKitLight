@@ -76,6 +76,7 @@ android {
         api "androidx.room:room-runtime:2.2.5"
         api 'com.github.orangegangsters:swipy:1.2.0@aar'
 
+
         // annotations
         annotationProcessor "androidx.room:room-compiler:2.2.5"
 

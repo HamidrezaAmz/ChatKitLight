@@ -126,6 +126,12 @@ public class ConversationAdapter extends PagedListAdapter<ConversationModel, Bas
                     ((ConversationViewHolder) holder).emptyBinding.setConversationListListener(this);
                     break;
 
+                case SYSTEM:
+                    ConversationModel model = getItem(position);
+                    ((ConversationViewHolder) holder).systemConversationBinding.setConversationModel(model);
+                    ((ConversationViewHolder) holder).systemConversationBinding.setConversationListListener(this);
+                    break;
+
                 case UNDEFINE:
                 default:
                     ((ConversationViewHolder) holder).unsupportedBinding.setConversationListListener(this);
@@ -152,6 +158,12 @@ public class ConversationAdapter extends PagedListAdapter<ConversationModel, Bas
                     ((ConversationViewHolder) holder).emptyBinding.setConversationListListener(this);
                     break;
 
+                case SYSTEM:
+                    ConversationModel model = getItem(position);
+                    ((ConversationViewHolder) holder).systemConversationBinding.setConversationModel(model);
+                    ((ConversationViewHolder) holder).systemConversationBinding.setConversationListListener(this);
+                    break;
+
                 case UNDEFINE:
                 default:
                     ((ConversationViewHolder) holder).unsupportedBinding.setConversationListListener(this);
@@ -175,6 +187,10 @@ public class ConversationAdapter extends PagedListAdapter<ConversationModel, Bas
 
                     break;
                 }
+                case SYSTEM:
+                    ConversationModel model = getItem(position);
+                    ((ConversationViewHolder) holder).systemConversationBinding.setConversationModel(model);
+                    ((ConversationViewHolder) holder).systemConversationBinding.setConversationListListener(this);                    break;
                 case EMPTY:
                     ((ConversationViewHolder) holder).emptyBinding.setConversationListListener(this);
                     break;
@@ -198,6 +214,11 @@ public class ConversationAdapter extends PagedListAdapter<ConversationModel, Bas
                     ((ConversationViewHolder) holder).lawoneServerFileBinding.setConversationListListener(this);
                     break;
                 }
+                case SYSTEM:
+                    ConversationModel model = getItem(position);
+                    ((ConversationViewHolder) holder).systemConversationBinding.setConversationModel(model);
+                    ((ConversationViewHolder) holder).systemConversationBinding.setConversationListListener(this);
+                    break;
                 case EMPTY:
                     ((ConversationViewHolder) holder).emptyBinding.setConversationListListener(this);
                     break;
@@ -437,7 +458,9 @@ public class ConversationAdapter extends PagedListAdapter<ConversationModel, Bas
                 case EMPTY:
                     ViewConversationEmptyBinding emptyBinding = DataBindingUtil.inflate(inflater, R.layout.view_conversation_empty, parent, false);
                     return new ConversationViewHolder(emptyBinding);
-
+                case SYSTEM:
+                    SystemConversationBinding systemBinding = DataBindingUtil.inflate(inflater, R.layout.system_conversation, parent, false);
+                    return new ConversationViewHolder(systemBinding);
                 default:
                     ViewConversationUnsupportedBinding unsupportedBinding = DataBindingUtil.inflate(inflater, R.layout.view_conversation_unsupported, parent, false);
                     return new ConversationViewHolder(unsupportedBinding);
@@ -455,6 +478,10 @@ public class ConversationAdapter extends PagedListAdapter<ConversationModel, Bas
                 case EMPTY:
                     ViewConversationEmptyBinding emptyBinding = DataBindingUtil.inflate(inflater, R.layout.view_conversation_empty, parent, false);
                     return new ConversationViewHolder(emptyBinding);
+
+                case SYSTEM:
+                    SystemConversationBinding systemBinding = DataBindingUtil.inflate(inflater, R.layout.system_conversation, parent, false);
+                    return new ConversationViewHolder(systemBinding);
 
                 default:
                     ViewConversationUnsupportedBinding unsupportedBinding = DataBindingUtil.inflate(inflater, R.layout.view_conversation_unsupported, parent, false);
@@ -474,6 +501,10 @@ public class ConversationAdapter extends PagedListAdapter<ConversationModel, Bas
                     ViewConversationEmptyBinding emptyBinding = DataBindingUtil.inflate(inflater, R.layout.view_conversation_empty, parent, false);
                     return new ConversationViewHolder(emptyBinding);
 
+                case SYSTEM:
+                    SystemConversationBinding systemBinding = DataBindingUtil.inflate(inflater, R.layout.system_conversation, parent, false);
+                    return new ConversationViewHolder(systemBinding);
+
                 default:
                     ViewConversationUnsupportedBinding unsupportedBinding = DataBindingUtil.inflate(inflater, R.layout.view_conversation_unsupported, parent, false);
                     return new ConversationViewHolder(unsupportedBinding);
@@ -491,6 +522,10 @@ public class ConversationAdapter extends PagedListAdapter<ConversationModel, Bas
                 case EMPTY:
                     ViewConversationEmptyBinding emptyBinding = DataBindingUtil.inflate(inflater, R.layout.view_conversation_empty, parent, false);
                     return new ConversationViewHolder(emptyBinding);
+
+                case SYSTEM:
+                    SystemConversationBinding systemBinding = DataBindingUtil.inflate(inflater, R.layout.system_conversation, parent, false);
+                    return new ConversationViewHolder(systemBinding);
 
                 default:
                     ViewConversationUnsupportedBinding unsupportedBinding = DataBindingUtil.inflate(inflater, R.layout.view_conversation_unsupported, parent, false);
