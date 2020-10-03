@@ -29,7 +29,7 @@
             android:minHeight="100dp"
             android:layout_centerHorizontal="true"
             android:layout_gravity="left"
-            android:background="@drawable/lawone_shape_curve_server"
+            android:background="@drawable/shape_curve_system"
             android:orientation="vertical"
             android:id="@+id/linearLayout_bubble"
             android:padding="@dimen/global_padding_middle">

@@ -16,7 +16,7 @@ import ir.vasl.chatkitlight.utils.Constants;
 @Dao
 public interface ChatDao {
 
-    @Query("SELECT * FROM " + Constants.TABLE_NAME + " WHERE chatId=:chatIdValue ORDER BY id ASC")
+    @Query("SELECT * FROM " + Constants.TABLE_NAME + " WHERE chatId=:chatIdValue ORDER BY id DESC")
     DataSource.Factory<Integer, ConversationModel> getAll(String chatIdValue);
 
     @Query("SELECT * FROM " + Constants.TABLE_NAME + " WHERE chatId=:chatIdValue")

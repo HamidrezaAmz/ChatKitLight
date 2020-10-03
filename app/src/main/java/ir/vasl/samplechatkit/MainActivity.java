@@ -106,8 +106,8 @@ public class MainActivity
         conversationModel.setTitle("");
         conversationModel.setMessage(input.toString());
         conversationModel.setTime(TimeUtils.getCurrTime());
-        conversationModel.setConversationType(ConversationType.CLIENT);
-        conversationModel.setConversationStatus(ConversationStatus.SENDING);
+        conversationModel.setConversationType(ConversationType.SYSTEM);
+        conversationModel.setConversationStatus(ConversationStatus.DELIVERED);
         conversationModel.setImageUrl("https://www.w3schools.com/howto/img_avatar.png");
         if(imageUri != null) {
             conversationModel.setFileType(FileType.AUDIO);
