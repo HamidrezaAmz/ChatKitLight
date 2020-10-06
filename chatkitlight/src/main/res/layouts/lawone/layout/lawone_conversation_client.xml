@@ -81,12 +81,14 @@
             android:background="@drawable/ic_lawone_tilted"
             android:tint="@color/white"
             android:layout_alignParentRight="true"
+            android:backgroundTint="@color/white"
             android:layout_marginRight="45dp"
             android:layout_marginTop="10dp"/>
 
         <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:minWidth="@dimen/conversation_min_width"
             android:gravity="center_horizontal|left"
             android:layout_alignParentRight="true"
             android:layout_marginRight="@dimen/chat_safe_margin"
