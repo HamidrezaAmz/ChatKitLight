@@ -84,37 +84,6 @@
                 app:touchable="false"
                 app:waveColor="@color/lawone_yellow" />
 
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:gravity="right|center_vertical"
-                android:layout_below="@id/frameLayoutFile"
-                android:layout_marginRight="16dp"
-                android:layout_marginLeft="16dp"
-                android:orientation="horizontal">
-
-                <androidx.appcompat.widget.AppCompatImageView
-                    android:id="@+id/image"
-                    style="@style/TextViewSubTitleStyle"
-                    conversationStatusIcon="@{conversationModel.conversationStatus}"
-                    android:layout_width="15dp"
-                    android:layout_height="15dp"
-                    android:tint="@color/white"
-                    android:visibility='@{ conversationModel.conversationStatus.equals(null) ? View.GONE : View.VISIBLE  }' />
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="@dimen/global_margin"
-                    android:layout_marginEnd="@dimen/global_margin"
-                    android:text="@{conversationModel.time}"
-                    android:textColor="@color/lawone_client_text"
-                    android:textSize="12sp"
-                    android:textStyle="bold"
-                    android:visibility='@{conversationModel.time.equals("") ? View.GONE : View.VISIBLE }' />
-
-            </LinearLayout>
-
         </RelativeLayout>
 
         <me.itangqi.waveloadingview.WaveLoadingView
@@ -154,6 +123,39 @@
             android:layout_alignParentRight="true"
             android:layout_centerVertical="true"
             android:layout_marginRight="@dimen/chat_safe_margin" />
+
+        <LinearLayout
+            android:layout_width="@dimen/conversation_max_width"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:gravity="left|center_vertical"
+            android:layout_below="@id/linearLayour_bubble"
+            android:layout_marginRight="16dp"
+            android:layout_marginLeft="16dp"
+            android:paddingLeft="16dp"
+            android:orientation="horizontal">
+
+            <androidx.appcompat.widget.AppCompatImageView
+                android:id="@+id/image"
+                style="@style/TextViewSubTitleStyle"
+                conversationStatusIcon="@{conversationModel.conversationStatus}"
+                android:layout_width="15dp"
+                android:layout_height="15dp"
+                android:tint="@color/warm_grey_three"
+                android:visibility='@{ conversationModel.conversationStatus.equals(null) ? View.GONE : View.VISIBLE  }' />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/global_margin"
+                android:layout_marginEnd="@dimen/global_margin"
+                android:text="@{conversationModel.time}"
+                android:textColor="@color/warm_grey_three"
+                android:textSize="12sp"
+                android:textStyle="bold"
+                android:visibility='@{conversationModel.time.equals("") ? View.GONE : View.VISIBLE }' />
+
+        </LinearLayout>
 
     </RelativeLayout>
 

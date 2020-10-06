@@ -83,25 +83,7 @@
                 app:touchable="false"
                 app:waveColor="@color/lawone_yellow" />
 
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_below="@id/frameLayoutFile"
-                android:gravity="right|center_vertical"
-                android:orientation="horizontal">
 
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="@dimen/global_margin"
-                    android:layout_marginEnd="@dimen/global_margin"
-                    android:text="@{conversationModel.time}"
-                    android:textColor="@color/warm_grey_five"
-                    android:textSize="12sp"
-                    android:textStyle="bold"
-                    android:visibility='@{conversationModel.time.equals("") ? View.GONE : View.VISIBLE }' />
-
-            </LinearLayout>
 
         </RelativeLayout>
 
@@ -142,6 +124,28 @@
             android:layout_alignParentLeft="true"
             android:layout_centerVertical="true"
             android:layout_marginLeft="@dimen/chat_safe_margin" />
+
+        <LinearLayout
+            android:layout_width="@dimen/conversation_max_width"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/linearLayout_bubble"
+            android:layout_centerHorizontal="true"
+            android:gravity="right|center_vertical"
+            android:paddingRight="12dp"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/global_margin"
+                android:layout_marginEnd="@dimen/global_margin"
+                android:text="@{conversationModel.time}"
+                android:textColor="@color/warm_grey_three"
+                android:textSize="12sp"
+                android:textStyle="bold"
+                android:visibility='@{conversationModel.time.equals("") ? View.GONE : View.VISIBLE }' />
+
+        </LinearLayout>
 
     </RelativeLayout>
 

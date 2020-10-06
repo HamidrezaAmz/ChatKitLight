@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
 
     <data>
 
@@ -24,7 +25,7 @@
         android:orientation="vertical">
 
         <LinearLayout
-            android:layout_width="@dimen/conversation_max_width"
+            android:layout_width="290dp"
             android:layout_height="wrap_content"
             android:minHeight="100dp"
             android:layout_centerHorizontal="true"
@@ -49,24 +50,6 @@
                 android:text="@{ conversationModel.message}"
                 android:visibility='@{ conversationModel.message.equals("") ? View.GONE : View.VISIBLE }' />
 
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:gravity="right|center_vertical"
-                android:orientation="horizontal">
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="@dimen/global_margin"
-                    android:layout_marginEnd="@dimen/global_margin"
-                    android:text="@{conversationModel.time}"
-                    android:textColor="@color/warm_grey_five"
-                    android:textSize="12sp"
-                    android:textStyle="bold"
-                    android:visibility='@{conversationModel.time.equals("") ? View.GONE : View.VISIBLE }' />
-
-            </LinearLayout>
 
         </LinearLayout>
 
@@ -75,7 +58,7 @@
             android:layout_height="60dp"
             android:id="@+id/imageView_avatar"
             android:layout_toLeftOf="@id/linearLayout_bubble"
-            android:layout_centerVertical="true"
+            android:layout_marginTop="20dp"
             android:layout_marginRight="-30dp"
             android:scaleType="fitXY"
             app:round_image="true"
@@ -85,12 +68,33 @@
             app:srcCompat="@drawable/ic_system_avatar" />
 
         <androidx.appcompat.widget.AppCompatImageView
-            android:layout_width="75dp"
-            android:layout_height="75dp"
+            android:layout_width="110dp"
+            android:layout_height="110dp"
             android:background="@drawable/ic_lawone_tilted_bright"
-            android:layout_alignParentLeft="true"
+            android:layout_alignParentRight="true"
             android:layout_centerVertical="true"
-            android:layout_marginLeft="60dp" />
+            android:layout_marginRight="40dp" />
+
+        <LinearLayout
+            android:layout_width="@dimen/conversation_max_width"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_below="@id/linearLayout_bubble"
+            android:gravity="right|center_vertical"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/global_margin"
+                android:layout_marginEnd="@dimen/global_margin"
+                android:text="@{conversationModel.time}"
+                android:textColor="@color/warm_grey_three"
+                android:textSize="12sp"
+                android:textStyle="bold"
+                android:visibility='@{conversationModel.time.equals("") ? View.GONE : View.VISIBLE }'/>
+
+        </LinearLayout>
 
     </RelativeLayout>
 

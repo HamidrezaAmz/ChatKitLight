@@ -65,6 +65,6 @@
 
     <dimen name="download_circle_size">65dp</dimen>
 
-    <dimen name="chat_safe_margin">40dp</dimen>
+    <dimen name="chat_safe_margin">30dp</dimen>
 
 </resources>

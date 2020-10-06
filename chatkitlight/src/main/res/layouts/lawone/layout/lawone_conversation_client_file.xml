@@ -26,7 +26,7 @@
         android:orientation="vertical">
 
         <LinearLayout
-            android:layout_width="@dimen/conversation_max_width"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentRight="true"
             android:background="@drawable/lawone_shape_curve_client"
@@ -43,6 +43,7 @@
                 <androidx.appcompat.widget.AppCompatImageView
                     android:layout_width="45dp"
                     android:layout_height="45dp"
+                    android:layout_marginRight="20dp"
                     android:layout_gravity="right"
                     android:scaleType="centerInside"
                     app:srcCompat="@drawable/ic_attachment_document" />
@@ -51,7 +52,7 @@
                     style="@style/TextViewTitleStyle"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginRight="45dp"
+                    android:layout_marginRight="65dp"
                     android:layout_marginLeft="20dp"
                     android:gravity="right"
                     android:textColor="@color/lawone_client_text"
@@ -68,33 +69,7 @@
                 android:text="@{ conversationModel.message}"
                 android:visibility='@{ conversationModel.message.equals("") ? View.GONE : View.VISIBLE }' />
 
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:gravity="right|center_vertical"
-                android:orientation="horizontal">
 
-                <androidx.appcompat.widget.AppCompatImageView
-                    android:id="@+id/image"
-                    style="@style/TextViewSubTitleStyle"
-                    conversationStatusIcon="@{conversationModel.conversationStatus}"
-                    android:layout_width="15dp"
-                    android:layout_height="15dp"
-                    android:tint="@color/white"
-                    android:visibility='@{ conversationModel.conversationStatus.equals(null) ? View.GONE : View.VISIBLE  }' />
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="@dimen/global_margin"
-                    android:layout_marginEnd="@dimen/global_margin"
-                    android:text="@{conversationModel.time}"
-                    android:textColor="@color/lawone_client_text"
-                    android:textSize="12sp"
-                    android:textStyle="bold"
-                    android:visibility='@{conversationModel.time.equals("") ? View.GONE : View.VISIBLE }' />
-
-            </LinearLayout>
 
         </LinearLayout>
 
@@ -127,6 +102,36 @@
             android:scaleType="centerInside"
             android:visibility="gone"
             android:id="@+id/imageView_checkmark" />
+
+        <LinearLayout
+            android:layout_width="@dimen/conversation_max_width"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:gravity="right|center_vertical"
+            android:layout_below="@id/linearLayour_bubble"
+            android:orientation="horizontal">
+
+            <androidx.appcompat.widget.AppCompatImageView
+                android:id="@+id/image"
+                style="@style/TextViewSubTitleStyle"
+                conversationStatusIcon="@{conversationModel.conversationStatus}"
+                android:layout_width="15dp"
+                android:layout_height="15dp"
+                android:tint="@color/white"
+                android:visibility='@{ conversationModel.conversationStatus.equals(null) ? View.GONE : View.VISIBLE  }' />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/global_margin"
+                android:layout_marginEnd="@dimen/global_margin"
+                android:text="@{conversationModel.time}"
+                android:textColor="@color/lawone_client_text"
+                android:textSize="12sp"
+                android:textStyle="bold"
+                android:visibility='@{conversationModel.time.equals("") ? View.GONE : View.VISIBLE }' />
+
+        </LinearLayout>
 
     </RelativeLayout>
 
