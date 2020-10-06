@@ -28,6 +28,7 @@
         <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:minWidth="@dimen/conversation_min_width"
             android:minHeight="100dp"
             android:layout_marginRight="@dimen/chat_safe_margin"
             android:layout_alignParentRight="true"
@@ -78,6 +79,7 @@
             android:layout_width="75dp"
             android:layout_height="75dp"
             android:background="@drawable/ic_lawone_tilted"
+            android:tint="@color/white"
             android:layout_alignParentRight="true"
             android:layout_marginRight="45dp"
             android:layout_marginTop="10dp"/>

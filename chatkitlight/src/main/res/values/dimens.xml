@@ -59,6 +59,7 @@
 
     <dimen name="corner_curve_conversation">10dp</dimen>
     <dimen name="conversation_max_width">300dp</dimen>
+    <dimen name="conversation_min_width">150dp</dimen>
 
     <dimen name="unsupported_height">120dp</dimen>
     <string name="dialog_default_width_percentage" translatable="false">0.9f</string>
