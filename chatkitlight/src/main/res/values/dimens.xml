@@ -60,11 +60,14 @@
     <dimen name="corner_curve_conversation">10dp</dimen>
     <dimen name="conversation_max_width">300dp</dimen>
     <dimen name="conversation_min_width">150dp</dimen>
+    <dimen name="conversation_min_height">100dp</dimen>
 
     <dimen name="unsupported_height">120dp</dimen>
     <string name="dialog_default_width_percentage" translatable="false">0.9f</string>
 
-    <dimen name="download_circle_size">65dp</dimen>
+    <dimen name="download_circle_size">45dp</dimen>
+    <dimen name="download_circle_size_half">22.5dp</dimen>
+    <dimen name="download_circle_size_quarter">11.75dp</dimen>
 
     <dimen name="chat_safe_margin">30dp</dimen>
 

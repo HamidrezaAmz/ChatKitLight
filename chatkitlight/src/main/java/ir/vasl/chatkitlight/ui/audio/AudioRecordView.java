@@ -544,16 +544,16 @@ public class AudioRecordView {
                     float motionX = Math.abs(firstX - motionEvent.getRawX());
                     float motionY = Math.abs(firstY - motionEvent.getRawY());
 
-                    if (isLayoutDirectionRightToLeft ? (motionX > directionOffset && lastX > firstX && lastY > firstY) : (motionX > directionOffset && lastX < firstX && lastY < firstY)) {
+                    if (isLayoutDirectionRightToLeft ? (motionX > directionOffset && lastX < firstX && lastY > firstY) : (motionX > directionOffset && lastX > firstX && lastY < firstY)) {
 
-                        if (isLayoutDirectionRightToLeft ? (motionX > motionY && lastX > firstX) : (motionX > motionY && lastX < firstX)) {
+                        if (isLayoutDirectionRightToLeft ? (motionX > motionY && lastX < firstX) : (motionX > motionY && lastX > firstX)) {
                             direction = UserBehaviour.CANCELING;
 
                         } else if (motionY > motionX && lastY < firstY) {
                             direction = UserBehaviour.LOCKING;
                         }
 
-                    } else if (isLayoutDirectionRightToLeft ? (motionX > motionY && motionX > directionOffset && lastX > firstX) : (motionX > motionY && motionX > directionOffset && lastX < firstX)) {
+                    } else if (isLayoutDirectionRightToLeft ? (motionX > motionY && motionX > directionOffset && lastX < firstX) : (motionX > motionY && motionX > directionOffset && lastX > firstX)) {
                         direction = UserBehaviour.CANCELING;
                     } else if (motionY > motionX && motionY > directionOffset && lastY < firstY) {
                         direction = UserBehaviour.LOCKING;
@@ -565,10 +565,10 @@ public class AudioRecordView {
                         }
 
                         if (userBehaviour == UserBehaviour.CANCELING) {
-                            translateX(-(firstX - motionEvent.getRawX()));
+                            translateX((firstX - motionEvent.getRawX()));
                         }
                     } else if (direction == UserBehaviour.LOCKING) {
-                        if (userBehaviour == UserBehaviour.NONE || motionEvent.getRawX() + imageViewAudio.getWidth() / 2 > firstX) {
+                        if (userBehaviour == UserBehaviour.NONE || motionEvent.getRawX() + imageViewAudio.getWidth() / 2 < firstX) {
                             userBehaviour = UserBehaviour.LOCKING;
                         }
 
@@ -619,8 +619,8 @@ public class AudioRecordView {
             return;
         }
 
-        imageViewAudio.setTranslationX(x);
-        layoutSlideCancel.setTranslationX(x);
+        imageViewAudio.setTranslationX(-1*x);
+        layoutSlideCancel.setTranslationX(-1*x);
         layoutLock.setTranslationY(0);
         imageViewAudio.setTranslationY(0);
 
@@ -684,7 +684,7 @@ public class AudioRecordView {
             layoutEffect1.setVisibility(View.GONE);
 
             timerTask.cancel();
-            delete();
+//            delete();
 
             if (recordingListener != null)
                 recordingListener.onRecordingCanceled();

@@ -39,6 +39,8 @@
                 style="@style/TextViewTitleStyle"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:layout_marginLeft="45dp"
                 android:text="@{ conversationModel.title}"
                 android:visibility='@{ conversationModel.title.equals("") ? View.GONE : View.VISIBLE }' />
 
@@ -46,7 +48,7 @@
                 style="@style/TextViewSubTitleStyle"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="40dp"
+                android:layout_marginLeft="54dp"
                 android:text="@{ conversationModel.message}"
                 android:visibility='@{ conversationModel.message.equals("") ? View.GONE : View.VISIBLE }' />
 
@@ -57,9 +59,9 @@
             android:layout_width="60dp"
             android:layout_height="60dp"
             android:id="@+id/imageView_avatar"
-            android:layout_toLeftOf="@id/linearLayout_bubble"
+            android:layout_alignLeft="@id/linearLayout_bubble"
+            android:layout_marginLeft="8dp"
             android:layout_marginTop="20dp"
-            android:layout_marginRight="-30dp"
             android:scaleType="fitXY"
             app:round_image="true"
             android:foregroundGravity="center"
@@ -68,12 +70,12 @@
             app:srcCompat="@drawable/ic_system_avatar" />
 
         <androidx.appcompat.widget.AppCompatImageView
-            android:layout_width="110dp"
-            android:layout_height="110dp"
+            android:layout_width="@dimen/conversation_min_height"
+            android:layout_height="@dimen/conversation_min_height"
             android:background="@drawable/ic_lawone_tilted_bright"
             android:layout_alignParentRight="true"
-            android:layout_centerVertical="true"
-            android:layout_marginRight="40dp" />
+            android:layout_marginTop="6dp"
+            android:layout_marginRight="80dp" />
 
         <LinearLayout
             android:layout_width="@dimen/conversation_max_width"

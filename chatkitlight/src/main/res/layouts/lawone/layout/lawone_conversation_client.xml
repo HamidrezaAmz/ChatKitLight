@@ -75,15 +75,7 @@
             android:background="@drawable/ring_gradient_avatar"
             bannerImage="@{conversationModel.imageUrl}" />
 
-        <androidx.appcompat.widget.AppCompatImageView
-            android:layout_width="75dp"
-            android:layout_height="75dp"
-            android:background="@drawable/ic_lawone_tilted"
-            android:tint="@color/white"
-            android:layout_alignParentRight="true"
-            android:backgroundTint="@color/white"
-            android:layout_marginRight="45dp"
-            android:layout_marginTop="10dp"/>
+
 
         <LinearLayout
             android:layout_width="wrap_content"
@@ -117,6 +109,16 @@
                 android:visibility='@{conversationModel.time.equals("") ? View.GONE : View.VISIBLE }' />
 
         </LinearLayout>
+
+        <androidx.appcompat.widget.AppCompatImageView
+            android:layout_width="@dimen/conversation_min_height"
+            android:layout_height="@dimen/conversation_min_height"
+            android:background="@drawable/ic_lawone_tilted_white"
+            android:tint="@color/white"
+            android:layout_alignParentRight="true"
+            android:backgroundTint="@color/white"
+            android:layout_marginRight="35dp"
+            android:layout_marginTop="4dp"/>
 
     </RelativeLayout>
 
