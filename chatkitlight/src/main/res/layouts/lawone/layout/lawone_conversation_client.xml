@@ -25,22 +25,33 @@
         android:onClick="@{() -> conversationListListener.onConversationItemClicked(conversationModel)}"
         android:orientation="vertical">
 
-        <LinearLayout
+        <RelativeLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:minWidth="@dimen/conversation_min_width"
             android:minHeight="100dp"
             android:layout_marginRight="@dimen/chat_safe_margin"
+            android:layout_marginLeft="@dimen/chat_safe_margin"
             android:layout_alignParentRight="true"
             android:background="@drawable/lawone_shape_curve_client"
             android:orientation="vertical"
             android:id="@+id/linearLayout_bubble"
-            android:paddingRight="@dimen/global_padding_middle"
-            android:paddingLeft="30dp"
-            android:paddingTop="@dimen/global_padding_middle"
-            android:paddingBottom="@dimen/global_padding_middle">
+            android:paddingRight="@dimen/global_padding_x_middle"
+            android:paddingLeft="@dimen/global_padding_x_middle"
+            android:paddingTop="@dimen/global_padding_x_middle">
+
+            <androidx.appcompat.widget.AppCompatImageView
+                android:layout_width="@dimen/conversation_min_height"
+                android:layout_height="@dimen/conversation_min_height"
+                android:background="@drawable/ic_lawone_tilted_white"
+                android:tint="@color/white"
+                android:layout_alignParentRight="true"
+                android:backgroundTint="@color/white"
+                android:layout_marginRight="35dp"
+                android:layout_marginTop="4dp"/>
 
             <TextView
+                android:id="@+id/textView_title"
                 style="@style/TextViewTitleStyle"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -50,6 +61,7 @@
 
             <TextView
                 style="@style/TextViewSubTitleStyle"
+                android:layout_below="@id/textView_title"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:textColor="@color/lawone_client_text"
@@ -58,7 +70,7 @@
 
 
 
-        </LinearLayout>
+        </RelativeLayout>
 
         <ir.vasl.chatkitlight.ui.customview.ImageViewCustom
             android:layout_width="60dp"
@@ -75,15 +87,7 @@
             android:background="@drawable/ring_gradient_avatar"
             bannerImage="@{conversationModel.imageUrl}" />
 
-        <androidx.appcompat.widget.AppCompatImageView
-            android:layout_width="75dp"
-            android:layout_height="75dp"
-            android:background="@drawable/ic_lawone_tilted"
-            android:tint="@color/white"
-            android:layout_alignParentRight="true"
-            android:backgroundTint="@color/white"
-            android:layout_marginRight="45dp"
-            android:layout_marginTop="10dp"/>
+
 
         <LinearLayout
             android:layout_width="wrap_content"
@@ -117,6 +121,8 @@
                 android:visibility='@{conversationModel.time.equals("") ? View.GONE : View.VISIBLE }' />
 
         </LinearLayout>
+
+
 
     </RelativeLayout>
 

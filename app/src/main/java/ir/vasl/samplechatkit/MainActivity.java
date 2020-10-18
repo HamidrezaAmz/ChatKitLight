@@ -12,6 +12,7 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.Toast;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
@@ -106,7 +107,7 @@ public class MainActivity
         conversationModel.setTitle("");
         conversationModel.setMessage(input.toString());
         conversationModel.setTime(TimeUtils.getCurrTime());
-        conversationModel.setConversationType(ConversationType.SYSTEM);
+        conversationModel.setConversationType(ConversationType.CLIENT);
         conversationModel.setConversationStatus(ConversationStatus.DELIVERED);
         conversationModel.setImageUrl("https://www.w3schools.com/howto/img_avatar.png");
         if(imageUri != null) {
@@ -219,5 +220,15 @@ public class MainActivity
         ActivityCompat.requestPermissions(this,
                 new String[]{Manifest.permission.READ_EXTERNAL_STORAGE, Manifest.permission.WRITE_EXTERNAL_STORAGE},
                 199);
+    }
+
+    @Override
+    public void onVoiceRecordCanceled() {
+        Toast.makeText(this, "STOP", Toast.LENGTH_SHORT).show();
+    }
+
+    @Override
+    public void onVoiceRecordStarted() {
+        Toast.makeText(this, "START", Toast.LENGTH_SHORT).show();
     }
 }

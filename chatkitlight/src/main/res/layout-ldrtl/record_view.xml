@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/root"
@@ -12,8 +12,8 @@
         android:id="@+id/recording"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:gravity="bottom"
+        android:gravity="center"
+        android:layout_gravity="bottom|left"
         android:orientation="horizontal">
 
         <FrameLayout
@@ -29,12 +29,6 @@
                     android:layout_width="match_parent"
                     android:layout_height="0dp"
                     android:layout_weight="1">
-
-                    <LinearLayout
-                        android:id="@+id/layoutContainer"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:orientation="vertical"></LinearLayout>
 
                     <androidx.cardview.widget.CardView
                         android:id="@+id/layoutAttachment"
@@ -69,11 +63,9 @@
                     android:id="@+id/layoutMessage"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginStart="56dp"
                     android:layout_gravity="center_vertical"
-                    android:layout_marginLeft="56dp"
-                    android:layout_marginEnd="4dp"
-                    android:layout_marginRight="4dp"
+                    android:layout_marginRight="56dp"
+                    android:layout_marginLeft="6dp"
                     android:layout_marginBottom="4dp"
                     android:elevation="0dp"
                     android:gravity="center_vertical"
@@ -89,6 +81,7 @@
                         android:layout_height="wrap_content"
                         android:background="@color/dark_grey_two"
                         android:orientation="horizontal"
+                        android:gravity="left"
                         android:id="@+id/linearLayout_input">
 
                         <ImageView
@@ -101,15 +94,7 @@
                             android:padding="8dp"
                             android:src="@drawable/camera_ic" />
 
-                        <ImageView
-                            android:id="@+id/imageViewAttachment"
-                            android:layout_width="36dp"
-                            android:layout_height="36dp"
-                            android:layout_gravity="center_vertical"
-                            android:layout_marginStart="4dp"
-                            android:layout_marginLeft="4dp"
-                            android:padding="7dp"
-                            android:src="@drawable/attachment_ic" />
+
 
                         <EditText
                             android:id="@+id/editTextMessage"
@@ -119,12 +104,14 @@
                             android:gravity="center_vertical"
                             android:layout_weight="1"
                             android:background="@null"
-                            android:layout_marginRight="12dp"
                             android:ems="9"
                             android:fontFamily="@font/iransans"
                             android:hint="@string/type_a_message"
                             android:inputType="textMultiLine"
                             android:maxLines="6"
+                            android:layout_marginLeft="12dp"
+                            android:layout_marginTop="4dp"
+                            android:layout_marginBottom="4dp"
                             android:paddingStart="4dp"
                             android:paddingLeft="4dp"
                             android:paddingTop="8dp"
@@ -132,8 +119,19 @@
                             android:paddingRight="4dp"
                             android:paddingBottom="8dp"
                             android:textDirection="rtl"
-                            android:textColorHint="@color/warm_grey"
+                            android:textSize="14sp"
+                            android:textColorHint="@color/warm_grey_six"
                             android:textColor="@color/white" />
+
+                        <ImageView
+                            android:id="@+id/imageViewAttachment"
+                            android:layout_width="36dp"
+                            android:layout_height="36dp"
+                            android:layout_gravity="center_vertical"
+                            android:layout_marginLeft="4dp"
+                            android:layout_marginRight="8dp"
+                            android:padding="7dp"
+                            android:src="@drawable/attachment_ic" />
 
                         <ImageView
                             android:id="@+id/imageViewEmoji"
@@ -155,9 +153,8 @@
                 android:id="@+id/layoutSlideCancel"
                 android:layout_width="wrap_content"
                 android:layout_height="56dp"
-                android:layout_gravity="bottom|left"
-                android:layout_marginStart="88dp"
-                android:layout_marginLeft="88dp"
+                android:layout_gravity="bottom|right"
+                android:layout_marginRight="88dp"
                 android:gravity="center"
                 android:visibility="gone">
 
@@ -167,7 +164,7 @@
                     android:layout_height="wrap_content"
                     android:fontFamily="sans-serif-light"
                     android:text="@string/slide_to_cancel"
-                    android:textColor="#898f9d"
+                    android:textColor="@color/warm_grey_five"
                     android:textSize="16sp"
                     android:textStyle="normal" />
 
@@ -176,7 +173,7 @@
                     android:layout_height="16dp"
                     android:layout_marginStart="8dp"
                     android:layout_marginLeft="8dp"
-                    android:rotation="90"
+                    android:rotation="270"
                     android:src="@drawable/arrow" />
 
             </LinearLayout>
@@ -185,22 +182,21 @@
                 android:id="@+id/layoutEffect1"
                 android:layout_width="70dp"
                 android:layout_height="36dp"
-                android:layout_gravity="bottom|right"
-                android:layout_marginEnd="20dp"
-                android:layout_marginRight="20dp"
+                android:layout_gravity="bottom|left"
+                android:layout_marginLeft="20dp"
                 android:layout_marginBottom="10dp"
-                android:background="@color/dark_grey_two"
+                android:background="@color/transparent"
                 android:visibility="gone" />
 
             <View
                 android:id="@+id/layoutEffect2"
-                android:layout_width="20dp"
-                android:layout_height="36dp"
-                android:layout_gravity="bottom|right"
-                android:layout_marginEnd="90dp"
-                android:layout_marginRight="90dp"
-                android:layout_marginBottom="10dp"
+                android:layout_width="80dp"
+                android:layout_height="40dp"
+                android:layout_gravity="bottom|left"
+                android:layout_marginLeft="90dp"
+                android:layout_marginBottom="12dp"
                 android:background="@drawable/shadow_rtl"
+                android:rotation="180"
                 android:visibility="gone" />
 
             <ImageView
@@ -252,13 +248,13 @@
                 android:id="@+id/textViewTime"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginEnd="32dp"
-                android:background="@color/dark_grey_two"
-                android:layout_marginRight="32dp"
+                android:background="@drawable/shape_curve_menu"
+                android:layout_marginLeft="32dp"
                 android:textColor="@color/warm_grey"
                 android:elevation="2dp"
                 android:gravity="center"
-                android:layout_gravity="right"
+                android:layout_gravity="left|bottom"
+                android:layout_marginBottom="10dp"
                 android:padding="8dp"
                 android:fontFamily="@font/iransans"
                 android:text="0:00"
@@ -274,7 +270,7 @@
         android:id="@+id/layoutLock"
         android:layout_width="56dp"
         android:layout_height="180dp"
-        android:layout_gravity="left|bottom"
+        android:layout_gravity="right|bottom"
         android:layout_alignParentBottom="true"
         android:layout_margin="4dp"
         android:background="@color/warm_grey"
@@ -315,14 +311,14 @@
         android:id="@+id/imageViewAudio"
         android:layout_width="44dp"
         android:layout_height="44dp"
-        android:layout_gravity="left|bottom"
-        android:layout_marginStart="10dp"
-        android:layout_marginLeft="10dp"
+        android:layout_gravity="right|bottom"
+        android:layout_marginRight="10dp"
         android:layout_marginTop="6dp"
-        android:layout_marginBottom="6dp"
+        android:layout_marginBottom="9dp"
         android:layout_alignParentBottom="true"
         android:background="@color/dark_grey_two"
         android:clickable="true"
+        android:focusable="true"
         android:elevation="2dp"
         android:translationZ="2dp"
         app:cardBackgroundColor="@color/dark_grey_two"
@@ -345,14 +341,14 @@
         android:id="@+id/imageViewStop"
         android:layout_width="44dp"
         android:layout_height="44dp"
-        android:layout_gravity="left|bottom"
-        android:layout_marginStart="10dp"
-        android:layout_marginLeft="10dp"
+        android:layout_gravity="right|bottom"
+        android:layout_marginRight="10dp"
         android:layout_marginTop="6dp"
-        android:layout_marginBottom="6dp"
+        android:layout_marginBottom="9dp"
         android:layout_alignParentBottom="true"
         android:background="@color/dark_grey_two"
         android:clickable="true"
+        android:focusable="true"
         android:elevation="2dp"
         android:translationZ="2dp"
         android:visibility="gone"
@@ -375,13 +371,13 @@
         android:id="@+id/imageViewSend"
         android:layout_width="44dp"
         android:layout_height="44dp"
-        android:layout_gravity="left|bottom"
-        android:layout_marginStart="10dp"
-        android:layout_marginLeft="10dp"
+        android:layout_gravity="right|bottom"
+        android:layout_marginRight="10dp"
         android:layout_marginTop="6dp"
-        android:layout_marginBottom="6dp"
+        android:layout_marginBottom="9dp"
         android:background="@color/dark_grey_two"
         android:clickable="true"
+        android:focusable="true"
         android:layout_alignParentBottom="true"
         android:elevation="2dp"
         android:translationZ="2dp"
@@ -397,8 +393,7 @@
             android:id="@+id/imageSend"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:rotation="180"
             android:src="@drawable/send_msg_ic" />
 
     </androidx.cardview.widget.CardView>
-</RelativeLayout>
+</FrameLayout>
