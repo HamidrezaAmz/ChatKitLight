@@ -99,13 +99,13 @@
 
         <androidx.appcompat.widget.AppCompatImageView
             android:id="@+id/imageView_checkmark"
-            android:layout_width="65dp"
-            android:layout_height="65dp"
-            android:layout_centerVertical="true"
+            android:layout_width="@dimen/download_circle_size"
+            android:layout_height="@dimen/download_circle_size"
+            android:layout_marginTop="12.5dp"
             android:layout_alignParentRight="true"
             android:layout_marginRight="10dp"
             android:scaleType="centerInside"
-            android:visibility="gone"
+            android:visibility="visible"
             app:srcCompat="@drawable/checkmark_white" />
 
         <androidx.appcompat.widget.AppCompatImageView

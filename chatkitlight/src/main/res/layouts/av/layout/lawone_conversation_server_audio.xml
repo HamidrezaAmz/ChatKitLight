@@ -110,7 +110,7 @@
             android:id="@+id/imageView_checkmark"
             android:layout_width="@dimen/download_circle_size"
             android:layout_height="@dimen/download_circle_size"
-            android:layout_centerVertical="true"
+            android:layout_marginTop="@dimen/download_circle_size_quarter"
             android:layout_marginLeft="10dp"
             android:layout_alignParentLeft="true"
             android:scaleType="centerInside"

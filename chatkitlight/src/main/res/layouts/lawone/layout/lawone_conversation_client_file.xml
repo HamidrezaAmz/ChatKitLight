@@ -98,7 +98,7 @@
             android:layout_height="@dimen/download_circle_size"
             android:layout_alignParentRight="true"
             android:layout_marginRight="10dp"
-            android:layout_centerVertical="true"
+            android:layout_marginTop="@dimen/download_circle_size_half"
             app:srcCompat="@drawable/checkmark_white"
             android:scaleType="centerInside"
             android:visibility="gone"
