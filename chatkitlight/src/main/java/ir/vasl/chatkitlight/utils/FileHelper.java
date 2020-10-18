@@ -28,7 +28,7 @@ public class FileHelper {
         String[] split = uri.split("/");
         if (split.length > 0)
             res = split[split.length - 1];
-        return res;
+        return res.length() < 17 ? res : res.substring(res.length() - 16);
     }
 
     public static boolean checkFileExistence(Context context, String fileName) {

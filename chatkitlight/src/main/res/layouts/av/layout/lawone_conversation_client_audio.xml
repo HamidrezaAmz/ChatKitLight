@@ -59,15 +59,7 @@
                     android:background="?attr/selectableItemBackgroundBorderless"
                     android:src="@{isPlaying ? @drawable/ic_pause : @drawable/ic_play}" />
 
-                <TextView
-                    style="@style/TextViewTitleStyle"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginLeft="60dp"
-                    android:textColor="@color/lawone_client_text"
-                    android:visibility="invisible"
-                    android:text='@{conversationModel.fileAddress.substring(conversationModel.fileAddress.lastIndexOf("/") + 1)}' />
-            </FrameLayout>
+                </FrameLayout>
 
             <rm.com.audiowave.AudioWaveView
                 android:id="@+id/wave"
