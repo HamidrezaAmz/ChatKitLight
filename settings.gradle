@@ -1,3 +1,2 @@
 rootProject.name='SampleChatKit'
-include ':app'
 include ':chatkitlight'
