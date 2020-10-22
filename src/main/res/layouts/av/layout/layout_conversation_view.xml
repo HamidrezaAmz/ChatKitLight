@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layout_marginBottom="@dimen/input_height"
+    android:id="@+id/frameLayout_root"
+    android:background="@color/black">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <com.orangegangsters.github.swipyrefreshlayout.library.SwipyRefreshLayout
+            android:id="@+id/swipyRefreshLayout"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            app:direction="bottom">
+
+            <ir.vasl.chatkitlight.ui.view.ConversationList
+                android:id="@+id/conversationList"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent" />
+
+        </com.orangegangsters.github.swipyrefreshlayout.library.SwipyRefreshLayout>
+
+    </RelativeLayout>
+
+</FrameLayout>

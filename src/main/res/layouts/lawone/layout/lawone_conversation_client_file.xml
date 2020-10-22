@@ -1,0 +1,141 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+
+        <import type="android.view.View" />
+
+        <import type="ir.vasl.chatkitlight.utils.TimeUtils" />
+
+        <variable
+            name="conversationModel"
+            type="ir.vasl.chatkitlight.model.ConversationModel" />
+
+        <variable
+            name="conversationListListener"
+            type="ir.vasl.chatkitlight.ui.callback.ConversationListListener" />
+    </data>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/global_margin"
+        android:layout_marginBottom="@dimen/global_margin"
+        android:onClick="@{() -> conversationListListener.onConversationItemClicked(conversationModel)}"
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:minWidth="@dimen/conversation_min_width"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:background="@drawable/lawone_shape_curve_client"
+            android:layout_marginRight="@dimen/chat_safe_margin"
+            android:orientation="vertical"
+            android:id="@+id/linearLayour_bubble"
+            android:padding="@dimen/global_padding_middle">
+
+            <FrameLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/frameLayoutFile">
+
+                <androidx.appcompat.widget.AppCompatImageView
+                    android:layout_width="45dp"
+                    android:layout_height="45dp"
+                    android:layout_marginRight="20dp"
+                    android:layout_gravity="right"
+                    android:scaleType="centerInside"
+                    app:srcCompat="@drawable/ic_attachment_document" />
+
+                <TextView
+                    style="@style/TextViewTitleStyle"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginRight="65dp"
+                    android:layout_marginLeft="20dp"
+                    android:gravity="right"
+                    android:textColor="@color/lawone_client_text"
+                    android:text='@{!conversationModel.title.equals("") ? conversationModel.title : conversationModel.fileAddress.substring(conversationModel.fileAddress.lastIndexOf("/") + 1)}' />
+            </FrameLayout>
+
+            <TextView
+                style="@style/TextViewSubTitleStyle"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="6dp"
+                android:layout_marginLeft="25dp"
+                android:textColor="@color/lawone_client_text"
+                android:text="@{ conversationModel.message}"
+                android:visibility='@{ conversationModel.message.equals("") ? View.GONE : View.VISIBLE }' />
+
+
+
+        </LinearLayout>
+
+        <me.itangqi.waveloadingview.WaveLoadingView
+            android:id="@+id/waveView"
+            android:layout_width="@dimen/download_circle_size"
+            android:layout_height="@dimen/download_circle_size"
+            android:layout_alignParentRight="true"
+            android:layout_marginRight="10dp"
+            android:layout_marginTop="@dimen/download_circle_size_half"
+            app:wlv_borderColor="@color/white"
+            app:wlv_borderWidth="3dp"
+            app:wlv_progressValue="0"
+            app:wlv_shapeType="circle"
+            app:wlv_round_rectangle="true"
+            app:wlv_triangle_direction="north"
+            app:wlv_titleCenter="@string/download"
+            app:wlv_titleCenterColor="@color/white"
+            app:wlv_titleCenterSize="12sp"
+            app:wlv_waveAmplitude="85"
+            app:wlv_waveColor="@color/red" />
+
+        <androidx.appcompat.widget.AppCompatImageView
+            android:layout_width="@dimen/download_circle_size"
+            android:layout_height="@dimen/download_circle_size"
+            android:layout_alignParentRight="true"
+            android:layout_marginRight="10dp"
+            android:layout_centerVertical="true"
+            app:srcCompat="@drawable/checkmark_white"
+            android:scaleType="centerInside"
+            android:visibility="gone"
+            android:id="@+id/imageView_checkmark" />
+
+        <LinearLayout
+            android:layout_width="@dimen/conversation_min_width"
+            android:layout_height="wrap_content"
+            android:layout_marginRight="@dimen/chat_safe_margin"
+            android:gravity="left|center_vertical"
+            android:layout_alignParentRight="true"
+            android:layout_below="@id/linearLayour_bubble"
+            android:orientation="horizontal">
+
+            <androidx.appcompat.widget.AppCompatImageView
+                android:id="@+id/image"
+                style="@style/TextViewSubTitleStyle"
+                conversationStatusIcon="@{conversationModel.conversationStatus}"
+                android:layout_width="15dp"
+                android:layout_height="15dp"
+                android:tint="@color/white"
+                android:visibility='@{ conversationModel.conversationStatus.equals(null) ? View.GONE : View.VISIBLE  }' />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/global_margin"
+                android:layout_marginEnd="@dimen/global_margin"
+                android:text="@{conversationModel.time}"
+                android:textColor="@color/lawone_client_text"
+                android:textSize="12sp"
+                android:textStyle="bold"
+                android:visibility='@{conversationModel.time.equals("") ? View.GONE : View.VISIBLE }' />
+
+        </LinearLayout>
+
+    </RelativeLayout>
+
+</layout>
+

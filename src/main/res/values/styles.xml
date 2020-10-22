@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <style name="ChatKitTheme">
+        <item name="clientBubbleColor">@color/client_bubble_background</item>
+        <item name="serverBubbleColor">@color/server_bubble_background</item>
+    </style>
+
+    <style name="TextViewTitleStyle" parent="@android:style/TextAppearance.Medium">
+        <item name="android:textSize">14sp</item>
+        <item name="android:textColor">@color/white</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:fontFamily">@font/app_font</item>
+        <item name="android:padding">0dp</item>
+    </style>
+
+    <style name="TextAttachmentOptions">
+        <item name="android:fontFamily">sans-serif-condensed</item>
+        <item name="android:textStyle">normal</item>
+        <item name="android:textSize">14sp</item>
+        <item name="android:textColor">@color/warm_grey</item>
+    </style>
+
+    <style name="TextViewSubTitleStyle" parent="@android:style/TextAppearance.Medium">
+        <item name="android:textSize">12sp</item>
+        <item name="android:textColor">@color/warm_grey_six</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:fontFamily">@font/app_font</item>
+        <item name="android:padding">0dp</item>
+    </style>
+
+    <style name="EditTextStyle" parent="@android:style/Widget.EditText">
+        <item name="android:fontFamily">@font/app_font</item>
+    </style>
+
+    <style name="Widget.Button" parent="android:Widget">
+        <item name="android:textColor">@color/white</item>
+        <item name="android:padding">@dimen/global_padding_extra</item>
+        <item name="android:gravity">center</item>
+        <item name="fontFamily">@font/app_font</item>
+    </style>
+
+</resources>

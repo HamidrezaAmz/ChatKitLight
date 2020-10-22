@@ -1,0 +1,164 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+
+        <import type="android.view.View" />
+
+        <import type="ir.vasl.chatkitlight.utils.TimeUtils" />
+
+        <variable
+            name="conversationModel"
+            type="ir.vasl.chatkitlight.model.ConversationModel" />
+
+        <variable
+            name="conversationListListener"
+            type="ir.vasl.chatkitlight.ui.callback.ConversationListListener" />
+
+        <variable
+            name="isPlaying"
+            type="boolean" />
+    </data>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/global_margin"
+        android:layout_marginBottom="@dimen/global_margin"
+        android:onClick="@{() -> conversationListListener.onConversationItemClicked(conversationModel)}">
+
+        <RelativeLayout
+            android:id="@+id/linearLayour_bubble"
+            android:layout_width="@dimen/conversation_max_width"
+            android:layout_height="wrap_content"
+            android:layout_marginRight="@dimen/chat_safe_margin"
+            android:background="@drawable/lawone_shape_curve_client"
+            android:layout_alignParentRight="true"
+            android:orientation="vertical"
+            android:padding="@dimen/global_padding_middle">
+
+            <FrameLayout
+                android:id="@+id/frameLayoutFile"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <View
+                    android:layout_width="45dp"
+                    android:layout_height="45dp"
+                    android:layout_gravity="left"
+                    android:background="@drawable/rounded_yellow" />
+
+                <androidx.appcompat.widget.AppCompatImageView
+                    android:id="@+id/imageView_play"
+                    android:layout_width="45dp"
+                    android:layout_height="45dp"
+                    android:layout_gravity="left"
+                    android:scaleType="centerInside"
+                    android:padding="10dp"
+                    android:background="?attr/selectableItemBackgroundBorderless"
+                    android:src="@{isPlaying ? @drawable/ic_pause : @drawable/ic_play}" />
+
+                <TextView
+                    style="@style/TextViewTitleStyle"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="60dp"
+                    android:textColor="@color/lawone_client_text"
+                    android:visibility="invisible"
+                    android:text='@{conversationModel.fileAddress.substring(conversationModel.fileAddress.lastIndexOf("/") + 1)}' />
+            </FrameLayout>
+
+            <rm.com.audiowave.AudioWaveView
+                android:id="@+id/wave"
+                android:layout_width="match_parent"
+                android:layout_height="36dp"
+                android:layout_marginLeft="50dp"
+                android:layout_marginRight="35dp"
+                app:animateExpansion="false"
+                app:chunkHeight="28dp"
+                app:chunkRadius="1dp"
+                app:chunkSpacing="2dp"
+                app:chunkWidth="3dp"
+                app:minChunkHeight="2dp"
+                app:touchable="false"
+                app:waveColor="@color/lawone_yellow" />
+
+        </RelativeLayout>
+
+        <me.itangqi.waveloadingview.WaveLoadingView
+            android:id="@+id/waveView"
+            android:layout_width="@dimen/download_circle_size"
+            android:layout_height="@dimen/download_circle_size"
+            android:layout_marginTop="12.5dp"
+            android:layout_alignParentRight="true"
+            android:layout_marginRight="10dp"
+            app:wlv_borderColor="@color/white"
+            app:wlv_borderWidth="3dp"
+            app:wlv_progressValue="0"
+            app:wlv_round_rectangle="true"
+            app:wlv_shapeType="circle"
+            app:wlv_titleCenter="@string/download"
+            app:wlv_titleCenterColor="@color/white"
+            app:wlv_titleCenterSize="12sp"
+            app:wlv_triangle_direction="north"
+            app:wlv_waveAmplitude="85"
+            app:wlv_waveColor="@color/red" />
+
+        <androidx.appcompat.widget.AppCompatImageView
+            android:id="@+id/imageView_checkmark"
+            android:layout_width="65dp"
+            android:layout_height="65dp"
+            android:layout_centerVertical="true"
+            android:layout_alignParentRight="true"
+            android:layout_marginRight="10dp"
+            android:scaleType="centerInside"
+            android:visibility="gone"
+            app:srcCompat="@drawable/checkmark_white" />
+
+        <androidx.appcompat.widget.AppCompatImageView
+            android:layout_width="75dp"
+            android:layout_height="75dp"
+            android:background="@drawable/ic_lawone_tilted_white"
+            android:alpha="0.2"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="@dimen/chat_safe_margin" />
+
+        <LinearLayout
+            android:layout_width="@dimen/conversation_max_width"
+            android:layout_height="wrap_content"
+            android:gravity="left|center_vertical"
+            android:layout_alignParentRight="true"
+            android:layout_below="@id/linearLayour_bubble"
+            android:layout_marginRight="@dimen/chat_safe_margin"
+            android:layout_marginLeft="16dp"
+            android:paddingLeft="16dp"
+            android:orientation="horizontal">
+
+            <androidx.appcompat.widget.AppCompatImageView
+                android:id="@+id/image"
+                style="@style/TextViewSubTitleStyle"
+                conversationStatusIcon="@{conversationModel.conversationStatus}"
+                android:layout_width="15dp"
+                android:layout_height="15dp"
+                android:tint="@color/warm_grey_three"
+                android:visibility='@{ conversationModel.conversationStatus.equals(null) ? View.GONE : View.VISIBLE  }' />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/global_margin"
+                android:layout_marginEnd="@dimen/global_margin"
+                android:text="@{conversationModel.time}"
+                android:textColor="@color/warm_grey_three"
+                android:textSize="12sp"
+                android:textStyle="bold"
+                android:visibility='@{conversationModel.time.equals("") ? View.GONE : View.VISIBLE }' />
+
+        </LinearLayout>
+
+    </RelativeLayout>
+
+</layout>
+

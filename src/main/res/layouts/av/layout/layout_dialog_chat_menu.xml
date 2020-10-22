@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:gravity="center"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/shape_message_options"
+        android:gravity="end|center"
+        android:orientation="vertical"
+        android:padding="@dimen/global_padding_extra">
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/button_copy"
+            style="@style/Widget.Button"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="start"
+            android:background="?android:attr/selectableItemBackground"
+            android:text="@string/copy_message" />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="0.5dp"
+            android:layout_marginStart="@dimen/global_margin_extra"
+            android:layout_marginEnd="@dimen/global_margin_extra"
+            android:background="@color/divider" />
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/button_resend"
+            style="@style/Widget.Button"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="start"
+            android:background="?android:attr/selectableItemBackground"
+            android:text="@string/resend_message" />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="0.5dp"
+            android:layout_marginStart="@dimen/global_margin_extra"
+            android:layout_marginEnd="@dimen/global_margin_extra"
+            android:background="@color/divider" />
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/button_delete"
+            style="@style/Widget.Button"
+            android:layout_width="match_parent"
+            android:gravity="start"
+            android:layout_height="wrap_content"
+            android:background="?android:attr/selectableItemBackground"
+            android:text="@string/delete_message" />
+
+    </LinearLayout>
+
+</LinearLayout>
