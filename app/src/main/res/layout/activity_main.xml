@@ -9,25 +9,23 @@
         android:id="@+id/toolbar"
         android:layout_width="match_parent"
         android:layout_height="58dp"
-        android:background="?attr/colorPrimary"
-        android:minHeight="?attr/actionBarSize"
-        app:theme="@style/ToolBarStyle" />
-
+        android:background="@color/dark_mint"
+        android:visibility="visible" />
 
     <ir.vasl.chatkitlight.ui.view.ConversationView
         android:id="@+id/conversationView"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        app:chatStyle="lawone"
-        app:canShowDialog="true" />
+        app:canShowDialog="false"
+        app:chatStyle="lawone" />
 
     <ir.vasl.chatkitlight.ui.customview.ImageViewCustom
         android:id="@+id/image2"
         android:layout_width="150dp"
         android:layout_height="200dp"
         android:layout_gravity="center"
+        android:layout_marginTop="-300dp"
         android:scaleType="centerCrop"
-        android:layout_marginTop="-300dp"/>
-
+        android:visibility="gone" />
 
 </LinearLayout>

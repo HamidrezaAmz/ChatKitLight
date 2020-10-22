@@ -94,8 +94,6 @@
                             android:padding="8dp"
                             android:src="@drawable/camera_ic" />
 
-
-
                         <EditText
                             android:id="@+id/editTextMessage"
                             android:layout_width="0dp"

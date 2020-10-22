@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<shape xmlns:android="http://schemas.android.com/apk/res/android"
+    android:shape="rectangle">
+
+    <corners
+        android:bottomLeftRadius="@dimen/corner_curve_input"
+        android:bottomRightRadius="@dimen/corner_curve_input"
+        android:topLeftRadius="@dimen/corner_curve_input"
+        android:topRightRadius="@dimen/corner_curve_input" />
+
+    <padding
+        android:bottom="0dp"
+        android:left="0dp"
+        android:right="0dp"
+        android:top="0dp" />
+
+    <solid android:color="@color/white_two" />
+
+</shape>

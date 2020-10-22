@@ -190,12 +190,9 @@ public class AudioRecordView {
 
         dp = TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 1, view.getContext().getResources().getDisplayMetrics());
 
-        animBlink = AnimationUtils.loadAnimation(view.getContext(),
-                R.anim.blink);
-        animJump = AnimationUtils.loadAnimation(view.getContext(),
-                R.anim.jump);
-        animJumpFast = AnimationUtils.loadAnimation(view.getContext(),
-                R.anim.jump_fast);
+        animBlink = AnimationUtils.loadAnimation(view.getContext(), R.anim.blink);
+        animJump = AnimationUtils.loadAnimation(view.getContext(), R.anim.jump);
+        animJumpFast = AnimationUtils.loadAnimation(view.getContext(), R.anim.jump_fast);
 
         setupRecording();
         setupAttachmentOptions();
@@ -619,8 +616,8 @@ public class AudioRecordView {
             return;
         }
 
-        imageViewAudio.setTranslationX(-1*x);
-        layoutSlideCancel.setTranslationX(-1*x);
+        imageViewAudio.setTranslationX(-1 * x);
+        layoutSlideCancel.setTranslationX(-1 * x);
         layoutLock.setTranslationY(0);
         imageViewAudio.setTranslationY(0);
 

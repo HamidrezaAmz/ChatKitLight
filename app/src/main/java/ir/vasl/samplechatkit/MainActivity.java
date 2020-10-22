@@ -6,7 +6,6 @@ import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.CountDownTimer;
-import android.os.Handler;
 import android.os.Parcelable;
 import android.util.Log;
 import android.view.Menu;
@@ -16,7 +15,6 @@ import android.widget.Toast;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.widget.AppCompatImageView;
 import androidx.appcompat.widget.Toolbar;
 import androidx.core.app.ActivityCompat;
 import androidx.lifecycle.ViewModelProvider;
@@ -26,8 +24,6 @@ import java.util.List;
 import java.util.UUID;
 
 import droidninja.filepicker.FilePickerBuilder;
-import ir.vasl.chatkitlight.database.ChatDao;
-import ir.vasl.chatkitlight.database.ChatKitDatabase;
 import ir.vasl.chatkitlight.database.DatabaseLayer;
 import ir.vasl.chatkitlight.model.ConversationModel;
 import ir.vasl.chatkitlight.ui.audio.AttachmentOption;
@@ -110,7 +106,7 @@ public class MainActivity
         conversationModel.setConversationType(ConversationType.CLIENT);
         conversationModel.setConversationStatus(ConversationStatus.DELIVERED);
         conversationModel.setImageUrl("https://www.w3schools.com/howto/img_avatar.png");
-        if(imageUri != null) {
+        if (imageUri != null) {
             conversationModel.setFileType(FileType.AUDIO);
 //            conversationModel.setFileAddress(imageUri.toString());
             conversationModel.setFileAddress("https://www.kozco.com/tech/piano2.wav");
@@ -129,7 +125,7 @@ public class MainActivity
                 List<ConversationModel> allModels = DatabaseLayer.getInstance(MyApplication.getApp()).getChatKitDatabase().getChatDao().getAllSimple(chatID);
 
                 for (int i = 0; i < allModels.size(); i++) {
-                    Log.e(TAG, "AFTER SUBMIT: " + allModels.get(i).getId() + " " + allModels.get(i).getMessage() );
+                    Log.e(TAG, "AFTER SUBMIT: " + allModels.get(i).getId() + " " + allModels.get(i).getMessage());
                 }
                 conversationListViewModel.updateConversationStatus(conversationModel.getConversationId(), ConversationStatus.SENT);
             }
@@ -184,7 +180,7 @@ public class MainActivity
 
     @Override
     public void onAddAttachments(AttachmentOption option) {
-        if(!checkPermission())
+        if (!checkPermission())
             return;
         pickGallery();
     }
@@ -211,7 +207,7 @@ public class MainActivity
         ArrayList<Parcelable> uri = data.getParcelableArrayListExtra("SELECTED_PHOTOS");
         image.setImageUrl(((Uri) uri.get(0)));
         imageUri = ((Uri) uri.get(0));
-        Log.e(TAG, "onActivityResult: " + uri );
+        Log.e(TAG, "onActivityResult: " + uri);
 
     }
 

@@ -1,14 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <dimen name="input_button_width">36dp</dimen>
-    <dimen name="input_button_height">36dp</dimen>
+    <dimen name="input_button_width">45dp</dimen>
+    <dimen name="input_button_height">45dp</dimen>
     <dimen name="input_button_margin">16dp</dimen>
     <dimen name="input_text_size">17sp</dimen>
+    <dimen name="input_text_size_small">12sp</dimen>
     <dimen name="input_padding_left">16sp</dimen>
     <dimen name="input_padding_right">16sp</dimen>
     <dimen name="input_padding_top">8sp</dimen>
     <dimen name="input_padding_bottom">8sp</dimen>
     <dimen name="input_height">65dp</dimen>
+    <dimen name="input_edittext_height">40dp</dimen>
+    <dimen name="input_item_size">45dp</dimen>
 
     <dimen name="message_bubble_corners_radius">15dp</dimen>
 
@@ -58,6 +61,7 @@
     <dimen name="global_margin_spaced">56dp</dimen>
 
     <dimen name="corner_curve_conversation">10dp</dimen>
+    <dimen name="corner_curve_input">50dp</dimen>
     <dimen name="conversation_max_width">300dp</dimen>
     <dimen name="conversation_min_width">150dp</dimen>
     <dimen name="conversation_min_height">100dp</dimen>

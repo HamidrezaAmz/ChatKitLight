@@ -14,6 +14,8 @@
     <item name="attachmentButtonSpace" type="id" />
     <item name="sendButtonSpace" type="id" />
     <item name="messageInput" type="id" />
+    <item name="messageSendAndRecordHolder" type="id" />
+    <item name="endViewSpace" type="id" />
 
     <!-- DIALOGS LIST ITEM -->
     <item name="dialogRootLayout" type="id" />

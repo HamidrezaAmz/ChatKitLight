@@ -2,7 +2,7 @@ package ir.vasl.chatkitlight.ui.view;
 
 import android.content.Context;
 import android.util.AttributeSet;
-import android.view.ViewGroup;
+import android.view.View;
 import android.widget.FrameLayout;
 
 import androidx.annotation.NonNull;
@@ -15,7 +15,6 @@ import com.orangegangsters.github.swipyrefreshlayout.library.SwipyRefreshLayoutD
 
 import ir.vasl.chatkitlight.R;
 import ir.vasl.chatkitlight.ui.audio.AttachmentOption;
-import ir.vasl.chatkitlight.ui.audio.AttachmentOptionsListener;
 import ir.vasl.chatkitlight.ui.audio.AudioRecordView;
 import ir.vasl.chatkitlight.ui.callback.AttachmentsListener;
 import ir.vasl.chatkitlight.ui.callback.ConversationViewListener;
@@ -26,7 +25,6 @@ import ir.vasl.chatkitlight.utils.Constants;
 import ir.vasl.chatkitlight.utils.globalEnums.ChatStyleEnum;
 import ir.vasl.chatkitlight.viewmodel.ConversationListViewModel;
 
-@SuppressWarnings("rawtypes")
 public class ConversationView
         extends FrameLayout
         implements TypingListener,
@@ -37,9 +35,8 @@ public class ConversationView
         AudioRecordView.RecordingListener {
 
     private ConversationViewListener conversationViewListener;
-    private AudioRecordView conversationInput;
     private ConversationList conversationList;
-    private SwipyRefreshLayout swipyRefreshLayout;
+    private ConversationInput conversationInput;
 
     private ChatStyleEnum chatStyleEnum = ChatStyleEnum.DEFAULT;
 
@@ -77,31 +74,22 @@ public class ConversationView
     }
 
     private void init(Context context) {
-        ViewGroup viewConversation = (ViewGroup) inflate(context, R.layout.layout_conversation_view, this);
+
+        View conversationView = (View) inflate(context, R.layout.layout_conversation_view, this);
+//        View conversationView = LayoutInflater.from(context).inflate(R.layout.layout_conversation_view, this, true);
+
         // conversation view items
-        swipyRefreshLayout = viewConversation.findViewById(R.id.swipyRefreshLayout);
-        conversationList = viewConversation.findViewById(R.id.conversationList);
-        conversationInput = new AudioRecordView();
-        conversationInput.setChatStyle(chatStyleEnum);
-        conversationInput.initView(viewConversation);
-        conversationInput.showCameraIcon(false);
-        conversationInput.setAttachmentOptions(AttachmentOption.getDefaultList(), new AttachmentOptionsListener() {
-            @Override
-            public void onClick(AttachmentOption attachmentOption) {
-                onAddAttachments(attachmentOption);
-            }
-        });
-        conversationInput.getSendView().setOnClickListener(v -> {
-            String msg = conversationInput.getMessageView().getText().toString();
-            conversationInput.getMessageView().setText("");
-            onSubmit(msg);
-        });
-        swipyRefreshLayout.setOnRefreshListener(this);
+        conversationList = conversationView.findViewById(R.id.conversationList);
+        conversationInput = conversationView.findViewById(R.id.conversationInput);
+
+        // listeners
+        conversationInput.setInputListener(this);
         conversationList.setDialogMenuListener(this);
-        conversationInput.setRecordingListener(this);
+        conversationInput.setAttachmentsListener(this);
+
         // fix recyclerview conflict with swipe refresh
         conversationList.addOnScrollListener(scrollListener);
-        switch (chatStyleEnum) {
+        /*switch (chatStyleEnum) {
             case DEFAULT:
             case ARMAN_VARZESH:
                 viewConversation.findViewById(R.id.frameLayout_root).setBackgroundColor(context.getResources().getColor(R.color.black));
@@ -109,7 +97,10 @@ public class ConversationView
             case LAWONE:
                 viewConversation.findViewById(R.id.frameLayout_root).setBackgroundColor(context.getResources().getColor(R.color.white));
                 break;
-        }
+        }*/
+
+        conversationView.findViewById(R.id.root).setBackgroundColor(context.getResources().getColor(R.color.red));
+
     }
 
     public void setConversationViewListener(ConversationViewListener conversationViewListener) {
@@ -162,7 +153,6 @@ public class ConversationView
     }
 
     @SuppressWarnings("unchecked")
-
     @Override
     public void onDeleteMessageClicked(Object object) {
         if (conversationViewListener != null)
@@ -176,11 +166,11 @@ public class ConversationView
     }
 
     public void hideSwipeRefresh() {
-        swipyRefreshLayout.setRefreshing(false);
+        // swipyRefreshLayout.setRefreshing(false);
     }
 
     public void showSwipeRefresh() {
-        swipyRefreshLayout.setRefreshing(true);
+        // swipyRefreshLayout.setRefreshing(true);
     }
 
     private RecyclerView.OnScrollListener scrollListener = new RecyclerView.OnScrollListener() {
@@ -193,10 +183,11 @@ public class ConversationView
 
             LinearLayoutManager manager = ((LinearLayoutManager) recyclerView.getLayoutManager());
             if (manager != null) {
-                if (manager.findFirstCompletelyVisibleItemPosition() == 0)
-                    swipyRefreshLayout.setEnabled(true);
-                else
-                    swipyRefreshLayout.setEnabled((recyclerView.canScrollVertically(DIRECTION_UP)));
+                if (manager.findFirstCompletelyVisibleItemPosition() == 0) {
+                    // swipyRefreshLayout.setEnabled(true);
+                } else {
+                    // swipyRefreshLayout.setEnabled((recyclerView.canScrollVertically(DIRECTION_UP)));
+                }
             }
         }
     };

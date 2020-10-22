@@ -1,29 +1,35 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/root"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:layout_marginBottom="@dimen/input_height"
-    android:id="@+id/frameLayout_root"
-    android:background="@color/black">
+    android:orientation="vertical">
 
-    <RelativeLayout
+    <ir.vasl.chatkitlight.ui.view.ConversationList
+        android:id="@+id/conversationList"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="0dp"
+        android:layout_weight="1" />
 
-        <com.orangegangsters.github.swipyrefreshlayout.library.SwipyRefreshLayout
-            android:id="@+id/swipyRefreshLayout"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            app:direction="bottom">
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="6dp"
+        android:background="@drawable/top_shadow_gradient" />
 
-            <ir.vasl.chatkitlight.ui.view.ConversationList
-                android:id="@+id/conversationList"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent" />
+    <ir.vasl.chatkitlight.ui.view.ConversationInput
+        android:id="@+id/conversationInput"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/input_height"
+        android:background="@color/white"
+        app:attachmentButtonBackground="@drawable/shape_rounded_gray"
+        app:attachmentButtonIcon="@drawable/ic_attachment"
+        app:inputBackground="@drawable/shape_lawone_edittext_curve"
+        app:inputButtonBackground="@drawable/shape_rounded_gray"
+        app:inputButtonDefaultIconColor="@color/green"
+        app:inputHint="@string/type_a_message"
+        app:inputTextColor="@color/black"
+        app:inputTextSize="@dimen/input_text_size_small"
+        app:showAttachmentButton="true" />
 
-        </com.orangegangsters.github.swipyrefreshlayout.library.SwipyRefreshLayout>
-
-    </RelativeLayout>
-
-</FrameLayout>
+</LinearLayout>

@@ -85,7 +85,7 @@ class MessageInputStyle extends Style {
 
         style.attachmentButtonIcon = typedArray.getResourceId(R.styleable.ConversationInput_attachmentButtonIcon, -1);
         style.attachmentButtonDefaultIconColor = typedArray.getColor(R.styleable.ConversationInput_attachmentButtonDefaultIconColor,
-                style.getColor(R.color.cornflower_blue_two));
+                style.getColor(R.color.warm_grey));
         style.attachmentButtonDefaultIconPressedColor = typedArray.getColor(R.styleable.ConversationInput_attachmentButtonDefaultIconPressedColor,
                 style.getColor(R.color.cornflower_blue_two_dark));
         style.attachmentButtonDefaultIconDisabledColor = typedArray.getColor(R.styleable.ConversationInput_attachmentButtonDefaultIconDisabledColor,
@@ -204,8 +204,7 @@ class MessageInputStyle extends Style {
 
     protected Drawable getInputButtonIcon() {
         if (inputButtonIcon == -1) {
-            return getSelector(inputButtonDefaultIconColor, inputButtonDefaultIconPressedColor,
-                    inputButtonDefaultIconDisabledColor, R.drawable.ic_send);
+            return getSelector(inputButtonDefaultIconColor, inputButtonDefaultIconPressedColor, inputButtonDefaultIconDisabledColor, R.drawable.ic_send);
         } else {
             return getDrawable(inputButtonIcon);
         }

@@ -14,7 +14,10 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import androidx.core.view.ViewCompat;
-import androidx.legacy.widget.Space;
+
+import com.devlomi.record_view.OnRecordListener;
+import com.devlomi.record_view.RecordButton;
+import com.devlomi.record_view.RecordView;
 
 import java.lang.reflect.Field;
 
@@ -26,12 +29,13 @@ import ir.vasl.chatkitlight.ui.callback.TypingListener;
 @SuppressWarnings({"WeakerAccess", "unused"})
 public class ConversationInput
         extends RelativeLayout
-        implements View.OnClickListener, TextWatcher, View.OnFocusChangeListener {
+        implements View.OnClickListener, TextWatcher, View.OnFocusChangeListener, OnRecordListener {
 
     protected EditText ConversationInput;
     protected ImageButton messageSendButton;
     protected ImageButton attachmentButton;
-    protected Space sendButtonSpace, attachmentButtonSpace;
+    protected RecordView recordView;
+    protected RecordButton recordButton;
 
     private CharSequence input;
     private InputListener inputListener;
@@ -77,8 +81,12 @@ public class ConversationInput
         return ConversationInput;
     }
 
-    public ImageButton getButton() {
+    public ImageButton getMessageSendButton() {
         return messageSendButton;
+    }
+
+    public ImageButton getAttachmentButton() {
+        return attachmentButton;
     }
 
     @Override
@@ -104,6 +112,7 @@ public class ConversationInput
     public void onTextChanged(CharSequence s, int start, int count, int after) {
         input = s;
         messageSendButton.setEnabled(input.length() > 0);
+        recordButton.setVisibility(input.length() > 0 ? INVISIBLE : VISIBLE);
         if (s.length() > 0) {
             if (!isTyping) {
                 isTyping = true;
@@ -147,6 +156,34 @@ public class ConversationInput
 //        if (attachmentsListener != null) attachmentsListener.onAddAttachments();
     }
 
+    @Override
+    public void onStart() {
+        getInputEditText().setVisibility(INVISIBLE);
+        getMessageSendButton().setVisibility(INVISIBLE);
+        getAttachmentButton().setVisibility(INVISIBLE);
+    }
+
+    @Override
+    public void onCancel() {
+        getInputEditText().setVisibility(VISIBLE);
+        getMessageSendButton().setVisibility(VISIBLE);
+        getAttachmentButton().setVisibility(VISIBLE);
+    }
+
+    @Override
+    public void onFinish(long recordTime) {
+        getInputEditText().setVisibility(VISIBLE);
+        getMessageSendButton().setVisibility(VISIBLE);
+        getAttachmentButton().setVisibility(VISIBLE);
+    }
+
+    @Override
+    public void onLessThanSecond() {
+        getInputEditText().setVisibility(VISIBLE);
+        getMessageSendButton().setVisibility(VISIBLE);
+        getAttachmentButton().setVisibility(VISIBLE);
+    }
+
     private void init(Context context, AttributeSet attrs) {
         init(context);
         MessageInputStyle style = MessageInputStyle.parse(context, attrs);
@@ -166,16 +203,16 @@ public class ConversationInput
         this.attachmentButton.getLayoutParams().height = style.getAttachmentButtonHeight();
         ViewCompat.setBackground(this.attachmentButton, style.getAttachmentButtonBackground());
 
-        this.attachmentButtonSpace.setVisibility(style.showAttachmentButton() ? VISIBLE : GONE);
-        this.attachmentButtonSpace.getLayoutParams().width = style.getAttachmentButtonMargin();
+        // this.attachmentButtonSpace.setVisibility(style.showAttachmentButton() ? VISIBLE : GONE);
+        // this.attachmentButtonSpace.getLayoutParams().width = style.getAttachmentButtonMargin();
 
         this.messageSendButton.setImageDrawable(style.getInputButtonIcon());
         this.messageSendButton.getLayoutParams().width = style.getInputButtonWidth();
         this.messageSendButton.getLayoutParams().height = style.getInputButtonHeight();
+        // this.sendButtonSpace.getLayoutParams().width = style.getInputButtonMargin();
         ViewCompat.setBackground(messageSendButton, style.getInputButtonBackground());
-        this.sendButtonSpace.getLayoutParams().width = style.getInputButtonMargin();
 
-        if (getPaddingLeft() == 0
+        /*if (getPaddingLeft() == 0
                 && getPaddingRight() == 0
                 && getPaddingTop() == 0
                 && getPaddingBottom() == 0) {
@@ -185,7 +222,7 @@ public class ConversationInput
                     style.getInputDefaultPaddingRight(),
                     style.getInputDefaultPaddingBottom()
             );
-        }
+        }*/
         this.delayTypingStatusMillis = style.getDelayTypingStatus();
     }
 
@@ -195,14 +232,18 @@ public class ConversationInput
         ConversationInput = findViewById(R.id.messageInput);
         messageSendButton = findViewById(R.id.messageSendButton);
         attachmentButton = findViewById(R.id.attachmentButton);
-        sendButtonSpace = findViewById(R.id.sendButtonSpace);
-        attachmentButtonSpace = findViewById(R.id.attachmentButtonSpace);
+        // sendButtonSpace = findViewById(R.id.sendButtonSpace);
+        // attachmentButtonSpace = findViewById(R.id.attachmentButtonSpace);
+        recordView = (RecordView) findViewById(R.id.record_view);
+        recordButton = (RecordButton) findViewById(R.id.record_button);
 
         messageSendButton.setOnClickListener(this);
         attachmentButton.setOnClickListener(this);
         ConversationInput.addTextChangedListener(this);
         ConversationInput.setText("");
         ConversationInput.setOnFocusChangeListener(this);
+        recordButton.setRecordView(recordView);
+        recordView.setOnRecordListener(this);
     }
 
     private void setCursor(Drawable drawable) {
