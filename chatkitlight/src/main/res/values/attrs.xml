@@ -64,4 +64,10 @@
         <attr name="aspect_ratio" format="boolean" />
     </declare-styleable>
 
+    <declare-styleable name="AnimButton">
+        <attr name="recording" format="reference" />
+        <attr name="typing" format="reference" />
+        <attr name="duration" format="integer" />
+    </declare-styleable>
+    
 </resources>

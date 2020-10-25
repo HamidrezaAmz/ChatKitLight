@@ -2,8 +2,9 @@ package ir.vasl.chatkitlight.ui.view;
 
 import android.content.Context;
 import android.util.AttributeSet;
+import android.view.LayoutInflater;
 import android.view.View;
-import android.widget.FrameLayout;
+import android.widget.LinearLayout;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -14,7 +15,6 @@ import com.orangegangsters.github.swipyrefreshlayout.library.SwipyRefreshLayout;
 import com.orangegangsters.github.swipyrefreshlayout.library.SwipyRefreshLayoutDirection;
 
 import ir.vasl.chatkitlight.R;
-import ir.vasl.chatkitlight.ui.audio.AttachmentOption;
 import ir.vasl.chatkitlight.ui.audio.AudioRecordView;
 import ir.vasl.chatkitlight.ui.callback.AttachmentsListener;
 import ir.vasl.chatkitlight.ui.callback.ConversationViewListener;
@@ -26,7 +26,7 @@ import ir.vasl.chatkitlight.utils.globalEnums.ChatStyleEnum;
 import ir.vasl.chatkitlight.viewmodel.ConversationListViewModel;
 
 public class ConversationView
-        extends FrameLayout
+        extends LinearLayout
         implements TypingListener,
         AttachmentsListener,
         InputListener,
@@ -75,8 +75,7 @@ public class ConversationView
 
     private void init(Context context) {
 
-        View conversationView = (View) inflate(context, R.layout.layout_conversation_view, this);
-//        View conversationView = LayoutInflater.from(context).inflate(R.layout.layout_conversation_view, this, true);
+        View conversationView = LayoutInflater.from(context).inflate(R.layout.layout_conversation_view, this, true);
 
         // conversation view items
         conversationList = conversationView.findViewById(R.id.conversationList);
@@ -89,17 +88,6 @@ public class ConversationView
 
         // fix recyclerview conflict with swipe refresh
         conversationList.addOnScrollListener(scrollListener);
-        /*switch (chatStyleEnum) {
-            case DEFAULT:
-            case ARMAN_VARZESH:
-                viewConversation.findViewById(R.id.frameLayout_root).setBackgroundColor(context.getResources().getColor(R.color.black));
-                break;
-            case LAWONE:
-                viewConversation.findViewById(R.id.frameLayout_root).setBackgroundColor(context.getResources().getColor(R.color.white));
-                break;
-        }*/
-
-        conversationView.findViewById(R.id.root).setBackgroundColor(context.getResources().getColor(R.color.red));
 
     }
 
@@ -199,15 +187,9 @@ public class ConversationView
     }
 
     @Override
-    public void onAddAttachments(AttachmentOption option) {
+    public void onAddAttachments() {
         if (conversationViewListener != null)
-            conversationViewListener.onAddAttachments(option);
-    }
-
-    @Override
-    public void onRecordingStarted() {
-        if (conversationViewListener != null)
-            conversationViewListener.onVoiceRecordStarted();
+            conversationViewListener.onAddAttachments(null);
     }
 
     @Override
@@ -215,6 +197,12 @@ public class ConversationView
 
     }
 
+    @Override
+    public void onRecordingStarted() {
+        if (conversationViewListener != null)
+            conversationViewListener.onVoiceRecordStarted();
+    }
+    
     @Override
     public void onRecordingCompleted() {
         if (conversationViewListener != null)

@@ -9,14 +9,14 @@ import android.util.AttributeSet;
 import android.util.TypedValue;
 import android.view.View;
 import android.widget.EditText;
+import android.widget.FrameLayout;
 import android.widget.ImageButton;
-import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import androidx.core.view.ViewCompat;
 
+import com.devlomi.record_view.OnRecordClickListener;
 import com.devlomi.record_view.OnRecordListener;
-import com.devlomi.record_view.RecordButton;
 import com.devlomi.record_view.RecordView;
 
 import java.lang.reflect.Field;
@@ -25,24 +25,22 @@ import ir.vasl.chatkitlight.R;
 import ir.vasl.chatkitlight.ui.callback.AttachmentsListener;
 import ir.vasl.chatkitlight.ui.callback.InputListener;
 import ir.vasl.chatkitlight.ui.callback.TypingListener;
+import ir.vasl.chatkitlight.ui.customview.AnimButton;
 
 @SuppressWarnings({"WeakerAccess", "unused"})
 public class ConversationInput
-        extends RelativeLayout
-        implements View.OnClickListener, TextWatcher, View.OnFocusChangeListener, OnRecordListener {
+        extends FrameLayout
+        implements View.OnClickListener, TextWatcher, View.OnFocusChangeListener, OnRecordListener, OnRecordClickListener {
 
     protected EditText ConversationInput;
-    protected ImageButton messageSendButton;
     protected ImageButton attachmentButton;
     protected RecordView recordView;
-    protected RecordButton recordButton;
+    protected AnimButton animButton;
 
     private CharSequence input;
     private InputListener inputListener;
     private AttachmentsListener attachmentsListener;
-    private boolean isTyping;
     private TypingListener typingListener;
-    private int delayTypingStatusMillis;
     private Runnable typingTimerRunnable = new Runnable() {
         @Override
         public void run() {
@@ -52,6 +50,8 @@ public class ConversationInput
             }
         }
     };
+    private int delayTypingStatusMillis;
+    private boolean isTyping;
     private boolean lastFocus;
 
     public ConversationInput(Context context) {
@@ -81,10 +81,6 @@ public class ConversationInput
         return ConversationInput;
     }
 
-    public ImageButton getMessageSendButton() {
-        return messageSendButton;
-    }
-
     public ImageButton getAttachmentButton() {
         return attachmentButton;
     }
@@ -92,7 +88,7 @@ public class ConversationInput
     @Override
     public void onClick(View view) {
         int id = view.getId();
-        if (id == R.id.messageSendButton) {
+        if (id == R.id.anim_button) {
             boolean isSubmitted = onSubmit();
             if (isSubmitted) {
                 ConversationInput.setText("");
@@ -111,8 +107,9 @@ public class ConversationInput
     @Override
     public void onTextChanged(CharSequence s, int start, int count, int after) {
         input = s;
-        messageSendButton.setEnabled(input.length() > 0);
-        recordButton.setVisibility(input.length() > 0 ? INVISIBLE : VISIBLE);
+        animButton.setCurrAnimButtonState(input.length() > 0 ? AnimButton.AnimButtonState.TYPING : AnimButton.AnimButtonState.RECORDING);
+        animButton.setListenForRecord(input.length() <= 0);
+
         if (s.length() > 0) {
             if (!isTyping) {
                 isTyping = true;
@@ -153,34 +150,31 @@ public class ConversationInput
     }
 
     private void onAddAttachments() {
-//        if (attachmentsListener != null) attachmentsListener.onAddAttachments();
+        if (attachmentsListener != null)
+            attachmentsListener.onAddAttachments();
     }
 
     @Override
     public void onStart() {
         getInputEditText().setVisibility(INVISIBLE);
-        getMessageSendButton().setVisibility(INVISIBLE);
         getAttachmentButton().setVisibility(INVISIBLE);
     }
 
     @Override
     public void onCancel() {
         getInputEditText().setVisibility(VISIBLE);
-        getMessageSendButton().setVisibility(VISIBLE);
         getAttachmentButton().setVisibility(VISIBLE);
     }
 
     @Override
     public void onFinish(long recordTime) {
         getInputEditText().setVisibility(VISIBLE);
-        getMessageSendButton().setVisibility(VISIBLE);
         getAttachmentButton().setVisibility(VISIBLE);
     }
 
     @Override
     public void onLessThanSecond() {
         getInputEditText().setVisibility(VISIBLE);
-        getMessageSendButton().setVisibility(VISIBLE);
         getAttachmentButton().setVisibility(VISIBLE);
     }
 
@@ -203,26 +197,6 @@ public class ConversationInput
         this.attachmentButton.getLayoutParams().height = style.getAttachmentButtonHeight();
         ViewCompat.setBackground(this.attachmentButton, style.getAttachmentButtonBackground());
 
-        // this.attachmentButtonSpace.setVisibility(style.showAttachmentButton() ? VISIBLE : GONE);
-        // this.attachmentButtonSpace.getLayoutParams().width = style.getAttachmentButtonMargin();
-
-        this.messageSendButton.setImageDrawable(style.getInputButtonIcon());
-        this.messageSendButton.getLayoutParams().width = style.getInputButtonWidth();
-        this.messageSendButton.getLayoutParams().height = style.getInputButtonHeight();
-        // this.sendButtonSpace.getLayoutParams().width = style.getInputButtonMargin();
-        ViewCompat.setBackground(messageSendButton, style.getInputButtonBackground());
-
-        /*if (getPaddingLeft() == 0
-                && getPaddingRight() == 0
-                && getPaddingTop() == 0
-                && getPaddingBottom() == 0) {
-            setPadding(
-                    style.getInputDefaultPaddingLeft(),
-                    style.getInputDefaultPaddingTop(),
-                    style.getInputDefaultPaddingRight(),
-                    style.getInputDefaultPaddingBottom()
-            );
-        }*/
         this.delayTypingStatusMillis = style.getDelayTypingStatus();
     }
 
@@ -230,19 +204,17 @@ public class ConversationInput
         inflate(context, R.layout.view_message_input, this);
 
         ConversationInput = findViewById(R.id.messageInput);
-        messageSendButton = findViewById(R.id.messageSendButton);
         attachmentButton = findViewById(R.id.attachmentButton);
-        // sendButtonSpace = findViewById(R.id.sendButtonSpace);
-        // attachmentButtonSpace = findViewById(R.id.attachmentButtonSpace);
-        recordView = (RecordView) findViewById(R.id.record_view);
-        recordButton = (RecordButton) findViewById(R.id.record_button);
+        recordView = findViewById(R.id.record_view);
+        animButton = findViewById(R.id.anim_button);
 
-        messageSendButton.setOnClickListener(this);
         attachmentButton.setOnClickListener(this);
         ConversationInput.addTextChangedListener(this);
         ConversationInput.setText("");
         ConversationInput.setOnFocusChangeListener(this);
-        recordButton.setRecordView(recordView);
+        animButton.setRecordView(recordView);
+
+        animButton.setOnRecordClickListener(this);
         recordView.setOnRecordListener(this);
     }
 

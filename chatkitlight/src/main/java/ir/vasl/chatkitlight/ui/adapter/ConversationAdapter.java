@@ -27,7 +27,7 @@ import ir.vasl.chatkitlight.databinding.LawoneConversationServerAudioBinding;
 import ir.vasl.chatkitlight.databinding.LawoneConversationServerBinding;
 import ir.vasl.chatkitlight.databinding.LawoneConversationServerFileBinding;
 import ir.vasl.chatkitlight.databinding.LawoneConversationServerImageBinding;
-import ir.vasl.chatkitlight.databinding.SystemConversationBinding;
+import ir.vasl.chatkitlight.databinding.LawoneConversationSystemBinding;
 import ir.vasl.chatkitlight.databinding.ViewConversationClientAudioBinding;
 import ir.vasl.chatkitlight.databinding.ViewConversationClientBinding;
 import ir.vasl.chatkitlight.databinding.ViewConversationClientFileBinding;
@@ -57,7 +57,7 @@ public class ConversationAdapter extends PagedListAdapter<ConversationModel, Bas
 
     private ConversationListListener conversationListListener;
     private ChatStyleEnum chatStyleEnum;
-    private Context context; //for permission, storage management and intent initialization
+    private Context context; // for permission, storage management and intent initialization
     private ThinDownloadManager downloadManager; // one dl mgr for the whole list
 
     public ConversationAdapter(ConversationListListener conversationListListener, ChatStyleEnum chatStyleEnum) {
@@ -128,8 +128,8 @@ public class ConversationAdapter extends PagedListAdapter<ConversationModel, Bas
 
                 case SYSTEM:
                     ConversationModel model = getItem(position);
-                    ((ConversationViewHolder) holder).systemConversationBinding.setConversationModel(model);
-                    ((ConversationViewHolder) holder).systemConversationBinding.setConversationListListener(this);
+                    ((ConversationViewHolder) holder).lawoneConversationSystemBinding.setConversationModel(model);
+                    ((ConversationViewHolder) holder).lawoneConversationSystemBinding.setConversationListListener(this);
                     break;
 
                 case UNDEFINE:
@@ -160,8 +160,8 @@ public class ConversationAdapter extends PagedListAdapter<ConversationModel, Bas
 
                 case SYSTEM:
                     ConversationModel model = getItem(position);
-                    ((ConversationViewHolder) holder).systemConversationBinding.setConversationModel(model);
-                    ((ConversationViewHolder) holder).systemConversationBinding.setConversationListListener(this);
+                    ((ConversationViewHolder) holder).lawoneConversationSystemBinding.setConversationModel(model);
+                    ((ConversationViewHolder) holder).lawoneConversationSystemBinding.setConversationListListener(this);
                     break;
 
                 case UNDEFINE:
@@ -189,8 +189,9 @@ public class ConversationAdapter extends PagedListAdapter<ConversationModel, Bas
                 }
                 case SYSTEM:
                     ConversationModel model = getItem(position);
-                    ((ConversationViewHolder) holder).systemConversationBinding.setConversationModel(model);
-                    ((ConversationViewHolder) holder).systemConversationBinding.setConversationListListener(this);                    break;
+                    ((ConversationViewHolder) holder).lawoneConversationSystemBinding.setConversationModel(model);
+                    ((ConversationViewHolder) holder).lawoneConversationSystemBinding.setConversationListListener(this);
+                    break;
                 case EMPTY:
                     ((ConversationViewHolder) holder).emptyBinding.setConversationListListener(this);
                     break;
@@ -216,8 +217,8 @@ public class ConversationAdapter extends PagedListAdapter<ConversationModel, Bas
                 }
                 case SYSTEM:
                     ConversationModel model = getItem(position);
-                    ((ConversationViewHolder) holder).systemConversationBinding.setConversationModel(model);
-                    ((ConversationViewHolder) holder).systemConversationBinding.setConversationListListener(this);
+                    ((ConversationViewHolder) holder).lawoneConversationSystemBinding.setConversationModel(model);
+                    ((ConversationViewHolder) holder).lawoneConversationSystemBinding.setConversationListListener(this);
                     break;
                 case EMPTY:
                     ((ConversationViewHolder) holder).emptyBinding.setConversationListListener(this);
@@ -247,8 +248,8 @@ public class ConversationAdapter extends PagedListAdapter<ConversationModel, Bas
                     break;
                 case SYSTEM:
                     ConversationModel model = getItem(position);
-                    ((ConversationViewHolder) holder).systemConversationBinding.setConversationModel(model);
-                    ((ConversationViewHolder) holder).systemConversationBinding.setConversationListListener(this);
+                    ((ConversationViewHolder) holder).lawoneConversationSystemBinding.setConversationModel(model);
+                    ((ConversationViewHolder) holder).lawoneConversationSystemBinding.setConversationListListener(this);
                     break;
                 case UNDEFINE:
                 default:
@@ -413,8 +414,10 @@ public class ConversationAdapter extends PagedListAdapter<ConversationModel, Bas
             return ConversationType.EMPTY.getValue();
 
         ConversationModel model = getItem(position);
+
         if (model == null || getItemCount() == 0)
             return ConversationType.EMPTY.getValue();
+
         if (getItem(position).getFileType() != null) {
             switch (getItem(position).getFileType()) {
                 case NONE:
@@ -459,8 +462,8 @@ public class ConversationAdapter extends PagedListAdapter<ConversationModel, Bas
                     ViewConversationEmptyBinding emptyBinding = DataBindingUtil.inflate(inflater, R.layout.view_conversation_empty, parent, false);
                     return new ConversationViewHolder(emptyBinding);
                 case SYSTEM:
-                    SystemConversationBinding systemBinding = DataBindingUtil.inflate(inflater, R.layout.system_conversation, parent, false);
-                    return new ConversationViewHolder(systemBinding);
+                    LawoneConversationSystemBinding lawoneConversationSystemBinding = DataBindingUtil.inflate(inflater, R.layout.lawone_conversation_system, parent, false);
+                    return new ConversationViewHolder(lawoneConversationSystemBinding);
                 default:
                     ViewConversationUnsupportedBinding unsupportedBinding = DataBindingUtil.inflate(inflater, R.layout.view_conversation_unsupported, parent, false);
                     return new ConversationViewHolder(unsupportedBinding);
@@ -480,8 +483,8 @@ public class ConversationAdapter extends PagedListAdapter<ConversationModel, Bas
                     return new ConversationViewHolder(emptyBinding);
 
                 case SYSTEM:
-                    SystemConversationBinding systemBinding = DataBindingUtil.inflate(inflater, R.layout.system_conversation, parent, false);
-                    return new ConversationViewHolder(systemBinding);
+                    LawoneConversationSystemBinding lawoneConversationSystemBinding = DataBindingUtil.inflate(inflater, R.layout.lawone_conversation_system, parent, false);
+                    return new ConversationViewHolder(lawoneConversationSystemBinding);
 
                 default:
                     ViewConversationUnsupportedBinding unsupportedBinding = DataBindingUtil.inflate(inflater, R.layout.view_conversation_unsupported, parent, false);
@@ -502,8 +505,8 @@ public class ConversationAdapter extends PagedListAdapter<ConversationModel, Bas
                     return new ConversationViewHolder(emptyBinding);
 
                 case SYSTEM:
-                    SystemConversationBinding systemBinding = DataBindingUtil.inflate(inflater, R.layout.system_conversation, parent, false);
-                    return new ConversationViewHolder(systemBinding);
+                    LawoneConversationSystemBinding lawoneConversationSystemBinding = DataBindingUtil.inflate(inflater, R.layout.lawone_conversation_system, parent, false);
+                    return new ConversationViewHolder(lawoneConversationSystemBinding);
 
                 default:
                     ViewConversationUnsupportedBinding unsupportedBinding = DataBindingUtil.inflate(inflater, R.layout.view_conversation_unsupported, parent, false);
@@ -524,8 +527,8 @@ public class ConversationAdapter extends PagedListAdapter<ConversationModel, Bas
                     return new ConversationViewHolder(emptyBinding);
 
                 case SYSTEM:
-                    SystemConversationBinding systemBinding = DataBindingUtil.inflate(inflater, R.layout.system_conversation, parent, false);
-                    return new ConversationViewHolder(systemBinding);
+                    LawoneConversationSystemBinding lawoneConversationSystemBinding = DataBindingUtil.inflate(inflater, R.layout.lawone_conversation_system, parent, false);
+                    return new ConversationViewHolder(lawoneConversationSystemBinding);
 
                 default:
                     ViewConversationUnsupportedBinding unsupportedBinding = DataBindingUtil.inflate(inflater, R.layout.view_conversation_unsupported, parent, false);
@@ -546,8 +549,8 @@ public class ConversationAdapter extends PagedListAdapter<ConversationModel, Bas
                     return new ConversationViewHolder(emptyBinding);
 
                 case SYSTEM:
-                    SystemConversationBinding systemBinding = DataBindingUtil.inflate(inflater, R.layout.system_conversation, parent, false);
-                    return new ConversationViewHolder(systemBinding);
+                    LawoneConversationSystemBinding lawoneConversationSystemBinding = DataBindingUtil.inflate(inflater, R.layout.lawone_conversation_system, parent, false);
+                    return new ConversationViewHolder(lawoneConversationSystemBinding);
 
                 default:
                     ViewConversationUnsupportedBinding unsupportedBinding = DataBindingUtil.inflate(inflater, R.layout.view_conversation_unsupported, parent, false);
@@ -682,7 +685,8 @@ public class ConversationAdapter extends PagedListAdapter<ConversationModel, Bas
         private LawoneConversationServerAudioBinding lawoneServerAudioBinding;
 
         //SYSTEM
-        private SystemConversationBinding systemConversationBinding;
+        // private SystemConversationBinding systemConversationBinding;
+        private LawoneConversationSystemBinding lawoneConversationSystemBinding;
 
         @Override
         public void onBind(int position) {
@@ -1108,9 +1112,9 @@ public class ConversationAdapter extends PagedListAdapter<ConversationModel, Bas
             });
         }
 
-        public ConversationViewHolder(SystemConversationBinding systemConversationBinding) {
-            super(systemConversationBinding.getRoot());
-            this.systemConversationBinding = systemConversationBinding;
+        public ConversationViewHolder(LawoneConversationSystemBinding lawoneConversationSystemBinding) {
+            super(lawoneConversationSystemBinding.getRoot());
+            this.lawoneConversationSystemBinding = lawoneConversationSystemBinding;
         }
     }
 }

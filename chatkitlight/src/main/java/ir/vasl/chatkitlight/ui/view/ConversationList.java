@@ -19,14 +19,14 @@ import ir.vasl.chatkitlight.viewmodel.ConversationListViewModel;
 @SuppressWarnings("rawtypes")
 public class ConversationList
         extends RecyclerView
-        implements ConversationListListener,
-        DialogMenuListener {
+        implements ConversationListListener, DialogMenuListener {
 
     private ConversationAdapter adapter;
     private ConversationListViewModel conversationListViewModel;
     private DialogMenuListener dialogMenuListener;
     private ChatStyleEnum chatStyle = ChatStyleEnum.DEFAULT;
     private boolean canShowDialog = false;
+    private int oldHeight;
 
     @SuppressWarnings("FieldCanBeLocal")
     private int clientBubbleColor = -1; //todo -> this is going to be a custom attr
@@ -155,5 +155,15 @@ public class ConversationList
             }
         }
     };
+
+    @Override
+    protected void onLayout(boolean changed, int l, int t, int r, int b) {
+        super.onLayout(changed, l, t, r, b);
+        int delta = b - t - this.oldHeight;
+        this.oldHeight = b - t;
+        if (delta < 0) {
+            this.scrollBy(0, -delta);
+        }
+    }
 
 }

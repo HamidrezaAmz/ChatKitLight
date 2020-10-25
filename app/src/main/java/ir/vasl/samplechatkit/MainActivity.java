@@ -100,12 +100,13 @@ public class MainActivity
         List<ConversationModel> allModels = DatabaseLayer.getInstance(MyApplication.getApp()).getChatKitDatabase().getChatDao().getAllSimple(chatID);
 
         ConversationModel conversationModel = new ConversationModel(chatID, UUID.randomUUID().toString());
-        conversationModel.setTitle("");
+        conversationModel.setTitle("پیام سیستمی");
         conversationModel.setMessage(input.toString());
         conversationModel.setTime(TimeUtils.getCurrTime());
-        conversationModel.setConversationType(ConversationType.CLIENT);
+        conversationModel.setConversationType(ConversationType.SYSTEM);
         conversationModel.setConversationStatus(ConversationStatus.DELIVERED);
         conversationModel.setImageUrl("https://www.w3schools.com/howto/img_avatar.png");
+
         if (imageUri != null) {
             conversationModel.setFileType(FileType.AUDIO);
 //            conversationModel.setFileAddress(imageUri.toString());
@@ -155,6 +156,7 @@ public class MainActivity
             }
 
         }.start();
+
     }
 
     @Override
@@ -220,11 +222,16 @@ public class MainActivity
 
     @Override
     public void onVoiceRecordCanceled() {
-        Toast.makeText(this, "STOP", Toast.LENGTH_SHORT).show();
+        Toast.makeText(this, "CANCEL", Toast.LENGTH_SHORT).show();
     }
 
     @Override
     public void onVoiceRecordStarted() {
         Toast.makeText(this, "START", Toast.LENGTH_SHORT).show();
+    }
+
+    @Override
+    public void onVoiceRecordStopped() {
+        Toast.makeText(this, "STOP", Toast.LENGTH_SHORT).show();
     }
 }

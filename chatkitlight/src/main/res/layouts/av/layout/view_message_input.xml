@@ -2,56 +2,31 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="@dimen/input_height"
+    android:layoutDirection="ltr"
     android:orientation="vertical">
 
-    <androidx.appcompat.widget.AppCompatEditText
-        android:id="@id/messageInput"
-        style="@style/EditTextStyle"
+    <include
+        layout="@layout/view_message_input_typing"
         android:layout_width="0dp"
-        android:layout_height="@dimen/input_edittext_height"
-        android:layout_centerVertical="true"
+        android:layout_height="@dimen/input_height"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@id/anim_button"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <ir.vasl.chatkitlight.ui.customview.AnimButton
+        android:id="@+id/anim_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:layout_marginStart="@dimen/global_margin"
         android:layout_marginEnd="@dimen/global_margin"
-        android:maxLines="1"
-        android:paddingStart="@dimen/global_padding"
-        android:paddingEnd="@dimen/global_padding"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@id/attachmentButton"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <ImageButton
-        android:id="@id/attachmentButton"
-        android:layout_width="@dimen/input_item_size"
-        android:layout_height="@dimen/input_item_size"
-        android:layout_centerVertical="true"
-        android:layout_marginStart="@dimen/global_margin"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/record_button"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <ImageButton
-        android:id="@id/messageSendButton"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_centerVertical="true"
-        app:layout_constraintBottom_toBottomOf="@id/record_button"
-        app:layout_constraintEnd_toEndOf="@id/record_button"
-        app:layout_constraintStart_toStartOf="@id/record_button"
-        app:layout_constraintTop_toTopOf="@id/record_button" />
-
-    <com.devlomi.record_view.RecordButton
-        android:id="@+id/record_button"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentStart="true"
-        android:layout_marginStart="@dimen/global_margin"
         android:background="@drawable/recv_bg_mic"
         android:scaleType="centerInside"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:mic_icon="@drawable/recv_ic_mic_white" />
+        app:recording="@drawable/ic_baseline_mic_24"
+        app:typing="@drawable/ic_baseline_send_24" />
 
     <com.devlomi.record_view.RecordView
         android:id="@+id/record_view"
@@ -60,8 +35,8 @@
         android:layout_alignParentBottom="true"
         app:counter_time_color="@color/black"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@id/record_button"
+        app:layout_constraintEnd_toStartOf="@id/anim_button"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:slide_to_cancel_arrow="@drawable/recv_ic_arrow"
         app:slide_to_cancel_arrow_color="@color/gray"
