@@ -4,9 +4,12 @@
 
     <data>
 
-        <import type="android.view.View" />
+        <import type="android.view.View"/>
 
         <import type="ir.vasl.chatkitlight.utils.TimeUtils" />
+
+        <import type="ir.vasl.chatkitlight.utils.globalEnums.ConversationStatus"
+            alias="status"/>
 
         <variable
             name="conversationModel"
@@ -56,12 +59,18 @@
                     android:scaleType="centerInside"
                     android:src="@{isPlaying ? @drawable/ic_pause : @drawable/ic_play}" />
 
+                <ProgressBar
+                    android:layout_width="35dp"
+                    android:layout_height="35dp"
+                    android:visibility="@{conversationModel.conversationStatus == status.SENDING ? View.VISIBLE : View.GONE}"
+                    />
+
             </FrameLayout>
 
             <rm.com.audiowave.AudioWaveView
                 android:id="@+id/wave"
                 android:layout_width="150dp"
-                android:layout_height="36dp"
+                android:layout_height="32dp"
                 android:layout_centerVertical="true"
                 android:layout_marginLeft="@dimen/global_margin_extra"
                 android:layout_toLeftOf="@id/frameLayoutFile"

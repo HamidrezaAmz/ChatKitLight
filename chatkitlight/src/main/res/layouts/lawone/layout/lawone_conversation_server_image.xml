@@ -17,8 +17,7 @@
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/global_margin"
-        android:layout_marginBottom="@dimen/global_margin"
+android:padding="8dp"
         android:onClick="@{ () -> conversationListListener.onConversationItemClicked(conversationModel)}"
         android:orientation="vertical">
 
@@ -27,7 +26,6 @@
             android:layout_height="wrap_content"
             android:id="@+id/linearLayout_bubble"
             android:layout_alignParentLeft="true"
-            android:layout_marginLeft="@dimen/chat_safe_margin"
             android:background="@drawable/lawone_shape_curve_server"
             android:orientation="vertical"
             android:padding="@dimen/global_padding_middle">

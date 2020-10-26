@@ -19,9 +19,7 @@
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/global_margin"
-        android:layout_marginBottom="@dimen/global_margin"
-        android:layout_marginRight="@dimen/chat_safe_margin"
+        android:padding="8dp"
         android:onClick="@{() -> conversationListListener.onConversationItemClicked(conversationModel)}"
         android:orientation="vertical">
 

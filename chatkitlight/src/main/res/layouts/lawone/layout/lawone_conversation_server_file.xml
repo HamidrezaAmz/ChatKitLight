@@ -18,8 +18,7 @@
     <RelativeLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/global_margin"
-        android:layout_marginBottom="@dimen/global_margin"
+        android:padding="8dp"
         android:onClick="@{ () -> conversationListListener.onConversationItemClicked(conversationModel)}"
         android:orientation="vertical">
 
@@ -28,7 +27,6 @@
             android:layout_height="wrap_content"
             android:minWidth="@dimen/conversation_min_width"
             android:layout_gravity="left"
-            android:layout_marginLeft="@dimen/chat_safe_margin"
             android:background="@drawable/lawone_shape_curve_server"
             android:orientation="vertical"
             android:id="@+id/linearLayour_bubble"
@@ -80,6 +78,7 @@
             app:wlv_borderWidth="3dp"
             app:wlv_progressValue="0"
             app:wlv_shapeType="circle"
+            android:visibility="gone"
             app:wlv_round_rectangle="true"
             app:wlv_triangle_direction="north"
             app:wlv_titleCenter="@string/download"

@@ -30,6 +30,7 @@
             android:layout_height="wrap_content"
             android:layout_alignParentRight="true"
             android:background="@drawable/lawone_shape_curve_client"
+            android:minWidth="@dimen/conversation_min_width"
             android:padding="@dimen/global_padding_extra">
 
             <androidx.appcompat.widget.AppCompatImageView
