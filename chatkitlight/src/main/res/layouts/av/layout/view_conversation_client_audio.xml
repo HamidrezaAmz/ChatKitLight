@@ -136,7 +136,7 @@
             android:layout_toLeftOf="@id/linearLayour_bubble"
             android:scaleType="centerInside"
             android:visibility="gone"
-            app:srcCompat="@drawable/checkmark_white" />
+            app:srcCompat="@drawable/checkmark_gray" />
 
     </RelativeLayout>
 

@@ -42,6 +42,6 @@
         app:slide_to_cancel_arrow_color="@color/gray"
         app:slide_to_cancel_bounds="8dp"
         app:slide_to_cancel_margin_right="10dp"
-        app:slide_to_cancel_text="Slide To Cancel" />
+        app:slide_to_cancel_text="@string/title_slide_to_cancel" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

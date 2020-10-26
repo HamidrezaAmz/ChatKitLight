@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
 
     <data>
 
@@ -16,31 +17,30 @@
     </data>
 
     <RelativeLayout
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:padding="8dp"
         android:onClick="@{ () -> conversationListListener.onConversationItemClicked(conversationModel)}"
-        android:orientation="vertical">
+        android:padding="@dimen/global_padding">
 
         <LinearLayout
+            android:id="@+id/linearLayour_bubble"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:minWidth="@dimen/conversation_min_width"
             android:layout_gravity="left"
             android:background="@drawable/lawone_shape_curve_server"
+            android:minWidth="@dimen/conversation_min_width"
             android:orientation="vertical"
-            android:id="@+id/linearLayour_bubble"
             android:padding="@dimen/global_padding_middle">
 
             <FrameLayout
+                android:id="@+id/frameLayoutFile"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:id="@+id/frameLayoutFile">
+                android:layout_height="wrap_content">
 
                 <androidx.appcompat.widget.AppCompatImageView
-                    android:layout_width="45dp"
-                    android:layout_height="45dp"
-                    android:layout_gravity="right"
+                    android:layout_width="35dp"
+                    android:layout_height="35dp"
+                    android:layout_gravity="left|center_vertical"
                     android:scaleType="centerInside"
                     app:srcCompat="@drawable/ic_attachment_document" />
 
@@ -48,22 +48,21 @@
                     style="@style/TextViewTitleStyle"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginRight="45dp"
-                    android:layout_marginLeft="20dp"
-                    android:gravity="right"
-                    android:textSize="13sp"
-                    android:text='@{!conversationModel.title.equals("") ? conversationModel.title : conversationModel.fileAddress.substring(conversationModel.fileAddress.lastIndexOf("/") + 1)}' />
+                    android:layout_marginLeft="@dimen/global_margin_spaced"
+                    android:gravity="left|center_vertical"
+                    android:text='@{!conversationModel.title.equals("") ? conversationModel.title : conversationModel.fileAddress.substring(conversationModel.fileAddress.lastIndexOf("/") + 1)}'
+                    android:textSize="13sp" />
             </FrameLayout>
 
             <TextView
                 style="@style/TextViewSubTitleStyle"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginTop="6dp"
                 android:text="@{ conversationModel.message}"
                 android:textSize="13sp"
-                android:layout_marginTop="6dp"
-                android:layout_marginRight="25dp"
-                android:visibility='@{ conversationModel.message.equals("") ? View.GONE : View.VISIBLE }' />
+                android:visibility='@{ conversationModel.message.equals("") ? View.GONE : View.VISIBLE }'
+                tools:text="this is file name" />
 
         </LinearLayout>
 
@@ -74,49 +73,45 @@
             android:layout_alignParentLeft="true"
             android:layout_marginLeft="10dp"
             android:layout_marginTop="@dimen/download_circle_size_half"
+            android:visibility="gone"
             app:wlv_borderColor="@color/white"
             app:wlv_borderWidth="3dp"
             app:wlv_progressValue="0"
-            app:wlv_shapeType="circle"
-            android:visibility="gone"
             app:wlv_round_rectangle="true"
-            app:wlv_triangle_direction="north"
+            app:wlv_shapeType="circle"
             app:wlv_titleCenter="@string/download"
             app:wlv_titleCenterColor="@color/white"
             app:wlv_titleCenterSize="12sp"
+            app:wlv_triangle_direction="north"
             app:wlv_waveAmplitude="85"
             app:wlv_waveColor="@color/red" />
 
         <androidx.appcompat.widget.AppCompatImageView
+            android:id="@+id/imageView_checkmark"
             android:layout_width="@dimen/download_circle_size"
             android:layout_height="@dimen/download_circle_size"
             android:layout_alignParentLeft="true"
             android:layout_marginLeft="10dp"
             android:layout_marginTop="@dimen/download_circle_size_half"
-            app:srcCompat="@drawable/checkmark_white"
             android:scaleType="centerInside"
             android:visibility="gone"
-            android:id="@+id/imageView_checkmark" />
+            app:srcCompat="@drawable/checkmark_gray" />
 
         <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_centerHorizontal="true"
             android:layout_below="@id/linearLayour_bubble"
             android:layout_alignParentLeft="true"
-            android:layout_marginLeft="@dimen/chat_safe_margin"
+            android:layout_centerHorizontal="true"
             android:gravity="right|center_vertical"
             android:orientation="horizontal">
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="@dimen/global_margin"
-                android:layout_marginEnd="@dimen/global_margin"
                 android:text="@{conversationModel.time}"
                 android:textColor="@color/warm_grey_three"
                 android:textSize="12sp"
-                android:textStyle="bold"
                 android:visibility='@{conversationModel.time.equals("") ? View.GONE : View.VISIBLE }' />
 
         </LinearLayout>

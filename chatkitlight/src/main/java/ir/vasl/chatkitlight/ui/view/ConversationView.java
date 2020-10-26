@@ -87,7 +87,7 @@ public class ConversationView
         conversationInput.setInputListener(this);
         conversationList.setDialogMenuListener(this);
         conversationInput.setAttachmentsListener(this);
-        conversationInput.recordView.setOnRecordListener(this);
+        conversationInput.setOnRecordListener(this);
 
         // fix recyclerview conflict with swipe refresh
         conversationList.addOnScrollListener(scrollListener);

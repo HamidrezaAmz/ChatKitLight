@@ -12,4 +12,6 @@
     <string name="ok">Ok</string>
     <string name="download">Download</string>
     <string name="choose">Choose</string>
+    <string name="title_slide_to_cancel">Slide to cancel</string>
+
 </resources>

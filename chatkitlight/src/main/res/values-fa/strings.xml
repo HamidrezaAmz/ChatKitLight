@@ -11,5 +11,6 @@
     <string name="ok">باشه</string>
     <string name="download">دانلود</string>
     <string name="choose">انتخاب کنید</string>
+    <string name="title_slide_to_cancel">برای لغو بکشید</string>
 
 </resources>

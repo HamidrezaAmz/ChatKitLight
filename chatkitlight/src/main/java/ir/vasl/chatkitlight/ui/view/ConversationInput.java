@@ -32,7 +32,7 @@ public class ConversationInput
         extends FrameLayout
         implements View.OnClickListener, TextWatcher, View.OnFocusChangeListener, OnRecordListener, OnRecordClickListener {
 
-    protected EditText ConversationInput;
+    protected EditText conversationInput;
     protected ImageButton attachmentButton;
     protected RecordView recordView;
     protected AnimButton animButton;
@@ -40,6 +40,7 @@ public class ConversationInput
     private CharSequence input;
     private InputListener inputListener;
     private AttachmentsListener attachmentsListener;
+    private OnRecordListener onRecordListener;
     private TypingListener typingListener;
     private Runnable typingTimerRunnable = new Runnable() {
         @Override
@@ -77,8 +78,12 @@ public class ConversationInput
         this.attachmentsListener = attachmentsListener;
     }
 
+    public void setOnRecordListener(OnRecordListener onRecordListener) {
+        this.onRecordListener = onRecordListener;
+    }
+
     public EditText getInputEditText() {
-        return ConversationInput;
+        return conversationInput;
     }
 
     public ImageButton getAttachmentButton() {
@@ -91,7 +96,7 @@ public class ConversationInput
         if (id == R.id.anim_button) {
             boolean isSubmitted = onSubmit();
             if (isSubmitted) {
-                ConversationInput.setText("");
+                conversationInput.setText("");
             }
             removeCallbacks(typingTimerRunnable);
             post(typingTimerRunnable);
@@ -156,24 +161,36 @@ public class ConversationInput
 
     @Override
     public void onStart() {
+        if (onRecordListener != null)
+            onRecordListener.onStart();
+
         getInputEditText().setVisibility(INVISIBLE);
         getAttachmentButton().setVisibility(INVISIBLE);
     }
 
     @Override
     public void onCancel() {
+        if (onRecordListener != null)
+            onRecordListener.onCancel();
+
         getInputEditText().setVisibility(VISIBLE);
         getAttachmentButton().setVisibility(VISIBLE);
     }
 
     @Override
     public void onFinish(long recordTime) {
+        if (onRecordListener != null)
+            onRecordListener.onFinish(recordTime);
+
         getInputEditText().setVisibility(VISIBLE);
         getAttachmentButton().setVisibility(VISIBLE);
     }
 
     @Override
     public void onLessThanSecond() {
+        if (onRecordListener != null)
+            onRecordListener.onLessThanSecond();
+
         getInputEditText().setVisibility(VISIBLE);
         getAttachmentButton().setVisibility(VISIBLE);
     }
@@ -182,13 +199,13 @@ public class ConversationInput
         init(context);
         MessageInputStyle style = MessageInputStyle.parse(context, attrs);
 
-        this.ConversationInput.setMaxLines(style.getInputMaxLines());
-        this.ConversationInput.setHint(style.getInputHint());
-        this.ConversationInput.setText(style.getInputText());
-        this.ConversationInput.setTextSize(TypedValue.COMPLEX_UNIT_PX, style.getInputTextSize());
-        this.ConversationInput.setTextColor(style.getInputTextColor());
-        this.ConversationInput.setHintTextColor(style.getInputHintColor());
-        ViewCompat.setBackground(this.ConversationInput, style.getInputBackground());
+        this.conversationInput.setMaxLines(style.getInputMaxLines());
+        this.conversationInput.setHint(style.getInputHint());
+        this.conversationInput.setText(style.getInputText());
+        this.conversationInput.setTextSize(TypedValue.COMPLEX_UNIT_PX, style.getInputTextSize());
+        this.conversationInput.setTextColor(style.getInputTextColor());
+        this.conversationInput.setHintTextColor(style.getInputHintColor());
+        ViewCompat.setBackground(this.conversationInput, style.getInputBackground());
         setCursor(style.getInputCursorDrawable());
 
         this.attachmentButton.setVisibility(style.showAttachmentButton() ? VISIBLE : GONE);
@@ -203,15 +220,15 @@ public class ConversationInput
     private void init(Context context) {
         inflate(context, R.layout.view_message_input, this);
 
-        ConversationInput = findViewById(R.id.messageInput);
+        conversationInput = findViewById(R.id.messageInput);
         attachmentButton = findViewById(R.id.attachmentButton);
         recordView = findViewById(R.id.record_view);
         animButton = findViewById(R.id.anim_button);
 
         attachmentButton.setOnClickListener(this);
-        ConversationInput.addTextChangedListener(this);
-        ConversationInput.setText("");
-        ConversationInput.setOnFocusChangeListener(this);
+        conversationInput.addTextChangedListener(this);
+        conversationInput.setText("");
+        conversationInput.setOnFocusChangeListener(this);
         animButton.setRecordView(recordView);
 
         animButton.setOnRecordClickListener(this);
@@ -228,12 +245,12 @@ public class ConversationInput
             final Object drawableFieldOwner;
             final Class<?> drawableFieldClass;
             if (Build.VERSION.SDK_INT < Build.VERSION_CODES.JELLY_BEAN) {
-                drawableFieldOwner = this.ConversationInput;
+                drawableFieldOwner = this.conversationInput;
                 drawableFieldClass = TextView.class;
             } else {
                 final Field editorField = TextView.class.getDeclaredField("mEditor");
                 editorField.setAccessible(true);
-                drawableFieldOwner = editorField.get(this.ConversationInput);
+                drawableFieldOwner = editorField.get(this.conversationInput);
                 drawableFieldClass = drawableFieldOwner.getClass();
             }
             final Field drawableField = drawableFieldClass.getDeclaredField("mCursorDrawable");

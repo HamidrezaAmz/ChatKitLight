@@ -108,7 +108,7 @@ public class MainActivity
         conversationModel.setImageUrl("https://www.w3schools.com/howto/img_avatar.png");
 
 //        if (imageUri != null) {
-            conversationModel.setFileType(FileType.AUDIO);
+            conversationModel.setFileType(FileType.DOCUMENT);
 //            conversationModel.setFileAddress(imageUri.toString());
             conversationModel.setFileAddress("https://www.kozco.com/tech/piano2.wav");
             findViewById(R.id.image2).setVisibility(View.GONE);

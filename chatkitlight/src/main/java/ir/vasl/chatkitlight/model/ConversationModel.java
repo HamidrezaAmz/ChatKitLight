@@ -183,7 +183,7 @@ public class ConversationModel {
         switch (conversationStatus) {
             case FAILED:
                 view.setImageResource(R.drawable.ic_info_black_24dp);
-                view.setColorFilter(ContextCompat.getColor(view.getContext(), R.color.failed), android.graphics.PorterDuff.Mode.SRC_IN);
+                view.setColorFilter(ContextCompat.getColor(view.getContext(), R.color.gray), android.graphics.PorterDuff.Mode.SRC_IN);
                 break;
             case SEEN:
                 view.setImageResource(R.drawable.ic_done_all_black_24dp);
@@ -191,16 +191,16 @@ public class ConversationModel {
                 break;
             case DELIVERED:
                 view.setImageResource(R.drawable.ic_done_all_black_24dp);
-                view.setColorFilter(ContextCompat.getColor(view.getContext(), R.color.white), android.graphics.PorterDuff.Mode.SRC_IN);
+                view.setColorFilter(ContextCompat.getColor(view.getContext(), R.color.gray), android.graphics.PorterDuff.Mode.SRC_IN);
                 break;
             case SENT:
                 view.setImageResource(R.drawable.ic_check_black_24dp);
-                view.setColorFilter(ContextCompat.getColor(view.getContext(), R.color.white), android.graphics.PorterDuff.Mode.SRC_IN);
+                view.setColorFilter(ContextCompat.getColor(view.getContext(), R.color.gray), android.graphics.PorterDuff.Mode.SRC_IN);
                 break;
             case SENDING:
             default:
                 view.setImageResource(R.drawable.ic_access_time_black_24dp);
-                view.setColorFilter(ContextCompat.getColor(view.getContext(), R.color.white), android.graphics.PorterDuff.Mode.SRC_IN);
+                view.setColorFilter(ContextCompat.getColor(view.getContext(), R.color.gray), android.graphics.PorterDuff.Mode.SRC_IN);
                 break;
         }
     }
