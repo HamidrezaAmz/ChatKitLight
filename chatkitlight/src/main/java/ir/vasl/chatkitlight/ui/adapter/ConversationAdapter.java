@@ -695,40 +695,40 @@ public class ConversationAdapter extends PagedListAdapter<ConversationModel, Bas
                 return;
             if (lawoneClientFileBinding != null) { //client file
                 if (FileHelper.checkFileExistence(context, FileHelper.getFileName(getItem(position).getFileAddress()))) {
-                    lawoneClientFileBinding.imageViewCheckmark.setVisibility(View.VISIBLE);
+//                    lawoneClientFileBinding.imageViewCheckmark.setVisibility(View.VISIBLE);
                     downloadProgressDone(lawoneClientFileBinding.waveView);
                 }
             }
             if (lawoneServerFileBinding != null) { //server file
                 if (FileHelper.checkFileExistence(context, FileHelper.getFileName(getItem(position).getFileAddress()))) {
-                    lawoneServerFileBinding.imageViewCheckmark.setVisibility(View.VISIBLE);
+//                    lawoneServerFileBinding.imageViewCheckmark.setVisibility(View.VISIBLE);
                     downloadProgressDone(lawoneServerFileBinding.waveView);
                 }
             }
             if (lawoneClientAudioBinding != null) { //client audio
                 if (FileHelper.checkFileExistence(context, FileHelper.getFileName(getItem(position).getFileAddress()))) {
-                    lawoneClientAudioBinding.imageViewCheckmark.setVisibility(View.VISIBLE);
+//                    lawoneClientAudioBinding.imageViewCheckmark.setVisibility(View.VISIBLE);
                     downloadProgressDone(lawoneClientAudioBinding.waveView);
                     lawoneClientAudioBinding.wave.setRawData(FileHelper.getFileBytes(context, getItem(getBindingAdapterPosition()).getFileAddress()));
                 }
             }
             if (lawoneServerAudioBinding != null) { //server audio
                 if (FileHelper.checkFileExistence(context, FileHelper.getFileName(getItem(position).getFileAddress()))) {
-                    lawoneServerAudioBinding.imageViewCheckmark.setVisibility(View.VISIBLE);
+//                    lawoneServerAudioBinding.imageViewCheckmark.setVisibility(View.VISIBLE);
                     downloadProgressDone(lawoneServerAudioBinding.waveView);
                     lawoneServerAudioBinding.wave.setRawData(FileHelper.getFileBytes(context, getItem(getBindingAdapterPosition()).getFileAddress()));
                 }
             }
             if (clientAudioBinding != null) { //client audio
                 if (FileHelper.checkFileExistence(context, FileHelper.getFileName(getItem(position).getFileAddress()))) {
-                    clientAudioBinding.imageViewCheckmark.setVisibility(View.VISIBLE);
+//                    clientAudioBinding.imageViewCheckmark.setVisibility(View.VISIBLE);
                     downloadProgressDone(clientAudioBinding.waveView);
                     clientAudioBinding.wave.setRawData(FileHelper.getFileBytes(context, getItem(getBindingAdapterPosition()).getFileAddress()));
                 }
             }
             if (serverAudioBinding != null) { //server audio
                 if (FileHelper.checkFileExistence(context, FileHelper.getFileName(getItem(position).getFileAddress()))) {
-                    serverAudioBinding.imageViewCheckmark.setVisibility(View.VISIBLE);
+//                    serverAudioBinding.imageViewCheckmark.setVisibility(View.VISIBLE);
                     downloadProgressDone(serverAudioBinding.waveView);
                     serverAudioBinding.wave.setRawData(FileHelper.getFileBytes(context, getItem(getBindingAdapterPosition()).getFileAddress()));
                 }
@@ -740,7 +740,7 @@ public class ConversationAdapter extends PagedListAdapter<ConversationModel, Bas
             return new DownloadStatusListenerV1() {
                 @Override
                 public void onDownloadComplete(DownloadRequest downloadRequest) {
-                    imageViewCheckmark.setVisibility(View.VISIBLE);
+//                    imageViewCheckmark.setVisibility(View.VISIBLE);
                     waveView.setWaveColor(context.getResources().getColor(R.color.green));
                     if (wave != null) {
                         wave.setRawData(FileHelper.getFileBytes(context, getItem(getBindingAdapterPosition()).getFileAddress()));
