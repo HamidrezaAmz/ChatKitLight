@@ -103,16 +103,16 @@ public class MainActivity
         conversationModel.setTitle("پیام سیستمی");
         conversationModel.setMessage(input.toString());
         conversationModel.setTime(TimeUtils.getCurrTime());
-        conversationModel.setConversationType(ConversationType.SYSTEM);
+        conversationModel.setConversationType(ConversationType.CLIENT);
         conversationModel.setConversationStatus(ConversationStatus.DELIVERED);
         conversationModel.setImageUrl("https://www.w3schools.com/howto/img_avatar.png");
 
-        if (imageUri != null) {
+//        if (imageUri != null) {
             conversationModel.setFileType(FileType.AUDIO);
 //            conversationModel.setFileAddress(imageUri.toString());
             conversationModel.setFileAddress("https://www.kozco.com/tech/piano2.wav");
             findViewById(R.id.image2).setVisibility(View.GONE);
-        }
+//        }
 
         conversationListViewModel.addNewConversation(conversationModel);
 

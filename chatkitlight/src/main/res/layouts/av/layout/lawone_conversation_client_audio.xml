@@ -24,49 +24,47 @@
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/global_margin"
-        android:layout_marginBottom="@dimen/global_margin"
-        android:onClick="@{() -> conversationListListener.onConversationItemClicked(conversationModel)}">
+        android:onClick="@{() -> conversationListListener.onConversationItemClicked(conversationModel)}"
+        android:padding="@dimen/global_padding">
 
         <RelativeLayout
             android:id="@+id/linearLayour_bubble"
-            android:layout_width="@dimen/conversation_max_width"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginRight="@dimen/chat_safe_margin"
-            android:background="@drawable/lawone_shape_curve_client"
             android:layout_alignParentRight="true"
-            android:orientation="vertical"
-            android:padding="@dimen/global_padding_middle">
+            android:background="@drawable/lawone_shape_curve_client">
 
             <FrameLayout
                 android:id="@+id/frameLayoutFile"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content">
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:padding="@dimen/global_padding_extra">
 
                 <View
-                    android:layout_width="45dp"
-                    android:layout_height="45dp"
-                    android:layout_gravity="left"
+                    android:layout_width="35dp"
+                    android:layout_height="35dp"
                     android:background="@drawable/shape_rounded_yellow" />
 
                 <androidx.appcompat.widget.AppCompatImageView
                     android:id="@+id/imageView_play"
-                    android:layout_width="45dp"
-                    android:layout_height="45dp"
-                    android:layout_gravity="left"
-                    android:scaleType="centerInside"
-                    android:padding="10dp"
+                    android:layout_width="35dp"
+                    android:layout_height="35dp"
                     android:background="?attr/selectableItemBackgroundBorderless"
+                    android:padding="10dp"
+                    android:scaleType="centerInside"
                     android:src="@{isPlaying ? @drawable/ic_pause : @drawable/ic_play}" />
 
-                </FrameLayout>
+            </FrameLayout>
 
             <rm.com.audiowave.AudioWaveView
                 android:id="@+id/wave"
-                android:layout_width="match_parent"
+                android:layout_width="150dp"
                 android:layout_height="36dp"
-                android:layout_marginLeft="50dp"
-                android:layout_marginRight="35dp"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="@dimen/global_margin_extra"
+                android:layout_toLeftOf="@id/frameLayoutFile"
                 app:animateExpansion="false"
                 app:chunkHeight="28dp"
                 app:chunkRadius="1dp"
@@ -82,9 +80,10 @@
             android:id="@+id/waveView"
             android:layout_width="@dimen/download_circle_size"
             android:layout_height="@dimen/download_circle_size"
-            android:layout_marginTop="12.5dp"
             android:layout_alignParentRight="true"
+            android:layout_marginTop="12.5dp"
             android:layout_marginRight="10dp"
+            android:visibility="gone"
             app:wlv_borderColor="@color/white"
             app:wlv_borderWidth="3dp"
             app:wlv_progressValue="0"
@@ -101,31 +100,28 @@
             android:id="@+id/imageView_checkmark"
             android:layout_width="@dimen/download_circle_size"
             android:layout_height="@dimen/download_circle_size"
-            android:layout_marginTop="12.5dp"
             android:layout_alignParentRight="true"
+            android:layout_marginTop="12.5dp"
             android:layout_marginRight="10dp"
             android:scaleType="centerInside"
-            android:visibility="visible"
+            android:visibility="gone"
             app:srcCompat="@drawable/checkmark_white" />
 
         <androidx.appcompat.widget.AppCompatImageView
             android:layout_width="75dp"
             android:layout_height="75dp"
-            android:background="@drawable/ic_lawone_tilted_white"
-            android:alpha="0.2"
             android:layout_alignParentRight="true"
             android:layout_centerVertical="true"
-            android:layout_marginRight="@dimen/chat_safe_margin" />
+            android:layout_marginRight="@dimen/chat_safe_margin"
+            android:alpha="0.2"
+            android:background="@drawable/ic_lawone_tilted_white"
+            android:visibility="gone" />
 
         <LinearLayout
-            android:layout_width="@dimen/conversation_max_width"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:gravity="left|center_vertical"
-            android:layout_alignParentRight="true"
             android:layout_below="@id/linearLayour_bubble"
-            android:layout_marginRight="@dimen/chat_safe_margin"
-            android:layout_marginLeft="16dp"
-            android:paddingLeft="16dp"
+            android:layout_alignParentRight="true"
             android:orientation="horizontal">
 
             <androidx.appcompat.widget.AppCompatImageView

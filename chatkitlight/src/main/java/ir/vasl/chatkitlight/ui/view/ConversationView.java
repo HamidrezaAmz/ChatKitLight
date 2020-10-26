@@ -202,7 +202,7 @@ public class ConversationView
         if (conversationViewListener != null)
             conversationViewListener.onVoiceRecordStarted();
     }
-    
+
     @Override
     public void onRecordingCompleted() {
         if (conversationViewListener != null)
