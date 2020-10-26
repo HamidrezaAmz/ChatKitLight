@@ -40,7 +40,7 @@ public interface ConversationViewListener<T> {
     default void onVoiceRecordStarted() {
     }
 
-    default void onVoiceRecordStopped() {
+    default void onVoiceRecordStopped(long recordTime) {
     }
 
     default void onVoiceRecordCanceled() {

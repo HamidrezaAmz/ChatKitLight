@@ -2,6 +2,7 @@ package ir.vasl.chatkitlight.ui.view;
 
 import android.content.Context;
 import android.util.AttributeSet;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.LinearLayout;
@@ -11,6 +12,7 @@ import androidx.annotation.Nullable;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.devlomi.record_view.OnRecordListener;
 import com.orangegangsters.github.swipyrefreshlayout.library.SwipyRefreshLayout;
 import com.orangegangsters.github.swipyrefreshlayout.library.SwipyRefreshLayoutDirection;
 
@@ -32,7 +34,7 @@ public class ConversationView
         InputListener,
         DialogMenuListener,
         SwipyRefreshLayout.OnRefreshListener,
-        AudioRecordView.RecordingListener {
+        OnRecordListener {
 
     private ConversationViewListener conversationViewListener;
     private ConversationList conversationList;
@@ -85,6 +87,7 @@ public class ConversationView
         conversationInput.setInputListener(this);
         conversationList.setDialogMenuListener(this);
         conversationInput.setAttachmentsListener(this);
+        conversationInput.recordView.setOnRecordListener(this);
 
         // fix recyclerview conflict with swipe refresh
         conversationList.addOnScrollListener(scrollListener);
@@ -93,6 +96,8 @@ public class ConversationView
 
     public void setConversationViewListener(ConversationViewListener conversationViewListener) {
         this.conversationViewListener = conversationViewListener;
+
+        Log.e("tag", "setConversationViewListener: "  );
     }
 
     public void setConversationListViewModel(ConversationListViewModel conversationListViewModel) {
@@ -193,32 +198,32 @@ public class ConversationView
     }
 
     @Override
-    public void onRecordingLocked() {
-
-    }
-
-    @Override
-    public void onRecordingStarted() {
-        if (conversationViewListener != null)
-            conversationViewListener.onVoiceRecordStarted();
-    }
-
-    @Override
-    public void onRecordingCompleted() {
-        if (conversationViewListener != null)
-            conversationViewListener.onVoiceRecordStopped();
-    }
-
-    @Override
-    public void onRecordingCanceled() {
-        if (conversationViewListener != null)
-            conversationViewListener.onVoiceRecordCanceled();
-    }
-
-    @Override
     public void shouldPaginateNow() {
         if (conversationViewListener != null)
             conversationViewListener.shouldPaginate();
     }
 
+    @Override
+    public void onStart() {
+        if (conversationViewListener != null)
+            conversationViewListener.onVoiceRecordStarted();
+    }
+
+    @Override
+    public void onCancel() {
+        if (conversationViewListener != null)
+            conversationViewListener.onVoiceRecordCanceled();
+    }
+
+    @Override
+    public void onFinish(long recordTime) {
+        if (conversationViewListener != null)
+            conversationViewListener.onVoiceRecordStopped(recordTime);
+    }
+
+    @Override
+    public void onLessThanSecond() {
+        if (conversationViewListener != null)
+            conversationViewListener.onVoiceRecordCanceled();
+    }
 }

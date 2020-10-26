@@ -231,7 +231,7 @@ public class MainActivity
     }
 
     @Override
-    public void onVoiceRecordStopped() {
+    public void onVoiceRecordStopped(long recordTime) {
         Toast.makeText(this, "STOP", Toast.LENGTH_SHORT).show();
     }
 }
