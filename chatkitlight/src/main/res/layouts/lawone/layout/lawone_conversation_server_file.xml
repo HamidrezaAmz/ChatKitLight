@@ -48,10 +48,12 @@
                     style="@style/TextViewTitleStyle"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
                     android:layout_marginLeft="@dimen/global_margin_spaced"
                     android:gravity="left|center_vertical"
                     android:text='@{!conversationModel.title.equals("") ? conversationModel.title : conversationModel.fileAddress.substring(conversationModel.fileAddress.lastIndexOf("/") + 1)}'
-                    android:textSize="13sp" />
+                    android:textSize="13sp"
+                    tools:text="this is file name"/>
             </FrameLayout>
 
             <TextView
@@ -59,10 +61,12 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="6dp"
+                android:maxLines="1"
+                android:ellipsize="end"
                 android:text="@{ conversationModel.message}"
                 android:textSize="13sp"
                 android:visibility='@{ conversationModel.message.equals("") ? View.GONE : View.VISIBLE }'
-                tools:text="this is file name" />
+                 />
 
         </LinearLayout>
 
