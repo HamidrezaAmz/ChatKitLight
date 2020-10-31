@@ -75,6 +75,7 @@ public class ConversationList
             return;
 
         conversationListViewModel.getLiveData().observeForever(conversationModels -> {
+            adapter.submitList(null);
             adapter.submitList(conversationModels);
             new Handler().postDelayed(() -> scrollToPosition(0), 100);
         });
