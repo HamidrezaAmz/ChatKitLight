@@ -48,22 +48,22 @@
                 android:padding="@dimen/global_padding_extra">
 
                 <View
-                    android:layout_width="35dp"
-                    android:layout_height="35dp"
+                    android:layout_width="@dimen/icon_circle_size"
+                    android:layout_height="@dimen/icon_circle_size"
                     android:background="@drawable/shape_rounded_yellow" />
 
                 <androidx.appcompat.widget.AppCompatImageView
                     android:id="@+id/imageView_play"
-                    android:layout_width="35dp"
-                    android:layout_height="35dp"
+                    android:layout_width="@dimen/icon_circle_size"
+                    android:layout_height="@dimen/icon_circle_size"
                     android:background="?attr/selectableItemBackgroundBorderless"
                     android:padding="10dp"
                     android:scaleType="centerInside"
                     android:src="@{isPlaying ? @drawable/ic_pause : @drawable/ic_play}" />
 
                 <ProgressBar
-                    android:layout_width="35dp"
-                    android:layout_height="35dp"
+                    android:layout_width="@dimen/icon_circle_size"
+                    android:layout_height="@dimen/icon_circle_size"
                     android:visibility="@{conversationModel.conversationStatus == status.SENDING ? View.VISIBLE : View.GONE}" />
 
             </FrameLayout>

@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <dimen name="input_button_width">45dp</dimen>
+    <dimen name="icon_circle_size">45dp</dimen>
     <dimen name="input_button_height">45dp</dimen>
     <dimen name="input_button_margin">16dp</dimen>
     <dimen name="input_text_size">17sp</dimen>

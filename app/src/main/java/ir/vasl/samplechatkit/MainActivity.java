@@ -108,10 +108,11 @@ public class MainActivity
         conversationModel.setImageUrl("https://www.w3schools.com/howto/img_avatar.png");
 
 //        if (imageUri != null) {
-            conversationModel.setFileType(FileType.DOCUMENT);
+        conversationModel.setFileType(FileType.AUDIO);
 //            conversationModel.setFileAddress(imageUri.toString());
-            conversationModel.setFileAddress("https://www.w3.org/WAI/ER/tests/xhtml/testfiles/resources/pdf/dummy.pdf");
-            findViewById(R.id.image2).setVisibility(View.GONE);
+//            conversationModel.setFileAddress("https://www.w3.org/WAI/ER/tests/xhtml/testfiles/resources/pdf/dummy.pdf");
+        conversationModel.setFileAddress("https://www.kozco.com/tech/piano2.wav");
+        findViewById(R.id.image2).setVisibility(View.GONE);
 //        }
 
         conversationListViewModel.addNewConversation(conversationModel);
@@ -188,7 +189,6 @@ public class MainActivity
     }
 
 
-
     private void pickGallery() {
         FilePickerBuilder.getInstance()
                 .setActivityTheme(R.style.AppTheme) //optional
@@ -217,7 +217,7 @@ public class MainActivity
 
     @Override
     public void pdfFileClicked(Uri pdfUri) {
-        Log.e(TAG, "pdfFileClicked: " + pdfUri );
+        Log.e(TAG, "pdfFileClicked: " + pdfUri);
     }
 
     @Override

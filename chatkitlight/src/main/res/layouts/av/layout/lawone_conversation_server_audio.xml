@@ -40,15 +40,15 @@
                 android:layout_height="wrap_content">
 
                 <View
-                    android:layout_width="35dp"
-                    android:layout_height="35dp"
+                    android:layout_width="@dimen/icon_circle_size"
+                    android:layout_height="@dimen/icon_circle_size"
                     android:layout_gravity="left"
                     android:background="@drawable/shape_rounded_yellow" />
 
                 <androidx.appcompat.widget.AppCompatImageView
                     android:id="@+id/imageView_play"
-                    android:layout_width="35dp"
-                    android:layout_height="35dp"
+                    android:layout_width="@dimen/icon_circle_size"
+                    android:layout_height="@dimen/icon_circle_size"
                     android:layout_gravity="right"
                     android:background="?attr/selectableItemBackground"
                     android:padding="10dp"
@@ -68,8 +68,9 @@
             <rm.com.audiowave.AudioWaveView
                 android:id="@+id/wave"
                 android:layout_width="150dp"
-                android:layout_height="32dp"
+                android:layout_height="@dimen/icon_circle_size"
                 android:layout_marginRight="@dimen/global_margin_extra"
+                android:layout_marginLeft="@dimen/global_margin"
                 android:layout_toRightOf="@id/frameLayoutFile"
                 app:animateExpansion="false"
                 app:chunkHeight="28dp"
