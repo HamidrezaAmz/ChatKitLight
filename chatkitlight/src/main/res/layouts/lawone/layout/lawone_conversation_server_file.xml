@@ -38,36 +38,43 @@
                 android:layout_height="wrap_content">
 
                 <androidx.appcompat.widget.AppCompatImageView
-                    android:layout_width="35dp"
-                    android:layout_height="35dp"
+                    android:layout_width="45dp"
+                    android:layout_height="45dp"
                     android:layout_gravity="left|center_vertical"
                     android:scaleType="centerInside"
-                    app:srcCompat="@drawable/ic_attachment_document" />
+                    app:srcCompat="@drawable/ic_file_white"
+                    android:padding="12dp"
+                    android:background="@drawable/oval_lawone_server_icon"/>
 
                 <TextView
                     style="@style/TextViewTitleStyle"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_gravity="center_vertical"
+                    android:layout_gravity="right|top"
                     android:layout_marginLeft="@dimen/global_margin_spaced"
-                    android:gravity="left|center_vertical"
+                    android:gravity="right"
                     android:text='@{!conversationModel.title.equals("") ? conversationModel.title : conversationModel.fileAddress.substring(conversationModel.fileAddress.lastIndexOf("/") + 1)}'
-                    android:textSize="13sp"
+                    android:textSize="@dimen/input_text_size_middle"
                     tools:text="this is file name"/>
-            </FrameLayout>
 
-            <TextView
-                style="@style/TextViewSubTitleStyle"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="6dp"
-                android:maxLines="1"
-                android:ellipsize="end"
-                android:layout_marginLeft="40dp"
-                android:text="@{ conversationModel.message}"
-                android:textSize="13sp"
-                android:visibility='@{ conversationModel.message.equals("") ? View.GONE : View.VISIBLE }'
-                 />
+                <TextView
+                    style="@style/TextViewSubTitleStyle"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="6dp"
+                    android:layout_gravity="right|bottom"
+                    android:maxLines="1"
+                    android:ellipsize="end"
+                    android:gravity="right"
+                    android:layout_marginLeft="@dimen/global_margin_spaced"
+                    android:text="@{ conversationModel.message}"
+                    tools:visibility="visible"
+                    tools:text="350Kb PDF"
+                    android:textSize="@dimen/input_text_size_small"
+                    android:textColor="@color/lawone_client_text"
+                    android:visibility='@{ conversationModel.message.equals("") ? View.GONE : View.VISIBLE }'
+                    />
+            </FrameLayout>
 
         </LinearLayout>
 

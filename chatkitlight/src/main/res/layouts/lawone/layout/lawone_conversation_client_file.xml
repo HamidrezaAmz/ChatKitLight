@@ -40,37 +40,43 @@
                 android:layout_height="wrap_content">
 
                 <androidx.appcompat.widget.AppCompatImageView
-                    android:layout_width="35dp"
-                    android:layout_height="35dp"
+                    android:layout_width="45dp"
+                    android:layout_height="45dp"
                     android:layout_gravity="right|center_vertical"
                     android:scaleType="centerInside"
-                    app:srcCompat="@drawable/ic_attachment_document" />
+                    app:srcCompat="@drawable/ic_file_white"
+                    android:background="@drawable/oval_lawone_client_icon"
+                    android:padding="12dp"/>
 
                 <TextView
                     style="@style/TextViewTitleStyle"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_gravity="center_vertical"
+                    android:layout_gravity="top|left"
                     android:maxLines="1"
                     android:ellipsize="end"
-                    android:layout_marginLeft="@dimen/global_margin"
+                    android:gravity="left"
                     android:layout_marginRight="@dimen/global_margin_spaced"
                     android:text='@{!conversationModel.title.equals("") ? conversationModel.title : conversationModel.fileAddress.substring(conversationModel.fileAddress.lastIndexOf("/") + 1)}'
                     android:textColor="@color/lawone_client_text"
+                    android:textSize="@dimen/input_text_size_middle"
                     tools:text="this is file name" />
 
-            </FrameLayout>
+                <TextView
+                    style="@style/TextViewSubTitleStyle"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginRight="@dimen/global_margin_spaced"
+                    android:layout_gravity="bottom|left"
+                    android:layout_marginTop="2dp"
+                    android:text="@{ conversationModel.message}"
+                    android:textColor="@color/lawone_client_icon_background"
+                    android:textSize="@dimen/input_text_size_small"
+                    tools:visibility="visible"
+                    tools:text="350Kb PDF"
+                    android:visibility='@{ conversationModel.message.equals("") ? View.GONE : View.VISIBLE }' />
 
-            <TextView
-                style="@style/TextViewSubTitleStyle"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginRight="40dp"
-                android:layout_gravity="right"
-                android:layout_marginTop="6dp"
-                android:text="@{ conversationModel.message}"
-                android:textColor="@color/lawone_client_text"
-                android:visibility='@{ conversationModel.message.equals("") ? View.GONE : View.VISIBLE }' />
+            </FrameLayout>
 
         </LinearLayout>
 

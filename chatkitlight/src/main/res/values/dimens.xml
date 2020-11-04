@@ -4,6 +4,7 @@
     <dimen name="input_button_height">45dp</dimen>
     <dimen name="input_button_margin">16dp</dimen>
     <dimen name="input_text_size">17sp</dimen>
+    <dimen name="input_text_size_middle">15sp</dimen>
     <dimen name="input_text_size_small">12sp</dimen>
     <dimen name="input_padding_left">16sp</dimen>
     <dimen name="input_padding_right">16sp</dimen>
