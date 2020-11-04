@@ -60,6 +60,7 @@ public class ConversationAdapter extends PagedListAdapter<ConversationModel, Bas
     private ChatStyleEnum chatStyleEnum;
     private Context context; // for permission, storage management and intent initialization
     private ThinDownloadManager downloadManager; // one dl mgr for the whole list
+    static MediaPlayer mp; //Media Player to play voices and audios
 
     public ConversationAdapter(ConversationListListener conversationListListener, ChatStyleEnum chatStyleEnum) {
         super(new ConversationDiffCallback());
@@ -656,7 +657,6 @@ public class ConversationAdapter extends PagedListAdapter<ConversationModel, Bas
 
     private class ConversationViewHolder extends BaseViewHolder {
         DownloadRequest downloadRequest = null; //download request for different file types
-        MediaPlayer mp; //Media Player to play voices and audios
 
         //DEFAULT - AV
         private ViewConversationClientBinding clientTextBinding;
@@ -774,13 +774,21 @@ public class ConversationAdapter extends PagedListAdapter<ConversationModel, Bas
                 @Override
                 public void onTick(long millisUntilFinished) {
                     if (mp != null && wave != null)
-                        wave.setProgress(((int) ((((float) mp.getCurrentPosition()) / ((float) mp.getDuration())) * 100)));
+                        try {
+                            wave.setProgress(((int) ((((float) mp.getCurrentPosition()) / ((float) mp.getDuration())) * 100)));
+                        } catch (Exception e) {
+                            e.printStackTrace();
+                        }
                 }
 
                 @Override
                 public void onFinish() {
-                    if (mp.isPlaying())
-                        this.start();
+                    try {
+                        if (mp.isPlaying())
+                            this.start();
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
                 }
             };
         }
@@ -1022,13 +1030,16 @@ public class ConversationAdapter extends PagedListAdapter<ConversationModel, Bas
                     return;
                 }
                 if (FileHelper.checkFileExistence(context, FileHelper.getFileName(getItem(getBindingAdapterPosition()).getFileAddress()))) {
-                    if (lawoneClientAudioBinding.getIsPlaying()) {
-                        mp.pause();
-                        lawoneClientAudioBinding.setIsPlaying(false);
-                        return;
-                    }
-                    mp = new MediaPlayer();
                     try {
+                        if (mp != null && mp.isPlaying()) {
+                            mp.stop();
+                            mp.release();
+                            if (lawoneClientAudioBinding.getIsPlaying()) {
+                                lawoneClientAudioBinding.setIsPlaying(false);
+                                return;
+                            }
+                        }
+                        mp = new MediaPlayer();
                         mp.setDataSource(getItem(getBindingAdapterPosition()).getFileAddress());
                         mp.prepareAsync();
                         mp.setOnPreparedListener(mp -> {
@@ -1042,6 +1053,8 @@ public class ConversationAdapter extends PagedListAdapter<ConversationModel, Bas
                             return false;
                         });
                     } catch (Exception e) {
+                        mp = new MediaPlayer();
+                        Log.e("tag", "ConversationViewHolder: " + e.getCause() );
                         e.printStackTrace();
                     }
                 } else {
@@ -1065,10 +1078,13 @@ public class ConversationAdapter extends PagedListAdapter<ConversationModel, Bas
                     return;
                 }
                 if (FileHelper.checkFileExistence(context, FileHelper.getFileName(getItem(getBindingAdapterPosition()).getFileAddress()))) {
-                    if (lawoneServerAudioBinding.getIsPlaying()) {
-                        mp.pause();
-                        lawoneServerAudioBinding.setIsPlaying(false);
-                        return;
+                    if (mp != null && mp.isPlaying()) {
+                        mp.stop();
+                        mp.release();
+                        if (lawoneClientAudioBinding.getIsPlaying()) {
+                            lawoneClientAudioBinding.setIsPlaying(false);
+                            return;
+                        }
                     }
                     mp = new MediaPlayer();
                     try {
