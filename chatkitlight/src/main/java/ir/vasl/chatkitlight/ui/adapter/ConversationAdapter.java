@@ -1148,4 +1148,6 @@ public class ConversationAdapter extends PagedListAdapter<ConversationModel, Bas
     private void activatePdfInterface(Uri fileUri) {
         conversationListListener.pdfFileClicked(fileUri);
     }
+
+
 }
