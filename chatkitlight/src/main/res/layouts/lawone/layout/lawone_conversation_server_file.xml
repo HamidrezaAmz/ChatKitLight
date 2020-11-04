@@ -59,14 +59,13 @@
                     tools:text="this is file name"/>
 
                 <TextView
-                    style="@style/TextViewSubTitleStyle"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="6dp"
                     android:layout_gravity="right|bottom"
                     android:maxLines="1"
                     android:ellipsize="end"
-                    android:gravity="right"
+                    android:gravity="left"
                     android:layout_marginLeft="@dimen/global_margin_spaced"
                     android:text="@{ conversationModel.message}"
                     tools:visibility="visible"

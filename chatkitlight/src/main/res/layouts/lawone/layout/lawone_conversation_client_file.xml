@@ -63,16 +63,16 @@
                     tools:text="this is file name" />
 
                 <TextView
-                    style="@style/TextViewSubTitleStyle"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginRight="@dimen/global_margin_spaced"
-                    android:layout_gravity="bottom|left"
+                    android:layout_gravity="bottom|right"
                     android:layout_marginTop="2dp"
                     android:text="@{ conversationModel.message}"
                     android:textColor="@color/lawone_client_icon_background"
                     android:textSize="@dimen/input_text_size_small"
                     tools:visibility="visible"
+                    android:gravity="right"
                     tools:text="350Kb PDF"
                     android:visibility='@{ conversationModel.message.equals("") ? View.GONE : View.VISIBLE }' />
 
