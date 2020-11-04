@@ -73,6 +73,8 @@ public class FileHelper {
     public static void openFile(Context context, String fileAddress) {
         if (context.getExternalFilesDir(null) == null)
             return;
+        if(!checkFileExistence(context, fileAddress))
+            return;
         String fileName = getFileName(fileAddress);
         Intent viewIntent = new Intent(Intent.ACTION_VIEW);
         viewIntent.setDataAndType(
