@@ -27,6 +27,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="left"
+            android:layout_alignParentLeft="true"
             android:background="@drawable/lawone_shape_curve_server"
             android:minWidth="@dimen/conversation_min_width"
             android:orientation="vertical"
