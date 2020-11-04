@@ -1,5 +1,7 @@
 package ir.vasl.chatkitlight.ui.callback;
 
+import android.net.Uri;
+
 public interface ConversationListListener<T> {
 
     default void onConversationItemClicked() {
@@ -15,6 +17,10 @@ public interface ConversationListListener<T> {
     }
 
     default void requestStoragePermission() {
+
+    }
+
+    default void pdfFileClicked(Uri pdfUri){
 
     }
 

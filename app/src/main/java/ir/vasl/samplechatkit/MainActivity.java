@@ -100,7 +100,7 @@ public class MainActivity
         List<ConversationModel> allModels = DatabaseLayer.getInstance(MyApplication.getApp()).getChatKitDatabase().getChatDao().getAllSimple(chatID);
 
         ConversationModel conversationModel = new ConversationModel(chatID, UUID.randomUUID().toString());
-        conversationModel.setTitle("پیام سیستمی");
+        conversationModel.setTitle("");
         conversationModel.setMessage(input.toString());
         conversationModel.setTime(TimeUtils.getCurrTime());
         conversationModel.setConversationType(ConversationType.CLIENT);
@@ -110,7 +110,7 @@ public class MainActivity
 //        if (imageUri != null) {
             conversationModel.setFileType(FileType.DOCUMENT);
 //            conversationModel.setFileAddress(imageUri.toString());
-            conversationModel.setFileAddress("https://www.kozco.com/tech/piano2.wav");
+            conversationModel.setFileAddress("https://www.w3.org/WAI/ER/tests/xhtml/testfiles/resources/pdf/dummy.pdf");
             findViewById(R.id.image2).setVisibility(View.GONE);
 //        }
 
@@ -187,6 +187,8 @@ public class MainActivity
         pickGallery();
     }
 
+
+
     private void pickGallery() {
         FilePickerBuilder.getInstance()
                 .setActivityTheme(R.style.AppTheme) //optional
@@ -211,6 +213,11 @@ public class MainActivity
         imageUri = ((Uri) uri.get(0));
         Log.e(TAG, "onActivityResult: " + uri);
 
+    }
+
+    @Override
+    public void pdfFileClicked(Uri pdfUri) {
+        Log.e(TAG, "pdfFileClicked: " + pdfUri );
     }
 
     @Override

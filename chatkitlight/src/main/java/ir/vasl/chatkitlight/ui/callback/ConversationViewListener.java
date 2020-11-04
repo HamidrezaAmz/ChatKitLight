@@ -1,5 +1,7 @@
 package ir.vasl.chatkitlight.ui.callback;
 
+import android.net.Uri;
+
 import ir.vasl.chatkitlight.ui.audio.AttachmentOption;
 
 public interface ConversationViewListener<T> {
@@ -50,6 +52,10 @@ public interface ConversationViewListener<T> {
     }
 
     default void requestStoragePermission() {
+    }
+
+    default void pdfFileClicked(Uri pdfUri){
+
     }
 
 }

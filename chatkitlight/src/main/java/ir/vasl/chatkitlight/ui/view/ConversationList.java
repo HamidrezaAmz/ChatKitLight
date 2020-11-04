@@ -1,6 +1,7 @@
 package ir.vasl.chatkitlight.ui.view;
 
 import android.content.Context;
+import android.net.Uri;
 import android.os.Handler;
 import android.util.AttributeSet;
 
@@ -119,6 +120,12 @@ public class ConversationList
     public void requestStoragePermission() {
         if (dialogMenuListener != null)
             dialogMenuListener.requestStoragePermission();
+    }
+
+    @Override
+    public void pdfFileClicked(Uri pdfUri) {
+        if (dialogMenuListener != null)
+            dialogMenuListener.pdfFileClicked(pdfUri);
     }
 
     @SuppressWarnings("unchecked")

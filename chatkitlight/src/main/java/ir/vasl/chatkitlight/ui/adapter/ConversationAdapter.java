@@ -2,7 +2,9 @@ package ir.vasl.chatkitlight.ui.adapter;
 
 import android.content.Context;
 import android.media.MediaPlayer;
+import android.net.Uri;
 import android.os.CountDownTimer;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.ViewGroup;
 
@@ -982,7 +984,12 @@ public class ConversationAdapter extends PagedListAdapter<ConversationModel, Bas
                     return;
                 }
                 if (FileHelper.checkFileExistence(context, FileHelper.getFileName(getItem(getBindingAdapterPosition()).getFileAddress()))) {
-                    FileHelper.openFile(context, getItem(getBindingAdapterPosition()).getFileAddress());
+                    Uri fileUri = FileHelper.getFileUri(context, getItem(getBindingAdapterPosition()).getFileAddress());
+                    String type = FileHelper.getMimeType(context, fileUri);
+                    if (type.contains("/") && type.split("/")[1].equals("pdf"))
+                        activatePdfInterface(fileUri);
+                    else
+                        FileHelper.openFile(context, getItem(getBindingAdapterPosition()).getFileAddress());
                 } else {
                     downloadRequest = FileHelper.downloadFile(context, getItem(getBindingAdapterPosition()).getFileAddress(),
                             downloadListenerCreator(lawoneClientFileBinding.imageViewCheckmark, lawoneClientFileBinding.waveView, null));
@@ -1101,7 +1108,12 @@ public class ConversationAdapter extends PagedListAdapter<ConversationModel, Bas
                     return;
                 }
                 if (FileHelper.checkFileExistence(context, FileHelper.getFileName(getItem(getBindingAdapterPosition()).getFileAddress()))) {
-                    FileHelper.openFile(context, getItem(getBindingAdapterPosition()).getFileAddress());
+                    Uri fileUri = FileHelper.getFileUri(context, getItem(getBindingAdapterPosition()).getFileAddress());
+                    String type = FileHelper.getMimeType(context, fileUri);
+                    if (type.contains("/") && type.split("/")[1].equals("pdf"))
+                        activatePdfInterface(fileUri);
+                    else
+                        FileHelper.openFile(context, getItem(getBindingAdapterPosition()).getFileAddress());
                 } else {
                     downloadRequest = FileHelper.downloadFile(context, getItem(getBindingAdapterPosition()).getFileAddress(),
                             downloadListenerCreator(lawoneServerFileBinding.imageViewCheckmark, lawoneServerFileBinding.waveView, null));
@@ -1115,5 +1127,9 @@ public class ConversationAdapter extends PagedListAdapter<ConversationModel, Bas
             super(lawoneConversationSystemBinding.getRoot());
             this.lawoneConversationSystemBinding = lawoneConversationSystemBinding;
         }
+    }
+
+    private void activatePdfInterface(Uri fileUri) {
+        conversationListListener.pdfFileClicked(fileUri);
     }
 }

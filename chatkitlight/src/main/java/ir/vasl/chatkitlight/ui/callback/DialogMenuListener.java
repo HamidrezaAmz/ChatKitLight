@@ -1,5 +1,7 @@
 package ir.vasl.chatkitlight.ui.callback;
 
+import android.net.Uri;
+
 public interface DialogMenuListener<T> {
 
     default void onCopyMessageClicked() {
@@ -28,4 +30,5 @@ public interface DialogMenuListener<T> {
 
     }
 
+    void pdfFileClicked(Uri pdfUri);
 }

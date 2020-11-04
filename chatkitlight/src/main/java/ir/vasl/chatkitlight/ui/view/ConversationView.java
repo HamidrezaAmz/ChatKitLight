@@ -1,6 +1,7 @@
 package ir.vasl.chatkitlight.ui.view;
 
 import android.content.Context;
+import android.net.Uri;
 import android.util.AttributeSet;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -192,6 +193,13 @@ public class ConversationView
     }
 
     @Override
+    public void pdfFileClicked(Uri pdfUri) {
+        if (conversationViewListener != null)
+            conversationViewListener.pdfFileClicked(pdfUri);
+    }
+
+
+    @Override
     public void onAddAttachments() {
         if (conversationViewListener != null)
             conversationViewListener.onAddAttachments(null);
@@ -208,6 +216,8 @@ public class ConversationView
         if (conversationViewListener != null)
             conversationViewListener.onVoiceRecordStarted();
     }
+
+
 
     @Override
     public void onCancel() {
