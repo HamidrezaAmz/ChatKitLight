@@ -40,4 +40,9 @@
         <item name="fontFamily">@font/app_font</item>
     </style>
 
+    <style name="blackProgressBar" parent="Widget.AppCompat.ProgressBar.Horizontal">
+        <item name="android:indeterminateTintMode">src_atop</item>
+        <item name="android:indeterminateTint">@android:color/black</item>
+    </style>
+
 </resources>

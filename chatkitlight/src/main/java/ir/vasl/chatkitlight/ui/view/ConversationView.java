@@ -18,7 +18,6 @@ import com.orangegangsters.github.swipyrefreshlayout.library.SwipyRefreshLayout;
 import com.orangegangsters.github.swipyrefreshlayout.library.SwipyRefreshLayoutDirection;
 
 import ir.vasl.chatkitlight.R;
-import ir.vasl.chatkitlight.ui.audio.AudioRecordView;
 import ir.vasl.chatkitlight.ui.callback.AttachmentsListener;
 import ir.vasl.chatkitlight.ui.callback.ConversationViewListener;
 import ir.vasl.chatkitlight.ui.callback.DialogMenuListener;
@@ -98,7 +97,7 @@ public class ConversationView
     public void setConversationViewListener(ConversationViewListener conversationViewListener) {
         this.conversationViewListener = conversationViewListener;
 
-        Log.e("tag", "setConversationViewListener: "  );
+        Log.e("tag", "setConversationViewListener: ");
     }
 
     public void setConversationListViewModel(ConversationListViewModel conversationListViewModel) {

@@ -76,6 +76,6 @@
     <dimen name="download_circle_size_quarter">11.75dp</dimen>
 
     <dimen name="chat_safe_margin">30dp</dimen>
-    <dimen name="chat_item_max_width">250dp</dimen>
+    <dimen name="chat_item_max_width">200dp</dimen>
 
 </resources>
