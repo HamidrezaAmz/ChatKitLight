@@ -14,6 +14,7 @@
         android:right="0dp"
         android:top="0dp" />
 
+
     <solid android:color="@color/lawone_client_bubble_background" />
 
 </shape>

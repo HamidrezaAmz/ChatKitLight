@@ -103,12 +103,12 @@ public class MainActivity
         conversationModel.setTitle("");
         conversationModel.setMessage(input.toString());
         conversationModel.setTime(TimeUtils.getCurrTime());
-        conversationModel.setConversationType(ConversationType.CLIENT);
+        conversationModel.setConversationType(ConversationType.SERVER);
         conversationModel.setConversationStatus(ConversationStatus.DELIVERED);
         conversationModel.setImageUrl("https://www.w3schools.com/howto/img_avatar.png");
 
 //        if (imageUri != null) {
-        conversationModel.setFileType(FileType.AUDIO);
+        conversationModel.setFileType(FileType.NONE);
 //            conversationModel.setFileAddress(imageUri.toString());
 //            conversationModel.setFileAddress("https://www.w3.org/WAI/ER/tests/xhtml/testfiles/resources/pdf/dummy.pdf");
         conversationModel.setFileAddress("https://www.kozco.com/tech/piano2.wav");

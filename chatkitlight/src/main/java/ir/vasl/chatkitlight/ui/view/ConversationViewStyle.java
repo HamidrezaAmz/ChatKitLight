@@ -17,6 +17,7 @@ public class ConversationViewStyle extends Style {
     private int clientBubbleColor;
     private int serverBubbleColor;
     private int chatStyle;
+    private boolean canShowExtraOptionButton;
 
     static ConversationViewStyle parse(Context context, AttributeSet attrs) {
 
@@ -27,7 +28,7 @@ public class ConversationViewStyle extends Style {
         style.clientBubbleColor = typedArray.getResourceId(R.styleable.ConversationView_clientBubbleColor, DEFAULT_CLIENT_BUBBLE_COLOR);
         style.serverBubbleColor = typedArray.getResourceId(R.styleable.ConversationView_serverBubbleColor, DEFAULT_SERVER_BUBBLE_COLOR);
         style.chatStyle = typedArray.getInteger(R.styleable.ConversationView_chatStyle, ChatStyleEnum.DEFAULT.getOrdinal());
-
+        style.canShowExtraOptionButton = typedArray.getBoolean(R.styleable.ConversationView_canShowExtraOptionButton, false);
         typedArray.recycle();
 
         return style;
@@ -39,6 +40,10 @@ public class ConversationViewStyle extends Style {
 
     public boolean canShowDialog() {
         return canShowDialog;
+    }
+
+    public boolean canShowExtraOptionButton() {
+        return canShowExtraOptionButton;
     }
 
     public int getClientBubbleColor() {

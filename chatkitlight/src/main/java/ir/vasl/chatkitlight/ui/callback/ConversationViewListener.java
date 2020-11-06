@@ -58,4 +58,7 @@ public interface ConversationViewListener<T> {
 
     }
 
+    default void extraOptionClicked() {
+
+    }
 }

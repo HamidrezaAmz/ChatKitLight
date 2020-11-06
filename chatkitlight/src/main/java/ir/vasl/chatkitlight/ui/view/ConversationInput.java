@@ -13,6 +13,7 @@ import android.widget.FrameLayout;
 import android.widget.ImageButton;
 import android.widget.TextView;
 
+import androidx.appcompat.widget.AppCompatImageView;
 import androidx.core.view.ViewCompat;
 
 import com.devlomi.record_view.OnRecordClickListener;
@@ -36,6 +37,7 @@ public class ConversationInput
     protected ImageButton attachmentButton;
     protected RecordView recordView;
     protected AnimButton animButton;
+    protected AppCompatImageView extraOptionButton;
 
     private CharSequence input;
     private InputListener inputListener;
@@ -102,6 +104,10 @@ public class ConversationInput
             post(typingTimerRunnable);
         } else if (id == R.id.attachmentButton) {
             onAddAttachments();
+        } else if (id == R.id.imageView_extra_option){
+            if (inputListener != null) {
+                 inputListener.extraOptionClicked();
+            }
         }
     }
 
@@ -224,8 +230,10 @@ public class ConversationInput
         attachmentButton = findViewById(R.id.attachmentButton);
         recordView = findViewById(R.id.record_view);
         animButton = findViewById(R.id.anim_button);
+        extraOptionButton = findViewById(R.id.imageView_extra_option);
 
         attachmentButton.setOnClickListener(this);
+        extraOptionButton.setOnClickListener(this);
         conversationInput.addTextChangedListener(this);
         conversationInput.setText("");
         conversationInput.setOnFocusChangeListener(this);

@@ -41,6 +41,7 @@ public class ConversationView
     private ConversationInput conversationInput;
 
     private ChatStyleEnum chatStyleEnum = ChatStyleEnum.DEFAULT;
+    private boolean canShowExtraOptionButton = false;
 
     public ConversationView(Context context) {
         super(context);
@@ -67,6 +68,7 @@ public class ConversationView
                 chatStyleEnum = ChatStyleEnum.LAWONE;
                 break;
         }
+        canShowExtraOptionButton = style.canShowExtraOptionButton();
         init(context);
         conversationList.setCanShowDialog(style.canShowDialog());
         conversationList.setClientBubbleColor(style.getClientBubbleColor());
@@ -82,6 +84,10 @@ public class ConversationView
         // conversation view items
         conversationList = conversationView.findViewById(R.id.conversationList);
         conversationInput = conversationView.findViewById(R.id.conversationInput);
+
+        if(canShowExtraOptionButton){
+            conversationInput.findViewById(R.id.imageView_extra_option).setVisibility(VISIBLE);
+        }
 
         // listeners
         conversationInput.setInputListener(this);
@@ -117,6 +123,13 @@ public class ConversationView
         }
 
         return false;
+    }
+
+    @Override
+    public void extraOptionClicked() {
+        if (conversationViewListener != null) {
+            conversationViewListener.extraOptionClicked();
+        }
     }
 
     @Override

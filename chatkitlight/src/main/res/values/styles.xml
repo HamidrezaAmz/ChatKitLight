@@ -11,7 +11,45 @@
         <item name="android:textColor">@color/white</item>
         <item name="android:textStyle">bold</item>
         <item name="android:fontFamily">@font/app_font</item>
-        <item name="android:padding">0dp</item>
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:maxWidth">@dimen/chat_item_max_width</item>
+        <item name="android:minWidth">@dimen/conversation_min_width</item>
+    </style>
+
+    <style name="TextViewClientTitleStyle" parent="TextViewTitleStyle">
+        <item name="android:layout_alignParentRight">true</item>
+        <item name="android:layout_marginLeft">@dimen/global_margin_extra</item>
+        <item name="android:layout_marginRight">35dp</item>
+        <item name="android:textColor">@color/lawone_client_text</item>
+    </style>
+
+    <style name="TextViewServerTitleStyle" parent="TextViewTitleStyle">
+        <item name="android:layout_alignParentLeft">true</item>
+        <item name="android:layout_marginRight">@dimen/global_margin_extra</item>
+        <item name="android:layout_marginLeft">35dp</item>
+        <item name="android:textColor">@color/lawone_client_text</item>
+    </style>
+
+    <style name="AvatarStyle">
+        <item name="android:layout_width">@dimen/avatar_circle_size</item>
+        <item name="android:layout_height">@dimen/avatar_circle_size</item>
+        <item name="android:layout_centerVertical">true</item>
+        <item name="android:background">@drawable/ring_gradient_avatar</item>
+        <item name="android:foregroundGravity">center</item>
+        <item name="android:padding">3dp</item>
+        <item name="android:scaleType">fitXY</item>
+        <item name="android:visibility">visible</item>
+
+    </style>
+
+    <style name="ChatBubbleStyle" >
+        <item name="android:layout_marginRight">@dimen/avatar_circle_size_half</item>
+        <item name="android:layout_marginLeft">@dimen/avatar_circle_size_half</item>
+        <item name="android:paddingTop">@dimen/global_padding_extra</item>
+        <item name="android:paddingBottom">@dimen/global_padding_extra</item>
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
     </style>
 
     <style name="TextAttachmentOptions">
@@ -26,7 +64,10 @@
         <item name="android:textColor">@color/warm_grey_six</item>
         <item name="android:textStyle">bold</item>
         <item name="android:fontFamily">@font/app_font</item>
-        <item name="android:padding">0dp</item>
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:maxWidth">@dimen/chat_item_max_width</item>
+        <item name="android:minWidth">@dimen/conversation_min_width</item>
     </style>
 
     <style name="EditTextStyle" parent="@android:style/Widget.EditText">
