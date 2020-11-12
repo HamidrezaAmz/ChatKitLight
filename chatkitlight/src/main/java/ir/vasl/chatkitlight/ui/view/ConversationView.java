@@ -93,7 +93,7 @@ public class ConversationView
         // listeners
         conversationInput.setInputListener(this);
         conversationList.setDialogMenuListener(this);
-//        swipyRefreshLayout.setOnRefreshListener(this);
+        swipyRefreshLayout.setOnRefreshListener(this);
         conversationInput.setAttachmentsListener(this);
         conversationInput.setOnRecordListener(this);
 
