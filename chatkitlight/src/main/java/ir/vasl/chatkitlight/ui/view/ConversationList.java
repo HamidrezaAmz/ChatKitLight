@@ -22,7 +22,7 @@ public class ConversationList
         extends RecyclerView
         implements ConversationListListener, DialogMenuListener {
 
-    private ConversationAdapter adapter;
+    public ConversationAdapter adapter;
     private ConversationListViewModel conversationListViewModel;
     private DialogMenuListener dialogMenuListener;
     private ChatStyleEnum chatStyle = ChatStyleEnum.DEFAULT;
@@ -68,6 +68,10 @@ public class ConversationList
     public void setConversationListViewModel(ConversationListViewModel conversationListViewModel) {
         this.conversationListViewModel = conversationListViewModel;
         initViewModel();
+    }
+
+    public void stopMediaPlayer(){
+        adapter.stopMediaPlayer();
     }
 
     private void initViewModel() {

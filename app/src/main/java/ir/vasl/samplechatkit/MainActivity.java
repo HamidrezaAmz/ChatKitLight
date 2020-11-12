@@ -266,4 +266,10 @@ public class MainActivity
     public void onVoiceRecordStopped(long recordTime) {
         Toast.makeText(this, "STOP", Toast.LENGTH_SHORT).show();
     }
+
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        conversationView.stopMediaPlayer();
+    }
 }

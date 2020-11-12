@@ -248,4 +248,8 @@ public class ConversationView
         if (conversationViewListener != null)
             conversationViewListener.onVoiceRecordCanceled();
     }
+
+    public void stopMediaPlayer(){
+        conversationList.stopMediaPlayer();
+    }
 }

@@ -1149,5 +1149,13 @@ public class ConversationAdapter extends PagedListAdapter<ConversationModel, Bas
         conversationListListener.pdfFileClicked(fileUri);
     }
 
-
+    public void stopMediaPlayer() {
+        if (mp != null) {
+            if (mp.isPlaying()) {
+                mp.stop();
+            }
+            mp.release();
+            mp = null;
+        }
+    }
 }
