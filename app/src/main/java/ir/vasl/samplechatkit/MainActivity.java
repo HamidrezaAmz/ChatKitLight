@@ -129,7 +129,7 @@ public class MainActivity
             conversationModel.setFileType(FileType.DOCUMENT);
         }
         conversationModel.setConversationStatus(ConversationStatus.DELIVERED);
-        conversationModel.setImageUrl("https://www.w3schools.com/howto/img_avatar.png");
+//        conversationModel.setImageUrl("https://www.w3schools.com/howto/img_avatar.png");
 
 //        if (imageUri != null) {
 //            conversationModel.setFileAddress(imageUri.toString());
