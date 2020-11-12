@@ -4,8 +4,8 @@
     android:width="200dp"
     xmlns:android="http://schemas.android.com/apk/res/android">
     <group
-        android:scaleX="0.85"
-        android:scaleY="0.85"
+        android:scaleX="1"
+        android:scaleY="1"
         android:pivotX="256"
         android:pivotY="256">
         <path
