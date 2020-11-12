@@ -48,10 +48,9 @@
                         android:layout_width="@dimen/icon_circle_size"
                         android:layout_height="@dimen/icon_circle_size"
                         android:layout_gravity="right|center_vertical"
-                        android:background="@drawable/oval_lawone_client_icon"
-                        android:padding="12dp"
+                        android:padding="4dp"
                         android:scaleType="centerInside"
-                        app:srcCompat="@drawable/ic_file_white" />
+                        app:srcCompat="@drawable/ic_file_lawone" />
 
                     <TextView
                         style="@style/TextViewTitleStyle"
