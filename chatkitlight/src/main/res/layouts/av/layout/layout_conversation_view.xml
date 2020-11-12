@@ -10,10 +10,18 @@
         android:layout_height="match_parent"
         android:layout_marginBottom="@dimen/input_height">
 
+        <com.orangegangsters.github.swipyrefreshlayout.library.SwipyRefreshLayout
+            android:id="@+id/swipyRefreshLayout"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            app:direction="bottom">
+
         <ir.vasl.chatkitlight.ui.view.ConversationList
             android:id="@+id/conversationList"
             android:layout_width="match_parent"
             android:layout_height="match_parent" />
+
+        </com.orangegangsters.github.swipyrefreshlayout.library.SwipyRefreshLayout>
 
     </LinearLayout>
 

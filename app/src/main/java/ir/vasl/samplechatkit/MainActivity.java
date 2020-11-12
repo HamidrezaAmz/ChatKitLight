@@ -203,6 +203,7 @@ public class MainActivity
     @Override
     public void onSwipeRefresh() {
         conversationView.hideSwipeRefresh();
+        Log.e(TAG, "onSwipeRefresh: " );
     }
 
     @Override
