@@ -21,15 +21,15 @@ import java.util.Objects;
 
 public class FileHelper {
 
-    public static String getFileName(String uri) {
-        String res = uri;
-        if (uri == null)
-            return "";
-        String[] split = uri.split("/");
-        if (split.length > 0)
-            res = split[split.length - 1];
-        return res.length() < 17 ? res : res.substring(res.length() - 16);
-    }
+//    public static String getFileName(String uri) {
+//        String res = uri;
+//        if (uri == null)
+//            return "";
+//        String[] split = uri.split("/");
+//        if (split.length > 0)
+//            res = split[split.length - 1];
+//        return res.length() < 17 ? res : res.substring(res.length() - 16);
+//    }
 
     public static boolean checkFileExistence(Context context, String fileName) {
         if (context.getExternalFilesDir(null) == null)
@@ -37,10 +37,10 @@ public class FileHelper {
         return new File(Objects.requireNonNull(context.getExternalFilesDir(null)).toString() + "/chatkit/", fileName).exists();
     }
 
-    public static DownloadRequest downloadFile(Context context, String url, DownloadStatusListenerV1 downloadListener) {
+    public static DownloadRequest downloadFile(Context context, String url, String fileName, DownloadStatusListenerV1 downloadListener) {
         if (context.getExternalFilesDir(null) == null)
             return null;
-        String fileName = FileHelper.getFileName(url);
+//        String fileName = FileHelper.getFileName(url);
         String dir = Objects.requireNonNull(context.getExternalFilesDir(null)).toString() + "/chatkit/" + fileName;
         return new DownloadRequest(Uri.parse(url))
                 .setRetryPolicy(new DefaultRetryPolicy())
@@ -70,12 +70,12 @@ public class FileHelper {
         return mimeType;
     }
 
-    public static void openFile(Context context, String fileAddress) {
+    public static void openFile(Context context, String fileAddress, String fileName) {
         if (context.getExternalFilesDir(null) == null)
             return;
-        if(!checkFileExistence(context, fileAddress))
+        if(!checkFileExistence(context, fileName))
             return;
-        String fileName = getFileName(fileAddress);
+//        String fileName = getFileName(fileAddress);
         Intent viewIntent = new Intent(Intent.ACTION_VIEW);
         viewIntent.setDataAndType(
                 FileProvider.getUriForFile(context, context.getApplicationContext().getPackageName() + ".provider",
@@ -87,11 +87,11 @@ public class FileHelper {
         context.startActivity(chooserIntent);
     }
 
-    public static byte[] getFileBytes(Context context, String fileAddress) {
+    public static byte[] getFileBytes(Context context, String fileName) {
         if (context.getExternalFilesDir(null) == null)
             return new byte[]{};
         byte[] result = new byte[((int) Runtime.getRuntime().freeMemory())];
-        String fileName = getFileName(fileAddress);
+//        String fileName = getFileName(fileAddress);
         File file = new File(Objects.requireNonNull(context.getExternalFilesDir(null)).toString() + "/chatkit/", fileName);
         FileInputStream fis = null;
         int all = 0;
