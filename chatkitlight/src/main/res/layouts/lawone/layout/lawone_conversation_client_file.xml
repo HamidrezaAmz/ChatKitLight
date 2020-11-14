@@ -21,66 +21,81 @@
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layoutDirection="ltr"
         android:onClick="@{() -> conversationListListener.onConversationItemClicked(conversationModel)}"
         android:padding="@dimen/global_padding">
 
-        <LinearLayout
+        <RelativeLayout
             android:id="@+id/linearLayour_bubble"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_alignParentRight="true"
-            android:background="@drawable/lawone_shape_curve_client"
-            android:minWidth="@dimen/conversation_min_width"
-            android:orientation="vertical"
-            android:padding="@dimen/global_padding_middle">
+            android:layout_alignParentRight="true">
 
-            <FrameLayout
-                android:id="@+id/frameLayoutFile"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content">
+            <RelativeLayout
+                style="@style/ChatBubbleStyle"
+                android:layout_alignParentRight="true"
+                android:background="@drawable/lawone_shape_curve_client"
+                android:gravity="right"
+                android:minWidth="@dimen/conversation_min_width"
+                android:paddingRight="33dp">
 
-                <androidx.appcompat.widget.AppCompatImageView
-                    android:layout_width="@dimen/icon_circle_size"
-                    android:layout_height="@dimen/icon_circle_size"
-                    android:layout_gravity="right|center_vertical"
-                    android:background="@drawable/oval_lawone_client_icon"
-                    android:padding="12dp"
-                    android:scaleType="centerInside"
-                    app:srcCompat="@drawable/ic_file_white" />
-
-                <TextView
-                    style="@style/TextViewTitleStyle"
+                <FrameLayout
+                    android:id="@+id/frameLayoutFile"
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="top|left"
-                    android:layout_marginRight="@dimen/global_margin_spaced"
-                    android:ellipsize="start"
-                    android:gravity="left"
-                    android:maxWidth="@dimen/chat_item_max_width"
-                    android:singleLine="true"
-                    android:text='@{!conversationModel.title.equals("") ? conversationModel.title : conversationModel.fileAddress.substring(conversationModel.fileAddress.lastIndexOf("/") + 1)}'
-                    android:textColor="@color/lawone_client_text"
-                    android:textSize="@dimen/input_text_size_middle"
-                    tools:text="this is file name" />
+                    android:layout_height="wrap_content">
 
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="bottom|right"
-                    android:layout_marginTop="2dp"
-                    android:layout_marginRight="@dimen/global_margin_spaced"
-                    android:gravity="right"
-                    android:maxWidth="@dimen/chat_item_max_width"
-                    android:text="@{ conversationModel.message}"
-                    android:textColor="@color/lawone_client_icon_background"
-                    android:textSize="@dimen/input_text_size_small"
-                    android:visibility='@{ conversationModel.message.equals("") ? View.GONE : View.VISIBLE }'
-                    tools:text="350Kb PDF"
-                    tools:visibility="visible" />
+                    <androidx.appcompat.widget.AppCompatImageView
+                        android:layout_width="@dimen/icon_circle_size"
+                        android:layout_height="@dimen/icon_circle_size"
+                        android:layout_gravity="right|center_vertical"
+                        android:padding="4dp"
+                        android:scaleType="centerInside"
+                        app:srcCompat="@drawable/ic_file_lawone" />
 
-            </FrameLayout>
+                    <TextView
+                        style="@style/TextViewTitleStyle"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="top|left"
+                        android:layout_marginLeft="@dimen/global_margin_middle"
+                        android:layout_marginRight="@dimen/global_margin_spaced"
+                        android:ellipsize="start"
+                        android:gravity="left"
+                        android:maxWidth="@dimen/chat_item_max_width"
+                        android:singleLine="true"
+                        android:text='@{!conversationModel.title.equals("") ? conversationModel.title : conversationModel.fileAddress.substring(conversationModel.fileAddress.lastIndexOf("/") + 1)}'
+                        android:textColor="@color/lawone_client_text"
+                        android:textSize="@dimen/input_text_size_middle"
+                        tools:text="this is file name" />
 
-        </LinearLayout>
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="bottom|right"
+                        android:layout_marginLeft="@dimen/global_margin_middle"
+                        android:layout_marginTop="2dp"
+                        android:layout_marginRight="@dimen/global_margin_spaced"
+                        android:gravity="right"
+                        android:maxWidth="@dimen/chat_item_max_width"
+                        android:text="@{ conversationModel.message}"
+                        android:textColor="@color/lawone_client_icon_background"
+                        android:textSize="@dimen/input_text_size_small"
+                        android:visibility='@{ conversationModel.message.equals("") ? View.GONE : View.VISIBLE }'
+                        tools:text="350Kb PDF"
+                        tools:visibility="visible" />
+
+                </FrameLayout>
+
+            </RelativeLayout>
+
+            <ir.vasl.chatkitlight.ui.customview.ImageViewCustom
+                android:id="@+id/imageView_avatar"
+                style="@style/AvatarStyle"
+                bannerImage="@{conversationModel.imageUrl}"
+                android:layout_alignParentRight="true"
+                app:round_image="true" />
+
+        </RelativeLayout>
 
         <me.itangqi.waveloadingview.WaveLoadingView
             android:id="@+id/waveView"
@@ -116,6 +131,8 @@
         <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginRight="@dimen/avatar_circle_size_half"
+            android:layout_marginLeft="@dimen/avatar_circle_size_half"
             android:layout_below="@id/linearLayour_bubble"
             android:layout_alignParentRight="true"
             android:orientation="horizontal">

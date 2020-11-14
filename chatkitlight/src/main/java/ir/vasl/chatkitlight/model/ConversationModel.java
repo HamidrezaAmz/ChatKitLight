@@ -209,7 +209,7 @@ public class ConversationModel {
     public static void loadImage(ImageView view, String imageUrl) {
         Glide.with(view.getContext())
                 .load(imageUrl)
-                .placeholder(R.drawable.ic_user_alt)
+                .placeholder(R.drawable.ic_user)
                 .transform(new CenterInside())
                 .apply(RequestOptions.circleCropTransform())
                 .into(view);

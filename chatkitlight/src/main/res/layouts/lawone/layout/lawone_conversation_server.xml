@@ -18,20 +18,20 @@
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layoutDirection="ltr"
         android:onClick="@{ () -> conversationListListener.onConversationItemClicked(conversationModel)}"
         android:padding="@dimen/global_padding">
 
         <RelativeLayout
             android:id="@+id/linearLayout_bubble"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentLeft="true"
-            android:minWidth="@dimen/conversation_min_width">
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
 
             <RelativeLayout
                 style="@style/ChatBubbleStyle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
                 android:layout_alignParentLeft="true"
-                android:gravity="left"
                 android:background="@drawable/lawone_shape_curve_server">
 
                 <include
@@ -67,7 +67,7 @@
             android:layout_alignParentLeft="true"
             android:layout_marginLeft="@dimen/avatar_circle_size_half"
             android:layout_marginRight="@dimen/avatar_circle_size_half"
-            android:gravity="right|center_vertical"
+            android:gravity="left|center_vertical"
             android:orientation="horizontal">
 
             <TextView
@@ -75,6 +75,7 @@
                 android:layout_height="wrap_content"
                 android:text="@{conversationModel.time}"
                 android:textColor="@color/warm_grey_three"
+                android:gravity="left"
                 android:textSize="12sp"
                 android:visibility='@{conversationModel.time.equals("") ? View.GONE : View.VISIBLE }' />
 

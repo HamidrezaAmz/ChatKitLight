@@ -19,64 +19,71 @@
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layoutDirection="ltr"
         android:onClick="@{ () -> conversationListListener.onConversationItemClicked(conversationModel)}"
         android:padding="@dimen/global_padding">
 
-        <LinearLayout
+        <RelativeLayout
             android:id="@+id/linearLayour_bubble"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="left"
-            android:layout_alignParentLeft="true"
-            android:background="@drawable/lawone_shape_curve_server"
-            android:minWidth="@dimen/conversation_min_width"
-            android:orientation="vertical"
-            android:padding="@dimen/global_padding_middle">
+            android:layout_height="wrap_content">
 
-            <FrameLayout
-                android:id="@+id/frameLayoutFile"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content">
+            <RelativeLayout
+                style="@style/ChatBubbleStyle"
+                android:layout_alignParentLeft="true"
+                android:background="@drawable/lawone_shape_curve_server">
 
-                <androidx.appcompat.widget.AppCompatImageView
-                    android:layout_width="@dimen/icon_circle_size"
-                    android:layout_height="@dimen/icon_circle_size"
-                    android:layout_gravity="left|center_vertical"
-                    android:scaleType="centerInside"
-                    app:srcCompat="@drawable/ic_file_white"
-                    android:padding="12dp"
-                    android:background="@drawable/oval_lawone_server_icon"/>
-
-                <TextView
-                    style="@style/TextViewTitleStyle"
-                    android:layout_width="match_parent"
+                <FrameLayout
+                    android:id="@+id/frameLayoutFile"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_gravity="right|top"
-                    android:layout_marginLeft="@dimen/global_margin_spaced"
-                    android:gravity="right"
-                    android:text='@{!conversationModel.title.equals("") ? conversationModel.title : conversationModel.fileAddress.substring(conversationModel.fileAddress.lastIndexOf("/") + 1)}'
-                    android:textSize="@dimen/input_text_size_middle"
-                    tools:text="this is file name"/>
+                    android:paddingLeft="33dp">
 
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="6dp"
-                    android:layout_gravity="right|bottom"
-                    android:maxLines="1"
-                    android:ellipsize="end"
-                    android:gravity="left"
-                    android:layout_marginLeft="@dimen/global_margin_spaced"
-                    android:text="@{ conversationModel.message}"
-                    tools:visibility="visible"
-                    tools:text="350Kb PDF"
-                    android:textSize="@dimen/input_text_size_small"
-                    android:textColor="@color/lawone_client_text"
-                    android:visibility='@{ conversationModel.message.equals("") ? View.GONE : View.VISIBLE }'
-                    />
-            </FrameLayout>
+                    <androidx.appcompat.widget.AppCompatImageView
+                        android:layout_width="@dimen/icon_circle_size"
+                        android:layout_height="@dimen/icon_circle_size"
+                        android:layout_gravity="left|center_vertical"
+                        android:padding="4dp"
+                        android:scaleType="centerInside"
+                        app:srcCompat="@drawable/ic_file_lawone" />
 
-        </LinearLayout>
+                    <TextView
+                        style="@style/TextViewServerTitleStyle"
+                        android:layout_gravity="left|top"
+                        android:layout_marginLeft="@dimen/global_margin_spaced"
+                        android:gravity="left"
+                        android:text='@{!conversationModel.title.equals("") ? conversationModel.title : conversationModel.fileAddress.substring(conversationModel.fileAddress.lastIndexOf("/") + 1)}'
+                        android:textSize="@dimen/input_text_size_middle"
+                        tools:text="this is file name" />
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="right|bottom"
+                        android:layout_marginLeft="@dimen/global_margin_spaced"
+                        android:layout_marginRight="@dimen/global_margin_extra"
+                        android:layout_marginTop="6dp"
+                        android:ellipsize="end"
+                        android:gravity="left"
+                        android:maxLines="1"
+                        android:text="@{ conversationModel.message}"
+                        android:textColor="@color/lawone_client_text"
+                        android:textSize="@dimen/input_text_size_small"
+                        android:visibility='@{ conversationModel.message.equals("") ? View.GONE : View.VISIBLE }'
+                        tools:text="350Kb PDF"
+                        tools:visibility="visible" />
+                </FrameLayout>
+
+            </RelativeLayout>
+
+            <ir.vasl.chatkitlight.ui.customview.ImageViewCustom
+                android:id="@+id/imageView_avatar"
+                style="@style/AvatarStyle"
+                bannerImage="@{conversationModel.imageUrl}"
+                android:layout_alignParentLeft="true"
+                app:round_image="true" />
+
+        </RelativeLayout>
 
         <me.itangqi.waveloadingview.WaveLoadingView
             android:id="@+id/waveView"
@@ -113,6 +120,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_below="@id/linearLayour_bubble"
+            android:layout_marginLeft="@dimen/avatar_circle_size_half"
             android:layout_alignParentLeft="true"
             android:layout_centerHorizontal="true"
             android:gravity="right|center_vertical"

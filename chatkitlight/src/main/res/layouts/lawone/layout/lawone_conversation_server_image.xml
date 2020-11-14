@@ -17,15 +17,16 @@
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-android:padding="8dp"
         android:onClick="@{ () -> conversationListListener.onConversationItemClicked(conversationModel)}"
-        android:orientation="vertical">
+        android:orientation="vertical"
+        android:padding="8dp">
 
         <LinearLayout
+            android:id="@+id/linearLayout_bubble"
             android:layout_width="@dimen/conversation_max_width"
             android:layout_height="wrap_content"
-            android:id="@+id/linearLayout_bubble"
             android:layout_alignParentLeft="true"
+            android:layout_marginLeft="@dimen/avatar_circle_size_half"
             android:background="@drawable/lawone_shape_curve_server"
             android:orientation="vertical"
             android:padding="@dimen/global_padding_middle">
@@ -34,14 +35,14 @@ android:padding="8dp"
                 style="@style/TextViewTitleStyle"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:textColor="@color/dark_grey_two"
                 android:text="@{ conversationModel.title}"
+                android:textColor="@color/dark_grey_two"
                 android:visibility='@{ conversationModel.title.equals("") ? View.GONE : View.VISIBLE }' />
 
             <ir.vasl.chatkitlight.ui.customview.ImageViewCustom
+                android:id="@+id/imageView_image"
                 android:layout_width="match_parent"
                 android:layout_height="250dp"
-                android:id="@+id/imageView_image"
                 android:scaleType="centerCrop" />
 
             <TextView
@@ -52,7 +53,6 @@ android:padding="8dp"
                 android:visibility='@{ conversationModel.message.equals("") ? View.GONE : View.VISIBLE }' />
 
 
-
         </LinearLayout>
 
         <LinearLayout
@@ -60,16 +60,13 @@ android:padding="8dp"
             android:layout_height="wrap_content"
             android:layout_below="@id/linearLayout_bubble"
             android:layout_alignParentLeft="true"
-            android:layout_marginLeft="@dimen/chat_safe_margin"
-            android:gravity="right|center_vertical"
+            android:layout_marginLeft="@dimen/avatar_circle_size_half"
+            android:gravity="left|center_vertical"
             android:orientation="horizontal">
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="@dimen/global_margin"
-                android:layout_marginEnd="@dimen/global_margin"
-                android:layout_marginRight="16dp"
                 android:text="@{conversationModel.time}"
                 android:textColor="@color/warm_grey_three"
                 android:textSize="12sp"

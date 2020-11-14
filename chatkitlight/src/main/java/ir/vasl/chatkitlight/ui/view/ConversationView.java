@@ -39,7 +39,7 @@ public class ConversationView
     private ConversationViewListener conversationViewListener;
     private ConversationList conversationList;
     private ConversationInput conversationInput;
-
+    private SwipyRefreshLayout swipyRefreshLayout;
     private ChatStyleEnum chatStyleEnum = ChatStyleEnum.DEFAULT;
     private boolean canShowExtraOptionButton = false;
 
@@ -88,10 +88,12 @@ public class ConversationView
         if(canShowExtraOptionButton){
             conversationInput.findViewById(R.id.imageView_extra_option).setVisibility(VISIBLE);
         }
+        swipyRefreshLayout = conversationView.findViewById(R.id.swipyRefreshLayout);
 
         // listeners
         conversationInput.setInputListener(this);
         conversationList.setDialogMenuListener(this);
+        swipyRefreshLayout.setOnRefreshListener(this);
         conversationInput.setAttachmentsListener(this);
         conversationInput.setOnRecordListener(this);
 
@@ -102,8 +104,6 @@ public class ConversationView
 
     public void setConversationViewListener(ConversationViewListener conversationViewListener) {
         this.conversationViewListener = conversationViewListener;
-
-        Log.e("tag", "setConversationViewListener: ");
     }
 
     public void setConversationListViewModel(ConversationListViewModel conversationListViewModel) {
@@ -172,11 +172,11 @@ public class ConversationView
     }
 
     public void hideSwipeRefresh() {
-        // swipyRefreshLayout.setRefreshing(false);
+         swipyRefreshLayout.setRefreshing(false);
     }
 
     public void showSwipeRefresh() {
-        // swipyRefreshLayout.setRefreshing(true);
+         swipyRefreshLayout.setRefreshing(true);
     }
 
     private RecyclerView.OnScrollListener scrollListener = new RecyclerView.OnScrollListener() {
@@ -190,9 +190,9 @@ public class ConversationView
             LinearLayoutManager manager = ((LinearLayoutManager) recyclerView.getLayoutManager());
             if (manager != null) {
                 if (manager.findFirstCompletelyVisibleItemPosition() == 0) {
-                    // swipyRefreshLayout.setEnabled(true);
+                     swipyRefreshLayout.setEnabled(true);
                 } else {
-                    // swipyRefreshLayout.setEnabled((recyclerView.canScrollVertically(DIRECTION_UP)));
+                     swipyRefreshLayout.setEnabled((recyclerView.canScrollVertically(DIRECTION_UP)));
                 }
             }
         }
@@ -247,5 +247,9 @@ public class ConversationView
     public void onLessThanSecond() {
         if (conversationViewListener != null)
             conversationViewListener.onVoiceRecordCanceled();
+    }
+
+    public void stopMediaPlayer(){
+        conversationList.stopMediaPlayer();
     }
 }
