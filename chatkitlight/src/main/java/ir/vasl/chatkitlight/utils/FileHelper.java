@@ -32,7 +32,7 @@ public class FileHelper {
     }
 
     public static boolean checkFileExistence(Context context, String fileName) {
-        if (context.getExternalFilesDir(null) == null)
+        if (context.getExternalFilesDir(null) == null || fileName == null)
             return false;
         return new File(Objects.requireNonNull(context.getExternalFilesDir(null)).toString() + "/chatkit/", fileName).exists();
     }
@@ -50,7 +50,7 @@ public class FileHelper {
     }
 
     public static Uri getFileUri(Context context, String fileName) {
-        if (context.getExternalFilesDir(null) == null)
+        if (context.getExternalFilesDir(null) == null || fileName == null)
             return null;
         return FileProvider.getUriForFile(context, context.getApplicationContext().getPackageName() + ".provider",
                 new File(Objects.requireNonNull(context.getExternalFilesDir(null)).toString() + "/chatkit/", fileName));
