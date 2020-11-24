@@ -71,7 +71,8 @@
             android:layout_alignParentRight="true"
             android:layout_marginLeft="@dimen/avatar_circle_size_half"
             android:layout_marginRight="@dimen/avatar_circle_size_half"
-            android:gravity="center_horizontal|left"
+            android:layoutDirection="rtl"
+            android:gravity="right|center_vertical"
             android:orientation="horizontal">
 
             <androidx.appcompat.widget.AppCompatImageView

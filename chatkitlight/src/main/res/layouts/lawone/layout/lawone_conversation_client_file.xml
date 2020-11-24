@@ -147,7 +147,9 @@
             android:layout_marginRight="@dimen/avatar_circle_size_half"
             android:layout_marginLeft="@dimen/avatar_circle_size_half"
             android:layout_below="@id/linearLayour_bubble"
+            android:gravity="right|center_vertical"
             android:layout_alignParentRight="true"
+            android:layoutDirection="rtl"
             android:orientation="horizontal">
 
             <androidx.appcompat.widget.AppCompatImageView
