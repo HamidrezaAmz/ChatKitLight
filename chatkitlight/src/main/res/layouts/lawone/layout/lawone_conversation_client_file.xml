@@ -59,6 +59,9 @@
                         android:padding="4dp"
                         android:background="@color/lawone_client_bubble_background"
                         android:visibility="gone"
+                        android:indeterminate="true"
+                        android:indeterminateTintMode="src_atop"
+                        android:indeterminateTint="@color/gray"
                         android:id="@+id/progressbar_loading"
                         />
 
