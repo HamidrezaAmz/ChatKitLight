@@ -69,9 +69,10 @@
                         android:src="@{isPlaying ? @drawable/ic_pause : @drawable/ic_play}" />
 
                     <ProgressBar
+                        android:id="@+id/progressbar_loading"
                         android:layout_width="@dimen/icon_circle_size"
                         android:layout_height="@dimen/icon_circle_size"
-                        android:visibility="@{conversationModel.conversationStatus == status.SENDING ? View.VISIBLE : View.GONE}" />
+                        android:visibility="@{conversationModel.conversationStatus == status.SENDING  ? View.VISIBLE : View.GONE}" />
 
                 </FrameLayout>
 

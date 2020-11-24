@@ -52,6 +52,16 @@
                         android:scaleType="centerInside"
                         app:srcCompat="@drawable/ic_file_lawone" />
 
+                    <ProgressBar
+                        android:layout_width="@dimen/icon_circle_size"
+                        android:layout_height="@dimen/icon_circle_size"
+                        android:layout_gravity="right|center_vertical"
+                        android:padding="4dp"
+                        android:background="@color/lawone_client_bubble_background"
+                        android:visibility="gone"
+                        android:id="@+id/progressbar_loading"
+                        />
+
                     <TextView
                         style="@style/TextViewTitleStyle"
                         android:layout_width="wrap_content"

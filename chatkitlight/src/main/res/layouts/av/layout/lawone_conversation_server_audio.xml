@@ -68,6 +68,12 @@
                         android:text="@{ conversationModel.title}"
                         android:visibility="gone" />
 
+                    <ProgressBar
+                        android:id="@+id/progressbar_loading"
+                        android:layout_width="@dimen/icon_circle_size"
+                        android:layout_height="@dimen/icon_circle_size"
+                        android:visibility="gone" />
+
                 </FrameLayout>
 
                 <rm.com.audiowave.AudioWaveView
