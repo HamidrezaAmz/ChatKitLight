@@ -149,6 +149,7 @@ public class ConversationView
     @Override
     public void onCopyMessageClicked(Object object) {
         conversationInput.conversationInput.setText(((ConversationModel) object).getMessage());
+        conversationInput.conversationInput.setSelection(((ConversationModel) object).getMessage().length());
         if (conversationViewListener != null)
             conversationViewListener.onCopyMessageClicked(object);
     }
