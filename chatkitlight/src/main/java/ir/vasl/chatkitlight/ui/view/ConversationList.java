@@ -82,8 +82,11 @@ public class ConversationList
         conversationListViewModel.getLiveData().observeForever(conversationModels -> {
             adapter.submitList(null);
             adapter.submitList(conversationModels);
-//            new Handler().postDelayed(() -> scrollToPosition(0), 100);
         });
+    }
+
+    public void scroll(int pos, long delay){
+        new Handler().postDelayed(() -> scrollToPosition(pos), delay);
     }
 
     public void setDialogMenuListener(DialogMenuListener dialogMenuListener) {

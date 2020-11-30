@@ -38,7 +38,7 @@ public class ConversationView
         OnRecordListener {
 
     private ConversationViewListener conversationViewListener;
-    private ConversationList conversationList;
+    public ConversationList conversationList;
     private ConversationInput conversationInput;
     private SwipyRefreshLayout swipyRefreshLayout;
     private ChatStyleEnum chatStyleEnum = ChatStyleEnum.DEFAULT;
