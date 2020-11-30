@@ -18,6 +18,7 @@ import com.orangegangsters.github.swipyrefreshlayout.library.SwipyRefreshLayout;
 import com.orangegangsters.github.swipyrefreshlayout.library.SwipyRefreshLayoutDirection;
 
 import ir.vasl.chatkitlight.R;
+import ir.vasl.chatkitlight.model.ConversationModel;
 import ir.vasl.chatkitlight.ui.callback.AttachmentsListener;
 import ir.vasl.chatkitlight.ui.callback.ConversationViewListener;
 import ir.vasl.chatkitlight.ui.callback.DialogMenuListener;
@@ -147,6 +148,7 @@ public class ConversationView
     @SuppressWarnings("unchecked")
     @Override
     public void onCopyMessageClicked(Object object) {
+        conversationInput.conversationInput.setText(((ConversationModel) object).getMessage());
         if (conversationViewListener != null)
             conversationViewListener.onCopyMessageClicked(object);
     }
