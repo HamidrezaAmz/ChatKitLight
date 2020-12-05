@@ -14,6 +14,7 @@ import static ir.vasl.chatkitlight.utils.Constants.DEFAULT_SERVER_BUBBLE_COLOR;
 public class ConversationViewStyle extends Style {
 
     private boolean canShowDialog;
+    private boolean canShowVoiceRecording;
     private int clientBubbleColor;
     private int serverBubbleColor;
     private int chatStyle;
@@ -27,6 +28,7 @@ public class ConversationViewStyle extends Style {
         style.clientBubbleColor = typedArray.getResourceId(R.styleable.ConversationView_clientBubbleColor, DEFAULT_CLIENT_BUBBLE_COLOR);
         style.serverBubbleColor = typedArray.getResourceId(R.styleable.ConversationView_serverBubbleColor, DEFAULT_SERVER_BUBBLE_COLOR);
         style.chatStyle = typedArray.getInteger(R.styleable.ConversationView_chatStyle, ChatStyleEnum.DEFAULT.getOrdinal());
+        style.canShowVoiceRecording = typedArray.getBoolean(R.styleable.ConversationView_canShowVoiceRecording, true);
 
         typedArray.recycle();
 
@@ -35,6 +37,10 @@ public class ConversationViewStyle extends Style {
 
     private ConversationViewStyle(Context context, AttributeSet attrs) {
         super(context, attrs);
+    }
+
+    public boolean canShowVoiceRecording() {
+        return canShowVoiceRecording;
     }
 
     public boolean canShowDialog() {

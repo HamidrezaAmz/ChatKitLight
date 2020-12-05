@@ -18,7 +18,8 @@
         android:id="@+id/conversationView"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        app:chatStyle="lawone"
+        app:chatStyle="arman_varzesh"
+        app:canShowVoiceRecording="true"
         app:canShowDialog="true" />
 
     <ir.vasl.chatkitlight.ui.customview.ImageViewCustom

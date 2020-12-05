@@ -72,6 +72,7 @@ public class AudioRecordView {
 
     private String TAG = "AudioRecordView";
 
+    private boolean canShowVoiceRecording = true;
     private LinearLayout viewContainer, layoutAttachmentOptions;
     private View imageViewAudio, imageViewLockArrow, imageViewLock, imageViewMic, dustin, dustin_cover, imageViewStop, imageViewSend;
     private View layoutAttachment, layoutDustin, layoutMessage, imageViewAttachment, imageViewCamera, imageViewEmoji;
@@ -137,7 +138,7 @@ public class AudioRecordView {
 
 //        view.removeAllViews();
         View inputView = LayoutInflater.from(view.getContext()).inflate(R.layout.record_view, view, false);
-        switch (chatStyle){
+        switch (chatStyle) {
             case DEFAULT:
             case ARMAN_VARZESH:
                 inputView.findViewById(R.id.linearLayout_input).setBackgroundColor(context.getResources().getColor(R.color.dark_grey_two));
@@ -169,12 +170,12 @@ public class AudioRecordView {
         audio = view.findViewById(R.id.imageAudio);
 
         imageViewAudio = view.findViewById(R.id.imageViewAudio);
+        layoutMessage = view.findViewById(R.id.layoutMessage);
         imageViewStop = view.findViewById(R.id.imageViewStop);
         imageViewSend = view.findViewById(R.id.imageViewSend);
         imageViewLock = view.findViewById(R.id.imageViewLock);
         imageViewLockArrow = view.findViewById(R.id.imageViewLockArrow);
         layoutDustin = view.findViewById(R.id.layoutDustin);
-        layoutMessage = view.findViewById(R.id.layoutMessage);
         layoutAttachment = view.findViewById(R.id.layoutAttachment);
         textViewSlide = view.findViewById(R.id.textViewSlide);
         timeText = view.findViewById(R.id.textViewTime);
@@ -196,8 +197,8 @@ public class AudioRecordView {
                 R.anim.jump);
         animJumpFast = AnimationUtils.loadAnimation(view.getContext(),
                 R.anim.jump_fast);
-
-        setupRecording();
+        if (canShowVoiceRecording)
+            setupRecording();
         setupAttachmentOptions();
     }
 
@@ -216,6 +217,21 @@ public class AudioRecordView {
             imageViewCamera.setVisibility(View.VISIBLE);
         } else {
             imageViewCamera.setVisibility(View.GONE);
+        }
+    }
+
+    public boolean canShowVoiceRecording() {
+        return canShowVoiceRecording;
+    }
+
+    public void setCanShowVoiceRecording(boolean canShowVoiceRecording) {
+        this.canShowVoiceRecording = canShowVoiceRecording;
+        if (!canShowVoiceRecording) {
+            imageViewAudio.setVisibility(View.GONE);
+            LinearLayout.LayoutParams params = ((LinearLayout.LayoutParams) layoutMessage.getLayoutParams());
+            params.leftMargin = 0;
+            params.rightMargin = 0;
+            layoutMessage.setLayoutParams(params);
         }
     }
 

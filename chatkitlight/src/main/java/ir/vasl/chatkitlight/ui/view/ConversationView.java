@@ -1,6 +1,5 @@
 package ir.vasl.chatkitlight.ui.view;
 
-import android.Manifest;
 import android.content.Context;
 import android.util.AttributeSet;
 import android.view.View;
@@ -9,7 +8,6 @@ import android.widget.FrameLayout;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.core.app.ActivityCompat;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -61,7 +59,7 @@ public class ConversationView
 
     private void init(Context context, AttributeSet attrs) {
         ConversationViewStyle style = ConversationViewStyle.parse(context, attrs);
-        switch (style.getChatStyle()){
+        switch (style.getChatStyle()) {
             case 1:
                 chatStyleEnum = ChatStyleEnum.ARMAN_VARZESH;
                 break;
@@ -70,6 +68,7 @@ public class ConversationView
                 break;
         }
         init(context);
+        conversationInput.setCanShowVoiceRecording(style.canShowVoiceRecording());
         conversationList.setCanShowDialog(style.canShowDialog());
         conversationList.setClientBubbleColor(style.getClientBubbleColor());
         conversationList.setServerBubbleColor(style.getServerBubbleColor());
@@ -105,7 +104,7 @@ public class ConversationView
         conversationInput.setRecordingListener(this);
         // fix recyclerview conflict with swipe refresh
         conversationList.addOnScrollListener(scrollListener);
-        switch (chatStyleEnum){
+        switch (chatStyleEnum) {
             case DEFAULT:
             case ARMAN_VARZESH:
                 viewConversation.findViewById(R.id.frameLayout_root).setBackgroundColor(context.getResources().getColor(R.color.black));
