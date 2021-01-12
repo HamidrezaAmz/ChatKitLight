@@ -87,6 +87,12 @@ public class FileHelper {
         context.startActivity(chooserIntent);
     }
 
+    public static void openUrl(Context context, String url){
+        Intent i = new Intent(Intent.ACTION_VIEW);
+        i.setData(Uri.parse(url));
+        context.startActivity(i);
+    }
+
     public static byte[] getFileBytes(Context context, String fileName) {
         if (context.getExternalFilesDir(null) == null || fileName == null || fileName.length() == 0)
             return new byte[]{};
