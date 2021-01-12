@@ -14,7 +14,8 @@
             android:id="@+id/swipyRefreshLayout"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            app:direction="bottom">
+            app:direction="bottom"
+            android:layout_marginBottom="12dp">
 
         <ir.vasl.chatkitlight.ui.view.ConversationList
             android:id="@+id/conversationList"
