@@ -69,6 +69,7 @@ public class ConversationView
         }
         init(context);
         conversationInput.setCanShowVoiceRecording(style.canShowVoiceRecording());
+        conversationInput.setCanShowAttachment(style.canShowAttachment());
         conversationList.setCanShowDialog(style.canShowDialog());
         conversationList.setClientBubbleColor(style.getClientBubbleColor());
         conversationList.setServerBubbleColor(style.getServerBubbleColor());

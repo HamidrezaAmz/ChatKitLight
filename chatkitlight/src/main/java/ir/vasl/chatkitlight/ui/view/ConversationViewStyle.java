@@ -15,6 +15,7 @@ public class ConversationViewStyle extends Style {
 
     private boolean canShowDialog;
     private boolean canShowVoiceRecording;
+    private boolean canShowAttachment;
     private int clientBubbleColor;
     private int serverBubbleColor;
     private int chatStyle;
@@ -29,6 +30,7 @@ public class ConversationViewStyle extends Style {
         style.serverBubbleColor = typedArray.getResourceId(R.styleable.ConversationView_serverBubbleColor, DEFAULT_SERVER_BUBBLE_COLOR);
         style.chatStyle = typedArray.getInteger(R.styleable.ConversationView_chatStyle, ChatStyleEnum.DEFAULT.getOrdinal());
         style.canShowVoiceRecording = typedArray.getBoolean(R.styleable.ConversationView_canShowVoiceRecording, true);
+        style.canShowAttachment = typedArray.getBoolean(R.styleable.ConversationView_canShowAttachment, true);
 
         typedArray.recycle();
 
@@ -45,6 +47,10 @@ public class ConversationViewStyle extends Style {
 
     public boolean canShowDialog() {
         return canShowDialog;
+    }
+
+    public boolean canShowAttachment() {
+        return canShowAttachment;
     }
 
     public int getClientBubbleColor() {

@@ -73,6 +73,7 @@ public class AudioRecordView {
     private String TAG = "AudioRecordView";
 
     private boolean canShowVoiceRecording = true;
+    private boolean canShowAttachment = true;
     private LinearLayout viewContainer, layoutAttachmentOptions;
     private View imageViewAudio, imageViewLockArrow, imageViewLock, imageViewMic, dustin, dustin_cover, imageViewStop, imageViewSend;
     private View layoutAttachment, layoutDustin, layoutMessage, imageViewAttachment, imageViewCamera, imageViewEmoji;
@@ -199,7 +200,8 @@ public class AudioRecordView {
                 R.anim.jump_fast);
         if (canShowVoiceRecording)
             setupRecording();
-        setupAttachmentOptions();
+        if(canShowAttachment)
+            setupAttachmentOptions();
     }
 
     public void changeSlideToCancelText(int textResourceId) {
@@ -222,6 +224,12 @@ public class AudioRecordView {
 
     public boolean canShowVoiceRecording() {
         return canShowVoiceRecording;
+    }
+
+    public void setCanShowAttachment(boolean canShowAttachment){
+        this.canShowAttachment = canShowAttachment;
+        if(!canShowAttachment)
+            imageViewAttachment.setVisibility(View.GONE);
     }
 
     public void setCanShowVoiceRecording(boolean canShowVoiceRecording) {
