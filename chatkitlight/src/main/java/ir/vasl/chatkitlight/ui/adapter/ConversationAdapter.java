@@ -1129,6 +1129,8 @@ public class ConversationAdapter extends PagedListAdapter<ConversationModel, Bas
         public ConversationViewHolder(LawoneConversationServerFileBinding serverFileBinding) {
             super(serverFileBinding.getRoot());
             this.lawoneServerFileBinding = serverFileBinding;
+            if (getBindingAdapterPosition() != -1 && getItem(getBindingAdapterPosition()) != null && getItem(getBindingAdapterPosition()).getImageRes().length() > 0)
+                this.lawoneServerFileBinding.imageViewAvatar.setImageResource(Integer.parseInt(getItem(getBindingAdapterPosition()).getImageRes()));
             this.lawoneServerFileBinding.frameLayoutFile.setOnClickListener(v -> {
                 if (getBindingAdapterPosition() == -1 || getItem(getBindingAdapterPosition()) == null)
                     return;

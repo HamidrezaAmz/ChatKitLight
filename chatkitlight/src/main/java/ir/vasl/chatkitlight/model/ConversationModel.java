@@ -64,6 +64,9 @@ public class ConversationModel {
     @ColumnInfo(name = "imageUrl")
     private String imageUrl = "";
 
+    @ColumnInfo(name = "imageRes")
+    private String imageRes = "";
+
     public ConversationModel() {
     }
 
@@ -86,6 +89,14 @@ public class ConversationModel {
     public ConversationModel(@NonNull String chatId, @NonNull String conversationId) {
         this.chatId = chatId;
         this.conversationId = conversationId;
+    }
+
+    public String getImageRes() {
+        return imageRes;
+    }
+
+    public void setImageRes(String imageRes) {
+        this.imageRes = imageRes;
     }
 
     public int getId() {

@@ -21,4 +21,12 @@ public class DbMigration {
                     + " ADD COLUMN imageUrl TEXT");
         }
     };
+
+    static final Migration MIGRATION_3_4 = new Migration(3, 4) {
+        @Override
+        public void migrate(SupportSQLiteDatabase database) {
+            database.execSQL("ALTER TABLE TABLE_CONVERSATION "
+                    + " ADD COLUMN imageRes TEXT");
+        }
+    };
 }

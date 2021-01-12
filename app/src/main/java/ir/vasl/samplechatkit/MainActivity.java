@@ -130,7 +130,7 @@ public class MainActivity
         }
         conversationModel.setConversationStatus(ConversationStatus.DELIVERED);
         conversationModel.setFileAddress("https://www.w3schools.com/howto/img_avatar.png");
-
+        conversationModel.setImageRes(String.valueOf(R.drawable.emoji_ic));
 //        if (imageUri != null) {
 //            conversationModel.setFileAddress(imageUri.toString());
 //            conversationModel.setFileAddress("https://www.w3.org/WAI/ER/tests/xhtml/testfiles/resources/pdf/dummy.pdf");
