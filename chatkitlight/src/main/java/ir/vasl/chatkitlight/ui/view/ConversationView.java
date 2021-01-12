@@ -1,5 +1,7 @@
 package ir.vasl.chatkitlight.ui.view;
 
+import android.content.ClipData;
+import android.content.ClipboardManager;
 import android.content.Context;
 import android.net.Uri;
 import android.util.AttributeSet;
@@ -7,6 +9,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.LinearLayout;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -27,6 +30,8 @@ import ir.vasl.chatkitlight.ui.callback.TypingListener;
 import ir.vasl.chatkitlight.utils.Constants;
 import ir.vasl.chatkitlight.utils.globalEnums.ChatStyleEnum;
 import ir.vasl.chatkitlight.viewmodel.ConversationListViewModel;
+
+import static androidx.core.content.ContextCompat.getSystemService;
 
 public class ConversationView
         extends LinearLayout
@@ -148,8 +153,12 @@ public class ConversationView
     @SuppressWarnings("unchecked")
     @Override
     public void onCopyMessageClicked(Object object) {
-        conversationInput.conversationInput.setText(((ConversationModel) object).getMessage());
-        conversationInput.conversationInput.setSelection(((ConversationModel) object).getMessage().length());
+        ClipboardManager clipboard = getSystemService(getContext(), ClipboardManager.class);
+        if(clipboard != null) {
+            ClipData clip = ClipData.newPlainText("message", ((ConversationModel) object).getMessage());
+            clipboard.setPrimaryClip(clip);
+            Toast.makeText(getContext(), "متن پیام کپی شد!", Toast.LENGTH_SHORT).show();
+        }
         if (conversationViewListener != null)
             conversationViewListener.onCopyMessageClicked(object);
     }
