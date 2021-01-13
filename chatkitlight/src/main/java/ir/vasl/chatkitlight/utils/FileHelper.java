@@ -88,9 +88,9 @@ public class FileHelper {
     }
 
     public static void openUrl(Context context, String url){
-        Intent i = new Intent(Intent.ACTION_VIEW);
-        i.setData(Uri.parse(url));
-        context.startActivity(i);
+//        Intent i = new Intent(Intent.ACTION_VIEW);
+//        i.setData(Uri.parse(url));
+//        context.startActivity(i);
     }
 
     public static byte[] getFileBytes(Context context, String fileName) {
