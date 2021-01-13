@@ -7,7 +7,6 @@
 
     <androidx.appcompat.widget.AppCompatEditText
         android:id="@id/messageInput"
-        style="@style/EditTextStyle"
         android:layout_width="0dp"
         android:layout_height="@dimen/input_edittext_height"
         android:layout_marginStart="@dimen/global_margin"
@@ -16,6 +15,10 @@
         android:maxLines="1"
         android:paddingStart="@dimen/global_padding"
         android:paddingEnd="@dimen/global_padding"
+        android:fontFamily="@font/app_font"
+        android:textCursorDrawable="@null"
+        android:textColorHint="@color/dark_gray"
+        android:cursorVisible="true"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@id/attachmentButton"

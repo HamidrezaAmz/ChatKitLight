@@ -18,67 +18,56 @@
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layoutDirection="ltr"
         android:onClick="@{ () -> conversationListListener.onConversationItemClicked(conversationModel)}"
         android:padding="@dimen/global_padding">
 
-        <LinearLayout
+        <RelativeLayout
             android:id="@+id/linearLayout_bubble"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentLeft="true"
-            android:minWidth="@dimen/conversation_min_width"
-            android:background="@drawable/lawone_shape_curve_server"
-            android:orientation="vertical"
-            android:padding="@dimen/global_padding_extra">
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
 
-            <TextView
-                style="@style/TextViewTitleStyle"
+            <RelativeLayout
+                style="@style/ChatBubbleStyle"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:maxWidth="@dimen/chat_item_max_width"
-                android:text="@{ conversationModel.title}"
-                android:visibility='@{ conversationModel.title.equals("") ? View.GONE : View.VISIBLE }' />
+                android:layout_alignParentLeft="true"
+                android:background="@drawable/lawone_shape_curve_server">
 
-            <TextView
-                style="@style/TextViewSubTitleStyle"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:maxWidth="@dimen/chat_item_max_width"
-                android:text="@{ conversationModel.message}"
-                android:visibility='@{ conversationModel.message.equals("") ? View.GONE : View.VISIBLE }' />
+                <include
+                    layout="@layout/lawone_tilted_icon"
+                    android:visibility="gone" />
 
-        </LinearLayout>
+                <TextView
+                    android:id="@+id/textView_title"
+                    style="@style/TextViewServerTitleStyle"
+                    android:text="@{ conversationModel.title}"
+                    android:visibility='@{ conversationModel.title.equals("") ? View.GONE : View.VISIBLE }' />
 
-        <ir.vasl.chatkitlight.ui.customview.ImageViewCustom
-            android:id="@+id/imageView_avatar"
-            bannerImage="@{conversationModel.imageUrl}"
-            android:layout_width="60dp"
-            android:layout_height="60dp"
-            android:layout_centerVertical="true"
-            android:layout_marginLeft="-30dp"
-            android:layout_toRightOf="@id/linearLayout_bubble"
-            android:background="@drawable/ring_gradient_avatar"
-            android:foregroundGravity="center"
-            android:padding="3dp"
-            android:scaleType="fitXY"
-            android:visibility="gone"
-            app:round_image="true" />
+                <TextView
+                    style="@style/TextViewServerTitleStyle"
+                    android:layout_below="@id/textView_title"
+                    android:text="@{ conversationModel.message}"
+                    android:visibility='@{ conversationModel.message.equals("") ? View.GONE : View.VISIBLE }' />
 
-        <androidx.appcompat.widget.AppCompatImageView
-            android:layout_width="75dp"
-            android:layout_height="75dp"
-            android:layout_alignParentLeft="true"
-            android:layout_centerVertical="true"
-            android:layout_marginLeft="@dimen/chat_safe_margin"
-            android:background="@drawable/ic_lawone_tilted_bright"
-            android:visibility="gone" />
+            </RelativeLayout>
+
+            <ir.vasl.chatkitlight.ui.customview.ImageViewCustom
+                android:id="@+id/imageView_avatar"
+                style="@style/AvatarStyle"
+                bannerImage="@{conversationModel.imageUrl}"
+                android:layout_alignParentLeft="true"
+                app:round_image="true" />
+        </RelativeLayout>
 
         <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_below="@id/linearLayout_bubble"
+            android:layout_below="@+id/linearLayout_bubble"
             android:layout_alignParentLeft="true"
-            android:gravity="right|center_vertical"
+            android:layout_marginLeft="@dimen/avatar_circle_size_half"
+            android:layout_marginRight="@dimen/avatar_circle_size_half"
+            android:gravity="left|center_vertical"
             android:orientation="horizontal">
 
             <TextView
@@ -86,6 +75,7 @@
                 android:layout_height="wrap_content"
                 android:text="@{conversationModel.time}"
                 android:textColor="@color/warm_grey_three"
+                android:gravity="left"
                 android:textSize="12sp"
                 android:visibility='@{conversationModel.time.equals("") ? View.GONE : View.VISIBLE }' />
 

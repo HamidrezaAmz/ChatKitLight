@@ -5,7 +5,7 @@ import androidx.room.RoomDatabase;
 
 import ir.vasl.chatkitlight.model.ConversationModel;
 
-@Database(entities = {ConversationModel.class}, version = 3, exportSchema = false)
+@Database(entities = {ConversationModel.class}, version = 4, exportSchema = false)
 public abstract class ChatKitDatabase extends RoomDatabase {
     public abstract ChatDao getChatDao();
 }

@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.appcompat.widget.AppCompatImageView android:layout_width="@dimen/conversation_min_height"
+    android:layout_height="@dimen/conversation_min_height"
+    android:layout_marginTop="4dp"
+    android:layout_marginRight="35dp"
+    android:background="@drawable/ic_lawone_tilted_white"
+    android:backgroundTint="@color/white"
+    android:tint="@color/white"
+    android:visibility="visible"
+    xmlns:android="http://schemas.android.com/apk/res/android" />

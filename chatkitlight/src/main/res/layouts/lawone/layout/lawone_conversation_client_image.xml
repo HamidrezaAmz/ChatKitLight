@@ -28,6 +28,7 @@
             android:minWidth="@dimen/conversation_min_width"
             android:layout_height="wrap_content"
             android:id="@+id/linearLayout_bubble"
+            android:layout_marginRight="@dimen/avatar_circle_size_half"
             android:layout_alignParentRight="true"
             android:background="@drawable/lawone_shape_curve_client"
             android:orientation="vertical"
@@ -60,7 +61,9 @@
             android:layout_height="wrap_content"
             android:layout_alignParentRight="true"
             android:layout_below="@id/linearLayout_bubble"
-            android:gravity="left|center_vertical"
+            android:layout_marginRight="@dimen/avatar_circle_size_half"
+            android:layout_marginLeft="@dimen/avatar_circle_size_half"
+            android:gravity="right|center_vertical"
             android:orientation="horizontal">
 
             <androidx.appcompat.widget.AppCompatImageView

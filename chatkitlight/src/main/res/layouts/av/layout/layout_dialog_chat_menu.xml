@@ -2,6 +2,7 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:gravity="center"
     android:orientation="vertical">
 
@@ -11,7 +12,12 @@
         android:background="@drawable/shape_message_options"
         android:gravity="end|center"
         android:orientation="vertical"
-        android:padding="@dimen/global_padding_extra">
+        android:elevation="4dp"
+        app:elevation="4dp"
+        android:layout_marginRight="@dimen/global_margin"
+        android:layout_marginLeft="@dimen/global_margin"
+        android:paddingRight="@dimen/global_padding_extra"
+        android:paddingLeft="@dimen/global_padding_extra">
 
         <androidx.appcompat.widget.AppCompatButton
             android:id="@+id/button_copy"
@@ -20,6 +26,7 @@
             android:layout_height="wrap_content"
             android:gravity="start"
             android:background="?android:attr/selectableItemBackground"
+            android:textColor="@color/dark_gray"
             android:text="@string/copy_message" />
 
         <View
@@ -27,7 +34,7 @@
             android:layout_height="0.5dp"
             android:layout_marginStart="@dimen/global_margin_extra"
             android:layout_marginEnd="@dimen/global_margin_extra"
-            android:background="@color/divider" />
+            android:background="@color/warm_grey" />
 
         <androidx.appcompat.widget.AppCompatButton
             android:id="@+id/button_resend"
@@ -35,15 +42,18 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:gravity="start"
+            android:visibility="gone"
             android:background="?android:attr/selectableItemBackground"
+            android:textColor="@color/dark_gray"
             android:text="@string/resend_message" />
 
         <View
             android:layout_width="match_parent"
             android:layout_height="0.5dp"
+            android:visibility="gone"
             android:layout_marginStart="@dimen/global_margin_extra"
             android:layout_marginEnd="@dimen/global_margin_extra"
-            android:background="@color/divider" />
+            android:background="@color/warm_grey" />
 
         <androidx.appcompat.widget.AppCompatButton
             android:id="@+id/button_delete"
@@ -52,6 +62,7 @@
             android:gravity="start"
             android:layout_height="wrap_content"
             android:background="?android:attr/selectableItemBackground"
+            android:textColor="@color/dark_gray"
             android:text="@string/delete_message" />
 
     </LinearLayout>

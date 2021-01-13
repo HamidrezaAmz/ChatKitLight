@@ -1,5 +1,7 @@
 package ir.vasl.chatkitlight.ui.view;
 
+import android.content.ClipData;
+import android.content.ClipboardManager;
 import android.content.Context;
 import android.net.Uri;
 import android.util.AttributeSet;
@@ -7,6 +9,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.LinearLayout;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -18,6 +21,7 @@ import com.orangegangsters.github.swipyrefreshlayout.library.SwipyRefreshLayout;
 import com.orangegangsters.github.swipyrefreshlayout.library.SwipyRefreshLayoutDirection;
 
 import ir.vasl.chatkitlight.R;
+import ir.vasl.chatkitlight.model.ConversationModel;
 import ir.vasl.chatkitlight.ui.callback.AttachmentsListener;
 import ir.vasl.chatkitlight.ui.callback.ConversationViewListener;
 import ir.vasl.chatkitlight.ui.callback.DialogMenuListener;
@@ -26,6 +30,8 @@ import ir.vasl.chatkitlight.ui.callback.TypingListener;
 import ir.vasl.chatkitlight.utils.Constants;
 import ir.vasl.chatkitlight.utils.globalEnums.ChatStyleEnum;
 import ir.vasl.chatkitlight.viewmodel.ConversationListViewModel;
+
+import static androidx.core.content.ContextCompat.getSystemService;
 
 public class ConversationView
         extends LinearLayout
@@ -37,10 +43,11 @@ public class ConversationView
         OnRecordListener {
 
     private ConversationViewListener conversationViewListener;
-    private ConversationList conversationList;
+    public ConversationList conversationList;
     private ConversationInput conversationInput;
-
+    private SwipyRefreshLayout swipyRefreshLayout;
     private ChatStyleEnum chatStyleEnum = ChatStyleEnum.DEFAULT;
+    private boolean canShowExtraOptionButton = false;
 
     public ConversationView(Context context) {
         super(context);
@@ -67,6 +74,7 @@ public class ConversationView
                 chatStyleEnum = ChatStyleEnum.LAWONE;
                 break;
         }
+        canShowExtraOptionButton = style.canShowExtraOptionButton();
         init(context);
         conversationList.setCanShowDialog(style.canShowDialog());
         conversationList.setClientBubbleColor(style.getClientBubbleColor());
@@ -83,9 +91,15 @@ public class ConversationView
         conversationList = conversationView.findViewById(R.id.conversationList);
         conversationInput = conversationView.findViewById(R.id.conversationInput);
 
+        if(canShowExtraOptionButton){
+            conversationInput.findViewById(R.id.imageView_extra_option).setVisibility(VISIBLE);
+        }
+        swipyRefreshLayout = conversationView.findViewById(R.id.swipyRefreshLayout);
+
         // listeners
         conversationInput.setInputListener(this);
         conversationList.setDialogMenuListener(this);
+        swipyRefreshLayout.setOnRefreshListener(this);
         conversationInput.setAttachmentsListener(this);
         conversationInput.setOnRecordListener(this);
 
@@ -96,8 +110,6 @@ public class ConversationView
 
     public void setConversationViewListener(ConversationViewListener conversationViewListener) {
         this.conversationViewListener = conversationViewListener;
-
-        Log.e("tag", "setConversationViewListener: ");
     }
 
     public void setConversationListViewModel(ConversationListViewModel conversationListViewModel) {
@@ -120,6 +132,13 @@ public class ConversationView
     }
 
     @Override
+    public void extraOptionClicked() {
+        if (conversationViewListener != null) {
+            conversationViewListener.extraOptionClicked();
+        }
+    }
+
+    @Override
     public void onStartTyping() {
         if (conversationViewListener != null)
             conversationViewListener.onStartTyping();
@@ -134,6 +153,12 @@ public class ConversationView
     @SuppressWarnings("unchecked")
     @Override
     public void onCopyMessageClicked(Object object) {
+        ClipboardManager clipboard = getSystemService(getContext(), ClipboardManager.class);
+        if(clipboard != null) {
+            ClipData clip = ClipData.newPlainText("message", ((ConversationModel) object).getMessage());
+            clipboard.setPrimaryClip(clip);
+            Toast.makeText(getContext(), "متن پیام کپی شد!", Toast.LENGTH_SHORT).show();
+        }
         if (conversationViewListener != null)
             conversationViewListener.onCopyMessageClicked(object);
     }
@@ -159,11 +184,11 @@ public class ConversationView
     }
 
     public void hideSwipeRefresh() {
-        // swipyRefreshLayout.setRefreshing(false);
+         swipyRefreshLayout.setRefreshing(false);
     }
 
     public void showSwipeRefresh() {
-        // swipyRefreshLayout.setRefreshing(true);
+         swipyRefreshLayout.setRefreshing(true);
     }
 
     private RecyclerView.OnScrollListener scrollListener = new RecyclerView.OnScrollListener() {
@@ -177,9 +202,9 @@ public class ConversationView
             LinearLayoutManager manager = ((LinearLayoutManager) recyclerView.getLayoutManager());
             if (manager != null) {
                 if (manager.findFirstCompletelyVisibleItemPosition() == 0) {
-                    // swipyRefreshLayout.setEnabled(true);
+                     swipyRefreshLayout.setEnabled(true);
                 } else {
-                    // swipyRefreshLayout.setEnabled((recyclerView.canScrollVertically(DIRECTION_UP)));
+                     swipyRefreshLayout.setEnabled((recyclerView.canScrollVertically(DIRECTION_UP)));
                 }
             }
         }
@@ -234,5 +259,9 @@ public class ConversationView
     public void onLessThanSecond() {
         if (conversationViewListener != null)
             conversationViewListener.onVoiceRecordCanceled();
+    }
+
+    public void stopMediaPlayer(){
+        conversationList.stopMediaPlayer();
     }
 }

@@ -15,7 +15,9 @@ public class DatabaseLayer {
     private DatabaseLayer() {
         chatKitDatabase = Room.databaseBuilder(application, ChatKitDatabase.class, Constants.DATABASE_NAME)
                 .allowMainThreadQueries()
-                .addMigrations(DbMigration.MIGRATION_1_2, DbMigration.MIGRATION_2_3)
+                .addMigrations(DbMigration.MIGRATION_1_2,
+                        DbMigration.MIGRATION_2_3,
+                        DbMigration.MIGRATION_3_4)
                 .build();
         DatabaseLayer = this;
     }
