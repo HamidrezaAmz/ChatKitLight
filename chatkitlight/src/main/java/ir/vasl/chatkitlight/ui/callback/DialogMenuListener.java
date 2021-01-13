@@ -23,11 +23,9 @@ public interface DialogMenuListener<T> {
     }
 
     default void shouldPaginateNow() {
-
     }
 
     default void requestStoragePermission() {
-
     }
 
     void pdfFileClicked(Uri pdfUri);

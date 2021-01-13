@@ -17,11 +17,9 @@ public interface ConversationListListener<T> {
     }
 
     default void requestStoragePermission() {
-
     }
 
     default void pdfFileClicked(Uri pdfUri){
-
     }
 
 }
