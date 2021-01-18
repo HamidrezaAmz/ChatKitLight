@@ -696,42 +696,76 @@ public class ConversationAdapter extends PagedListAdapter<ConversationModel, Bas
             super.onBind(position);
             if (getItem(position) == null)
                 return;
+            if (lawoneClientTextBinding != null) {
+                try {
+                    if (position != -1 && getItem(position) != null && getItem(position).getImageRes().length() > 0)
+                        lawoneClientTextBinding.imageViewAvatar.setImageResource(getResId(getItem(position).getImageRes()));
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            }
+            if (lawoneServerTextBinding != null) {
+                try {
+                    if (position != -1 && getItem(position) != null && getItem(position).getImageRes().length() > 0)
+                        lawoneClientTextBinding.imageViewAvatar.setImageResource(getResId(getItem(position).getImageRes()));
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            }
             if (lawoneClientFileBinding != null) { //client file
                 if (FileHelper.checkFileExistence(context, getItem(position).getTitle())) {
-//                    lawoneClientFileBinding.imageViewCheckmark.setVisibility(View.VISIBLE);
                     downloadProgressDone(lawoneClientFileBinding.waveView);
+                }
+                try {
+                    if (position != -1 && getItem(position) != null && getItem(position).getImageRes().length() > 0)
+                        lawoneClientFileBinding.imageViewAvatar.setImageResource(getResId(getItem(position).getImageRes()));
+                } catch (Exception e) {
+                    e.printStackTrace();
                 }
             }
             if (lawoneServerFileBinding != null) { //server file
                 if (FileHelper.checkFileExistence(context, getItem(position).getTitle())) {
-//                    lawoneServerFileBinding.imageViewCheckmark.setVisibility(View.VISIBLE);
                     downloadProgressDone(lawoneServerFileBinding.waveView);
+                }
+                try {
+                    if (position != -1 && getItem(position) != null && getItem(position).getImageRes().length() > 0)
+                        lawoneServerFileBinding.imageViewAvatar.setImageResource(getResId(getItem(position).getImageRes()));
+                } catch (Exception e) {
+                    e.printStackTrace();
                 }
             }
             if (lawoneClientAudioBinding != null) { //client audio
                 if (FileHelper.checkFileExistence(context, getItem(position).getTitle())) {
-//                    lawoneClientAudioBinding.imageViewCheckmark.setVisibility(View.VISIBLE);
                     downloadProgressDone(lawoneClientAudioBinding.waveView);
                     lawoneClientAudioBinding.wave.setRawData(FileHelper.getFileBytes(context, getItem(getBindingAdapterPosition()).getTitle()));
+                }
+                try {
+                    if (position != -1 && getItem(position) != null && getItem(position).getImageRes().length() > 0)
+                        lawoneClientAudioBinding.imageViewAvatar.setImageResource(getResId(getItem(position).getImageRes()));
+                } catch (Exception e) {
+                    e.printStackTrace();
                 }
             }
             if (lawoneServerAudioBinding != null) { //server audio
                 if (FileHelper.checkFileExistence(context, getItem(position).getTitle())) {
-//                    lawoneServerAudioBinding.imageViewCheckmark.setVisibility(View.VISIBLE);
                     downloadProgressDone(lawoneServerAudioBinding.waveView);
                     lawoneServerAudioBinding.wave.setRawData(FileHelper.getFileBytes(context, getItem(getBindingAdapterPosition()).getTitle()));
+                }
+                try {
+                    if (position != -1 && getItem(position) != null && getItem(position).getImageRes().length() > 0)
+                        lawoneServerAudioBinding.imageViewAvatar.setImageResource(getResId(getItem(position).getImageRes()));
+                } catch (Exception e) {
+                    e.printStackTrace();
                 }
             }
             if (clientAudioBinding != null) { //client audio
                 if (FileHelper.checkFileExistence(context, getItem(position).getTitle())) {
-//                    clientAudioBinding.imageViewCheckmark.setVisibility(View.VISIBLE);
                     downloadProgressDone(clientAudioBinding.waveView);
                     clientAudioBinding.wave.setRawData(FileHelper.getFileBytes(context, getItem(getBindingAdapterPosition()).getTitle()));
                 }
             }
             if (serverAudioBinding != null) { //server audio
                 if (FileHelper.checkFileExistence(context, getItem(position).getTitle())) {
-//                    serverAudioBinding.imageViewCheckmark.setVisibility(View.VISIBLE);
                     downloadProgressDone(serverAudioBinding.waveView);
                     serverAudioBinding.wave.setRawData(FileHelper.getFileBytes(context, getItem(getBindingAdapterPosition()).getTitle()));
                 }
@@ -974,10 +1008,6 @@ public class ConversationAdapter extends PagedListAdapter<ConversationModel, Bas
         public ConversationViewHolder(LawoneConversationClientBinding clientTextBinding) {
             super(clientTextBinding.getRoot());
             this.lawoneClientTextBinding = clientTextBinding;
-            try {
-                if (getBindingAdapterPosition() != -1 && getItem(getBindingAdapterPosition()) != null && getItem(getBindingAdapterPosition()).getImageRes().length() > 0)
-                    this.lawoneClientTextBinding.imageViewAvatar.setImageResource(getResId(getItem(getBindingAdapterPosition()).getImageRes()));
-            } catch (Exception e) {e.printStackTrace();}
         }
 
         public ConversationViewHolder(LawoneConversationServerBinding serverTextBinding) {
@@ -986,7 +1016,9 @@ public class ConversationAdapter extends PagedListAdapter<ConversationModel, Bas
             try {
                 if (getBindingAdapterPosition() != -1 && getItem(getBindingAdapterPosition()) != null && getItem(getBindingAdapterPosition()).getImageRes().length() > 0)
                     this.lawoneServerTextBinding.imageViewAvatar.setImageResource(getResId(getItem(getBindingAdapterPosition()).getImageRes()));
-            } catch (Exception e) {e.printStackTrace();}
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
         }
 
         public ConversationViewHolder(LawoneConversationClientImageBinding clientImageBinding) {
@@ -1005,7 +1037,9 @@ public class ConversationAdapter extends PagedListAdapter<ConversationModel, Bas
             try {
                 if (getBindingAdapterPosition() != -1 && getItem(getBindingAdapterPosition()) != null && getItem(getBindingAdapterPosition()).getImageRes().length() > 0)
                     this.lawoneClientFileBinding.imageViewAvatar.setImageResource(getResId(getItem(getBindingAdapterPosition()).getImageRes()));
-            } catch (Exception e) {e.printStackTrace();}
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
             this.lawoneClientFileBinding.frameLayoutFile.setOnClickListener(v -> {
                 if (getBindingAdapterPosition() == -1 || getItem(getBindingAdapterPosition()) == null)
                     return;
@@ -1047,7 +1081,9 @@ public class ConversationAdapter extends PagedListAdapter<ConversationModel, Bas
             try {
                 if (getBindingAdapterPosition() != -1 && getItem(getBindingAdapterPosition()) != null && getItem(getBindingAdapterPosition()).getImageRes().length() > 0)
                     this.lawoneClientAudioBinding.imageViewAvatar.setImageResource(getResId(getItem(getBindingAdapterPosition()).getImageRes()));
-            } catch (Exception e) {e.printStackTrace();}
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
             this.lawoneClientAudioBinding.frameLayoutFile.setOnClickListener(v -> {
                 if (getBindingAdapterPosition() == -1 || getItem(getBindingAdapterPosition()) == null)
                     return;
@@ -1100,7 +1136,9 @@ public class ConversationAdapter extends PagedListAdapter<ConversationModel, Bas
             try {
                 if (getBindingAdapterPosition() != -1 && getItem(getBindingAdapterPosition()) != null && getItem(getBindingAdapterPosition()).getImageRes().length() > 0)
                     this.lawoneServerAudioBinding.imageViewAvatar.setImageResource(getResId(getItem(getBindingAdapterPosition()).getImageRes()));
-            } catch (Exception e) {e.printStackTrace();}
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
             this.lawoneServerAudioBinding.setIsPlaying(false);
             this.lawoneServerAudioBinding.frameLayoutFile.setOnClickListener(v -> {
                 if (getBindingAdapterPosition() == -1 || getItem(getBindingAdapterPosition()) == null)
@@ -1152,7 +1190,9 @@ public class ConversationAdapter extends PagedListAdapter<ConversationModel, Bas
             try {
                 if (getBindingAdapterPosition() != -1 && getItem(getBindingAdapterPosition()) != null && getItem(getBindingAdapterPosition()).getImageRes().length() > 0)
                     this.lawoneServerFileBinding.imageViewAvatar.setImageResource(getResId(getItem(getBindingAdapterPosition()).getImageRes()));
-            } catch (Exception e) {e.printStackTrace();}
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
             this.lawoneServerFileBinding.frameLayoutFile.setOnClickListener(v -> {
                 if (getBindingAdapterPosition() == -1 || getItem(getBindingAdapterPosition()) == null)
                     return;
@@ -1197,7 +1237,7 @@ public class ConversationAdapter extends PagedListAdapter<ConversationModel, Bas
         }
     }
 
-    public int getResId(String num){
+    public int getResId(String num) {
         int index = Integer.parseInt(num);
         switch (index) {
             case 0:
@@ -1212,7 +1252,8 @@ public class ConversationAdapter extends PagedListAdapter<ConversationModel, Bas
                 return R.drawable.ic_avatar_4;
             case 5:
                 return R.drawable.ic_avatar_5;
-            default:return -1;
+            default:
+                return -1;
         }
     }
 }
