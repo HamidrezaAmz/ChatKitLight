@@ -1013,12 +1013,6 @@ public class ConversationAdapter extends PagedListAdapter<ConversationModel, Bas
         public ConversationViewHolder(LawoneConversationServerBinding serverTextBinding) {
             super(serverTextBinding.getRoot());
             this.lawoneServerTextBinding = serverTextBinding;
-            try {
-                if (getBindingAdapterPosition() != -1 && getItem(getBindingAdapterPosition()) != null && getItem(getBindingAdapterPosition()).getImageRes().length() > 0)
-                    this.lawoneServerTextBinding.imageViewAvatar.setImageResource(getResId(getItem(getBindingAdapterPosition()).getImageRes()));
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
         }
 
         public ConversationViewHolder(LawoneConversationClientImageBinding clientImageBinding) {
@@ -1034,12 +1028,6 @@ public class ConversationAdapter extends PagedListAdapter<ConversationModel, Bas
         public ConversationViewHolder(LawoneConversationClientFileBinding clientFileBinding) {
             super(clientFileBinding.getRoot());
             this.lawoneClientFileBinding = clientFileBinding;
-            try {
-                if (getBindingAdapterPosition() != -1 && getItem(getBindingAdapterPosition()) != null && getItem(getBindingAdapterPosition()).getImageRes().length() > 0)
-                    this.lawoneClientFileBinding.imageViewAvatar.setImageResource(getResId(getItem(getBindingAdapterPosition()).getImageRes()));
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
             this.lawoneClientFileBinding.frameLayoutFile.setOnClickListener(v -> {
                 if (getBindingAdapterPosition() == -1 || getItem(getBindingAdapterPosition()) == null)
                     return;
@@ -1078,12 +1066,6 @@ public class ConversationAdapter extends PagedListAdapter<ConversationModel, Bas
             super(clientAudioBinding.getRoot());
             this.lawoneClientAudioBinding = clientAudioBinding;
             this.lawoneClientAudioBinding.setIsPlaying(false);
-            try {
-                if (getBindingAdapterPosition() != -1 && getItem(getBindingAdapterPosition()) != null && getItem(getBindingAdapterPosition()).getImageRes().length() > 0)
-                    this.lawoneClientAudioBinding.imageViewAvatar.setImageResource(getResId(getItem(getBindingAdapterPosition()).getImageRes()));
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
             this.lawoneClientAudioBinding.frameLayoutFile.setOnClickListener(v -> {
                 if (getBindingAdapterPosition() == -1 || getItem(getBindingAdapterPosition()) == null)
                     return;
@@ -1133,12 +1115,6 @@ public class ConversationAdapter extends PagedListAdapter<ConversationModel, Bas
         public ConversationViewHolder(LawoneConversationServerAudioBinding serverAudioBinding) {
             super(serverAudioBinding.getRoot());
             this.lawoneServerAudioBinding = serverAudioBinding;
-            try {
-                if (getBindingAdapterPosition() != -1 && getItem(getBindingAdapterPosition()) != null && getItem(getBindingAdapterPosition()).getImageRes().length() > 0)
-                    this.lawoneServerAudioBinding.imageViewAvatar.setImageResource(getResId(getItem(getBindingAdapterPosition()).getImageRes()));
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
             this.lawoneServerAudioBinding.setIsPlaying(false);
             this.lawoneServerAudioBinding.frameLayoutFile.setOnClickListener(v -> {
                 if (getBindingAdapterPosition() == -1 || getItem(getBindingAdapterPosition()) == null)
@@ -1187,12 +1163,6 @@ public class ConversationAdapter extends PagedListAdapter<ConversationModel, Bas
         public ConversationViewHolder(LawoneConversationServerFileBinding serverFileBinding) {
             super(serverFileBinding.getRoot());
             this.lawoneServerFileBinding = serverFileBinding;
-            try {
-                if (getBindingAdapterPosition() != -1 && getItem(getBindingAdapterPosition()) != null && getItem(getBindingAdapterPosition()).getImageRes().length() > 0)
-                    this.lawoneServerFileBinding.imageViewAvatar.setImageResource(getResId(getItem(getBindingAdapterPosition()).getImageRes()));
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
             this.lawoneServerFileBinding.frameLayoutFile.setOnClickListener(v -> {
                 if (getBindingAdapterPosition() == -1 || getItem(getBindingAdapterPosition()) == null)
                     return;
