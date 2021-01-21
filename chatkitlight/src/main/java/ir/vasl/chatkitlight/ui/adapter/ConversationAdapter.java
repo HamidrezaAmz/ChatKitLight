@@ -153,6 +153,7 @@ public class ConversationAdapter extends PagedListAdapter<ConversationModel, Bas
                 }
                 case SERVER: {
                     ConversationModel model = getItem(position);
+                    holder.onBind(position);
                     ((ConversationViewHolder) holder).lawoneServerImageBinding.setConversationModel(model);
                     ((ConversationViewHolder) holder).lawoneServerImageBinding.setConversationListListener(this);
                     ((ConversationViewHolder) holder).lawoneServerImageBinding.imageViewImage.setImageUrlCurve(getItem(position).getFileAddress(), 12);
@@ -185,6 +186,7 @@ public class ConversationAdapter extends PagedListAdapter<ConversationModel, Bas
                 }
                 case SERVER: {
                     ConversationModel model = getItem(position);
+                    holder.onBind(position);
                     ((ConversationViewHolder) holder).serverVideoBinding.setConversationModel(model);
                     ((ConversationViewHolder) holder).serverVideoBinding.setConversationListListener(this);
                     ((ConversationViewHolder) holder).serverVideoBinding.imageViewImage.setImageUrlCurve(getItem(position).getFileAddress(), 12);
@@ -215,6 +217,7 @@ public class ConversationAdapter extends PagedListAdapter<ConversationModel, Bas
                 }
                 case SERVER: {
                     ConversationModel model = getItem(position);
+                    holder.onBind(position);
                     ((ConversationViewHolder) holder).lawoneServerFileBinding.setConversationModel(model);
                     ((ConversationViewHolder) holder).lawoneServerFileBinding.setConversationListListener(this);
                     break;
@@ -243,6 +246,7 @@ public class ConversationAdapter extends PagedListAdapter<ConversationModel, Bas
                 }
                 case SERVER: {
                     ConversationModel model = getItem(position);
+                    holder.onBind(position);
                     ((ConversationViewHolder) holder).lawoneServerTextBinding.setConversationModel(model);
                     ((ConversationViewHolder) holder).lawoneServerTextBinding.setConversationListListener(this);
                     break;
@@ -452,6 +456,7 @@ public class ConversationAdapter extends PagedListAdapter<ConversationModel, Bas
     }
 
     private BaseViewHolder LawoneViewHolderCreator(ViewGroup parent, LayoutInflater inflater, int viewType) {
+        Log.e("tag", "LawoneViewHolderCreator: " + viewType );
         if (viewType >= 10000) {
             switch (ConversationType.get(viewType - 10000)) {
                 case CLIENT:
@@ -707,7 +712,7 @@ public class ConversationAdapter extends PagedListAdapter<ConversationModel, Bas
             if (lawoneServerTextBinding != null) {
                 try {
                     if (position != -1 && getItem(position) != null && getItem(position).getImageRes().length() > 0)
-                        lawoneClientTextBinding.imageViewAvatar.setImageResource(getResId(getItem(position).getImageRes()));
+                        lawoneServerTextBinding.imageViewAvatar.setImageResource(getResId(getItem(position).getImageRes()));
                 } catch (Exception e) {
                     e.printStackTrace();
                 }

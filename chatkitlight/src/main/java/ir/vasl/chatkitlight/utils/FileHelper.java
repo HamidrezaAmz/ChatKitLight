@@ -3,6 +3,7 @@ package ir.vasl.chatkitlight.utils;
 import android.content.ContentResolver;
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.util.Log;
 import android.webkit.MimeTypeMap;
@@ -16,6 +17,8 @@ import com.thin.downloadmanager.DownloadStatusListenerV1;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
+import java.io.InputStream;
+import java.net.URL;
 import java.util.Arrays;
 import java.util.Objects;
 
@@ -91,6 +94,16 @@ public class FileHelper {
 //        Intent i = new Intent(Intent.ACTION_VIEW);
 //        i.setData(Uri.parse(url));
 //        context.startActivity(i);
+    }
+
+    public static Drawable LoadImageFromWebOperations(String url) {
+        try {
+            InputStream is = (InputStream) new URL(url).getContent();
+            Drawable d = Drawable.createFromStream(is, "image");
+            return d;
+        } catch (Exception e) {
+            return null;
+        }
     }
 
     public static byte[] getFileBytes(Context context, String fileName) {

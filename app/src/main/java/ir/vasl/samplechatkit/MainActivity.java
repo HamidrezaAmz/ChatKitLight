@@ -120,7 +120,7 @@ public class MainActivity
             conversationModel.setFileType(FileType.AUDIO);
         }
         else if(tester % 5 == 2){
-            conversationModel.setFileType(FileType.DOCUMENT);
+            conversationModel.setFileType(FileType.NONE);
         }
         else if(tester % 5 == 3){
             conversationModel.setFileType(FileType.IMAGE);
@@ -130,7 +130,7 @@ public class MainActivity
         }
         conversationModel.setConversationStatus(ConversationStatus.DELIVERED);
         conversationModel.setFileAddress("https://www.w3schools.com/howto/img_avatar.png");
-        conversationModel.setImageRes(String.valueOf(R.drawable.ic_avatar_2));
+        conversationModel.setImageRes("2");
 //        if (imageUri != null) {
 //            conversationModel.setFileAddress(imageUri.toString());
 //            conversationModel.setFileAddress("https://www.w3.org/WAI/ER/tests/xhtml/testfiles/resources/pdf/dummy.pdf");

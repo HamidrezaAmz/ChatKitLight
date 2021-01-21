@@ -92,7 +92,7 @@
             <ir.vasl.chatkitlight.ui.customview.ImageViewCustom
                 android:id="@+id/imageView_avatar"
                 style="@style/AvatarStyle"
-                bannerImage="@{conversationModel.imageUrl}"
+                app:srcCompat="@drawable/ic_user"
                 android:layout_alignParentLeft="true"
                 app:round_image="true" />
 
