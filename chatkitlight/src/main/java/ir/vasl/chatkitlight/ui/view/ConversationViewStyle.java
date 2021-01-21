@@ -18,6 +18,8 @@ public class ConversationViewStyle extends Style {
     private int serverBubbleColor;
     private int chatStyle;
     private boolean canShowExtraOptionButton;
+    private boolean canShowAttachment;
+    private boolean canShowVoiceRecording;
 
     static ConversationViewStyle parse(Context context, AttributeSet attrs) {
 
@@ -29,6 +31,8 @@ public class ConversationViewStyle extends Style {
         style.serverBubbleColor = typedArray.getResourceId(R.styleable.ConversationView_serverBubbleColor, DEFAULT_SERVER_BUBBLE_COLOR);
         style.chatStyle = typedArray.getInteger(R.styleable.ConversationView_chatStyle, ChatStyleEnum.DEFAULT.getOrdinal());
         style.canShowExtraOptionButton = typedArray.getBoolean(R.styleable.ConversationView_canShowExtraOptionButton, false);
+        style.canShowAttachment = typedArray.getBoolean(R.styleable.ConversationView_canShowAttachment, true);
+        style.canShowVoiceRecording = typedArray.getBoolean(R.styleable.ConversationView_canShowVoiceRecording, true);
         typedArray.recycle();
 
         return style;
@@ -40,6 +44,14 @@ public class ConversationViewStyle extends Style {
 
     public boolean canShowDialog() {
         return canShowDialog;
+    }
+
+    public boolean canShowAttachment() {
+        return canShowAttachment;
+    }
+
+    public boolean canShowVoiceRecording() {
+        return canShowVoiceRecording;
     }
 
     public boolean canShowExtraOptionButton() {
