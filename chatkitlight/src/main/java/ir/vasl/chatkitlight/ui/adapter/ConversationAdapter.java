@@ -128,6 +128,7 @@ public class ConversationAdapter extends PagedListAdapter<ConversationModel, Bas
                     holder.onBind(position);
                     ((ConversationViewHolder) holder).lawoneClientAudioBinding.setConversationModel(model);
                     ((ConversationViewHolder) holder).lawoneClientAudioBinding.setIsPlaying(model.isPlaying());
+                    ((ConversationViewHolder) holder).lawoneClientAudioBinding.wave.setProgress(0);
                     ((ConversationViewHolder) holder).lawoneClientAudioBinding.setConversationListListener(this);
                     break;
                 }
@@ -136,7 +137,8 @@ public class ConversationAdapter extends PagedListAdapter<ConversationModel, Bas
                     ConversationModel model = getItem(position);
                     holder.onBind(position);
                     ((ConversationViewHolder) holder).lawoneServerAudioBinding.setConversationModel(model);
-                    ((ConversationViewHolder) holder).lawoneClientAudioBinding.setIsPlaying(model.isPlaying());
+                    ((ConversationViewHolder) holder).lawoneServerAudioBinding.setIsPlaying(model.isPlaying());
+                    ((ConversationViewHolder) holder).lawoneServerAudioBinding.wave.setProgress(0);
                     ((ConversationViewHolder) holder).lawoneServerAudioBinding.setConversationListListener(this);
                     break;
                 }
