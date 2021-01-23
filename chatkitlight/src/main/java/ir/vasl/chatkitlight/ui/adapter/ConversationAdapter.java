@@ -63,6 +63,7 @@ public class ConversationAdapter extends PagedListAdapter<ConversationModel, Bas
     private Context context; // for permission, storage management and intent initialization
     private ThinDownloadManager downloadManager; // one dl mgr for the whole list
     static MediaPlayer mp; //Media Player to play voices and audios
+    private int lastPlayingPos = -1;
 
     public ConversationAdapter(ConversationListListener conversationListListener, ChatStyleEnum chatStyleEnum) {
         super(new ConversationDiffCallback());
@@ -1086,6 +1087,7 @@ public class ConversationAdapter extends PagedListAdapter<ConversationModel, Bas
                             mp.release();
                             if (lawoneClientAudioBinding.getIsPlaying()) {
                                 lawoneClientAudioBinding.setIsPlaying(false);
+                                lastPlayingPos = -1;
                                 return;
                             }
                         }
@@ -1093,13 +1095,22 @@ public class ConversationAdapter extends PagedListAdapter<ConversationModel, Bas
                         mp.setDataSource(getItem(getBindingAdapterPosition()).getFileAddress());
                         mp.prepareAsync();
                         mp.setOnPreparedListener(mp -> {
+                            if(lastPlayingPos != -1) {
+                                getCurrentList().snapshot().get(lastPlayingPos).setPlaying(false);
+                                notifyItemChanged(lastPlayingPos);
+                            }
                             mp.start();
                             getAudioSeeker(lawoneClientAudioBinding.wave).start();
                             lawoneClientAudioBinding.setIsPlaying(true);
+                            lastPlayingPos = getCurrentPosition();
                         });
-                        mp.setOnCompletionListener(mp -> lawoneClientAudioBinding.setIsPlaying(false));
+                        mp.setOnCompletionListener(mp -> {
+                            lawoneClientAudioBinding.setIsPlaying(false);
+                            lastPlayingPos = -1;
+                        });
                         mp.setOnErrorListener((mp, what, extra) -> {
                             lawoneClientAudioBinding.setIsPlaying(false);
+                            lastPlayingPos = -1;
                             return false;
                         });
                     } catch (Exception e) {
@@ -1134,6 +1145,7 @@ public class ConversationAdapter extends PagedListAdapter<ConversationModel, Bas
                         mp.release();
                         if (lawoneClientAudioBinding.getIsPlaying()) {
                             lawoneClientAudioBinding.setIsPlaying(false);
+                            lastPlayingPos = -1;
                             return;
                         }
                     }
@@ -1143,13 +1155,22 @@ public class ConversationAdapter extends PagedListAdapter<ConversationModel, Bas
                         mp.setDataSource(getItem(getBindingAdapterPosition()).getFileAddress());
                         mp.prepareAsync();
                         mp.setOnPreparedListener(mp -> {
+                            if(lastPlayingPos != -1) {
+                                getCurrentList().snapshot().get(lastPlayingPos).setPlaying(false);
+                                notifyItemChanged(lastPlayingPos);
+                            }
                             mp.start();
                             getAudioSeeker(lawoneServerAudioBinding.wave).start();
                             lawoneServerAudioBinding.setIsPlaying(true);
+                            lastPlayingPos = getCurrentPosition();
                         });
-                        mp.setOnCompletionListener(mp -> lawoneServerAudioBinding.setIsPlaying(false));
+                        mp.setOnCompletionListener(mp -> {
+                            lawoneServerAudioBinding.setIsPlaying(false);
+                            lastPlayingPos = -1;
+                        });
                         mp.setOnErrorListener((mp, what, extra) -> {
                             lawoneServerAudioBinding.setIsPlaying(false);
+                            lastPlayingPos = -1;
                             return false;
                         });
                     } catch (Exception e) {
@@ -1209,6 +1230,7 @@ public class ConversationAdapter extends PagedListAdapter<ConversationModel, Bas
             }
             mp.release();
             mp = null;
+            lastPlayingPos = -1;
         }
     }
 

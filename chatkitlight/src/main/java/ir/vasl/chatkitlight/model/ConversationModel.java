@@ -67,6 +67,9 @@ public class ConversationModel {
     @ColumnInfo(name = "imageRes")
     private String imageRes = "";
 
+    @Ignore
+    private boolean isPlaying;
+
     public ConversationModel() {
     }
 
@@ -133,6 +136,14 @@ public class ConversationModel {
 
     public String getMessage() {
         return message;
+    }
+
+    public boolean isPlaying() {
+        return isPlaying;
+    }
+
+    public void setPlaying(boolean playing) {
+        isPlaying = playing;
     }
 
     public void setMessage(String message) {
