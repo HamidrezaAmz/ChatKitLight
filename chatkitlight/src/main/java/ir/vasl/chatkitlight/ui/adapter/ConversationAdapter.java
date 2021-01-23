@@ -71,17 +71,17 @@ public class ConversationAdapter extends PagedListAdapter<ConversationModel, Bas
         this.chatStyleEnum = chatStyleEnum;
         this.conversationListListener = conversationListListener;
         this.downloadManager = new ThinDownloadManager();
-        new CountDownTimer(500, 500){
-
-            @Override
-            public void onTick(long millisUntilFinished) { }
-
-            @Override
-            public void onFinish() {
-                Log.e("tag", "onFinish: " + lastPlayingPos );
-                this.start();
-            }
-        }.start();
+//        new CountDownTimer(500, 500){
+//
+//            @Override
+//            public void onTick(long millisUntilFinished) { }
+//
+//            @Override
+//            public void onFinish() {
+//                Log.e("tag", "onFinish: " + lastPlayingPos );
+//                this.start();
+//            }
+//        }.start();
     }
 
     @NonNull
@@ -128,6 +128,7 @@ public class ConversationAdapter extends PagedListAdapter<ConversationModel, Bas
                     holder.onBind(position);
                     ((ConversationViewHolder) holder).lawoneClientAudioBinding.setConversationModel(model);
                     ((ConversationViewHolder) holder).lawoneClientAudioBinding.setIsPlaying(model.isPlaying());
+                    getAudioSeeker(((ConversationViewHolder) holder).lawoneClientAudioBinding.wave).cancel();
                     ((ConversationViewHolder) holder).lawoneClientAudioBinding.wave.setProgress(0);
                     ((ConversationViewHolder) holder).lawoneClientAudioBinding.setConversationListListener(this);
                     break;
@@ -138,6 +139,7 @@ public class ConversationAdapter extends PagedListAdapter<ConversationModel, Bas
                     holder.onBind(position);
                     ((ConversationViewHolder) holder).lawoneServerAudioBinding.setConversationModel(model);
                     ((ConversationViewHolder) holder).lawoneServerAudioBinding.setIsPlaying(model.isPlaying());
+                    getAudioSeeker(((ConversationViewHolder) holder).lawoneServerAudioBinding.wave).cancel();
                     ((ConversationViewHolder) holder).lawoneServerAudioBinding.wave.setProgress(0);
                     ((ConversationViewHolder) holder).lawoneServerAudioBinding.setConversationListListener(this);
                     break;
@@ -678,6 +680,30 @@ public class ConversationAdapter extends PagedListAdapter<ConversationModel, Bas
         }
     }
 
+    public CountDownTimer getAudioSeeker(AudioWaveView wave) {
+        return new CountDownTimer(1000, 10) {
+            @Override
+            public void onTick(long millisUntilFinished) {
+                if (mp != null && wave != null)
+                    try {
+                        wave.setProgress(((int) ((((float) mp.getCurrentPosition()) / ((float) mp.getDuration())) * 100)));
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
+            }
+
+            @Override
+            public void onFinish() {
+                try {
+                    if (mp.isPlaying())
+                        this.start();
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            }
+        };
+    }
+
     private class ConversationViewHolder extends BaseViewHolder {
         DownloadRequest downloadRequest = null; //download request for different file types
 
@@ -830,30 +856,6 @@ public class ConversationAdapter extends PagedListAdapter<ConversationModel, Bas
             waveView.setCenterTitle("");
             waveView.setProgressValue(100);
             waveView.setWaveColor(context.getResources().getColor(R.color.green));
-        }
-
-        private CountDownTimer getAudioSeeker(AudioWaveView wave) {
-            return new CountDownTimer(1000, 10) {
-                @Override
-                public void onTick(long millisUntilFinished) {
-                    if (mp != null && wave != null)
-                        try {
-                            wave.setProgress(((int) ((((float) mp.getCurrentPosition()) / ((float) mp.getDuration())) * 100)));
-                        } catch (Exception e) {
-                            e.printStackTrace();
-                        }
-                }
-
-                @Override
-                public void onFinish() {
-                    try {
-                        if (mp.isPlaying())
-                            this.start();
-                    } catch (Exception e) {
-                        e.printStackTrace();
-                    }
-                }
-            };
         }
 
         // DEFAULT - AV CONSTRUCTORS
