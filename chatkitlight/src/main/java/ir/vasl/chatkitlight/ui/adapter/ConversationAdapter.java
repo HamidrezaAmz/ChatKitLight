@@ -71,6 +71,17 @@ public class ConversationAdapter extends PagedListAdapter<ConversationModel, Bas
         this.chatStyleEnum = chatStyleEnum;
         this.conversationListListener = conversationListListener;
         this.downloadManager = new ThinDownloadManager();
+        new CountDownTimer(500, 500){
+
+            @Override
+            public void onTick(long millisUntilFinished) { }
+
+            @Override
+            public void onFinish() {
+                Log.e("tag", "onFinish: " + lastPlayingPos );
+                this.start();
+            }
+        }.start();
     }
 
     @NonNull
@@ -116,6 +127,7 @@ public class ConversationAdapter extends PagedListAdapter<ConversationModel, Bas
                     ConversationModel model = getItem(position);
                     holder.onBind(position);
                     ((ConversationViewHolder) holder).lawoneClientAudioBinding.setConversationModel(model);
+                    ((ConversationViewHolder) holder).lawoneClientAudioBinding.setIsPlaying(model.isPlaying());
                     ((ConversationViewHolder) holder).lawoneClientAudioBinding.setConversationListListener(this);
                     break;
                 }
@@ -124,6 +136,7 @@ public class ConversationAdapter extends PagedListAdapter<ConversationModel, Bas
                     ConversationModel model = getItem(position);
                     holder.onBind(position);
                     ((ConversationViewHolder) holder).lawoneServerAudioBinding.setConversationModel(model);
+                    ((ConversationViewHolder) holder).lawoneClientAudioBinding.setIsPlaying(model.isPlaying());
                     ((ConversationViewHolder) holder).lawoneServerAudioBinding.setConversationListListener(this);
                     break;
                 }
@@ -1075,7 +1088,10 @@ public class ConversationAdapter extends PagedListAdapter<ConversationModel, Bas
             this.lawoneClientAudioBinding.frameLayoutFile.setOnClickListener(v -> {
                 if (getBindingAdapterPosition() == -1 || getItem(getBindingAdapterPosition()) == null)
                     return;
-
+                if(lastPlayingPos != -1) {
+                    getCurrentList().snapshot().get(lastPlayingPos).setPlaying(false);
+                    notifyItemChanged(lastPlayingPos);
+                }
                 if (!PermissionHelper.checkStoragePermission(context)) {
                     new PermissionDialog(context, () -> conversationListListener.requestStoragePermission()).show();
                     return;
@@ -1095,10 +1111,7 @@ public class ConversationAdapter extends PagedListAdapter<ConversationModel, Bas
                         mp.setDataSource(getItem(getBindingAdapterPosition()).getFileAddress());
                         mp.prepareAsync();
                         mp.setOnPreparedListener(mp -> {
-                            if(lastPlayingPos != -1) {
-                                getCurrentList().snapshot().get(lastPlayingPos).setPlaying(false);
-                                notifyItemChanged(lastPlayingPos);
-                            }
+
                             mp.start();
                             getAudioSeeker(lawoneClientAudioBinding.wave).start();
                             lawoneClientAudioBinding.setIsPlaying(true);
@@ -1135,6 +1148,10 @@ public class ConversationAdapter extends PagedListAdapter<ConversationModel, Bas
             this.lawoneServerAudioBinding.frameLayoutFile.setOnClickListener(v -> {
                 if (getBindingAdapterPosition() == -1 || getItem(getBindingAdapterPosition()) == null)
                     return;
+                if(lastPlayingPos != -1) {
+                    getCurrentList().snapshot().get(lastPlayingPos).setPlaying(false);
+                    notifyItemChanged(lastPlayingPos);
+                }
                 if (!PermissionHelper.checkStoragePermission(context)) {
                     new PermissionDialog(context, () -> conversationListListener.requestStoragePermission()).show();
                     return;
