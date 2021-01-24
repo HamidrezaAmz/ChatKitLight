@@ -33,6 +33,7 @@
 
             <RelativeLayout
                 style="@style/ChatBubbleStyle"
+                android:id="@+id/relative_bubble"
                 android:layout_alignParentRight="true"
                 android:background="@drawable/lawone_shape_curve_client"
                 android:gravity="right"
@@ -70,7 +71,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_gravity="top|left"
-                        android:layout_marginLeft="@dimen/global_margin_middle"
+                        android:layout_marginLeft="@dimen/global_margin_x_extra"
                         android:layout_marginRight="@dimen/global_margin_spaced"
                         android:ellipsize="start"
                         android:gravity="left"
@@ -101,6 +102,37 @@
 
             </RelativeLayout>
 
+            <me.itangqi.waveloadingview.WaveLoadingView
+                android:id="@+id/waveView"
+                android:layout_width="@dimen/download_circle_size"
+                android:layout_height="@dimen/download_circle_size"
+                android:layout_toLeftOf="@id/relative_bubble"
+                android:layout_marginTop="@dimen/download_circle_size_half"
+                android:layout_marginRight="-45dp"
+                android:visibility="visible"
+                app:wlv_borderColor="@color/white"
+                app:wlv_borderWidth="3dp"
+                app:wlv_progressValue="0"
+                app:wlv_round_rectangle="true"
+                app:wlv_shapeType="circle"
+                app:wlv_titleCenter="@string/download"
+                app:wlv_titleCenterColor="@color/white"
+                app:wlv_titleCenterSize="10sp"
+                app:wlv_triangle_direction="north"
+                app:wlv_waveAmplitude="85"
+                app:wlv_waveColor="@color/red" />
+
+            <androidx.appcompat.widget.AppCompatImageView
+                android:id="@+id/imageView_checkmark"
+                android:layout_width="@dimen/download_circle_size"
+                android:layout_height="@dimen/download_circle_size"
+                android:layout_toLeftOf="@id/relative_bubble"
+                android:layout_marginTop="@dimen/download_circle_size_half"
+                android:layout_marginRight="-45dp"
+                android:scaleType="centerInside"
+                android:visibility="gone"
+                app:srcCompat="@drawable/ic_check_black_24dp" />
+
             <ir.vasl.chatkitlight.ui.customview.ImageViewCustom
                 android:id="@+id/imageView_avatar"
                 style="@style/AvatarStyle"
@@ -109,37 +141,6 @@
                 app:round_image="true" />
 
         </RelativeLayout>
-
-        <me.itangqi.waveloadingview.WaveLoadingView
-            android:id="@+id/waveView"
-            android:layout_width="@dimen/download_circle_size"
-            android:layout_height="@dimen/download_circle_size"
-            android:layout_alignParentRight="true"
-            android:layout_marginTop="@dimen/download_circle_size_half"
-            android:layout_marginRight="10dp"
-            android:visibility="gone"
-            app:wlv_borderColor="@color/white"
-            app:wlv_borderWidth="3dp"
-            app:wlv_progressValue="0"
-            app:wlv_round_rectangle="true"
-            app:wlv_shapeType="circle"
-            app:wlv_titleCenter="@string/download"
-            app:wlv_titleCenterColor="@color/white"
-            app:wlv_titleCenterSize="12sp"
-            app:wlv_triangle_direction="north"
-            app:wlv_waveAmplitude="85"
-            app:wlv_waveColor="@color/red" />
-
-        <androidx.appcompat.widget.AppCompatImageView
-            android:id="@+id/imageView_checkmark"
-            android:layout_width="@dimen/download_circle_size"
-            android:layout_height="@dimen/download_circle_size"
-            android:layout_alignParentRight="true"
-            android:layout_marginTop="@dimen/download_circle_size_half"
-            android:layout_marginRight="10dp"
-            android:scaleType="centerInside"
-            android:visibility="gone"
-            app:srcCompat="@drawable/checkmark_gray" />
 
         <LinearLayout
             android:layout_width="wrap_content"

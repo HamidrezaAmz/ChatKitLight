@@ -74,7 +74,7 @@
     <string name="dialog_default_width_percentage" translatable="false">0.9f</string>
 
     <dimen name="download_circle_size">45dp</dimen>
-    <dimen name="download_circle_size_half">22.5dp</dimen>
+    <dimen name="download_circle_size_half">20dp</dimen>
     <dimen name="download_circle_size_quarter">11.75dp</dimen>
 
     <dimen name="chat_safe_margin">30dp</dimen>
