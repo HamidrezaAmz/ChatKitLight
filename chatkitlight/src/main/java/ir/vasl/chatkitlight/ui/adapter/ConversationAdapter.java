@@ -128,7 +128,7 @@ public class ConversationAdapter extends PagedListAdapter<ConversationModel, Bas
                     holder.onBind(position);
                     ((ConversationViewHolder) holder).lawoneClientAudioBinding.setConversationModel(model);
                     ((ConversationViewHolder) holder).lawoneClientAudioBinding.setIsPlaying(model.isPlaying());
-                    getAudioSeeker(((ConversationViewHolder) holder).lawoneClientAudioBinding.wave).cancel();
+//                    getAudioSeeker(((ConversationViewHolder) holder).lawoneClientAudioBinding.wave, position).cancel();
                     ((ConversationViewHolder) holder).lawoneClientAudioBinding.wave.setProgress(0);
                     ((ConversationViewHolder) holder).lawoneClientAudioBinding.setConversationListListener(this);
                     break;
@@ -139,7 +139,7 @@ public class ConversationAdapter extends PagedListAdapter<ConversationModel, Bas
                     holder.onBind(position);
                     ((ConversationViewHolder) holder).lawoneServerAudioBinding.setConversationModel(model);
                     ((ConversationViewHolder) holder).lawoneServerAudioBinding.setIsPlaying(model.isPlaying());
-                    getAudioSeeker(((ConversationViewHolder) holder).lawoneServerAudioBinding.wave).cancel();
+//                    getAudioSeeker(((ConversationViewHolder) holder).lawoneServerAudioBinding.wave, position).cancel();
                     ((ConversationViewHolder) holder).lawoneServerAudioBinding.wave.setProgress(0);
                     ((ConversationViewHolder) holder).lawoneServerAudioBinding.setConversationListListener(this);
                     break;
@@ -680,13 +680,15 @@ public class ConversationAdapter extends PagedListAdapter<ConversationModel, Bas
         }
     }
 
-    public CountDownTimer getAudioSeeker(AudioWaveView wave) {
+    public CountDownTimer getAudioSeeker(AudioWaveView wave, int pos) {
         return new CountDownTimer(1000, 10) {
             @Override
             public void onTick(long millisUntilFinished) {
                 if (mp != null && wave != null)
                     try {
-                        wave.setProgress(((int) ((((float) mp.getCurrentPosition()) / ((float) mp.getDuration())) * 100)));
+                        if(pos == lastPlayingPos)
+                            wave.setProgress(((int) ((((float) mp.getCurrentPosition()) / ((float) mp.getDuration())) * 100)));
+                        else wave.setProgress(0);
                     } catch (Exception e) {
                         e.printStackTrace();
                     }
@@ -922,8 +924,8 @@ public class ConversationAdapter extends PagedListAdapter<ConversationModel, Bas
                         mp.prepareAsync();
                         mp.setOnPreparedListener(mp -> {
                             mp.start();
-                            getAudioSeeker(this.clientAudioBinding.wave).start();
                             this.clientAudioBinding.setIsPlaying(true);
+                            getAudioSeeker(this.clientAudioBinding.wave, getCurrentPosition()).start();
                         });
                         mp.setOnCompletionListener(mp -> this.clientAudioBinding.setIsPlaying(false));
                         mp.setOnErrorListener((mp, what, extra) -> {
@@ -996,8 +998,8 @@ public class ConversationAdapter extends PagedListAdapter<ConversationModel, Bas
                         mp.prepareAsync();
                         mp.setOnPreparedListener(mp -> {
                             mp.start();
-                            getAudioSeeker(serverAudioBinding.wave).start();
                             this.serverAudioBinding.setIsPlaying(true);
+                            getAudioSeeker(serverAudioBinding.wave, getCurrentPosition()).start();
                         });
                         mp.setOnCompletionListener(mp -> this.serverAudioBinding.setIsPlaying(false));
                         mp.setOnErrorListener((mp, what, extra) -> {
@@ -1117,8 +1119,8 @@ public class ConversationAdapter extends PagedListAdapter<ConversationModel, Bas
                         mp.setOnPreparedListener(mp -> {
 
                             mp.start();
-                            getAudioSeeker(lawoneClientAudioBinding.wave).start();
                             lawoneClientAudioBinding.setIsPlaying(true);
+                            getAudioSeeker(lawoneClientAudioBinding.wave, getCurrentPosition()).start();
                             lastPlayingPos = getCurrentPosition();
                         });
                         mp.setOnCompletionListener(mp -> {
@@ -1181,8 +1183,8 @@ public class ConversationAdapter extends PagedListAdapter<ConversationModel, Bas
                                 notifyItemChanged(lastPlayingPos);
                             }
                             mp.start();
-                            getAudioSeeker(lawoneServerAudioBinding.wave).start();
                             lawoneServerAudioBinding.setIsPlaying(true);
+                            getAudioSeeker(lawoneServerAudioBinding.wave, getCurrentPosition()).start();
                             lastPlayingPos = getCurrentPosition();
                         });
                         mp.setOnCompletionListener(mp -> {
