@@ -12,6 +12,7 @@
         android:layout_height="@dimen/input_height"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toStartOf="@id/anim_button"
+        android:layout_marginEnd="4dp"
         app:layout_constraintStart_toEndOf="@+id/imageView_extra_option"
         app:layout_constraintTop_toTopOf="parent" />
 

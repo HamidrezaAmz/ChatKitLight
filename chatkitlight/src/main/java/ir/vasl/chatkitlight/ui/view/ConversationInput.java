@@ -56,6 +56,8 @@ public class ConversationInput
     private int delayTypingStatusMillis;
     private boolean isTyping;
     private boolean lastFocus;
+    private boolean canShowAttachment = true;
+    private boolean canShowVoiceRecording = true;
 
     public ConversationInput(Context context) {
         super(context);
@@ -82,6 +84,26 @@ public class ConversationInput
 
     public void setOnRecordListener(OnRecordListener onRecordListener) {
         this.onRecordListener = onRecordListener;
+    }
+
+    public boolean canShowAttachment() {
+        return canShowAttachment;
+    }
+
+    public void setCanShowAttachment(boolean canShowAttachment) {
+        this.canShowAttachment = canShowAttachment;
+    }
+
+    public boolean canShowVoiceRecording() {
+        return canShowVoiceRecording;
+    }
+
+    public void setCanShowVoiceRecording(boolean canShowVoiceRecording) {
+        this.canShowVoiceRecording = canShowVoiceRecording;
+        if(!canShowVoiceRecording){
+            animButton.setCurrAnimButtonState(AnimButton.AnimButtonState.TYPING);
+            animButton.setListenForRecord(false);
+        }
     }
 
     public EditText getInputEditText() {
@@ -117,6 +139,11 @@ public class ConversationInput
      */
     @Override
     public void onTextChanged(CharSequence s, int start, int count, int after) {
+        if(!canShowVoiceRecording){
+            animButton.setCurrAnimButtonState(AnimButton.AnimButtonState.TYPING);
+            animButton.setListenForRecord(false);
+            return;
+        }
         input = s;
         animButton.setCurrAnimButtonState(input.length() > 0 ? AnimButton.AnimButtonState.TYPING : AnimButton.AnimButtonState.RECORDING);
         animButton.setListenForRecord(input.length() <= 0);

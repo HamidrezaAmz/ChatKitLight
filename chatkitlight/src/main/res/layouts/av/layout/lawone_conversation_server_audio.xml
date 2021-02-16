@@ -23,7 +23,6 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layoutDirection="ltr"
-        android:onClick="@{ () -> conversationListListener.onConversationItemClicked(conversationModel)}"
         android:padding="8dp">
 
         <RelativeLayout
@@ -100,7 +99,7 @@
             <ir.vasl.chatkitlight.ui.customview.ImageViewCustom
                 android:id="@+id/imageView_avatar"
                 style="@style/AvatarStyle"
-                bannerImage="@{conversationModel.imageUrl}"
+                app:srcCompat="@drawable/ic_user"
                 android:layout_alignParentLeft="true"
                 app:round_image="true" />
 

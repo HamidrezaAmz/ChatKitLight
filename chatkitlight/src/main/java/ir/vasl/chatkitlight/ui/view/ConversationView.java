@@ -48,6 +48,8 @@ public class ConversationView
     private SwipyRefreshLayout swipyRefreshLayout;
     private ChatStyleEnum chatStyleEnum = ChatStyleEnum.DEFAULT;
     private boolean canShowExtraOptionButton = false;
+    private boolean canshowVoiceRecording = true;
+    private boolean canShowAttachment = true;
 
     public ConversationView(Context context) {
         super(context);
@@ -75,8 +77,12 @@ public class ConversationView
                 break;
         }
         canShowExtraOptionButton = style.canShowExtraOptionButton();
+        canshowVoiceRecording = style.canShowVoiceRecording();
+        canShowAttachment = style.canShowAttachment();
         init(context);
         conversationList.setCanShowDialog(style.canShowDialog());
+        conversationInput.setCanShowAttachment(style.canShowAttachment());
+        conversationInput.setCanShowVoiceRecording(style.canShowVoiceRecording());
         conversationList.setClientBubbleColor(style.getClientBubbleColor());
         conversationList.setServerBubbleColor(style.getServerBubbleColor());
         conversationList.setChatStyle(chatStyleEnum);
@@ -94,6 +100,9 @@ public class ConversationView
         if(canShowExtraOptionButton){
             conversationInput.findViewById(R.id.imageView_extra_option).setVisibility(VISIBLE);
         }
+        if(!canShowAttachment)
+            conversationInput.findViewById(R.id.attachmentButton).setVisibility(GONE);
+
         swipyRefreshLayout = conversationView.findViewById(R.id.swipyRefreshLayout);
 
         // listeners
