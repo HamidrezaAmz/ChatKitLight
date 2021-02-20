@@ -75,7 +75,7 @@
                         android:indeterminate="true"
                         android:indeterminateTint="@color/warm_grey_five"
                         android:indeterminateTintMode="src_atop"
-                        android:visibility="@{conversationModel.conversationStatus == status.SENDING  ? View.VISIBLE : View.GONE}" />
+                        android:visibility="gone" />
 
                 </FrameLayout>
 

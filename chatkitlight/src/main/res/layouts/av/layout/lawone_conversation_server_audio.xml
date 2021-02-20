@@ -107,8 +107,6 @@
                 layout="@layout/lawone_tilted_icon"
                 android:visibility="gone" />
 
-
-
         </RelativeLayout>
 
         <me.itangqi.waveloadingview.WaveLoadingView

@@ -58,6 +58,7 @@ public class ConversationInput
     private boolean isTyping;
     private boolean lastFocus;
     private boolean canShowAttachment = true;
+    private boolean canShowExtraOption = true;
     private boolean canShowVoiceRecording = true;
 
     public ConversationInput(Context context) {
@@ -87,6 +88,14 @@ public class ConversationInput
         this.onRecordListener = onRecordListener;
     }
 
+    public boolean canShowExtraOption() {
+        return canShowExtraOption;
+    }
+
+    public void setCanShowExtraOption(boolean canShowExtraOption) {
+        this.canShowExtraOption = canShowExtraOption;
+    }
+
     public boolean canShowAttachment() {
         return canShowAttachment;
     }
@@ -113,6 +122,10 @@ public class ConversationInput
 
     public ImageButton getAttachmentButton() {
         return attachmentButton;
+    }
+
+    public AppCompatImageView getExtraOptionButton() {
+        return extraOptionButton;
     }
 
     public View getShowBlocker() {
@@ -206,8 +219,10 @@ public class ConversationInput
         if (onRecordListener != null)
             onRecordListener.onStart();
 
-        getInputEditText().setVisibility(INVISIBLE);
-        getAttachmentButton().setVisibility(INVISIBLE);
+        getInputEditText().setVisibility(GONE);
+        getAttachmentButton().setVisibility(GONE);
+        getExtraOptionButton().setVisibility(GONE);
+
     }
 
     @Override
@@ -216,7 +231,12 @@ public class ConversationInput
             onRecordListener.onCancel();
 
         getInputEditText().setVisibility(VISIBLE);
-        getAttachmentButton().setVisibility(VISIBLE);
+
+        if (canShowAttachment)
+            getAttachmentButton().setVisibility(VISIBLE);
+
+        if (canShowExtraOption)
+            getExtraOptionButton().setVisibility(VISIBLE);
     }
 
     @Override
@@ -225,7 +245,12 @@ public class ConversationInput
             onRecordListener.onFinish(recordTime);
 
         getInputEditText().setVisibility(VISIBLE);
-        getAttachmentButton().setVisibility(VISIBLE);
+
+        if (canShowAttachment)
+            getAttachmentButton().setVisibility(VISIBLE);
+
+        if (canShowExtraOption)
+            getExtraOptionButton().setVisibility(VISIBLE);
     }
 
     @Override
