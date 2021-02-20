@@ -62,6 +62,9 @@ public class MainActivity
         setSupportActionBar(toolbar);
 
         initViewModel();
+
+        conversationView.setShowBlockerView(true); // block input
+        conversationView.showHintView("این رو بخون بعد بگو متوجه شدم");
     }
 
     @Override
@@ -98,7 +101,7 @@ public class MainActivity
 
     @Override
     public void onSubmit(CharSequence input) {
-        tester ++;
+        tester++;
 
         List<ConversationModel> allModels = DatabaseLayer.getInstance(MyApplication.getApp()).getChatKitDatabase().getChatDao().getAllSimple(chatID);
 
@@ -106,26 +109,22 @@ public class MainActivity
         conversationModel.setTitle("");
         conversationModel.setMessage(input.toString());
         conversationModel.setTime(TimeUtils.getCurrTime());
-        if(tester % 3 == 0){
+        if (tester % 3 == 0) {
             conversationModel.setConversationType(ConversationType.CLIENT);
-        } else if (tester % 3 == 1){
+        } else if (tester % 3 == 1) {
             conversationModel.setConversationType(ConversationType.SERVER);
-        } else if (tester % 3 == 2){
+        } else if (tester % 3 == 2) {
             conversationModel.setConversationType(ConversationType.SYSTEM);
         }
-        if(tester % 5 == 0){
+        if (tester % 5 == 0) {
             conversationModel.setFileType(FileType.NONE);
-        }
-        else if(tester % 5 == 1){
+        } else if (tester % 5 == 1) {
             conversationModel.setFileType(FileType.AUDIO);
-        }
-        else if(tester % 5 == 2){
+        } else if (tester % 5 == 2) {
             conversationModel.setFileType(FileType.NONE);
-        }
-        else if(tester % 5 == 3){
+        } else if (tester % 5 == 3) {
             conversationModel.setFileType(FileType.IMAGE);
-        }
-        else if(tester % 5 == 4){
+        } else if (tester % 5 == 4) {
             conversationModel.setFileType(FileType.DOCUMENT);
         }
         conversationModel.setConversationStatus(ConversationStatus.DELIVERED);
@@ -133,7 +132,7 @@ public class MainActivity
         conversationModel.setImageRes("2");
 //        if (imageUri != null) {
 //            conversationModel.setFileAddress(imageUri.toString());
-            conversationModel.setFileAddress("https://www.w3.org/WAI/ER/tests/xhtml/testfiles/resources/pdf/dummy.pdf");
+        conversationModel.setFileAddress("https://www.w3.org/WAI/ER/tests/xhtml/testfiles/resources/pdf/dummy.pdf");
 //        conversationModel.setFileAddress("https://www.kozco.com/tech/piano2.wav");
 //        conversationModel.setFileAddress("https://www.kozco.com/tech/organfinale.wav");
         conversationModel.setFileType(FileType.DOCUMENT);
@@ -206,7 +205,7 @@ public class MainActivity
     @Override
     public void onSwipeRefresh() {
         conversationView.hideSwipeRefresh();
-        Log.e(TAG, "onSwipeRefresh: " );
+        Log.e(TAG, "onSwipeRefresh: ");
     }
 
     @Override

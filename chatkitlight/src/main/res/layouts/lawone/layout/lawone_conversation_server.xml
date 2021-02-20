@@ -54,9 +54,9 @@
             <ir.vasl.chatkitlight.ui.customview.ImageViewCustom
                 android:id="@+id/imageView_avatar"
                 style="@style/AvatarStyle"
-                app:srcCompat="@drawable/ic_user"
                 android:layout_alignParentLeft="true"
-                app:round_image="true" />
+                app:round_image="true"
+                app:srcCompat="@drawable/ic_user" />
         </RelativeLayout>
 
         <LinearLayout
@@ -72,9 +72,9 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:gravity="left"
                 android:text="@{conversationModel.time}"
                 android:textColor="@color/warm_grey_three"
-                android:gravity="left"
                 android:textSize="12sp"
                 android:visibility='@{conversationModel.time.equals("") ? View.GONE : View.VISIBLE }' />
 

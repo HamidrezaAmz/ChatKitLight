@@ -1076,11 +1076,15 @@ public class ConversationAdapter extends PagedListAdapter<ConversationModel, Bas
                     else
                         FileHelper.openFile(context, getItem(getBindingAdapterPosition()).getFileAddress(), getItem(getBindingAdapterPosition()).getTitle());
                 } else {
-                    downloadRequest = FileHelper.downloadFile(context, getItem(getBindingAdapterPosition()).getFileAddress(),
-                            getItem(getBindingAdapterPosition()).getTitle(),
-                            downloadListenerCreator(lawoneClientFileBinding.imageViewCheckmark, lawoneClientFileBinding.progressbarLoading, null, lawoneClientFileBinding.waveView));
-                    if (downloadRequest != null)
-                        downloadManager.add(downloadRequest);
+                    try {
+                        downloadRequest = FileHelper.downloadFile(context, getItem(getBindingAdapterPosition()).getFileAddress(),
+                                getItem(getBindingAdapterPosition()).getTitle(),
+                                downloadListenerCreator(lawoneClientFileBinding.imageViewCheckmark, lawoneClientFileBinding.progressbarLoading, null, lawoneClientFileBinding.waveView));
+                        if (downloadRequest != null)
+                            downloadManager.add(downloadRequest);
+                    } catch (Exception e) {
+                        Log.e("tag", "ConversationViewHolder: " + e);
+                    }
                 }
             });
         }
@@ -1142,15 +1146,19 @@ public class ConversationAdapter extends PagedListAdapter<ConversationModel, Bas
                         });
                     } catch (Exception e) {
                         mp = new MediaPlayer();
-                        Log.e("tag", "ConversationViewHolder: " + e.getCause());
+                        Log.e("TAG", "ConversationViewHolder: " + e.getCause());
                         e.printStackTrace();
                     }
                 } else {
-                    downloadRequest = FileHelper.downloadFile(context, getItem(getBindingAdapterPosition()).getFileAddress(),
-                            getItem(getBindingAdapterPosition()).getTitle(),
-                            downloadListenerCreator(lawoneClientAudioBinding.imageViewCheckmark, lawoneClientAudioBinding.progressbarLoading, lawoneClientAudioBinding.wave, null));
-                    if (downloadRequest != null)
-                        downloadManager.add(downloadRequest);
+                    try {
+                        downloadRequest = FileHelper.downloadFile(context, getItem(getBindingAdapterPosition()).getFileAddress(),
+                                getItem(getBindingAdapterPosition()).getTitle(),
+                                downloadListenerCreator(lawoneClientAudioBinding.imageViewCheckmark, lawoneClientAudioBinding.progressbarLoading, lawoneClientAudioBinding.wave, null));
+                        if (downloadRequest != null)
+                            downloadManager.add(downloadRequest);
+                    } catch (Exception e) {
+                        Log.e("TAG", "ConversationViewHolder: " + e.getMessage());
+                    }
                 }
             });
         }
@@ -1205,6 +1213,8 @@ public class ConversationAdapter extends PagedListAdapter<ConversationModel, Bas
                             return false;
                         });
                     } catch (Exception e) {
+                        mp = new MediaPlayer();
+                        Log.e("tag", "ConversationViewHolder: " + e.getCause());
                         e.printStackTrace();
                     }
                 } else {

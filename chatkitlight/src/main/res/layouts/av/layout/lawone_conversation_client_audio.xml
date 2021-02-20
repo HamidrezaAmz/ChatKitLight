@@ -49,9 +49,9 @@
                     android:id="@+id/frameLayoutFile"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_toLeftOf="@id/wave"
                     android:layout_centerVertical="true"
                     android:layout_marginLeft="@dimen/global_margin_middle"
+                    android:layout_toLeftOf="@id/wave"
                     android:padding="2dp">
 
                     <View
@@ -73,8 +73,8 @@
                         android:layout_width="@dimen/icon_circle_size"
                         android:layout_height="@dimen/icon_circle_size"
                         android:indeterminate="true"
-                        android:indeterminateTintMode="src_atop"
                         android:indeterminateTint="@color/warm_grey_five"
+                        android:indeterminateTintMode="src_atop"
                         android:visibility="@{conversationModel.conversationStatus == status.SENDING  ? View.VISIBLE : View.GONE}" />
 
                 </FrameLayout>
@@ -83,10 +83,10 @@
                     android:id="@+id/wave"
                     android:layout_width="150dp"
                     android:layout_height="32dp"
-                    android:layout_centerVertical="true"
-                    android:layout_marginRight="@dimen/avatar_circle_size"
                     android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true"
                     android:layout_marginLeft="@dimen/global_margin_extra"
+                    android:layout_marginRight="@dimen/avatar_circle_size"
                     app:animateExpansion="false"
                     app:chunkHeight="28dp"
                     app:chunkRadius="1dp"
@@ -101,9 +101,9 @@
             <ir.vasl.chatkitlight.ui.customview.ImageViewCustom
                 android:id="@+id/imageView_avatar"
                 style="@style/AvatarStyle"
-                app:srcCompat="@drawable/ic_user"
                 android:layout_alignParentRight="true"
-                app:round_image="true" />
+                app:round_image="true"
+                app:srcCompat="@drawable/ic_user" />
 
         </RelativeLayout>
 
@@ -146,10 +146,10 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_below="@id/linearLayour_bubble"
-            android:layout_marginRight="@dimen/avatar_circle_size_half"
-            android:layout_marginLeft="@dimen/avatar_circle_size_half"
-            android:gravity="right|center_vertical"
             android:layout_alignParentRight="true"
+            android:layout_marginLeft="@dimen/avatar_circle_size_half"
+            android:layout_marginRight="@dimen/avatar_circle_size_half"
+            android:gravity="right|center_vertical"
             android:layoutDirection="rtl"
             android:orientation="horizontal">
 
@@ -177,4 +177,3 @@
     </RelativeLayout>
 
 </layout>
-

@@ -38,6 +38,7 @@ public class ConversationInput
     protected RecordView recordView;
     protected AnimButton animButton;
     protected AppCompatImageView extraOptionButton;
+    protected View blockerView;
 
     private CharSequence input;
     private InputListener inputListener;
@@ -100,7 +101,7 @@ public class ConversationInput
 
     public void setCanShowVoiceRecording(boolean canShowVoiceRecording) {
         this.canShowVoiceRecording = canShowVoiceRecording;
-        if(!canShowVoiceRecording){
+        if (!canShowVoiceRecording) {
             animButton.setCurrAnimButtonState(AnimButton.AnimButtonState.TYPING);
             animButton.setListenForRecord(false);
         }
@@ -112,6 +113,14 @@ public class ConversationInput
 
     public ImageButton getAttachmentButton() {
         return attachmentButton;
+    }
+
+    public View getShowBlocker() {
+        return blockerView;
+    }
+
+    public void setShowBlockerView(boolean showBlockerView) {
+        this.blockerView.setVisibility(showBlockerView ? VISIBLE : GONE);
     }
 
     @Override
@@ -126,9 +135,9 @@ public class ConversationInput
             post(typingTimerRunnable);
         } else if (id == R.id.attachmentButton) {
             onAddAttachments();
-        } else if (id == R.id.imageView_extra_option){
+        } else if (id == R.id.imageView_extra_option) {
             if (inputListener != null) {
-                 inputListener.extraOptionClicked();
+                inputListener.extraOptionClicked();
             }
         }
     }
@@ -139,7 +148,7 @@ public class ConversationInput
      */
     @Override
     public void onTextChanged(CharSequence s, int start, int count, int after) {
-        if(!canShowVoiceRecording){
+        if (!canShowVoiceRecording) {
             animButton.setCurrAnimButtonState(AnimButton.AnimButtonState.TYPING);
             animButton.setListenForRecord(false);
             return;
@@ -221,6 +230,7 @@ public class ConversationInput
 
     @Override
     public void onLessThanSecond() {
+
         if (onRecordListener != null)
             onRecordListener.onLessThanSecond();
 
@@ -258,6 +268,7 @@ public class ConversationInput
         recordView = findViewById(R.id.record_view);
         animButton = findViewById(R.id.anim_button);
         extraOptionButton = findViewById(R.id.imageView_extra_option);
+        blockerView = findViewById(R.id.blocker_view);
 
         attachmentButton.setOnClickListener(this);
         extraOptionButton.setOnClickListener(this);

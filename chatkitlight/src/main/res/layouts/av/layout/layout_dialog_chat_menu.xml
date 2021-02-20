@@ -25,6 +25,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:gravity="start"
+            android:visibility="gone"
             android:background="?android:attr/selectableItemBackground"
             android:textColor="@color/dark_gray"
             android:text="@string/copy_message" />

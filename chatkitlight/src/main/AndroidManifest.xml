@@ -4,14 +4,14 @@
     <uses-permission android:name="android.permission.INTERNET" />
 
     <application
-        android:largeHeap="true"
-        android:hardwareAccelerated="false">
+        android:hardwareAccelerated="true"
+        android:largeHeap="true">
         <provider
             android:name="androidx.core.content.FileProvider"
             android:authorities="${applicationId}.provider"
             android:exported="false"
-            android:usesCleartextTraffic="true"
-            android:grantUriPermissions="true">
+            android:grantUriPermissions="true"
+            android:usesCleartextTraffic="true">
             <meta-data
                 android:name="android.support.FILE_PROVIDER_PATHS"
                 android:resource="@xml/file_paths" />

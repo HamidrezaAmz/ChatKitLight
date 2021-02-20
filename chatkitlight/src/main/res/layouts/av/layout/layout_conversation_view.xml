@@ -14,13 +14,13 @@
             android:id="@+id/swipyRefreshLayout"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            app:direction="bottom"
-            android:layout_marginBottom="12dp">
+            android:layout_marginBottom="12dp"
+            app:direction="bottom">
 
-        <ir.vasl.chatkitlight.ui.view.ConversationList
-            android:id="@+id/conversationList"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent" />
+            <ir.vasl.chatkitlight.ui.view.ConversationList
+                android:id="@+id/conversationList"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent" />
 
         </com.orangegangsters.github.swipyrefreshlayout.library.SwipyRefreshLayout>
 
@@ -43,6 +43,48 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:showAttachmentButton="true" />
+
+    <androidx.cardview.widget.CardView
+        android:id="@+id/cardView_hint_view_holder"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/global_margin"
+        android:visibility="gone"
+        app:cardCornerRadius="5dp"
+        app:cardUseCompatPadding="true"
+        app:layout_constraintBottom_toTopOf="@id/conversationInput"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="center_vertical"
+            android:orientation="horizontal"
+            android:padding="@dimen/global_padding_x_small">
+
+            <TextView
+                android:id="@+id/textView_hint_view"
+                style="@style/TextViewSubTitleStyle"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:padding="@dimen/global_padding"
+                android:text="از آنجایی که طراحان عموما نویسنده متن نیستند و وظیفه رعایت حق تکثیر متون را ندارند"
+                android:textColor="@color/gray"
+                android:textSize="10sp" />
+
+            <Button
+                android:id="@+id/button_hint_view"
+                style="@style/Widget.Button.Hit"
+                android:layout_width="80dp"
+                android:layout_height="wrap_content"
+                android:background="@drawable/shape_gray_light"
+                android:text="متوجه شدم" />
+
+        </LinearLayout>
+
+    </androidx.cardview.widget.CardView>
 
     <View
         android:layout_width="match_parent"

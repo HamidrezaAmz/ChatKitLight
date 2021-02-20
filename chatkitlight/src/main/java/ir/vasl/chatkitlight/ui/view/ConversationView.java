@@ -5,14 +5,16 @@ import android.content.ClipboardManager;
 import android.content.Context;
 import android.net.Uri;
 import android.util.AttributeSet;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.widget.Button;
 import android.widget.LinearLayout;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -40,16 +42,20 @@ public class ConversationView
         InputListener,
         DialogMenuListener,
         SwipyRefreshLayout.OnRefreshListener,
-        OnRecordListener {
+        OnRecordListener, View.OnClickListener {
 
     private ConversationViewListener conversationViewListener;
     public ConversationList conversationList;
     private ConversationInput conversationInput;
     private SwipyRefreshLayout swipyRefreshLayout;
+    private CardView cardViewHintViewHolder;
+    private TextView textViewHintView;
+    private Button buttonHintView;
     private ChatStyleEnum chatStyleEnum = ChatStyleEnum.DEFAULT;
     private boolean canShowExtraOptionButton = false;
-    private boolean canshowVoiceRecording = true;
+    private boolean canShowVoiceRecording = true;
     private boolean canShowAttachment = true;
+    private boolean showBlockerView = true;
 
     public ConversationView(Context context) {
         super(context);
@@ -77,8 +83,9 @@ public class ConversationView
                 break;
         }
         canShowExtraOptionButton = style.canShowExtraOptionButton();
-        canshowVoiceRecording = style.canShowVoiceRecording();
+        canShowVoiceRecording = style.canShowVoiceRecording();
         canShowAttachment = style.canShowAttachment();
+
         init(context);
         conversationList.setCanShowDialog(style.canShowDialog());
         conversationInput.setCanShowAttachment(style.canShowAttachment());
@@ -96,11 +103,14 @@ public class ConversationView
         // conversation view items
         conversationList = conversationView.findViewById(R.id.conversationList);
         conversationInput = conversationView.findViewById(R.id.conversationInput);
+        cardViewHintViewHolder = conversationView.findViewById(R.id.cardView_hint_view_holder);
+        textViewHintView = conversationView.findViewById(R.id.textView_hint_view);
+        buttonHintView = conversationView.findViewById(R.id.button_hint_view);
 
-        if(canShowExtraOptionButton){
+        if (canShowExtraOptionButton) {
             conversationInput.findViewById(R.id.imageView_extra_option).setVisibility(VISIBLE);
         }
-        if(!canShowAttachment)
+        if (!canShowAttachment)
             conversationInput.findViewById(R.id.attachmentButton).setVisibility(GONE);
 
         swipyRefreshLayout = conversationView.findViewById(R.id.swipyRefreshLayout);
@@ -111,6 +121,7 @@ public class ConversationView
         swipyRefreshLayout.setOnRefreshListener(this);
         conversationInput.setAttachmentsListener(this);
         conversationInput.setOnRecordListener(this);
+        buttonHintView.setOnClickListener(this);
 
         // fix recyclerview conflict with swipe refresh
         conversationList.addOnScrollListener(scrollListener);
@@ -163,7 +174,7 @@ public class ConversationView
     @Override
     public void onCopyMessageClicked(Object object) {
         ClipboardManager clipboard = getSystemService(getContext(), ClipboardManager.class);
-        if(clipboard != null) {
+        if (clipboard != null) {
             ClipData clip = ClipData.newPlainText("message", ((ConversationModel) object).getMessage());
             clipboard.setPrimaryClip(clip);
             Toast.makeText(getContext(), "متن پیام کپی شد!", Toast.LENGTH_SHORT).show();
@@ -193,11 +204,11 @@ public class ConversationView
     }
 
     public void hideSwipeRefresh() {
-         swipyRefreshLayout.setRefreshing(false);
+        swipyRefreshLayout.setRefreshing(false);
     }
 
     public void showSwipeRefresh() {
-         swipyRefreshLayout.setRefreshing(true);
+        swipyRefreshLayout.setRefreshing(true);
     }
 
     private RecyclerView.OnScrollListener scrollListener = new RecyclerView.OnScrollListener() {
@@ -211,9 +222,9 @@ public class ConversationView
             LinearLayoutManager manager = ((LinearLayoutManager) recyclerView.getLayoutManager());
             if (manager != null) {
                 if (manager.findFirstCompletelyVisibleItemPosition() == 0) {
-                     swipyRefreshLayout.setEnabled(true);
+                    swipyRefreshLayout.setEnabled(true);
                 } else {
-                     swipyRefreshLayout.setEnabled((recyclerView.canScrollVertically(DIRECTION_UP)));
+                    swipyRefreshLayout.setEnabled((recyclerView.canScrollVertically(DIRECTION_UP)));
                 }
             }
         }
@@ -230,7 +241,6 @@ public class ConversationView
         if (conversationViewListener != null)
             conversationViewListener.pdfFileClicked(pdfUri);
     }
-
 
     @Override
     public void onAddAttachments() {
@@ -250,8 +260,6 @@ public class ConversationView
             conversationViewListener.onVoiceRecordStarted();
     }
 
-
-
     @Override
     public void onCancel() {
         if (conversationViewListener != null)
@@ -270,7 +278,29 @@ public class ConversationView
             conversationViewListener.onVoiceRecordCanceled();
     }
 
-    public void stopMediaPlayer(){
+    public void stopMediaPlayer() {
         conversationList.stopMediaPlayer();
     }
+
+    public void setShowBlockerView(boolean showBlockerView) {
+        conversationInput.setShowBlockerView(showBlockerView);
+    }
+
+    public void showHintView(String title) {
+        textViewHintView.setText(title);
+        cardViewHintViewHolder.setVisibility(VISIBLE);
+    }
+
+    public void hideHintView() {
+        textViewHintView.setText("");
+        cardViewHintViewHolder.setVisibility(GONE);
+    }
+
+    @Override
+    public void onClick(View v) {
+        int viewId = v.getId();
+        if (viewId == R.id.button_hint_view)
+            hideHintView();
+    }
+
 }

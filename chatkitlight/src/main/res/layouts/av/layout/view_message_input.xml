@@ -10,9 +10,9 @@
         layout="@layout/view_message_input_typing"
         android:layout_width="0dp"
         android:layout_height="@dimen/input_height"
+        android:layout_marginEnd="4dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toStartOf="@id/anim_button"
-        android:layout_marginEnd="4dp"
         app:layout_constraintStart_toEndOf="@+id/imageView_extra_option"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -22,7 +22,7 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="@dimen/global_margin"
         android:layout_marginEnd="@dimen/global_margin"
-        android:background="@drawable/recv_bg_mic"
+        android:background="@drawable/shape_round_orange_dark"
         android:scaleType="centerInside"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -50,14 +50,26 @@
         android:id="@+id/imageView_extra_option"
         android:layout_width="42dp"
         android:layout_height="42dp"
+        android:layout_marginStart="@dimen/global_margin"
+        android:layout_marginEnd="2dp"
+        android:background="@drawable/oval_server"
+        android:padding="11dp"
+        android:visibility="gone"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        android:background="@drawable/oval_server"
-        android:padding="11dp"
-        android:layout_marginEnd="2dp"
+        app:srcCompat="@drawable/ic_plus" />
+
+    <View
+        android:id="@+id/blocker_view"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/input_height"
+        android:background="@color/blocker"
+        android:clickable="true"
+        android:focusable="true"
         android:visibility="gone"
-        android:layout_marginStart="@dimen/global_margin"
-        app:srcCompat="@drawable/ic_plus"/>
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

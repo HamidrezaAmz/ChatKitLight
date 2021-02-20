@@ -32,6 +32,7 @@
     <color name="cornflower_blue_light_40">#64bec5f7</color>
     <color name="failed">#D7D4D5</color>
     <color name="divider">#FFFFFF</color>
+    <color name="blocker">#900F100F</color>
 
     <color name="dialog_divider">@color/white_three</color>
     <color name="dialog_title_text">@color/dark_gray</color>

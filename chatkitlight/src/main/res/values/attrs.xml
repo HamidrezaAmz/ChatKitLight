@@ -72,5 +72,5 @@
         <attr name="typing" format="reference" />
         <attr name="duration" format="integer" />
     </declare-styleable>
-    
+
 </resources>
