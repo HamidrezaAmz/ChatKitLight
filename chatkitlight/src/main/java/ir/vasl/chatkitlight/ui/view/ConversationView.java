@@ -242,4 +242,9 @@ public class ConversationView
             conversationViewListener.shouldPaginate();
     }
 
+    @Override
+    public void onImageClicked(String url) {
+        if (conversationViewListener != null)
+            conversationViewListener.onImageClicked(url);
+    }
 }

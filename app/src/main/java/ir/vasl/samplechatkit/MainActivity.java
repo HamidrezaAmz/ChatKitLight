@@ -12,6 +12,7 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.Toast;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
@@ -109,12 +110,12 @@ public class MainActivity
         conversationModel.setConversationType(ConversationType.CLIENT);
         conversationModel.setConversationStatus(ConversationStatus.SENDING);
         conversationModel.setImageUrl("https://www.w3schools.com/howto/img_avatar.png");
-        if(imageUri != null) {
-            conversationModel.setFileType(FileType.AUDIO);
-//            conversationModel.setFileAddress(imageUri.toString());
-            conversationModel.setFileAddress("https://www.kozco.com/tech/piano2.wav");
+//        if(imageUri != null) {
+            conversationModel.setFileType(FileType.IMAGE);
+            conversationModel.setFileAddress("https://www.w3schools.com/howto/img_avatar.png");
+//            conversationModel.setFileAddress("https://www.kozco.com/tech/piano2.wav");
             findViewById(R.id.image2).setVisibility(View.GONE);
-        }
+//        }
 
         conversationListViewModel.addNewConversation(conversationModel);
 
@@ -219,5 +220,10 @@ public class MainActivity
         ActivityCompat.requestPermissions(this,
                 new String[]{Manifest.permission.READ_EXTERNAL_STORAGE, Manifest.permission.WRITE_EXTERNAL_STORAGE},
                 199);
+    }
+
+    @Override
+    public void onImageClicked(String url){
+        Toast.makeText(this, "image clicked", Toast.LENGTH_SHORT).show();
     }
 }

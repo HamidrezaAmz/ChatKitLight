@@ -143,6 +143,7 @@ public class AudioRecordView {
             case DEFAULT:
             case ARMAN_VARZESH:
                 inputView.findViewById(R.id.linearLayout_input).setBackgroundColor(context.getResources().getColor(R.color.dark_grey_two));
+                inputView.findViewById(R.id.recording).setBackgroundColor(context.getResources().getColor(R.color.black));
                 break;
             case LAWONE:
                 inputView.findViewById(R.id.linearLayout_input).setBackgroundColor(context.getResources().getColor(R.color.warm_grey));

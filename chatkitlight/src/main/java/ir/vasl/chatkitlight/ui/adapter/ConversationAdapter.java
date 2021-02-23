@@ -15,6 +15,10 @@ import androidx.databinding.DataBindingUtil;
 import androidx.paging.PagedList;
 import androidx.paging.PagedListAdapter;
 
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.resource.bitmap.CenterCrop;
+import com.bumptech.glide.load.resource.bitmap.RoundedCorners;
+import com.bumptech.glide.request.RequestOptions;
 import com.thin.downloadmanager.DownloadRequest;
 import com.thin.downloadmanager.DownloadStatusListenerV1;
 import com.thin.downloadmanager.ThinDownloadManager;
@@ -44,6 +48,7 @@ import ir.vasl.chatkitlight.model.ConversationModel;
 import ir.vasl.chatkitlight.ui.base.BaseViewHolder;
 import ir.vasl.chatkitlight.ui.callback.ConversationListListener;
 import ir.vasl.chatkitlight.ui.dialogs.PermissionDialog;
+import ir.vasl.chatkitlight.utils.AndroidUtils;
 import ir.vasl.chatkitlight.utils.ConversationDiffCallback;
 import ir.vasl.chatkitlight.utils.FileHelper;
 import ir.vasl.chatkitlight.utils.PermissionHelper;
@@ -262,7 +267,14 @@ public class ConversationAdapter extends PagedListAdapter<ConversationModel, Bas
                     holder.onBind(position);
                     ((ConversationViewHolder) holder).clientImageBinding.setConversationModel(model);
                     ((ConversationViewHolder) holder).clientImageBinding.setConversationListListener(this);
-                    ((ConversationViewHolder) holder).clientImageBinding.imageViewImage.setImageUrlCurve(getItem(position).getFileAddress(), 12);
+                    if(model == null)
+                        return;
+                    ((ConversationViewHolder) holder).clientImageBinding.imageViewImage.setImageUrlCurve(model.getFileAddress(), 12);
+//                    Glide.with(context)
+//                            .load(model.getFileAddress())
+//                            .apply(new RequestOptions().transform(new CenterCrop(), new RoundedCorners(((int) AndroidUtils.convertDpToPixel(6, context)))))
+//                            .placeholder(R.drawable.background_global_place_holder)
+//                            .into(((ConversationViewHolder) holder).clientImageBinding.imageViewImage);
                     break;
                 }
                 case SERVER: {
@@ -761,7 +773,8 @@ public class ConversationAdapter extends PagedListAdapter<ConversationModel, Bas
             this.clientImageBinding.imageViewImage.setOnClickListener(v -> {
                 if (getBindingAdapterPosition() == -1 || getItem(getBindingAdapterPosition()) == null)
                     return;
-                FileHelper.openFile(context, getItem(getBindingAdapterPosition()).getFileAddress());
+//                FileHelper.openFile(context, getItem(getBindingAdapterPosition()).getFileAddress());
+                conversationListListener.onImageClicked(getItem(getBindingAdapterPosition()).getFileAddress());
             });
         }
 
@@ -834,7 +847,8 @@ public class ConversationAdapter extends PagedListAdapter<ConversationModel, Bas
             this.serverImageBinding.imageViewImage.setOnClickListener(v -> {
                 if (getBindingAdapterPosition() == -1 || getItem(getBindingAdapterPosition()) == null)
                     return;
-                FileHelper.openFile(context, getItem(getBindingAdapterPosition()).getFileAddress());
+//                FileHelper.openFile(context, getItem(getBindingAdapterPosition()).getFileAddress());
+                conversationListListener.onImageClicked(getItem(getBindingAdapterPosition()).getFileAddress());
             });
         }
 

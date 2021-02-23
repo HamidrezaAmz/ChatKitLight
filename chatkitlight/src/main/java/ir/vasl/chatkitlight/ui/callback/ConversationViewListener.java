@@ -47,4 +47,6 @@ public interface ConversationViewListener<T> {
 
     default void requestStoragePermission(){}
 
+    default void onImageClicked(String url){}
+
 }

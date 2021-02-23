@@ -28,4 +28,8 @@ public interface DialogMenuListener<T> {
 
     }
 
+    default void onImageClicked(String url){
+
+    }
+
 }
