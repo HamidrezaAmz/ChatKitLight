@@ -61,4 +61,6 @@ public interface ConversationViewListener<T> {
     default void extraOptionClicked() {
 
     }
+
+    default void onHintViewCloseButtonClicked() {}
 }

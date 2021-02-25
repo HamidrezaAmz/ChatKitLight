@@ -63,8 +63,8 @@ public class MainActivity
 
         initViewModel();
 
-        conversationView.setShowBlockerView(false); // block input
-        conversationView.showHintView("این رو بخون بعد بگو متوجه شدم"); // hint view
+        conversationView.setShowBlockerView(true); // block input
+        conversationView.showHintView("این رو بخون بعد بگو متوجه شدم", "kha"); // hint view
     }
 
     @Override
@@ -267,6 +267,11 @@ public class MainActivity
     @Override
     public void onVoiceRecordStopped(long recordTime) {
         Toast.makeText(this, "STOP", Toast.LENGTH_SHORT).show();
+    }
+
+    @Override
+    public void onHintViewCloseButtonClicked() {
+        Toast.makeText(this, "we have closed hint view", Toast.LENGTH_SHORT).show();
     }
 
     @Override

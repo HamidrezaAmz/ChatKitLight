@@ -287,9 +287,16 @@ public class ConversationView
         conversationInput.setShowBlockerView(showBlockerView);
     }
 
-    public void showHintView(String title) {
-        textViewHintView.setText(title);
+    public void showHintView(String hintMessage) {
+        showHintView(hintMessage, null);
+    }
+
+    public void showHintView(String hintMessage, String hintButtonTitle) {
+        textViewHintView.setText(hintMessage);
         cardViewHintViewHolder.setVisibility(VISIBLE);
+
+        if (hintButtonTitle != null)
+            buttonHintView.setText(hintButtonTitle);
     }
 
     public void hideHintView() {
@@ -300,8 +307,11 @@ public class ConversationView
     @Override
     public void onClick(View v) {
         int viewId = v.getId();
-        if (viewId == R.id.button_hint_view)
+        if (viewId == R.id.button_hint_view) {
             hideHintView();
+            if (conversationViewListener != null)
+                conversationViewListener.onHintViewCloseButtonClicked();
+        }
     }
 
 }
