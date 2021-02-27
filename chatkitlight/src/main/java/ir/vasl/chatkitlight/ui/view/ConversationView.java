@@ -86,10 +86,10 @@ public class ConversationView
         conversationInput.setChatStyle(chatStyleEnum);
         conversationInput.initView(viewConversation);
         conversationInput.showCameraIcon(false);
-        conversationInput.setAttachmentOptions(AttachmentOption.getDefaultList(), new AttachmentOptionsListener() {
+        conversationInput.getAttachmentView().setOnClickListener(new OnClickListener() {
             @Override
-            public void onClick(AttachmentOption attachmentOption) {
-                onAddAttachments(attachmentOption);
+            public void onClick(View v) {
+                onAddAttachments();
             }
         });
         conversationInput.getSendView().setOnClickListener(new OnClickListener() {
@@ -211,6 +211,12 @@ public class ConversationView
     public void onAddAttachments(AttachmentOption option) {
         if (conversationViewListener != null)
             conversationViewListener.onAddAttachments(option);
+    }
+
+    @Override
+    public void onAddAttachments() {
+        if (conversationViewListener != null)
+            conversationViewListener.onAddAttachments();
     }
 
     @Override

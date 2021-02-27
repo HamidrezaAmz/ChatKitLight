@@ -226,4 +226,9 @@ public class MainActivity
     public void onImageClicked(String url){
         Toast.makeText(this, "image clicked", Toast.LENGTH_SHORT).show();
     }
+
+    @Override
+    public void onAddAttachments() {
+        Toast.makeText(this, "attach", Toast.LENGTH_SHORT).show();
+    }
 }

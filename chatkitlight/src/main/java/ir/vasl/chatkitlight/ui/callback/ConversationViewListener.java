@@ -7,6 +7,9 @@ public interface ConversationViewListener<T> {
     default void onAddAttachments(AttachmentOption option) {
     }
 
+    default void onAddAttachments() {
+    }
+
     default void onSubmit(CharSequence input) {
     }
 
