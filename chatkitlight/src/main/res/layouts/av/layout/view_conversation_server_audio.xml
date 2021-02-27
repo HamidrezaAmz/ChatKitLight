@@ -40,6 +40,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:gravity="left"
+                android:layout_marginLeft="2dp"
                 android:layout_marginRight="@dimen/global_margin_x_extra"
                 android:text="@{ conversationModel.title}"
                 android:visibility='@{ conversationModel.title.equals("") ? View.GONE : View.VISIBLE }' />

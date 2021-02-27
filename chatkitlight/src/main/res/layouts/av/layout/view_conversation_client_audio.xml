@@ -44,6 +44,7 @@
                 android:layout_height="wrap_content"
                 android:gravity="right"
                 android:layout_marginLeft="@dimen/global_margin_x_extra"
+                android:layout_marginRight="2dp"
                 android:text="@{ conversationModel.title}"
                 android:visibility='@{ conversationModel.title.equals("") ? View.GONE : View.VISIBLE }' />
 
