@@ -38,6 +38,15 @@
             android:orientation="vertical"
             android:padding="@dimen/global_padding_middle">
 
+            <TextView
+                style="@style/TextViewTitleStyle"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="right"
+                android:layout_marginLeft="@dimen/global_margin_x_extra"
+                android:text="@{ conversationModel.title}"
+                android:visibility='@{ conversationModel.title.equals("") ? View.GONE : View.VISIBLE }' />
+
             <RelativeLayout
                 android:id="@+id/frameLayoutFile"
                 android:layout_width="match_parent"
