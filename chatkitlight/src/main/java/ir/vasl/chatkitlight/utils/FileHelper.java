@@ -24,7 +24,7 @@ import java.util.Objects;
 
 public class FileHelper {
 
-//    public static String getFileName(String uri) {
+    //    public static String getFileName(String uri) {
 //        String res = uri;
 //        if (uri == null)
 //            return "";
@@ -43,7 +43,6 @@ public class FileHelper {
     public static DownloadRequest downloadFile(Context context, String url, String fileName, DownloadStatusListenerV1 downloadListener) {
         if (context.getExternalFilesDir(null) == null)
             return null;
-//        String fileName = FileHelper.getFileName(url);
         String dir = Objects.requireNonNull(context.getExternalFilesDir(null)).toString() + "/chatkit/" + fileName;
         return new DownloadRequest(Uri.parse(url))
                 .setRetryPolicy(new DefaultRetryPolicy())
@@ -76,7 +75,7 @@ public class FileHelper {
     public static void openFile(Context context, String fileAddress, String fileName) {
         if (context.getExternalFilesDir(null) == null)
             return;
-        if(!checkFileExistence(context, fileName))
+        if (!checkFileExistence(context, fileName))
             return;
 //        String fileName = getFileName(fileAddress);
         Intent viewIntent = new Intent(Intent.ACTION_VIEW);
@@ -90,7 +89,7 @@ public class FileHelper {
         context.startActivity(chooserIntent);
     }
 
-    public static void openUrl(Context context, String url){
+    public static void openUrl(Context context, String url) {
 //        Intent i = new Intent(Intent.ACTION_VIEW);
 //        i.setData(Uri.parse(url));
 //        context.startActivity(i);
