@@ -9,6 +9,7 @@ public enum FileType {
     VIDEO("VIDEO", 100),
     IMAGE("IMAGE", 1000),
     AUDIO("AUDIO", 10000),
+    TEXT_RATE("TEXT_RATE", 100000)
     ;
 
     private String valueStr;

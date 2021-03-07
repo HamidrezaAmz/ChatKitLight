@@ -55,6 +55,8 @@ import ir.vasl.chatkitlight.utils.globalEnums.ConversationType;
 import me.itangqi.waveloadingview.WaveLoadingView;
 import rm.com.audiowave.AudioWaveView;
 
+import static ir.vasl.chatkitlight.utils.globalEnums.ConversationType.SYSTEM;
+
 @SuppressWarnings("rawtypes")
 public class ConversationAdapter extends PagedListAdapter<ConversationModel, BaseViewHolder> implements ConversationListListener {
 
@@ -71,17 +73,6 @@ public class ConversationAdapter extends PagedListAdapter<ConversationModel, Bas
         this.chatStyleEnum = chatStyleEnum;
         this.conversationListListener = conversationListListener;
         this.downloadManager = new ThinDownloadManager();
-//        new CountDownTimer(500, 500){
-//
-//            @Override
-//            public void onTick(long millisUntilFinished) { }
-//
-//            @Override
-//            public void onFinish() {
-//                Log.e("tag", "onFinish: " + lastPlayingPos );
-//                this.start();
-//            }
-//        }.start();
     }
 
     @NonNull
@@ -121,7 +112,11 @@ public class ConversationAdapter extends PagedListAdapter<ConversationModel, Bas
     }
 
     private void LawoneBinder(BaseViewHolder holder, int position) {
-        if (holder.getItemViewType() >= 10000) {
+        if(holder.getItemViewType() >= 100000){
+                ConversationModel model = getItem(position);
+                ((ConversationViewHolder) holder).lawoneConversationSystemBinding.setConversationModel(model);
+                ((ConversationViewHolder) holder).lawoneConversationSystemBinding.setConversationListListener(this);
+        } else if (holder.getItemViewType() >= 10000) {
             switch (ConversationType.get(holder.getItemViewType() - 10000)) {
                 case CLIENT: {
                     ConversationModel model = getItem(position);

@@ -52,6 +52,7 @@
                     android:layout_below="@id/textView_message"
                     android:layout_marginStart="60dp"
                     android:layout_marginEnd="60dp"
+                    android:visibility='@{conversationModel.conversationType}'
                     android:orientation="horizontal">
 
                     <androidx.appcompat.widget.AppCompatButton
@@ -60,7 +61,8 @@
                         android:gravity="center"
                         android:minWidth="100dp"
                         android:padding="10dp"
-                        android:text="RATE" />
+                        android:text="RATE"
+                        android:fontFamily="@font/app_font"/>
 
                     <androidx.appcompat.widget.AppCompatButton
                         android:layout_width="wrap_content"
@@ -68,7 +70,8 @@
                         android:gravity="center"
                         android:minWidth="100dp"
                         android:padding="10dp"
-                        android:text="SUPPORT" />
+                        android:text="SUPPORT"
+                        android:fontFamily="@font/app_font"/>
 
                 </LinearLayout>
 
