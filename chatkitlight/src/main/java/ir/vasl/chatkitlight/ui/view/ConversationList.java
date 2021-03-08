@@ -156,6 +156,18 @@ public class ConversationList
             dialogMenuListener.onDeleteMessageClicked(object);
     }
 
+    @Override
+    public void systemSupportClicked() {
+        if (dialogMenuListener != null)
+            dialogMenuListener.onSupportClicked();
+    }
+
+    @Override
+    public void systemRateClicked() {
+        if (dialogMenuListener != null)
+            dialogMenuListener.onRateClicked();
+    }
+
     RecyclerView.OnScrollListener scrollListener = new OnScrollListener() {
         @Override
         public void onScrolled(@NonNull RecyclerView recyclerView, int dx, int dy) {

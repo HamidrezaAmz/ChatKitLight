@@ -29,4 +29,8 @@ public interface DialogMenuListener<T> {
     }
 
     void pdfFileClicked(Uri pdfUri);
+
+    default void onSupportClicked(){}
+
+    default void onRateClicked(){}
 }

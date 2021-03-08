@@ -279,6 +279,18 @@ public class ConversationView
             conversationViewListener.onVoiceRecordCanceled();
     }
 
+    @Override
+    public void onRateClicked() {
+        if (conversationViewListener != null)
+            conversationViewListener.onRateClicked();
+    }
+
+    @Override
+    public void onSupportClicked() {
+        if (conversationViewListener != null)
+            conversationViewListener.onSupportClicked();
+    }
+
     public void stopMediaPlayer() {
         conversationList.stopMediaPlayer();
     }

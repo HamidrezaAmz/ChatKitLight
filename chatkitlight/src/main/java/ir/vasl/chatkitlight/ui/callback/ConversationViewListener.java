@@ -55,12 +55,14 @@ public interface ConversationViewListener<T> {
     }
 
     default void pdfFileClicked(Uri pdfUri){
-
     }
 
     default void extraOptionClicked() {
-
     }
 
     default void onHintViewCloseButtonClicked() {}
+
+    default void onSupportClicked() {}
+
+    default void onRateClicked() {}
 }
