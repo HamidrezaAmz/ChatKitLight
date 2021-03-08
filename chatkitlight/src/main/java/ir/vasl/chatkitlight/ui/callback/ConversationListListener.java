@@ -22,4 +22,11 @@ public interface ConversationListListener<T> {
     default void pdfFileClicked(Uri pdfUri) {
     }
 
+    default void systemSupportClicked(){
+
+    }
+
+    default void systemRateClicked(){
+
+    }
 }

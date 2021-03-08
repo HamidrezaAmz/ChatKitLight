@@ -13,6 +13,9 @@
         <variable
             name="conversationListListener"
             type="ir.vasl.chatkitlight.ui.callback.ConversationListListener" />
+
+        <import type="ir.vasl.chatkitlight.utils.globalEnums.FileType"
+            alias="type"/>
     </data>
 
     <RelativeLayout
@@ -52,7 +55,9 @@
                     android:layout_below="@id/textView_message"
                     android:layout_marginStart="60dp"
                     android:layout_marginEnd="60dp"
-                    android:visibility='@{conversationModel.conversationType}'
+                    android:layoutDirection="ltr"
+                    android:layout_marginTop="@dimen/global_margin"
+                    android:visibility='@{conversationModel.fileType.equals(type.TEXT_RATE) ? View.VISIBLE : View.GONE}'
                     android:orientation="horizontal">
 
                     <androidx.appcompat.widget.AppCompatButton
@@ -60,8 +65,17 @@
                         android:layout_height="wrap_content"
                         android:gravity="center"
                         android:minWidth="100dp"
-                        android:padding="10dp"
-                        android:text="RATE"
+                        android:paddingRight="10dp"
+                        android:paddingBottom="6dp"
+                        android:paddingLeft="10dp"
+                        android:paddingTop="6dp"
+                        android:textColor="@color/white"
+                        android:background="@drawable/rounded_bordered_white"
+                        android:textSize="12sp"
+                        android:textStyle="bold"
+                        android:layout_marginRight="@dimen/global_margin_extra"
+                        android:onClick="@{() -> conversationListListener.systemSupportClicked()}"
+                        android:text="پشتیبانی"
                         android:fontFamily="@font/app_font"/>
 
                     <androidx.appcompat.widget.AppCompatButton
@@ -69,8 +83,16 @@
                         android:layout_height="wrap_content"
                         android:gravity="center"
                         android:minWidth="100dp"
-                        android:padding="10dp"
-                        android:text="SUPPORT"
+                        android:paddingRight="10dp"
+                        android:paddingBottom="6dp"
+                        android:paddingLeft="10dp"
+                        android:paddingTop="6dp"
+                        android:text="امتیازدهی"
+                        android:textColor="@color/white"
+                        android:textSize="12sp"
+                        android:background="@drawable/rounded_gradient_blue"
+                        android:textStyle="bold"
+                        android:onClick="@{() -> conversationListListener.systemRateClicked()}"
                         android:fontFamily="@font/app_font"/>
 
                 </LinearLayout>
