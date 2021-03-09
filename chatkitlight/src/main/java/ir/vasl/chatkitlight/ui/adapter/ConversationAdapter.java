@@ -444,6 +444,7 @@ public class ConversationAdapter extends PagedListAdapter<ConversationModel, Bas
                 case NONE:
                     return model.getConversationType().getValue();
                 case DOCUMENT:
+                case TEXT_RATE:
                 case VIDEO:
                 case IMAGE:
                 case AUDIO:
