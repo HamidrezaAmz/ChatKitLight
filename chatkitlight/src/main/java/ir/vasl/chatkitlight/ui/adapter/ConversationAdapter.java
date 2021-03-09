@@ -469,6 +469,18 @@ public class ConversationAdapter extends PagedListAdapter<ConversationModel, Bas
             conversationListListener.onConversationItemClicked(object);
     }
 
+    @Override
+    public void systemRateClicked() {
+        if (conversationListListener != null)
+            conversationListListener.systemRateClicked();
+    }
+
+    @Override
+    public void systemSupportClicked() {
+        if (conversationListListener != null)
+            conversationListListener.systemSupportClicked();
+    }
+
     private BaseViewHolder LawoneViewHolderCreator(ViewGroup parent, LayoutInflater inflater, int viewType) {
         Log.e("tag", "LawoneViewHolderCreator: " + viewType);
         if (viewType >= 100000) {

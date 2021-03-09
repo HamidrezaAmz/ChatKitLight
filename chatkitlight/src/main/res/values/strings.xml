@@ -13,5 +13,6 @@
     <string name="download">Download</string>
     <string name="choose">Choose</string>
     <string name="title_slide_to_cancel">Slide to cancel</string>
-
+    <string name="true_s">true</string>
+    <string name="false_s">false</string>
 </resources>

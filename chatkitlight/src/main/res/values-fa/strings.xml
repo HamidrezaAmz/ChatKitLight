@@ -12,5 +12,7 @@
     <string name="download">دانلود</string>
     <string name="choose">انتخاب کنید</string>
     <string name="title_slide_to_cancel">برای لغو بکشید</string>
+    <string name="true_s">true</string>
+    <string name="false_s">false</string>
 
 </resources>

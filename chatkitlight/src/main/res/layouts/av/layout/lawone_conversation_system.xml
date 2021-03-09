@@ -60,7 +60,7 @@
                     android:visibility='@{conversationModel.fileType.equals(type.TEXT_RATE) ? View.VISIBLE : View.GONE}'
                     android:orientation="horizontal">
 
-                    <androidx.appcompat.widget.AppCompatButton
+                    <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:gravity="center"
@@ -78,7 +78,7 @@
                         android:text="پشتیبانی"
                         android:fontFamily="@font/app_font"/>
 
-                    <androidx.appcompat.widget.AppCompatButton
+                    <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:gravity="center"
