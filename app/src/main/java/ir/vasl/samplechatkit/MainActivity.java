@@ -121,7 +121,7 @@ public class MainActivity
         } else if (tester % 5 == 1) {
             conversationModel.setFileType(FileType.AUDIO);
         } else if (tester % 5 == 2) {
-            conversationModel.setFileType(FileType.NONE);
+            conversationModel.setFileType(FileType.TEXT_RATE);
         } else if (tester % 5 == 3) {
             conversationModel.setFileType(FileType.IMAGE);
         } else if (tester % 5 == 4) {

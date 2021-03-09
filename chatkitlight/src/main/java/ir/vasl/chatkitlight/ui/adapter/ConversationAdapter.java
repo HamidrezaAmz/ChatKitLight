@@ -112,10 +112,10 @@ public class ConversationAdapter extends PagedListAdapter<ConversationModel, Bas
     }
 
     private void LawoneBinder(BaseViewHolder holder, int position) {
-        if(holder.getItemViewType() >= 100000){
-                ConversationModel model = getItem(position);
-                ((ConversationViewHolder) holder).lawoneConversationSystemBinding.setConversationModel(model);
-                ((ConversationViewHolder) holder).lawoneConversationSystemBinding.setConversationListListener(this);
+        if (holder.getItemViewType() >= 100000) {
+            ConversationModel model = getItem(position);
+            ((ConversationViewHolder) holder).lawoneConversationSystemBinding.setConversationModel(model);
+            ((ConversationViewHolder) holder).lawoneConversationSystemBinding.setConversationListListener(this);
         } else if (holder.getItemViewType() >= 10000) {
             switch (ConversationType.get(holder.getItemViewType() - 10000)) {
                 case CLIENT: {
@@ -471,16 +471,17 @@ public class ConversationAdapter extends PagedListAdapter<ConversationModel, Bas
 
     private BaseViewHolder LawoneViewHolderCreator(ViewGroup parent, LayoutInflater inflater, int viewType) {
         Log.e("tag", "LawoneViewHolderCreator: " + viewType);
-        if (viewType >= 10000) {
+        if (viewType >= 100000) {
+            LawoneConversationSystemBinding lawoneConversationSystemBinding = DataBindingUtil.inflate(inflater, R.layout.lawone_conversation_system, parent, false);
+            return new ConversationViewHolder(lawoneConversationSystemBinding);
+        } else if (viewType >= 10000) {
             switch (ConversationType.get(viewType - 10000)) {
                 case CLIENT:
                     LawoneConversationClientAudioBinding clientBinding = DataBindingUtil.inflate(inflater, R.layout.lawone_conversation_client_audio, parent, false);
                     return new ConversationViewHolder(clientBinding);
-
                 case SERVER:
                     LawoneConversationServerAudioBinding serverBinding = DataBindingUtil.inflate(inflater, R.layout.lawone_conversation_server_audio, parent, false);
                     return new ConversationViewHolder(serverBinding);
-
                 case EMPTY:
                     ViewConversationEmptyBinding emptyBinding = DataBindingUtil.inflate(inflater, R.layout.view_conversation_empty, parent, false);
                     return new ConversationViewHolder(emptyBinding);
