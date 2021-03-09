@@ -67,6 +67,8 @@
                         android:layout_marginLeft="@dimen/global_margin_spaced"
                         android:layout_marginRight="@dimen/global_margin_x_extra"
                         android:gravity="left"
+                        android:singleLine="true"
+                        android:ellipsize="start"
                         android:text='@{!conversationModel.title.equals("") ? conversationModel.title : conversationModel.fileAddress.substring(conversationModel.fileAddress.lastIndexOf("/") + 1)}'
                         android:textSize="@dimen/input_text_size_middle"
                         tools:text="this is file name" />

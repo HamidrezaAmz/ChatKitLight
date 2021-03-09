@@ -110,10 +110,10 @@ public class MainActivity
         conversationModel.setMessage(input.toString());
         conversationModel.setTime(TimeUtils.getCurrTime());
         if (tester % 3 == 0) {
-            conversationModel.setConversationType(ConversationType.SYSTEM);
+            conversationModel.setConversationType(ConversationType.CLIENT);
         } else if (tester % 3 == 1) {
             conversationModel.setConversationType(ConversationType.SYSTEM);
-        } else if (tester % 3 == 2) {
+        } else if (tester % 6 == 2) {
             conversationModel.setConversationType(ConversationType.SYSTEM);
         }
         if (tester % 5 == 0) {
@@ -121,7 +121,7 @@ public class MainActivity
         } else if (tester % 5 == 1) {
             conversationModel.setFileType(FileType.AUDIO);
         } else if (tester % 5 == 2) {
-            conversationModel.setFileType(FileType.TEXT_RATE);
+            conversationModel.setFileType(FileType.NONE);
         } else if (tester % 5 == 3) {
             conversationModel.setFileType(FileType.IMAGE);
         } else if (tester % 5 == 4) {
@@ -132,10 +132,10 @@ public class MainActivity
 //        conversationModel.setImageRes("2");
 //        if (imageUri != null) {
 //            conversationModel.setFileAddress(imageUri.toString());
-//        conversationModel.setFileAddress("https://www.w3.org/WAI/ER/tests/xhtml/testfiles/resources/pdf/dummy.pdf");
+        conversationModel.setFileAddress("https://www.w3.org/WAI/ER/tests/xhtml/testfiles/resources/pdf/dummy.pdf");
 //        conversationModel.setFileAddress("https://www.kozco.com/tech/piano2.wav");
 //        conversationModel.setFileAddress("https://www.kozco.com/tech/organfinale.wav");
-        conversationModel.setFileType(FileType.TEXT_RATE);
+        conversationModel.setFileType(FileType.DOCUMENT);
 
         findViewById(R.id.image2).setVisibility(View.GONE);
 //        }
