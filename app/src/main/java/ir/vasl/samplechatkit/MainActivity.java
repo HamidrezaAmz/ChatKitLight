@@ -211,7 +211,17 @@ public class MainActivity
     public void onAddAttachments(AttachmentOption option) {
         if (!checkPermission())
             return;
-        pickGallery();
+        pickEverything();
+//        pickGallery();
+    }
+
+    private void pickEverything() {
+        Intent intent = new Intent(Intent.ACTION_OPEN_DOCUMENT);
+        intent.addCategory(Intent.CATEGORY_OPENABLE);
+        intent.setType("*/*");
+        String[] mimetypes = {"image/*", "application/pdf"};
+        intent.putExtra(Intent.EXTRA_MIME_TYPES, mimetypes);
+        startActivityForResult(intent, 2555);
     }
 
 
