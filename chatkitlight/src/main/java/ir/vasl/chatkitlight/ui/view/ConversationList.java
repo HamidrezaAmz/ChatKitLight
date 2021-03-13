@@ -83,7 +83,7 @@ public class ConversationList
             int i = adapter.getItemCount();
             adapter.submitList(null);
             adapter.submitList(conversationModels);
-            scroll(i, 200);
+            scroll(i, 0);
         });
     }
 
