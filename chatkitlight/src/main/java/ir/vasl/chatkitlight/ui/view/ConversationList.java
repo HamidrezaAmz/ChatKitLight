@@ -81,9 +81,9 @@ public class ConversationList
 
         conversationListViewModel.getLiveData().observeForever(conversationModels -> {
             int i = adapter.getItemCount();
-//            adapter.submitList(null);
+            adapter.submitList(null);
             adapter.submitList(conversationModels);
-//            scroll(i, 0);
+            scroll(i, 75);
         });
     }
 
