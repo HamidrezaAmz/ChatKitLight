@@ -54,15 +54,19 @@ public interface ConversationViewListener<T> {
     default void requestStoragePermission() {
     }
 
-    default void pdfFileClicked(Uri pdfUri){
+    default void pdfFileClicked(Uri pdfUri) {
     }
 
     default void extraOptionClicked() {
     }
 
-    default void onHintViewCloseButtonClicked() {}
+    default void onHintViewCloseButtonClicked() {
+    }
 
-    default void onSupportClicked() {}
+    default void onSupportClicked() {
+    }
 
-    default void onRateClicked() {}
+    default void onRateClicked() {
+    }
+
 }

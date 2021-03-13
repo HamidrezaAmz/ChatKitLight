@@ -70,7 +70,7 @@ public class ConversationList
         initViewModel();
     }
 
-    public void stopMediaPlayer(){
+    public void stopMediaPlayer() {
         adapter.stopMediaPlayer();
     }
 
@@ -87,7 +87,7 @@ public class ConversationList
         });
     }
 
-    public void scroll(int pos, long delay){
+    public void scroll(int pos, long delay) {
         new Handler().postDelayed(() -> scrollToPosition(pos), delay);
     }
 

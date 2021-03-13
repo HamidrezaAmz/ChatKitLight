@@ -86,6 +86,7 @@ public class ConversationModel {
         this.fileAddress = model.fileAddress;
         this.fileType = model.fileType;
         this.imageUrl = model.imageUrl;
+        this.imageRes = model.imageRes;
     }
 
     @Ignore
@@ -235,6 +236,45 @@ public class ConversationModel {
                 .transform(new CenterInside())
                 .apply(RequestOptions.circleCropTransform())
                 .into(view);
+    }
+
+    @BindingAdapter("loadImageIndexBase")
+    public static void loadImageIndexBase(ImageView view, String imageRes) {
+
+        int res = R.drawable.ic_user;
+
+        if (imageRes == null || imageRes.isEmpty()) {
+            view.setImageResource(res);
+            return;
+        }
+
+        int index = Integer.parseInt(imageRes);
+
+        switch (index) {
+            case 0:
+                res = R.drawable.ic_avatar_0;
+                break;
+            case 1:
+                res = R.drawable.ic_avatar_1;
+                break;
+            case 2:
+                res = R.drawable.ic_avatar_2;
+                break;
+            case 3:
+                res = R.drawable.ic_avatar_3;
+                break;
+            case 4:
+                res = R.drawable.ic_avatar_4;
+                break;
+            case 5:
+                res = R.drawable.ic_avatar_5;
+                break;
+            default:
+                res = R.drawable.ic_user;
+                break;
+        }
+
+        view.setImageResource(res);
     }
 
     @Override

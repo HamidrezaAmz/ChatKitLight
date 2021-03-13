@@ -63,8 +63,8 @@ public class MainActivity
 
         initViewModel();
 
-//        conversationView.setShowBlockerView(true); // block input
-//        conversationView.showHintView("این رو بخون بعد بگو متوجه شدم", "kha"); // hint view
+        conversationView.setShowBlockerView(false); // block input
+        conversationView.showHintView("این رو بخون بعد بگو متوجه شدم", "متوجه شدم"); // hint view
     }
 
     @Override
@@ -112,11 +112,10 @@ public class MainActivity
         if (tester % 3 == 0) {
             conversationModel.setConversationType(ConversationType.CLIENT);
         } else if (tester % 3 == 1) {
+            conversationModel.setConversationType(ConversationType.SERVER);
+        } else if (tester % 3 == 2) {
             conversationModel.setConversationType(ConversationType.SYSTEM);
-        } else if (tester % 6 == 2) {
-            conversationModel.setConversationType(ConversationType.SYSTEM);
-        }
-        if (tester % 5 == 0) {
+        } else if (tester % 5 == 0) {
             conversationModel.setFileType(FileType.NONE);
         } else if (tester % 5 == 1) {
             conversationModel.setFileType(FileType.AUDIO);
@@ -127,18 +126,18 @@ public class MainActivity
         } else if (tester % 5 == 4) {
             conversationModel.setFileType(FileType.DOCUMENT);
         }
-        conversationModel.setConversationStatus(ConversationStatus.DELIVERED);
-//        conversationModel.setFileAddress("https://www.w3schools.com/howto/img_avatar.png");
-//        conversationModel.setImageRes("2");
-//        if (imageUri != null) {
+        conversationModel.setConversationStatus(ConversationStatus.SENDING);
+        // conversationModel.setFileAddress("https://www.w3schools.com/howto/img_avatar.png");
+        conversationModel.setImageRes("2");
+        //        if (imageUri != null) {
 //            conversationModel.setFileAddress(imageUri.toString());
         conversationModel.setFileAddress("https://www.w3.org/WAI/ER/tests/xhtml/testfiles/resources/pdf/dummy.pdf");
-//        conversationModel.setFileAddress("https://www.kozco.com/tech/piano2.wav");
+        //        conversationModel.setFileAddress("https://www.kozco.com/tech/piano2.wav");
 //        conversationModel.setFileAddress("https://www.kozco.com/tech/organfinale.wav");
-        conversationModel.setFileType(FileType.DOCUMENT);
+        conversationModel.setFileType(FileType.NONE);
+        conversationModel.setConversationType(ConversationType.CLIENT);
 
         findViewById(R.id.image2).setVisibility(View.GONE);
-//        }
 
         conversationListViewModel.addNewConversation(conversationModel);
 
@@ -150,10 +149,6 @@ public class MainActivity
 
             public void onFinish() {
                 List<ConversationModel> allModels = DatabaseLayer.getInstance(MyApplication.getApp()).getChatKitDatabase().getChatDao().getAllSimple(chatID);
-
-                for (int i = 0; i < allModels.size(); i++) {
-                    Log.e(TAG, "AFTER SUBMIT: " + allModels.get(i).getId() + " " + allModels.get(i).getMessage());
-                }
                 conversationListViewModel.updateConversationStatus(conversationModel.getConversationId(), ConversationStatus.SENT);
             }
 
@@ -211,19 +206,8 @@ public class MainActivity
     public void onAddAttachments(AttachmentOption option) {
         if (!checkPermission())
             return;
-        pickEverything();
-//        pickGallery();
+        pickGallery();
     }
-
-    private void pickEverything() {
-        Intent intent = new Intent(Intent.ACTION_OPEN_DOCUMENT);
-        intent.addCategory(Intent.CATEGORY_OPENABLE);
-        intent.setType("*/*");
-        String[] mimetypes = {"image/*", "application/pdf"};
-        intent.putExtra(Intent.EXTRA_MIME_TYPES, mimetypes);
-        startActivityForResult(intent, 2555);
-    }
-
 
     private void pickGallery() {
         FilePickerBuilder.getInstance()
@@ -290,12 +274,7 @@ public class MainActivity
     }
 
     @Override
-    public void onRateClicked() {
-        Toast.makeText(this, "rateClicked", Toast.LENGTH_SHORT).show();
-    }
-
-    @Override
-    public void onSupportClicked() {
-        Toast.makeText(this, "supportClicked", Toast.LENGTH_SHORT).show();
+    public void shouldPaginate() {
+        Log.i(TAG, "shouldPaginate: ***********");
     }
 }

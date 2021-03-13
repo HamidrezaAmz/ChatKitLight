@@ -55,14 +55,12 @@ import ir.vasl.chatkitlight.utils.globalEnums.ConversationType;
 import me.itangqi.waveloadingview.WaveLoadingView;
 import rm.com.audiowave.AudioWaveView;
 
-import static ir.vasl.chatkitlight.utils.globalEnums.ConversationType.SYSTEM;
-
 @SuppressWarnings("rawtypes")
 public class ConversationAdapter extends PagedListAdapter<ConversationModel, BaseViewHolder> implements ConversationListListener {
 
+    private Context context; // for permission, storage management and intent initialization
     private ConversationListListener conversationListListener;
     private ChatStyleEnum chatStyleEnum;
-    private Context context; // for permission, storage management and intent initialization
     private ThinDownloadManager downloadManager; // one dl mgr for the whole list
     static MediaPlayer mp; //Media Player to play voices and audios
     private int lastPlayingPos = -1;
@@ -716,6 +714,7 @@ public class ConversationAdapter extends PagedListAdapter<ConversationModel, Bas
     }
 
     private class ConversationViewHolder extends BaseViewHolder {
+
         DownloadRequest downloadRequest = null; //download request for different file types
 
         //DEFAULT - AV
@@ -754,14 +753,15 @@ public class ConversationAdapter extends PagedListAdapter<ConversationModel, Bas
             super.onBind(position);
             if (getItem(position) == null)
                 return;
-            if (lawoneClientTextBinding != null) {
+
+            /*if (lawoneClientTextBinding != null) {
                 try {
                     if (position != -1 && getItem(position) != null && getItem(position).getImageRes().length() > 0)
                         lawoneClientTextBinding.imageViewAvatar.setImageResource(getResId(getItem(position).getImageRes()));
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
-            }
+            }*/
             if (lawoneServerTextBinding != null) {
                 try {
                     if (position != -1 && getItem(position) != null && getItem(position).getImageRes().length() > 0)

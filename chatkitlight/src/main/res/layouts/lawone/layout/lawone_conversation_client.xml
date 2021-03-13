@@ -58,12 +58,12 @@
             <ir.vasl.chatkitlight.ui.customview.ImageViewCustom
                 android:id="@+id/imageView_avatar"
                 style="@style/AvatarStyle"
+                loadImageIndexBase="@{conversationModel.imageRes}"
                 android:layout_alignParentRight="true"
-                app:round_image="true"
-                app:srcCompat="@drawable/ic_user" />
+                app:round_image="true" />
 
         </RelativeLayout>
-        
+
         <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
