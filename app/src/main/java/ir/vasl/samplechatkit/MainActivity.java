@@ -228,6 +228,11 @@ public class MainActivity
     }
 
     @Override
+    public void onVideoClicked(String url) {
+        Toast.makeText(this, "video clicked", Toast.LENGTH_SHORT).show();
+    }
+
+    @Override
     public void onAddAttachments() {
         Toast.makeText(this, "attach", Toast.LENGTH_SHORT).show();
     }

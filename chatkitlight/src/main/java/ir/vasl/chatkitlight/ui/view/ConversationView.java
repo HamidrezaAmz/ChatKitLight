@@ -253,4 +253,10 @@ public class ConversationView
         if (conversationViewListener != null)
             conversationViewListener.onImageClicked(url);
     }
+
+    @Override
+    public void onVideoClicked(String url) {
+        if (conversationViewListener != null)
+            conversationViewListener.onVideoClicked(url);
+    }
 }

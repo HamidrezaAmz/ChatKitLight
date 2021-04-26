@@ -32,4 +32,8 @@ public interface DialogMenuListener<T> {
 
     }
 
+    default void onVideoClicked(String url){
+
+    }
+
 }

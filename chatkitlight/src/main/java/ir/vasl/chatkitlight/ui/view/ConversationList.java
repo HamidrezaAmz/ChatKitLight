@@ -167,4 +167,10 @@ public class ConversationList extends RecyclerView implements ConversationListLi
         if (dialogMenuListener != null)
             dialogMenuListener.onImageClicked(url);
     }
+
+    @Override
+    public void onVideoClicked(String url) {
+        if (dialogMenuListener != null)
+            dialogMenuListener.onVideoClicked(url);
+    }
 }

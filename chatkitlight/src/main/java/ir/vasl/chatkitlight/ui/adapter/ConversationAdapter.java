@@ -784,7 +784,8 @@ public class ConversationAdapter extends PagedListAdapter<ConversationModel, Bas
             this.clientVideoBinding.imageViewImage.setOnClickListener(v -> {
                 if (getBindingAdapterPosition() == -1 || getItem(getBindingAdapterPosition()) == null)
                     return;
-                FileHelper.openFile(context, getItem(getBindingAdapterPosition()).getFileAddress());
+//                FileHelper.openFile(context, getItem(getBindingAdapterPosition()).getFileAddress());
+                conversationListListener.onVideoClicked(getItem(getBindingAdapterPosition()).getFileAddress());
             });
         }
 
@@ -858,7 +859,8 @@ public class ConversationAdapter extends PagedListAdapter<ConversationModel, Bas
             this.serverVideoBinding.imageViewImage.setOnClickListener(v -> {
                 if (getBindingAdapterPosition() == -1 || getItem(getBindingAdapterPosition()) == null)
                     return;
-                FileHelper.openFile(context, getItem(getBindingAdapterPosition()).getFileAddress());
+//                FileHelper.openFile(context, getItem(getBindingAdapterPosition()).getFileAddress());
+                conversationListListener.onVideoClicked(getItem(getBindingAdapterPosition()).getFileAddress());
             });
         }
 

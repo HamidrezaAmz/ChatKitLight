@@ -20,4 +20,6 @@ public interface ConversationListListener<T> {
 
     default void onImageClicked(String url){}
 
+    default void onVideoClicked(String url){}
+
 }
