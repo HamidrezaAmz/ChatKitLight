@@ -14,8 +14,9 @@
             name="conversationListListener"
             type="ir.vasl.chatkitlight.ui.callback.ConversationListListener" />
 
-        <import type="ir.vasl.chatkitlight.utils.globalEnums.FileType"
-            alias="type"/>
+        <import
+            alias="type"
+            type="ir.vasl.chatkitlight.utils.globalEnums.FileType" />
     </data>
 
     <RelativeLayout
@@ -53,47 +54,47 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_below="@id/textView_message"
-                    android:layout_marginStart="60dp"
-                    android:layout_marginEnd="60dp"
-                    android:layoutDirection="ltr"
+                    android:layout_marginStart="20dp"
                     android:layout_marginTop="@dimen/global_margin"
-                    android:visibility='@{conversationModel.fileType.equals(type.TEXT_RATE) ? View.VISIBLE : View.GONE}'
-                    android:orientation="horizontal">
+                    android:layout_marginEnd="20dp"
+                    android:layoutDirection="ltr"
+                    android:orientation="horizontal"
+                    android:visibility='@{conversationModel.fileType.equals(type.TEXT_RATE) ? View.VISIBLE : View.GONE}'>
 
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:gravity="center"
-                        android:minWidth="100dp"
-                        android:paddingRight="10dp"
-                        android:paddingBottom="6dp"
-                        android:paddingLeft="10dp"
-                        android:paddingTop="6dp"
-                        android:textColor="@color/white"
-                        android:background="@drawable/rounded_bordered_white"
-                        android:textSize="12sp"
-                        android:textStyle="bold"
                         android:layout_marginRight="@dimen/global_margin_extra"
+                        android:background="@drawable/rounded_bordered_white"
+                        android:fontFamily="@font/app_font"
+                        android:gravity="center"
+                        android:minWidth="100dp"
                         android:onClick="@{() -> conversationListListener.systemSupportClicked()}"
+                        android:paddingLeft="10dp"
+                        android:paddingTop="6dp"
+                        android:paddingRight="10dp"
+                        android:paddingBottom="6dp"
                         android:text="پشتیبانی"
-                        android:fontFamily="@font/app_font"/>
+                        android:textColor="@color/white"
+                        android:textSize="12sp"
+                        android:textStyle="bold" />
 
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:background="@drawable/rounded_gradient_blue"
+                        android:fontFamily="@font/app_font"
                         android:gravity="center"
                         android:minWidth="100dp"
-                        android:paddingRight="10dp"
-                        android:paddingBottom="6dp"
+                        android:onClick="@{() -> conversationListListener.systemRateClicked()}"
                         android:paddingLeft="10dp"
                         android:paddingTop="6dp"
+                        android:paddingRight="10dp"
+                        android:paddingBottom="6dp"
                         android:text="امتیازدهی"
                         android:textColor="@color/white"
                         android:textSize="12sp"
-                        android:background="@drawable/rounded_gradient_blue"
-                        android:textStyle="bold"
-                        android:onClick="@{() -> conversationListListener.systemRateClicked()}"
-                        android:fontFamily="@font/app_font"/>
+                        android:textStyle="bold" />
 
                 </LinearLayout>
 
