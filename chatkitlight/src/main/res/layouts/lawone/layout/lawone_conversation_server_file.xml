@@ -22,7 +22,6 @@
         android:layoutDirection="ltr"
         android:padding="@dimen/global_padding">
 
-
         <RelativeLayout
             android:id="@+id/linearLayour_bubble"
             android:layout_width="wrap_content"
@@ -68,6 +67,7 @@
                         android:layout_marginRight="@dimen/global_margin_x_extra"
                         android:ellipsize="start"
                         android:gravity="left"
+                        android:maxLength="18"
                         android:singleLine="true"
                         android:text='@{!conversationModel.title.equals("") ? conversationModel.title : conversationModel.fileAddress.substring(conversationModel.fileAddress.lastIndexOf("/") + 1)}'
                         android:textSize="@dimen/input_text_size_middle"

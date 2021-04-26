@@ -32,8 +32,8 @@
             android:layout_alignParentRight="true">
 
             <RelativeLayout
-                style="@style/ChatBubbleStyle"
                 android:id="@+id/relative_bubble"
+                style="@style/ChatBubbleStyle"
                 android:layout_alignParentRight="true"
                 android:background="@drawable/lawone_shape_curve_client"
                 android:gravity="right"
@@ -54,17 +54,16 @@
                         app:srcCompat="@drawable/ic_file_lawone" />
 
                     <ProgressBar
+                        android:id="@+id/progressbar_loading"
                         android:layout_width="@dimen/icon_circle_size"
                         android:layout_height="@dimen/icon_circle_size"
                         android:layout_gravity="right|center_vertical"
-                        android:padding="4dp"
                         android:background="@color/lawone_client_bubble_background"
-                        android:visibility="gone"
                         android:indeterminate="true"
-                        android:indeterminateTintMode="src_atop"
                         android:indeterminateTint="@color/gray"
-                        android:id="@+id/progressbar_loading"
-                        />
+                        android:indeterminateTintMode="src_atop"
+                        android:padding="4dp"
+                        android:visibility="gone" />
 
                     <TextView
                         style="@style/TextViewTitleStyle"
@@ -76,6 +75,7 @@
                         android:ellipsize="start"
                         android:gravity="left"
                         android:maxWidth="@dimen/chat_item_max_width"
+                        android:maxLength="18"
                         android:singleLine="true"
                         android:text='@{!conversationModel.title.equals("") ? conversationModel.title : conversationModel.fileAddress.substring(conversationModel.fileAddress.lastIndexOf("/") + 1)}'
                         android:textColor="@color/lawone_client_text"
@@ -106,30 +106,30 @@
                 android:id="@+id/waveView"
                 android:layout_width="@dimen/download_circle_size"
                 android:layout_height="@dimen/download_circle_size"
-                android:layout_toLeftOf="@id/relative_bubble"
                 android:layout_marginTop="@dimen/download_circle_size_half"
                 android:layout_marginRight="-45dp"
+                android:layout_toLeftOf="@id/relative_bubble"
                 android:visibility="visible"
                 app:wlv_borderColor="@color/warm_grey"
                 app:wlv_borderWidth="3dp"
                 app:wlv_progressValue="0"
                 app:wlv_round_rectangle="true"
-                app:wlv_wave_background_Color="@color/white"
                 app:wlv_shapeType="circle"
                 app:wlv_titleCenter="@string/download"
                 app:wlv_titleCenterColor="@color/dark_grey_two"
                 app:wlv_titleCenterSize="10sp"
                 app:wlv_triangle_direction="north"
                 app:wlv_waveAmplitude="85"
-                app:wlv_waveColor="@color/red" />
+                app:wlv_waveColor="@color/red"
+                app:wlv_wave_background_Color="@color/white" />
 
             <androidx.appcompat.widget.AppCompatImageView
                 android:id="@+id/imageView_checkmark"
                 android:layout_width="@dimen/download_circle_size"
                 android:layout_height="@dimen/download_circle_size"
-                android:layout_toLeftOf="@id/relative_bubble"
                 android:layout_marginTop="@dimen/download_circle_size_half"
                 android:layout_marginRight="-45dp"
+                android:layout_toLeftOf="@id/relative_bubble"
                 android:scaleType="centerInside"
                 android:visibility="gone"
                 app:srcCompat="@drawable/ic_check_black_24dp" />
@@ -137,20 +137,20 @@
             <ir.vasl.chatkitlight.ui.customview.ImageViewCustom
                 android:id="@+id/imageView_avatar"
                 style="@style/AvatarStyle"
-                app:srcCompat="@drawable/ic_user"
                 android:layout_alignParentRight="true"
-                app:round_image="true" />
+                app:round_image="true"
+                app:srcCompat="@drawable/ic_user" />
 
         </RelativeLayout>
 
         <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginRight="@dimen/avatar_circle_size_half"
-            android:layout_marginLeft="@dimen/avatar_circle_size_half"
             android:layout_below="@id/linearLayour_bubble"
-            android:gravity="right|center_vertical"
             android:layout_alignParentRight="true"
+            android:layout_marginLeft="@dimen/avatar_circle_size_half"
+            android:layout_marginRight="@dimen/avatar_circle_size_half"
+            android:gravity="right|center_vertical"
             android:layoutDirection="rtl"
             android:orientation="horizontal">
 
