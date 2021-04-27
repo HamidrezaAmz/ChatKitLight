@@ -39,6 +39,19 @@ public class ConversationListViewModel extends AndroidViewModel {
         DatabaseLayer.getInstance(application).getChatKitDatabase().getChatDao().insert(conversationModel);
     }
 
+    public void addNewConversationToTop(ConversationModel conversationModel) {
+        ArrayList<ConversationModel> convs = (ArrayList<ConversationModel>) DatabaseLayer.getInstance(application).getChatKitDatabase().getChatDao().getAllSimple(conversationModel.getChatId());
+        if(convs == null){
+            DatabaseLayer.getInstance(application).getChatKitDatabase().getChatDao().insert(conversationModel);
+        } else {
+            DatabaseLayer.getInstance(application).getChatKitDatabase().getChatDao().deleteAll();
+            ArrayList<ConversationModel> convs2 = new ArrayList<>();
+            convs2.add(conversationModel);
+            convs2.addAll(convs);
+            DatabaseLayer.getInstance(application).getChatKitDatabase().getChatDao().insertAll(convs2);
+        }
+    }
+
     public void addNewConversation(ArrayList<ConversationModel> conversationModels) {
         DatabaseLayer.getInstance(application).getChatKitDatabase().getChatDao().insertAll(conversationModels);
     }
