@@ -43,19 +43,17 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
 
+                <ir.vasl.chatkitlight.ui.customview.ImageViewCustom
+                    android:id="@+id/imageView_image"
+                    android:layout_width="match_parent"
+                    android:layout_height="250dp"
+                    android:scaleType="centerCrop" />
+
                 <androidx.appcompat.widget.AppCompatImageView
                     android:layout_width="30dp"
                     android:layout_height="30dp"
                     android:layout_gravity="center"
-                    app:srcCompat="@drawable/ic_play"
-                    />
-
-            <ir.vasl.chatkitlight.ui.customview.ImageViewCustom
-                android:layout_width="match_parent"
-                android:layout_height="250dp"
-                android:id="@+id/imageView_image"
-                android:scaleType="centerCrop"
-                />
+                    app:srcCompat="@drawable/ic_play" />
 
             </FrameLayout>
 
