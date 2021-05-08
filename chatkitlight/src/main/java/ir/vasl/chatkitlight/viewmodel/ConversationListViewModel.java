@@ -9,6 +9,7 @@ import androidx.paging.LivePagedListBuilder;
 import androidx.paging.PagedList;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import ir.vasl.chatkitlight.database.DatabaseLayer;
 import ir.vasl.chatkitlight.model.ConversationModel;
@@ -131,6 +132,13 @@ public class ConversationListViewModel extends AndroidViewModel {
                 .getChatDao()
                 .getAllSimple(chatId)
                 .size();
+    }
+
+    public List<ConversationModel> getAllDataSimple (String chatId){
+        return DatabaseLayer.getInstance(application)
+                .getChatKitDatabase()
+                .getChatDao()
+                .getAllSimple(chatId);
     }
 
 }
