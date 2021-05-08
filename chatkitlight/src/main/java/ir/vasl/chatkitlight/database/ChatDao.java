@@ -19,7 +19,7 @@ public interface ChatDao {
     @Query("SELECT * FROM " + Constants.TABLE_NAME + " WHERE chatId=:chatIdValue ORDER BY id DESC")
     DataSource.Factory<Integer, ConversationModel> getAll(String chatIdValue);
 
-    @Query("SELECT * FROM " + Constants.TABLE_NAME + " WHERE chatId=:chatIdValue")
+    @Query("SELECT * FROM " + Constants.TABLE_NAME + " WHERE chatId=:chatIdValue ORDER BY id DESC")
     List<ConversationModel> getAllSimple(String chatIdValue);
 
     @Query("SELECT * FROM " + Constants.TABLE_NAME + " WHERE chatId=:chatIdValue AND conversationId=:conversationIdValue")

@@ -21,6 +21,8 @@ import com.thin.downloadmanager.DownloadRequest;
 import com.thin.downloadmanager.DownloadStatusListenerV1;
 import com.thin.downloadmanager.ThinDownloadManager;
 
+import java.util.ArrayList;
+
 import ir.vasl.chatkitlight.R;
 import ir.vasl.chatkitlight.databinding.LawoneConversationClientAudioBinding;
 import ir.vasl.chatkitlight.databinding.LawoneConversationClientBinding;
@@ -71,6 +73,15 @@ public class ConversationAdapter extends PagedListAdapter<ConversationModel, Bas
         this.chatStyleEnum = chatStyleEnum;
         this.conversationListListener = conversationListListener;
         this.downloadManager = new ThinDownloadManager();
+    }
+
+    public void addDataToStart(ConversationModel model){
+
+        ArrayList<ConversationModel> data = new ArrayList<>();
+        data.add(model);
+        data.addAll(getCurrentList().snapshot());
+        notifyDataSetChanged();
+
     }
 
     @NonNull
