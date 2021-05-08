@@ -282,11 +282,9 @@ public class ConversationModel {
         if (obj == null || !obj.getClass().equals(getClass()))
             return false;
         ConversationModel model = ((ConversationModel) obj);
-        return model.getId() == id &&
-                model.getConversationId().equals(conversationId) &&
+        return model.getConversationId().equals(conversationId) &&
                 model.getMessage().equals(message) &&
                 model.getTitle().equals(title) &&
-                model.getTime().equals(time) &&
                 model.conversationStatus.getValue().equals(conversationStatus.getValue()) &&
                 ((model.fileAddress == null && fileAddress == null) || (model.fileAddress != null && model.fileAddress.equals(fileAddress))) &&
                 ((model.imageUrl == null && imageUrl == null) || model.getImageUrl().equals(imageUrl));

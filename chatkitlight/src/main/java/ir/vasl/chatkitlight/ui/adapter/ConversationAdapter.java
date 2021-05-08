@@ -75,15 +75,6 @@ public class ConversationAdapter extends PagedListAdapter<ConversationModel, Bas
         this.downloadManager = new ThinDownloadManager();
     }
 
-    public void addDataToStart(ConversationModel model){
-
-        ArrayList<ConversationModel> data = new ArrayList<>();
-        data.add(model);
-        data.addAll(getCurrentList().snapshot());
-        notifyDataSetChanged();
-
-    }
-
     @NonNull
     @Override
     public BaseViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
@@ -491,7 +482,6 @@ public class ConversationAdapter extends PagedListAdapter<ConversationModel, Bas
     }
 
     private BaseViewHolder LawoneViewHolderCreator(ViewGroup parent, LayoutInflater inflater, int viewType) {
-        Log.e("tag", "LawoneViewHolderCreator: " + viewType);
         if (viewType >= 100000) {
             LawoneConversationSystemBinding lawoneConversationSystemBinding = DataBindingUtil.inflate(inflater, R.layout.lawone_conversation_system, parent, false);
             return new ConversationViewHolder(lawoneConversationSystemBinding);
