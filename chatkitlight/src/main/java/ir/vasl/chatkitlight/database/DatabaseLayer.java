@@ -17,7 +17,8 @@ public class DatabaseLayer {
                 .allowMainThreadQueries()
                 .addMigrations(DbMigration.MIGRATION_1_2,
                         DbMigration.MIGRATION_2_3,
-                        DbMigration.MIGRATION_3_4)
+                        DbMigration.MIGRATION_3_4,
+                        DbMigration.MIGRATION_4_5)
                 .build();
         DatabaseLayer = this;
     }

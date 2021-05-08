@@ -29,4 +29,10 @@ public class DbMigration {
                     + " ADD COLUMN imageRes TEXT");
         }
     };
+
+    static final Migration MIGRATION_4_5 = new Migration(4, 5) {
+        @Override
+        public void migrate(SupportSQLiteDatabase database) {
+        }
+    };
 }
