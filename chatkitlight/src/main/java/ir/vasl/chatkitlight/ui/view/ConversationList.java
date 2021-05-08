@@ -195,4 +195,8 @@ public class ConversationList
         }
     }
 
+    @Override
+    public void listSubmitted() {
+        scrollToPosition(adapter.getItemCount());
+    }
 }

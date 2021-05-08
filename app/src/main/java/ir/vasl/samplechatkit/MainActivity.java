@@ -49,6 +49,8 @@ public class MainActivity
     private static final String chatID = "tempChatId";
     private static final String TAG = "MainActivity";
 
+    int firstId = 200;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -64,7 +66,7 @@ public class MainActivity
         initViewModel();
 
         conversationView.setShowBlockerView(false); // block input
-        conversationView.showHintView("این رو بخون بعد بگو متوجه شدم", "متوجه شدم"); // hint view
+//        conversationView.showHintView("این رو بخون بعد بگو متوجه شدم", "متوجه شدم"); // hint view
     }
 
     @Override
@@ -106,6 +108,7 @@ public class MainActivity
         List<ConversationModel> allModels = DatabaseLayer.getInstance(MyApplication.getApp()).getChatKitDatabase().getChatDao().getAllSimple(chatID);
 
         ConversationModel conversationModel = new ConversationModel(chatID, UUID.randomUUID().toString());
+        conversationModel.setId(firstId ++);
         conversationModel.setTitle("");
         conversationModel.setMessage(input.toString());
         conversationModel.setTime(TimeUtils.getCurrTime());

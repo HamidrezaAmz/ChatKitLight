@@ -29,4 +29,6 @@ public interface ConversationListListener<T> {
     default void systemRateClicked(){
 
     }
+
+    default void listSubmitted(){}
 }

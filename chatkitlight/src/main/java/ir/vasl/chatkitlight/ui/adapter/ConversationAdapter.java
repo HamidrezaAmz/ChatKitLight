@@ -72,13 +72,13 @@ public class ConversationAdapter extends PagedListAdapter<ConversationModel, Bas
         super(new DiffUtil.ItemCallback<ConversationModel>() {
             @Override
             public boolean areItemsTheSame(@NonNull ConversationModel oldItem, @NonNull ConversationModel newItem) {
-                Log.e("TAG", "areItemsTheSame: " );
+                Log.e("TAG", "areItemsTheSame: ");
                 return oldItem.getConversationId().equals(newItem.getConversationId());
             }
 
             @Override
             public boolean areContentsTheSame(@NonNull ConversationModel oldItem, @NonNull ConversationModel newItem) {
-                Log.e("TAG", "areContentsTheSame: " );
+                Log.e("TAG", "areContentsTheSame: ");
                 return oldItem.equals(newItem);
             }
         });
@@ -432,24 +432,10 @@ public class ConversationAdapter extends PagedListAdapter<ConversationModel, Bas
 
     @Override
     public void submitList(@Nullable PagedList<ConversationModel> pagedList) {
-        if(pagedList == null) {
-            super.submitList(null);
-            return;
-        }
-        pagedList.addWeakCallback(pagedList.snapshot(), new PagedList.Callback() {
+        super.submitList(pagedList, new Runnable() {
             @Override
-            public void onChanged(int position, int count) {
-
-            }
-
-            @Override
-            public void onInserted(int position, int count) {
-                ConversationAdapter.super.submitList(pagedList);
-            }
-
-            @Override
-            public void onRemoved(int position, int count) {
-
+            public void run() {
+                conversationListListener.listSubmitted();
             }
         });
     }
