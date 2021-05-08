@@ -16,6 +16,7 @@ import androidx.appcompat.widget.AppCompatImageView;
 import androidx.databinding.DataBindingUtil;
 import androidx.paging.PagedList;
 import androidx.paging.PagedListAdapter;
+import androidx.recyclerview.widget.DiffUtil;
 
 import com.thin.downloadmanager.DownloadRequest;
 import com.thin.downloadmanager.DownloadStatusListenerV1;
@@ -68,7 +69,17 @@ public class ConversationAdapter extends PagedListAdapter<ConversationModel, Bas
     private int lastPlayingPos = -1;
 
     public ConversationAdapter(ConversationListListener conversationListListener, ChatStyleEnum chatStyleEnum) {
-        super(new ConversationDiffCallback());
+        super(new DiffUtil.ItemCallback<ConversationModel>() {
+            @Override
+            public boolean areItemsTheSame(@NonNull ConversationModel oldItem, @NonNull ConversationModel newItem) {
+                return oldItem.getConversationId().equals(newItem.getConversationId());
+            }
+
+            @Override
+            public boolean areContentsTheSame(@NonNull ConversationModel oldItem, @NonNull ConversationModel newItem) {
+                return oldItem.equals(newItem);
+            }
+        });
         this.setHasStableIds(true);
         this.chatStyleEnum = chatStyleEnum;
         this.conversationListListener = conversationListListener;
