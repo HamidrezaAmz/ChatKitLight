@@ -125,4 +125,12 @@ public class ConversationListViewModel extends AndroidViewModel {
                 .deleteAll();
     }
 
+    public int getConversationSize(String chatId) {
+        return DatabaseLayer.getInstance(application)
+                .getChatKitDatabase()
+                .getChatDao()
+                .getAllSimple(chatId)
+                .size();
+    }
+
 }

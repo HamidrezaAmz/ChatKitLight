@@ -28,7 +28,7 @@ import ir.vasl.chatkitlight.utils.globalEnums.FileType;
 public class ConversationModel {
 
     @NonNull
-    @PrimaryKey(autoGenerate = true)
+    @PrimaryKey
     @ColumnInfo(name = "id")
     private int id;
 
