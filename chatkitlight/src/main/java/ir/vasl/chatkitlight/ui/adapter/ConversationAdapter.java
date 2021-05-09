@@ -72,13 +72,13 @@ public class ConversationAdapter extends PagedListAdapter<ConversationModel, Bas
         super(new DiffUtil.ItemCallback<ConversationModel>() {
             @Override
             public boolean areItemsTheSame(@NonNull ConversationModel oldItem, @NonNull ConversationModel newItem) {
-                Log.e("TAG", "areItemsTheSame: " + oldItem.getConversationId() + " " + newItem.getConversationId());
-                return oldItem.getConversationId().equals(newItem.getConversationId());
+                Log.e("TAG", "areItemsTheSame: " + oldItem.getMessage() + " " + newItem.getMessage());
+                return oldItem.getId() == newItem.getId();
             }
 
             @Override
             public boolean areContentsTheSame(@NonNull ConversationModel oldItem, @NonNull ConversationModel newItem) {
-                Log.e("TAG", "areContentsTheSame: " + oldItem.equals(newItem));
+                Log.e("TAG", "areContentsTheSame: " + oldItem.getMessage() + " " + newItem.getMessage() + " " + oldItem.equals(newItem));
                 return oldItem.equals(newItem);
             }
         });
