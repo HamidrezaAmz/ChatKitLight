@@ -470,11 +470,11 @@ public class ConversationAdapter extends PagedListAdapter<ConversationModel, Bas
 
     @Override
     public int getItemCount() {
-
-        if (getCurrentList() == null || getCurrentList().snapshot().size() == 0)
-            return 1;
-
-        return getCurrentList().snapshot().size();
+        return super.getItemCount();
+//        if (getCurrentList() == null || getCurrentList().snapshot().size() == 0)
+//            return 1;
+//
+//        return getCurrentList().snapshot().size();
     }
 
     @Override
