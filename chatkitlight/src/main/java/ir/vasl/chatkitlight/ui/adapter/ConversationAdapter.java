@@ -432,12 +432,7 @@ public class ConversationAdapter extends PagedListAdapter<ConversationModel, Bas
 
     @Override
     public void submitList(@Nullable PagedList<ConversationModel> pagedList) {
-        super.submitList(pagedList, new Runnable() {
-            @Override
-            public void run() {
-                conversationListListener.listSubmitted();
-            }
-        });
+        super.submitList(pagedList);
     }
 
     @Override

@@ -81,7 +81,6 @@ public class ConversationList
 
         conversationListViewModel.getLiveData().observeForever(conversationModels -> {
             int i = adapter.getItemCount();
-            adapter.submitList(null);
             adapter.submitList(conversationModels);
 //            scroll(i, 75);
         });
@@ -193,10 +192,5 @@ public class ConversationList
         if (delta < 0) {
             this.scrollBy(0, -delta);
         }
-    }
-
-    @Override
-    public void listSubmitted() {
-        scrollToPosition(adapter.getItemCount());
     }
 }
