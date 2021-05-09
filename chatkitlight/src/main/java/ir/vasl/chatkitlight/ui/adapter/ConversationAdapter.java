@@ -72,8 +72,8 @@ public class ConversationAdapter extends PagedListAdapter<ConversationModel, Bas
         super(new DiffUtil.ItemCallback<ConversationModel>() {
             @Override
             public boolean areItemsTheSame(@NonNull ConversationModel oldItem, @NonNull ConversationModel newItem) {
-                Log.e("TAG", "areItemsTheSame: " + oldItem.getMessage() + " " + newItem.getMessage());
-                return oldItem.getId() == newItem.getId();
+                Log.e("TAG", "areItemsTheSame: " + oldItem.getMessage() + " " + newItem.getMessage() + " " + oldItem.getConversationId().equals(newItem.getConversationId()) );
+                return oldItem.getConversationId().equals(newItem.getConversationId());
             }
 
             @Override
@@ -125,7 +125,6 @@ public class ConversationAdapter extends PagedListAdapter<ConversationModel, Bas
     }
 
     private void LawoneBinder(BaseViewHolder holder, int position) {
-        Log.e("TAG", "LawoneBinder: " + position);
         if (holder.getItemViewType() >= 100000) {
             ConversationModel model = getItem(position);
             ((ConversationViewHolder) holder).lawoneConversationSystemBinding.setConversationModel(model);
