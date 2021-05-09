@@ -286,6 +286,12 @@ public class ConversationView
     }
 
     @Override
+    public void onListSubmitted() {
+        if (conversationViewListener != null)
+            conversationViewListener.onListSubmitted();
+    }
+
+    @Override
     public void onSupportClicked() {
         if (conversationViewListener != null)
             conversationViewListener.onSupportClicked();

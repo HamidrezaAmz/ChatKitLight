@@ -193,4 +193,10 @@ public class ConversationList
             this.scrollBy(0, -delta);
         }
     }
+
+    @Override
+    public void listSubmitted() {
+        if (dialogMenuListener != null)
+            dialogMenuListener.onListSubmitted();
+    }
 }

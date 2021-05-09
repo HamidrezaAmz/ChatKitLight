@@ -33,4 +33,6 @@ public interface DialogMenuListener<T> {
     default void onSupportClicked(){}
 
     default void onRateClicked(){}
+
+    default void onListSubmitted(){}
 }
