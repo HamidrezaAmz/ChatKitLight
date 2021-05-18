@@ -789,7 +789,7 @@ public class ConversationAdapter extends PagedListAdapter<ConversationModel, Bas
             }
             if (lawoneClientFileBinding != null) { //client file
                 if (FileHelper.checkFileExistence(context, getItem(position).getTitle())) {
-                    downloadProgressDone(lawoneClientFileBinding.waveView, lawoneClientFileBinding.imageViewCheckmark);
+                    downloadProgressDone(lawoneClientFileBinding.waveView, lawoneClientFileBinding.imageViewCheckmark, true);
                 }
                 try {
                     if (position != -1 && getItem(position) != null && getItem(position).getImageRes().length() > 0)
@@ -800,7 +800,7 @@ public class ConversationAdapter extends PagedListAdapter<ConversationModel, Bas
             }
             if (lawoneServerFileBinding != null) { //server file
                 if (FileHelper.checkFileExistence(context, getItem(position).getTitle())) {
-                    downloadProgressDone(lawoneServerFileBinding.waveView, lawoneServerFileBinding.imageViewCheckmark);
+                    downloadProgressDone(lawoneServerFileBinding.waveView, lawoneServerFileBinding.imageViewCheckmark, true);
                 }
                 try {
                     if (position != -1 && getItem(position) != null && getItem(position).getImageRes().length() > 0)
@@ -811,7 +811,7 @@ public class ConversationAdapter extends PagedListAdapter<ConversationModel, Bas
             }
             if (lawoneClientAudioBinding != null) { //client audio
                 if (FileHelper.checkFileExistence(context, getItem(position).getTitle())) {
-                    downloadProgressDone(lawoneClientAudioBinding.waveView, null);
+                    downloadProgressDone(lawoneClientAudioBinding.waveView, null, false);
                     lawoneClientAudioBinding.wave.setRawData(FileHelper.getFileBytes(context, getItem(getBindingAdapterPosition()).getTitle()));
                 }
                 try {
@@ -823,7 +823,7 @@ public class ConversationAdapter extends PagedListAdapter<ConversationModel, Bas
             }
             if (lawoneServerAudioBinding != null) { //server audio
                 if (FileHelper.checkFileExistence(context, getItem(position).getTitle())) {
-                    downloadProgressDone(lawoneServerAudioBinding.waveView, null);
+                    downloadProgressDone(lawoneServerAudioBinding.waveView, null, false);
                     lawoneServerAudioBinding.wave.setRawData(FileHelper.getFileBytes(context, getItem(getBindingAdapterPosition()).getTitle()));
                 }
                 try {
@@ -835,13 +835,13 @@ public class ConversationAdapter extends PagedListAdapter<ConversationModel, Bas
             }
             if (clientAudioBinding != null) { //client audio
                 if (FileHelper.checkFileExistence(context, getItem(position).getTitle())) {
-                    downloadProgressDone(clientAudioBinding.waveView, null);
+                    downloadProgressDone(clientAudioBinding.waveView, null, false);
                     clientAudioBinding.wave.setRawData(FileHelper.getFileBytes(context, getItem(getBindingAdapterPosition()).getTitle()));
                 }
             }
             if (serverAudioBinding != null) { //server audio
                 if (FileHelper.checkFileExistence(context, getItem(position).getTitle())) {
-                    downloadProgressDone(serverAudioBinding.waveView, null);
+                    downloadProgressDone(serverAudioBinding.waveView, null, false);
                     serverAudioBinding.wave.setRawData(FileHelper.getFileBytes(context, getItem(getBindingAdapterPosition()).getTitle()));
                 }
             }
@@ -884,12 +884,14 @@ public class ConversationAdapter extends PagedListAdapter<ConversationModel, Bas
             };
         }
 
-        private void downloadProgressDone(WaveLoadingView waveView, AppCompatImageView imageCheck) {
+        private void downloadProgressDone(WaveLoadingView waveView, AppCompatImageView imageCheck, boolean showCheckMark) {
             if (waveView != null) {
                 waveView.setCenterTitle("");
                 waveView.setProgressValue(100);
                 waveView.setWaveColor(context.getResources().getColor(R.color.green));
             }
+            if(imageCheck != null && showCheckMark)
+                imageCheck.setVisibility(View.VISIBLE);
         }
 
         // DEFAULT - AV CONSTRUCTORS
