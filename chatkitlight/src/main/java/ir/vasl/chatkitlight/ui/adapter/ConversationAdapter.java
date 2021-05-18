@@ -267,7 +267,7 @@ public class ConversationAdapter extends PagedListAdapter<ConversationModel, Bas
                     holder.onBind(position);
                     ((ConversationViewHolder) holder).clientImageBinding.setConversationModel(model);
                     ((ConversationViewHolder) holder).clientImageBinding.setConversationListListener(this);
-                    if(model == null)
+                    if (model == null)
                         return;
                     ((ConversationViewHolder) holder).clientImageBinding.imageViewImage.setImageUrlCurve(model.getFileAddress(), 12);
 //                    Glide.with(context)
@@ -801,8 +801,12 @@ public class ConversationAdapter extends PagedListAdapter<ConversationModel, Bas
                     return;
                 }
                 if (FileHelper.checkFileExistence(context, FileHelper.getFileName(getItem(getBindingAdapterPosition()).getFileAddress()))) {
+                    if (mp != null && mp.isPlaying()) {
+                        mp.stop();
+                    }
                     if (this.clientAudioBinding.getIsPlaying()) {
-                        mp.pause();
+                        if (mp != null)
+                            mp.pause();
                         this.clientAudioBinding.setIsPlaying(false);
                         return;
                     }
@@ -876,8 +880,12 @@ public class ConversationAdapter extends PagedListAdapter<ConversationModel, Bas
                     return;
                 }
                 if (FileHelper.checkFileExistence(context, FileHelper.getFileName(getItem(getBindingAdapterPosition()).getFileAddress()))) {
+                    if (mp != null && mp.isPlaying()) {
+                        mp.stop();
+                    }
                     if (this.serverAudioBinding.getIsPlaying()) {
-                        mp.pause();
+                        if (mp != null)
+                            mp.pause();
                         this.serverAudioBinding.setIsPlaying(false);
                         return;
                     }
@@ -976,7 +984,7 @@ public class ConversationAdapter extends PagedListAdapter<ConversationModel, Bas
             this.lawoneClientAudioBinding.frameLayoutFile.setOnClickListener(v -> {
                 if (getBindingAdapterPosition() == -1 || getItem(getBindingAdapterPosition()) == null)
                     return;
-                
+
                 if (!PermissionHelper.checkStoragePermission(context)) {
                     new PermissionDialog(context, () -> conversationListListener.requestStoragePermission()).show();
                     return;
@@ -987,7 +995,7 @@ public class ConversationAdapter extends PagedListAdapter<ConversationModel, Bas
                         lawoneClientAudioBinding.setIsPlaying(false);
                         return;
                     }
-                        mp = new MediaPlayer();
+                    mp = new MediaPlayer();
                     try {
                         mp.setDataSource(getItem(getBindingAdapterPosition()).getFileAddress());
                         mp.prepareAsync();
