@@ -72,13 +72,11 @@ public class ConversationAdapter extends PagedListAdapter<ConversationModel, Bas
         super(new DiffUtil.ItemCallback<ConversationModel>() {
             @Override
             public boolean areItemsTheSame(@NonNull ConversationModel oldItem, @NonNull ConversationModel newItem) {
-                Log.e("TAG", "areItemsTheSame: " + oldItem.getMessage() + " " + newItem.getMessage() + " " + oldItem.getConversationId().equals(newItem.getConversationId()) );
                 return oldItem.getConversationId().equals(newItem.getConversationId());
             }
 
             @Override
             public boolean areContentsTheSame(@NonNull ConversationModel oldItem, @NonNull ConversationModel newItem) {
-                Log.e("TAG", "areContentsTheSame: " + oldItem.getMessage() + " " + newItem.getMessage() + " " + oldItem.equals(newItem));
                 return oldItem.equals(newItem);
             }
         });
@@ -891,8 +889,6 @@ public class ConversationAdapter extends PagedListAdapter<ConversationModel, Bas
                 waveView.setCenterTitle("");
                 waveView.setProgressValue(100);
                 waveView.setWaveColor(context.getResources().getColor(R.color.green));
-                if (imageCheck != null)
-                    imageCheck.setVisibility(View.VISIBLE);
             }
         }
 
