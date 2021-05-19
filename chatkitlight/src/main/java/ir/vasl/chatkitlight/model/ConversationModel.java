@@ -32,6 +32,9 @@ public class ConversationModel {
     @ColumnInfo(name = "id")
     private int id;
 
+    @ColumnInfo(name = "serverSideId")
+    private String serverSideId = "";
+
     @NonNull
     @ColumnInfo(name = "chatId")
     private String chatId = "";
@@ -197,6 +200,14 @@ public class ConversationModel {
 
     public void setImageUrl(String imageUrl) {
         this.imageUrl = imageUrl;
+    }
+
+    public String getServerSideId() {
+        return serverSideId;
+    }
+
+    public void setServerSideId(String serverSideId) {
+        this.serverSideId = serverSideId;
     }
 
     @BindingAdapter("conversationStatusIcon")
