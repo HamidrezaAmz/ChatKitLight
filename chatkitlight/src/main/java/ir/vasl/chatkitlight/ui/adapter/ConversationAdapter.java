@@ -64,6 +64,8 @@ public class ConversationAdapter extends PagedListAdapter<ConversationModel, Bas
     private Context context; //for permission, storage management and intent initialization
     private ThinDownloadManager downloadManager; // one dl mgr for the whole list
     private static MediaPlayer mp; //Media Player to play voices and audios
+    ViewConversationClientAudioBinding globalClientAudioBinding;
+    ViewConversationServerAudioBinding globalServerAudioBinding;
 
     public ConversationAdapter(ConversationListListener conversationListListener, ChatStyleEnum chatStyleEnum) {
         super(new ConversationDiffCallback());
@@ -718,7 +720,8 @@ public class ConversationAdapter extends PagedListAdapter<ConversationModel, Bas
                 @Override
                 public void onProgress(DownloadRequest downloadRequest, long totalBytes, long downloadedBytes, int progress) {
                     waveView.setCenterTitle("");
-                    waveView.setProgressValue(progress);
+                    if (progress >= 0 && progress <= 100)
+                        waveView.setProgressValue(progress);
                     waveView.startAnimation();
                 }
             };
@@ -734,8 +737,12 @@ public class ConversationAdapter extends PagedListAdapter<ConversationModel, Bas
             return new CountDownTimer(1000, 10) {
                 @Override
                 public void onTick(long millisUntilFinished) {
-                    if (mp != null && wave != null)
-                        wave.setProgress(((int) ((((float) mp.getCurrentPosition()) / ((float) mp.getDuration())) * 100)));
+                    try {
+                        if (mp != null && wave != null)
+                            wave.setProgress(((int) ((((float) mp.getCurrentPosition()) / ((float) mp.getDuration())) * 100)));
+                    } catch (Exception e){
+                        wave.setProgress(0);
+                    }
                 }
 
                 @Override
@@ -812,6 +819,14 @@ public class ConversationAdapter extends PagedListAdapter<ConversationModel, Bas
                     }
                     mp = new MediaPlayer();
                     try {
+                        if(globalClientAudioBinding != null)
+                            globalClientAudioBinding.setIsPlaying(false);
+                        if(globalServerAudioBinding != null)
+                            globalServerAudioBinding.setIsPlaying(false);
+
+                        globalServerAudioBinding = null;
+                        globalClientAudioBinding = this.clientAudioBinding;
+
                         mp.setDataSource(getItem(getBindingAdapterPosition()).getFileAddress());
                         mp.prepareAsync();
                         mp.setOnPreparedListener(mp -> {
@@ -891,6 +906,13 @@ public class ConversationAdapter extends PagedListAdapter<ConversationModel, Bas
                     }
                     mp = new MediaPlayer();
                     try {
+                        if(globalClientAudioBinding != null)
+                            globalClientAudioBinding.setIsPlaying(false);
+                        if(globalServerAudioBinding != null)
+                            globalServerAudioBinding.setIsPlaying(false);
+                        globalServerAudioBinding = this.serverAudioBinding;
+                        globalClientAudioBinding = null;
+
                         mp.setDataSource(getItem(getBindingAdapterPosition()).getFileAddress());
                         mp.prepareAsync();
                         mp.setOnPreparedListener(mp -> {
