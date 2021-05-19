@@ -22,8 +22,6 @@ import com.thin.downloadmanager.DownloadRequest;
 import com.thin.downloadmanager.DownloadStatusListenerV1;
 import com.thin.downloadmanager.ThinDownloadManager;
 
-import java.util.ArrayList;
-
 import ir.vasl.chatkitlight.R;
 import ir.vasl.chatkitlight.databinding.LawoneConversationClientAudioBinding;
 import ir.vasl.chatkitlight.databinding.LawoneConversationClientBinding;
@@ -50,7 +48,6 @@ import ir.vasl.chatkitlight.model.ConversationModel;
 import ir.vasl.chatkitlight.ui.base.BaseViewHolder;
 import ir.vasl.chatkitlight.ui.callback.ConversationListListener;
 import ir.vasl.chatkitlight.ui.dialogs.PermissionDialog;
-import ir.vasl.chatkitlight.utils.ConversationDiffCallback;
 import ir.vasl.chatkitlight.utils.FileHelper;
 import ir.vasl.chatkitlight.utils.PermissionHelper;
 import ir.vasl.chatkitlight.utils.globalEnums.ChatStyleEnum;
@@ -890,8 +887,8 @@ public class ConversationAdapter extends PagedListAdapter<ConversationModel, Bas
                 waveView.setProgressValue(100);
                 waveView.setWaveColor(context.getResources().getColor(R.color.green));
             }
-            if(imageCheck != null && showCheckMark)
-                imageCheck.setVisibility(View.VISIBLE);
+            /*if(imageCheck != null && showCheckMark)
+                imageCheck.setVisibility(View.VISIBLE);*/
         }
 
         // DEFAULT - AV CONSTRUCTORS
