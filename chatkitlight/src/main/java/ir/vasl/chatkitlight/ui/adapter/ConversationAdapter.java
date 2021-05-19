@@ -734,7 +734,8 @@ public class ConversationAdapter extends PagedListAdapter<ConversationModel, Bas
         }
 
         private CountDownTimer getAudioSeeker(AudioWaveView wave) {
-            return new CountDownTimer(1000, 10) {
+            MediaPlayer player = mp;
+            return new CountDownTimer(150, 10) {
                 @Override
                 public void onTick(long millisUntilFinished) {
                     try {
@@ -747,8 +748,10 @@ public class ConversationAdapter extends PagedListAdapter<ConversationModel, Bas
 
                 @Override
                 public void onFinish() {
-                    if (mp.isPlaying())
+                    if (mp.isPlaying() && player == mp)
                         this.start();
+                    else
+                        wave.setProgress(0);
                 }
             };
         }
