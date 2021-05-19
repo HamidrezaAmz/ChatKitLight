@@ -63,6 +63,7 @@ public class ConversationAdapter extends PagedListAdapter<ConversationModel, Bas
     private ChatStyleEnum chatStyleEnum;
     private Context context; //for permission, storage management and intent initialization
     private ThinDownloadManager downloadManager; // one dl mgr for the whole list
+    private static MediaPlayer mp; //Media Player to play voices and audios
 
     public ConversationAdapter(ConversationListListener conversationListListener, ChatStyleEnum chatStyleEnum) {
         super(new ConversationDiffCallback());
@@ -619,7 +620,6 @@ public class ConversationAdapter extends PagedListAdapter<ConversationModel, Bas
 
     private class ConversationViewHolder extends BaseViewHolder {
         DownloadRequest downloadRequest = null; //download request for different file types
-        MediaPlayer mp; //Media Player to play voices and audios
 
         //DEFAULT - AV
         private ViewConversationClientBinding clientTextBinding;
