@@ -261,6 +261,12 @@ public class ConversationInput
 
         getInputEditText().setVisibility(VISIBLE);
         getAttachmentButton().setVisibility(VISIBLE);
+
+        if (!canShowAttachment)
+            getAttachmentButton().setVisibility(GONE);
+        else
+            getAttachmentButton().setVisibility(VISIBLE);
+
     }
 
     private void init(Context context, AttributeSet attrs) {

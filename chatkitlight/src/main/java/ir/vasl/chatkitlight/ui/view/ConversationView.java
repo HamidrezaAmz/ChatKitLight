@@ -277,6 +277,9 @@ public class ConversationView
     public void onLessThanSecond() {
         if (conversationViewListener != null)
             conversationViewListener.onVoiceRecordCanceled();
+        if (!canShowAttachment) {
+            conversationInput.getAttachmentButton().setVisibility(INVISIBLE);
+        }
     }
 
     @Override
