@@ -63,6 +63,9 @@ public class ConversationList
         this.setItemAnimator(null);
         this.setAdapter(adapter);
         this.adapter.notifyDataSetChanged();
+
+        this.addItemDecoration(new HeaderItemDecoration(this, (HeaderItemDecoration.StickyHeaderInterface) adapter));
+
     }
 
     public void setConversationListViewModel(ConversationListViewModel conversationListViewModel) {

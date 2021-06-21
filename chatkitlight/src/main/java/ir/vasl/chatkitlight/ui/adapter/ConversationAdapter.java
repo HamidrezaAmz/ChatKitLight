@@ -9,6 +9,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ProgressBar;
+import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -21,6 +22,8 @@ import androidx.recyclerview.widget.DiffUtil;
 import com.thin.downloadmanager.DownloadRequest;
 import com.thin.downloadmanager.DownloadStatusListenerV1;
 import com.thin.downloadmanager.ThinDownloadManager;
+
+import java.util.Date;
 
 import ir.vasl.chatkitlight.R;
 import ir.vasl.chatkitlight.databinding.LawoneConversationClientAudioBinding;
@@ -48,15 +51,19 @@ import ir.vasl.chatkitlight.model.ConversationModel;
 import ir.vasl.chatkitlight.ui.base.BaseViewHolder;
 import ir.vasl.chatkitlight.ui.callback.ConversationListListener;
 import ir.vasl.chatkitlight.ui.dialogs.PermissionDialog;
+import ir.vasl.chatkitlight.ui.view.HeaderItemDecoration;
 import ir.vasl.chatkitlight.utils.FileHelper;
 import ir.vasl.chatkitlight.utils.PermissionHelper;
+import ir.vasl.chatkitlight.utils.TimeUtils;
 import ir.vasl.chatkitlight.utils.globalEnums.ChatStyleEnum;
 import ir.vasl.chatkitlight.utils.globalEnums.ConversationType;
 import me.itangqi.waveloadingview.WaveLoadingView;
 import rm.com.audiowave.AudioWaveView;
 
 @SuppressWarnings("rawtypes")
-public class ConversationAdapter extends PagedListAdapter<ConversationModel, BaseViewHolder> implements ConversationListListener {
+public class ConversationAdapter
+        extends PagedListAdapter<ConversationModel, BaseViewHolder>
+        implements ConversationListListener, HeaderItemDecoration.StickyHeaderInterface {
 
     private Context context; // for permission, storage management and intent initialization
     private ConversationListListener conversationListListener;
@@ -725,6 +732,51 @@ public class ConversationAdapter extends PagedListAdapter<ConversationModel, Bas
                 }
             }
         };
+    }
+
+    @Override
+    public int getHeaderPositionForItem(int itemPosition) {
+        int headerPosition = 0;
+        do {
+            if (this.isHeader(itemPosition)) {
+                headerPosition = itemPosition;
+                break;
+            }
+            itemPosition -= 1;
+        } while (itemPosition >= 0);
+        return headerPosition;
+    }
+
+    @Override
+    public int getHeaderLayout(int headerPosition) {
+        return R.layout.header_date;
+    }
+
+    @Override
+    public void bindHeaderData(View header, int headerPosition) {
+        ((TextView) header.findViewById(R.id.textView_header)).setText(TimeUtils.getReadableHumanTime(getItem(headerPosition).getTime()));
+    }
+
+    @Override
+    public boolean isHeader(int itemPosition) {
+        if(true)
+            return true;
+        if(itemPosition == 0)
+            return true;
+        if(getItem(itemPosition).getTime().contains(":") || getItem(itemPosition - 1).getTime().contains(":"))
+            return false;
+        long last = Long.parseLong(getItem(itemPosition - 1).getTime());
+        long next = Long.parseLong(getItem(itemPosition).getTime());
+        Date lastDate = new Date(last);
+        Date nextDate = new Date(next);
+        lastDate.setHours(0);
+        lastDate.setMinutes(0);
+        lastDate.setSeconds(0);
+        nextDate.setHours(0);
+        nextDate.setMinutes(0);
+        nextDate.setSeconds(0);
+
+        return lastDate.compareTo(nextDate) == 1;
     }
 
     private class ConversationViewHolder extends BaseViewHolder {

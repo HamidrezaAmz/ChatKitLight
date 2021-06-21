@@ -56,4 +56,7 @@ public interface ChatDao {
     @Query("DELETE FROM " + Constants.TABLE_NAME)
     void deleteAll();
 
+    @Query("SELECT * FROM " + Constants.TABLE_NAME + " WHERE chatId=:chatIdValue ORDER BY time ASC LIMIT 1")
+    ConversationModel getLast(String chatIdValue);
+
 }

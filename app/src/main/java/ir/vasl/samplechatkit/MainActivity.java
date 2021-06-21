@@ -20,6 +20,7 @@ import androidx.core.app.ActivityCompat;
 import androidx.lifecycle.ViewModelProvider;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.UUID;
 
@@ -111,7 +112,8 @@ public class MainActivity
         conversationModel.setId(firstId ++);
         conversationModel.setTitle("");
         conversationModel.setMessage(input.toString());
-        conversationModel.setTime(TimeUtils.getCurrTime());
+//        conversationModel.setTime(TimeUtils.getCurrTime());
+        conversationModel.setTime(String.valueOf(System.currentTimeMillis() + (86400 * (tester - 20))));
         if (tester % 3 == 0) {
             conversationModel.setConversationType(ConversationType.CLIENT);
         } else if (tester % 3 == 1) {
