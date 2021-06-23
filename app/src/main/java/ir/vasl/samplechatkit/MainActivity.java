@@ -111,7 +111,8 @@ public class MainActivity
         conversationModel.setId(firstId ++);
         conversationModel.setTitle("");
         conversationModel.setMessage(input.toString());
-        conversationModel.setTime(String.valueOf(System.currentTimeMillis() - (89400 * (tester - 50))));
+        conversationModel.setTime(String.valueOf(System.currentTimeMillis() + (85000000 * (tester - 30))));
+        Toast.makeText(this, TimeUtils.convertDate(System.currentTimeMillis() + (85000000 * (tester - 30))), Toast.LENGTH_SHORT).show();
         if (tester % 3 == 0) {
             conversationModel.setConversationType(ConversationType.CLIENT);
         } else if (tester % 3 == 1) {

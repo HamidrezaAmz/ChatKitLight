@@ -4,6 +4,7 @@ import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.Locale;
+import java.util.concurrent.TimeUnit;
 
 public class TimeUtils {
 
@@ -25,54 +26,54 @@ public class TimeUtils {
 
         // Seconds
         if (seconds <= 60) {
-            return "just now";
+            return "چند لحظه پیش";
         }
         //Minutes
         else if (minutes <= 60) {
             if (minutes == 1) {
-                return "one minute ago";
+                return "یک دقیقه پیش";
             } else {
-                return minutes + " minutes ago";
+                return minutes + " دقیقه قبل";
             }
         }
         //Hours
         else if (hours <= 24) {
             if (hours == 1) {
-                return "an hour ago";
+                return "یک ساعت پیش";
             } else {
-                return hours + " hrs ago";
+                return hours + " ساعت قبل";
             }
         }
         //Days
         else if (days <= 7) {
             if (days == 1) {
-                return "yesterday";
+                return "دیروز";
             } else {
-                return days + " days ago";
+                return days + " روز قبل";
             }
         }
         //Weeks
         else if (weeks <= 4.3) {
             if (weeks == 1) {
-                return "a week ago";
+                return "یک هفته پیش";
             } else {
-                return weeks + " weeks ago";
+                return weeks + " هفته قبل";
             }
         }
         //Months
         else if (months <= 12) {
             if (months == 1) {
-                return "a month ago";
+                return "یک ماه پیش";
             } else {
-                return months + " months ago";
+                return months + " ماه قبل";
             }
         }
         //Years
         else {
             if (years == 1) {
-                return "one year ago";
+                return "یک سال پیش";
             } else {
-                return years + " years ago";
+                return years + " سال قبل";
             }
         }
     }
@@ -105,6 +106,12 @@ public class TimeUtils {
 
     }
 
+    public static String getTime(long millis) {
+        return String.format("%02d:%02d",
+                TimeUnit.MILLISECONDS.toMinutes(millis) % TimeUnit.HOURS.toMinutes(1),
+                TimeUnit.MILLISECONDS.toSeconds(millis) % TimeUnit.MINUTES.toSeconds(1));
+    }
+
     public static String getCurrTime() {
 
         try {
@@ -115,6 +122,35 @@ public class TimeUtils {
         } catch (Exception e) {
             return "--:--";
         }
+    }
+
+    public static String convertDate(long timeStamp) {
+
+        Calendar cal = Calendar.getInstance(Locale.US);
+        cal.setTimeInMillis(timeStamp);
+        int day = cal.get(Calendar.DAY_OF_MONTH);
+        int month = cal.get(Calendar.MONTH);
+        int year = cal.get(Calendar.YEAR);
+
+        String formattedYear = String.format(Locale.US, "%02d", year);
+        String formattedMonth = String.format(Locale.US, "%02d", month);
+        String formattedDay = String.format(Locale.US, "%02d", day);
+
+        return new StringBuilder().append(formattedYear).append("/").append(formattedMonth).append("/").append(formattedDay).toString();
+    }
+
+    public static String convertDateToTime(long timeStamp) {
+
+        Calendar cal = Calendar.getInstance(Locale.ENGLISH);
+        cal.setTimeInMillis(timeStamp);
+        int hours = cal.get(Calendar.HOUR_OF_DAY);
+        int minutes = cal.get(Calendar.MINUTE);
+        int seconds = cal.get(Calendar.SECOND);
+
+        String formattedHours = String.format(Locale.US, "%02d", hours);
+        String formattedMinutes = String.format(Locale.US, "%02d", minutes);
+
+        return new StringBuilder().append(formattedHours).append(":").append(formattedMinutes).toString();
     }
 
 }

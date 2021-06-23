@@ -1,5 +1,6 @@
 package ir.vasl.chatkitlight.ui.adapter;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.media.MediaPlayer;
 import android.net.Uri;
@@ -9,6 +10,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ProgressBar;
+import android.widget.RelativeLayout;
+import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -21,6 +24,8 @@ import androidx.recyclerview.widget.DiffUtil;
 import com.thin.downloadmanager.DownloadRequest;
 import com.thin.downloadmanager.DownloadStatusListenerV1;
 import com.thin.downloadmanager.ThinDownloadManager;
+
+import java.util.Date;
 
 import ir.vasl.chatkitlight.R;
 import ir.vasl.chatkitlight.databinding.LawoneConversationClientAudioBinding;
@@ -48,8 +53,10 @@ import ir.vasl.chatkitlight.model.ConversationModel;
 import ir.vasl.chatkitlight.ui.base.BaseViewHolder;
 import ir.vasl.chatkitlight.ui.callback.ConversationListListener;
 import ir.vasl.chatkitlight.ui.dialogs.PermissionDialog;
+import ir.vasl.chatkitlight.utils.AndroidUtils;
 import ir.vasl.chatkitlight.utils.FileHelper;
 import ir.vasl.chatkitlight.utils.PermissionHelper;
+import ir.vasl.chatkitlight.utils.TimeUtils;
 import ir.vasl.chatkitlight.utils.globalEnums.ChatStyleEnum;
 import ir.vasl.chatkitlight.utils.globalEnums.ConversationType;
 import me.itangqi.waveloadingview.WaveLoadingView;
@@ -118,9 +125,52 @@ public class ConversationAdapter extends PagedListAdapter<ConversationModel, Bas
                 break;
         }
 
+        createDateGroupIfNeeded(holder, position);
+    }
+
+    @SuppressLint("ResourceType")
+    private void createDateGroupIfNeeded(BaseViewHolder holder, int position) {
+
         if(position == 0)
             return;
+        ConversationModel lastModel = getItem(position - 1);
+        ConversationModel nextModel = getItem(position);
 
+        if(lastModel.getTime().contains(":") || nextModel.getTime().contains(":"))
+            return;
+
+        Date lastDate = new Date(Long.parseLong(lastModel.getTime()));
+        Date nextDate = new Date(Long.parseLong(nextModel.getTime()));
+
+        lastDate.setHours(0);
+        lastDate.setSeconds(0);
+        lastDate.setMinutes(0);
+
+        nextDate.setHours(0);
+        nextDate.setSeconds(0);
+        nextDate.setMinutes(0);
+
+        if(nextDate.compareTo(lastDate) == -1 &&
+                ((ViewGroup) holder.itemView).getChildAt(((ViewGroup) holder.itemView).getChildCount() - 1).getId() != 255){
+            LayoutInflater vi = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+            View v = vi.inflate(R.layout.item_date, null);
+            v.setId(255);
+            TextView textView = (TextView) v.findViewById(R.id.textView_date);
+            textView.setText(TimeUtils.convertDate(Long.parseLong(nextModel.getTime())));
+
+            RelativeLayout.LayoutParams params = new RelativeLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+            params.addRule(RelativeLayout.BELOW, R.id.linearLayout_bubble);
+            params.addRule(RelativeLayout.CENTER_HORIZONTAL);
+            params.topMargin = (int) AndroidUtils.convertDpToPixel(16f, context);
+            v.setLayoutParams(params);
+
+            ViewGroup insertPoint = ((ViewGroup) holder.itemView.getRootView());
+            insertPoint.addView(v);
+        } else {
+            if(((ViewGroup) holder.itemView).getChildAt(((ViewGroup) holder.itemView).getChildCount() - 1).getId() == 255){
+                ((ViewGroup) holder.itemView).removeView(((ViewGroup) holder.itemView).getChildAt(((ViewGroup) holder.itemView).getChildCount() - 1));
+            }
+        }
     }
 
     private void LawoneBinder(BaseViewHolder holder, int position) {

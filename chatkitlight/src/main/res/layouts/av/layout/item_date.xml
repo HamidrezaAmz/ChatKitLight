@@ -9,15 +9,18 @@
         android:layout_height="wrap_content"
         android:id="@+id/textView_date"
         android:fontFamily="@font/app_font"
-        android:textSize="13sp"
+        android:textSize="11sp"
         android:textColor="@color/white"
         android:background="@drawable/rounded_grey"
         tools:text="Yesterday"
-        android:paddingRight="@dimen/global_padding_extra"
-        android:paddingLeft="@dimen/global_padding_extra"
+        android:paddingRight="@dimen/global_padding_x_extra"
+        android:paddingLeft="@dimen/global_padding_x_extra"
+        android:paddingTop="@dimen/global_padding_x_small"
+        android:paddingBottom="@dimen/global_padding_x_small"
         android:layout_centerHorizontal="true"
         android:layout_margin="@dimen/global_margin"
-        android:alpha="0.8"
+        android:alpha="0.6"
+        android:gravity="center"
         />
 
 </RelativeLayout>
