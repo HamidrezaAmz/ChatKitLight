@@ -117,6 +117,10 @@ public class ConversationAdapter extends PagedListAdapter<ConversationModel, Bas
                 LawoneBinder(holder, position);
                 break;
         }
+
+        if(position == 0)
+            return;
+
     }
 
     private void LawoneBinder(BaseViewHolder holder, int position) {

@@ -111,7 +111,7 @@ public class MainActivity
         conversationModel.setId(firstId ++);
         conversationModel.setTitle("");
         conversationModel.setMessage(input.toString());
-        conversationModel.setTime(TimeUtils.getCurrTime());
+        conversationModel.setTime(String.valueOf(System.currentTimeMillis() - (89400 * (tester - 50))));
         if (tester % 3 == 0) {
             conversationModel.setConversationType(ConversationType.CLIENT);
         } else if (tester % 3 == 1) {
