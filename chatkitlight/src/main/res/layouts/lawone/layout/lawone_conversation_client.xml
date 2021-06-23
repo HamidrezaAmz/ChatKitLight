@@ -7,7 +7,6 @@
         <import type="android.view.View" />
 
         <import
-            alias="util"
             type="ir.vasl.chatkitlight.utils.TimeUtils" />
 
         <variable
@@ -90,7 +89,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginRight="@dimen/global_margin"
-                android:text='@{conversationModel.time.contains(":") ? conversationModel.time : util.convertDateToTime(Long.parseLong(conversationModel.time))}'
+                android:text='@{conversationModel.time.contains(":") ? conversationModel.time : TimeUtils.convertDateToTime(Long.parseLong(conversationModel.time))}'
                 android:textColor="@color/warm_grey_three"
                 android:textSize="12sp"
                 android:visibility='@{conversationModel.time.equals("") ? View.GONE : View.VISIBLE }' />
