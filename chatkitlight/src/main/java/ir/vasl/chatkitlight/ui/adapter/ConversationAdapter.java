@@ -61,6 +61,8 @@ import ir.vasl.chatkitlight.utils.globalEnums.ChatStyleEnum;
 import ir.vasl.chatkitlight.utils.globalEnums.ConversationType;
 import me.itangqi.waveloadingview.WaveLoadingView;
 import rm.com.audiowave.AudioWaveView;
+import saman.zamani.persiandate.PersianDate;
+import saman.zamani.persiandate.PersianDateFormat;
 
 @SuppressWarnings("rawtypes")
 public class ConversationAdapter extends PagedListAdapter<ConversationModel, BaseViewHolder> implements ConversationListListener {
@@ -156,7 +158,12 @@ public class ConversationAdapter extends PagedListAdapter<ConversationModel, Bas
             View v = vi.inflate(R.layout.item_date, null);
             v.setId(255);
             TextView textView = (TextView) v.findViewById(R.id.textView_date);
-            textView.setText(TimeUtils.convertDate(Long.parseLong(nextModel.getTime())));
+
+            PersianDate pdate = new PersianDate(Long.parseLong(nextModel.getTime()));
+            PersianDateFormat pdformater = new PersianDateFormat("l j F Y");
+
+
+            textView.setText(pdformater.format(pdate));
 
             RelativeLayout.LayoutParams params = new RelativeLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
             params.addRule(RelativeLayout.BELOW, R.id.linearLayout_bubble);
