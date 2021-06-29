@@ -948,8 +948,8 @@ public class ConversationAdapter extends PagedListAdapter<ConversationModel, Bas
                 waveView.setProgressValue(100);
                 waveView.setWaveColor(context.getResources().getColor(R.color.green));
             }
-            /*if(imageCheck != null && showCheckMark)
-                imageCheck.setVisibility(View.VISIBLE);*/
+            if(imageCheck != null && showCheckMark)
+                imageCheck.setVisibility(View.VISIBLE);
         }
 
         // DEFAULT - AV CONSTRUCTORS
