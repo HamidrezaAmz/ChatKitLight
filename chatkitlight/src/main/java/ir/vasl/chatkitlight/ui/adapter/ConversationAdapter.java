@@ -152,7 +152,7 @@ public class ConversationAdapter extends PagedListAdapter<ConversationModel, Bas
         nextDate.setSeconds(0);
         nextDate.setMinutes(0);
 
-        if(nextDate.compareTo(lastDate) == -1 &&
+        if(nextDate.compareTo(lastDate) == 1 &&
                 ((ViewGroup) holder.itemView).getChildAt(((ViewGroup) holder.itemView).getChildCount() - 1).getId() != 255){
             LayoutInflater vi = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
             View v = vi.inflate(R.layout.item_date, null);
