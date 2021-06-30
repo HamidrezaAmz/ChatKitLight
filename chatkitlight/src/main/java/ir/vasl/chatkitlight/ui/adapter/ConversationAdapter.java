@@ -160,14 +160,6 @@ public class ConversationAdapter extends PagedListAdapter<ConversationModel, Bas
 
         Date lastDate = new Date(Long.parseLong(lastModel.getTime()));
         Date nextDate = new Date(Long.parseLong(nextModel.getTime()));
-//
-//        lastDate.setHours(0);
-//        lastDate.setSeconds(0);
-//        lastDate.setMinutes(0);
-//
-//        nextDate.setHours(0);
-//        nextDate.setSeconds(0);
-//        nextDate.setMinutes(0);
 
         if (!isSameDay(lastDate, nextDate) &&
                 ((ViewGroup) holder.itemView).findViewById(255) == null) {
@@ -188,6 +180,9 @@ public class ConversationAdapter extends PagedListAdapter<ConversationModel, Bas
             v.setLayoutParams(params);
 
             RelativeLayout.LayoutParams params2 = (RelativeLayout.LayoutParams) holder.itemView.findViewById(R.id.linearLayout_bubble).getLayoutParams();
+            params2.addRule(RelativeLayout.BELOW, 255);
+
+            RelativeLayout.LayoutParams params3 = (RelativeLayout.LayoutParams) holder.itemView.findViewById(R.id.linearLayout_bubble).getLayoutParams();
             params2.addRule(RelativeLayout.BELOW, 255);
 
             ViewGroup insertPoint = ((ViewGroup) holder.itemView.getRootView());
