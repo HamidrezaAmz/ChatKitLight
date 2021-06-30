@@ -156,14 +156,14 @@ public class ConversationAdapter extends PagedListAdapter<ConversationModel, Bas
 
         Date lastDate = new Date(Long.parseLong(lastModel.getTime()));
         Date nextDate = new Date(Long.parseLong(nextModel.getTime()));
-
-        lastDate.setHours(0);
-        lastDate.setSeconds(0);
-        lastDate.setMinutes(0);
-
-        nextDate.setHours(0);
-        nextDate.setSeconds(0);
-        nextDate.setMinutes(0);
+//
+//        lastDate.setHours(0);
+//        lastDate.setSeconds(0);
+//        lastDate.setMinutes(0);
+//
+//        nextDate.setHours(0);
+//        nextDate.setSeconds(0);
+//        nextDate.setMinutes(0);
 
         if (!isSameDay(lastDate, nextDate) &&
                 ((ViewGroup) holder.itemView).findViewById(255) == null) {
@@ -178,13 +178,18 @@ public class ConversationAdapter extends PagedListAdapter<ConversationModel, Bas
             textView.setText(pdformater.format(pdate));
 
             RelativeLayout.LayoutParams params = new RelativeLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
-            params.addRule(RelativeLayout.BELOW, R.id.linearLayout_bubble);
+            params.addRule(RelativeLayout.ALIGN_PARENT_TOP);
             params.addRule(RelativeLayout.CENTER_HORIZONTAL);
-            params.topMargin = (int) AndroidUtils.convertDpToPixel(16f, context);
+            params.bottomMargin = (int) AndroidUtils.convertDpToPixel(18f, context);
             v.setLayoutParams(params);
+
+            RelativeLayout.LayoutParams params2 = (RelativeLayout.LayoutParams) holder.itemView.findViewById(R.id.linearLayout_bubble).getLayoutParams();
+            params2.addRule(RelativeLayout.BELOW, 255);
 
             ViewGroup insertPoint = ((ViewGroup) holder.itemView.getRootView());
             insertPoint.addView(v);
+
+            holder.itemView.findViewById(R.id.linearLayout_bubble).setLayoutParams(params2);
         } else {
             if (((ViewGroup) holder.itemView).findViewById(255) != null) {
                 ((ViewGroup) holder.itemView).removeView(((ViewGroup) holder.itemView).findViewById(255));
