@@ -182,15 +182,12 @@ public class ConversationAdapter extends PagedListAdapter<ConversationModel, Bas
             RelativeLayout.LayoutParams params2 = (RelativeLayout.LayoutParams) holder.itemView.findViewById(R.id.linearLayout_bubble).getLayoutParams();
             params2.addRule(RelativeLayout.BELOW, 255);
 
-            RelativeLayout.LayoutParams params3 = (RelativeLayout.LayoutParams) holder.itemView.findViewById(R.id.linearLayout_bubble).getLayoutParams();
-            params2.addRule(RelativeLayout.BELOW, 255);
-
             ViewGroup insertPoint = ((ViewGroup) holder.itemView.getRootView());
             insertPoint.addView(v);
 
             holder.itemView.findViewById(R.id.linearLayout_bubble).setLayoutParams(params2);
         } else {
-            if (((ViewGroup) holder.itemView).findViewById(255) != null) {
+            if (((ViewGroup) holder.itemView).findViewById(255) != null && isSameDay(lastDate, nextDate)) {
                 ((ViewGroup) holder.itemView).removeView(((ViewGroup) holder.itemView).findViewById(255));
             }
         }
