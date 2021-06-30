@@ -25,6 +25,11 @@ import com.thin.downloadmanager.DownloadRequest;
 import com.thin.downloadmanager.DownloadStatusListenerV1;
 import com.thin.downloadmanager.ThinDownloadManager;
 
+import java.text.SimpleDateFormat;
+import java.time.Instant;
+import java.time.LocalDate;
+import java.time.ZoneId;
+import java.time.temporal.ChronoUnit;
 import java.util.Date;
 
 import ir.vasl.chatkitlight.R;
@@ -130,6 +135,11 @@ public class ConversationAdapter extends PagedListAdapter<ConversationModel, Bas
         createDateGroupIfNeeded(holder, position);
     }
 
+    public static boolean isSameDay(Date date1, Date date2) {
+        SimpleDateFormat fmt = new SimpleDateFormat("yyyyMMdd");
+        return fmt.format(date1).equals(fmt.format(date2));
+    }
+
     @SuppressLint("ResourceType")
     private void createDateGroupIfNeeded(BaseViewHolder holder, int position) {
 
@@ -155,7 +165,7 @@ public class ConversationAdapter extends PagedListAdapter<ConversationModel, Bas
         nextDate.setSeconds(0);
         nextDate.setMinutes(0);
 
-        if (nextDate.compareTo(lastDate) == -1 &&
+        if (!isSameDay(lastDate, nextDate) &&
                 ((ViewGroup) holder.itemView).findViewById(255) == null) {
             LayoutInflater vi = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
             View v = vi.inflate(R.layout.item_date, null);
@@ -165,7 +175,7 @@ public class ConversationAdapter extends PagedListAdapter<ConversationModel, Bas
             PersianDate pdate = new PersianDate(Long.parseLong(lastModel.getTime()));
             PersianDateFormat pdformater = new PersianDateFormat("l j F Y");
 
-            textView.setText(pdformater.format(pdate.addDay(1)));
+            textView.setText(pdformater.format(pdate));
 
             RelativeLayout.LayoutParams params = new RelativeLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
             params.addRule(RelativeLayout.BELOW, R.id.linearLayout_bubble);
