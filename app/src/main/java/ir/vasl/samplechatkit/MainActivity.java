@@ -36,6 +36,8 @@ import ir.vasl.chatkitlight.utils.globalEnums.ConversationType;
 import ir.vasl.chatkitlight.utils.globalEnums.FileType;
 import ir.vasl.chatkitlight.viewmodel.ConversationListViewModel;
 import ir.vasl.chatkitlight.viewmodel.factory.ConversationListViewModelFactory;
+import saman.zamani.persiandate.PersianDate;
+import saman.zamani.persiandate.PersianDateFormat;
 
 public class MainActivity
         extends AppCompatActivity
@@ -112,7 +114,11 @@ public class MainActivity
         conversationModel.setTitle("");
         conversationModel.setMessage(input.toString());
         conversationModel.setTime(String.valueOf(System.currentTimeMillis() + (85000000 * (tester - 30))));
-        Toast.makeText(this, TimeUtils.convertDate(System.currentTimeMillis() + (85000000 * (tester - 30))), Toast.LENGTH_SHORT).show();
+
+        PersianDate pdate = new PersianDate(Long.parseLong(conversationModel.getTime()));
+        PersianDateFormat pdformater = new PersianDateFormat("l j F Y");
+
+        Toast.makeText(this, pdformater.format(pdate), Toast.LENGTH_SHORT).show();
         if (tester % 3 == 0) {
             conversationModel.setConversationType(ConversationType.CLIENT);
         } else if (tester % 3 == 1) {

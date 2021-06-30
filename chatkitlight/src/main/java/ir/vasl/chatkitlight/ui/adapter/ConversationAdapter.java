@@ -133,12 +133,15 @@ public class ConversationAdapter extends PagedListAdapter<ConversationModel, Bas
     @SuppressLint("ResourceType")
     private void createDateGroupIfNeeded(BaseViewHolder holder, int position) {
 
-        if(position == 0)
-            return;
-        ConversationModel lastModel = getItem(position - 1);
-        ConversationModel nextModel = getItem(position);
+//        Log.e("TAG", "createDateGroupIfNeeded: " + position + " " + holder.getCurrentPosition());
 
-        if(lastModel.getTime().contains(":") || nextModel.getTime().contains(":"))
+        if (position == getItemCount() - 1) {
+            return;
+        }
+        ConversationModel lastModel = getItem(position);
+        ConversationModel nextModel = getItem(position + 1);
+
+        if (lastModel.getTime().contains(":") || nextModel.getTime().contains(":"))
             return;
 
         Date lastDate = new Date(Long.parseLong(lastModel.getTime()));
@@ -152,18 +155,17 @@ public class ConversationAdapter extends PagedListAdapter<ConversationModel, Bas
         nextDate.setSeconds(0);
         nextDate.setMinutes(0);
 
-        if(nextDate.compareTo(lastDate) == 1 &&
-                ((ViewGroup) holder.itemView).getChildAt(((ViewGroup) holder.itemView).getChildCount() - 1).getId() != 255){
+        if (nextDate.compareTo(lastDate) == -1 &&
+                ((ViewGroup) holder.itemView).findViewById(255) == null) {
             LayoutInflater vi = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
             View v = vi.inflate(R.layout.item_date, null);
             v.setId(255);
             TextView textView = (TextView) v.findViewById(R.id.textView_date);
 
-            PersianDate pdate = new PersianDate(Long.parseLong(nextModel.getTime()));
+            PersianDate pdate = new PersianDate(Long.parseLong(lastModel.getTime()));
             PersianDateFormat pdformater = new PersianDateFormat("l j F Y");
 
-
-            textView.setText(pdformater.format(pdate));
+            textView.setText(pdformater.format(pdate.addDay(1)));
 
             RelativeLayout.LayoutParams params = new RelativeLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
             params.addRule(RelativeLayout.BELOW, R.id.linearLayout_bubble);
@@ -174,8 +176,8 @@ public class ConversationAdapter extends PagedListAdapter<ConversationModel, Bas
             ViewGroup insertPoint = ((ViewGroup) holder.itemView.getRootView());
             insertPoint.addView(v);
         } else {
-            if(((ViewGroup) holder.itemView).getChildAt(((ViewGroup) holder.itemView).getChildCount() - 1).getId() == 255){
-                ((ViewGroup) holder.itemView).removeView(((ViewGroup) holder.itemView).getChildAt(((ViewGroup) holder.itemView).getChildCount() - 1));
+            if (((ViewGroup) holder.itemView).findViewById(255) != null) {
+                ((ViewGroup) holder.itemView).removeView(((ViewGroup) holder.itemView).findViewById(255));
             }
         }
     }
@@ -948,7 +950,7 @@ public class ConversationAdapter extends PagedListAdapter<ConversationModel, Bas
                 waveView.setProgressValue(100);
                 waveView.setWaveColor(context.getResources().getColor(R.color.green));
             }
-            if(imageCheck != null && showCheckMark)
+            if (imageCheck != null && showCheckMark)
                 imageCheck.setVisibility(View.VISIBLE);
         }
 
