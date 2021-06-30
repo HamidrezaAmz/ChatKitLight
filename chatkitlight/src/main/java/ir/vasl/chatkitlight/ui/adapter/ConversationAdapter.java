@@ -133,8 +133,8 @@ public class ConversationAdapter extends PagedListAdapter<ConversationModel, Bas
         }
         try {
             createDateGroupIfNeeded(holder, position);
-        } catch (Exception e){
-            Log.e("TAG", "Cannot create date grouping " + e.getMessage()  );
+        } catch (Exception e) {
+            Log.e("TAG", "Cannot create date grouping " + e.getMessage());
             e.printStackTrace();
         }
     }
@@ -149,7 +149,8 @@ public class ConversationAdapter extends PagedListAdapter<ConversationModel, Bas
 
 //        Log.e("TAG", "createDateGroupIfNeeded: " + position + " " + holder.getCurrentPosition());
 
-        if (position == getItemCount() - 1) {
+        if (position == getItemCount() - 1 && ((ViewGroup) holder.itemView).findViewById(255) == null) {
+            createAndAddView(getItem(position), holder);
             return;
         }
         ConversationModel lastModel = getItem(position);
@@ -163,34 +164,38 @@ public class ConversationAdapter extends PagedListAdapter<ConversationModel, Bas
 
         if (!isSameDay(lastDate, nextDate) &&
                 ((ViewGroup) holder.itemView).findViewById(255) == null) {
-            LayoutInflater vi = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-            View v = vi.inflate(R.layout.item_date, null);
-            v.setId(255);
-            TextView textView = (TextView) v.findViewById(R.id.textView_date);
-
-            PersianDate pdate = new PersianDate(Long.parseLong(lastModel.getTime()));
-            PersianDateFormat pdformater = new PersianDateFormat("l j F Y");
-
-            textView.setText(pdformater.format(pdate));
-
-            RelativeLayout.LayoutParams params = new RelativeLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
-            params.addRule(RelativeLayout.ALIGN_PARENT_TOP);
-            params.addRule(RelativeLayout.CENTER_HORIZONTAL);
-            params.bottomMargin = (int) AndroidUtils.convertDpToPixel(18f, context);
-            v.setLayoutParams(params);
-
-            RelativeLayout.LayoutParams params2 = (RelativeLayout.LayoutParams) holder.itemView.findViewById(R.id.linearLayout_bubble).getLayoutParams();
-            params2.addRule(RelativeLayout.BELOW, 255);
-
-            ViewGroup insertPoint = ((ViewGroup) holder.itemView.getRootView());
-            insertPoint.addView(v);
-
-            holder.itemView.findViewById(R.id.linearLayout_bubble).setLayoutParams(params2);
+            createAndAddView(lastModel, holder);
         } else {
             if (((ViewGroup) holder.itemView).findViewById(255) != null && isSameDay(lastDate, nextDate)) {
                 ((ViewGroup) holder.itemView).removeView(((ViewGroup) holder.itemView).findViewById(255));
             }
         }
+    }
+
+    private void createAndAddView(ConversationModel lastModel, BaseViewHolder holder) {
+        LayoutInflater vi = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+        View v = vi.inflate(R.layout.item_date, null);
+        v.setId(255);
+        TextView textView = (TextView) v.findViewById(R.id.textView_date);
+
+        PersianDate pdate = new PersianDate(Long.parseLong(lastModel.getTime()));
+        PersianDateFormat pdformater = new PersianDateFormat("l j F Y");
+
+        textView.setText(pdformater.format(pdate));
+
+        RelativeLayout.LayoutParams params = new RelativeLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+        params.addRule(RelativeLayout.ALIGN_PARENT_TOP);
+        params.addRule(RelativeLayout.CENTER_HORIZONTAL);
+        params.bottomMargin = (int) AndroidUtils.convertDpToPixel(18f, context);
+        v.setLayoutParams(params);
+
+        RelativeLayout.LayoutParams params2 = (RelativeLayout.LayoutParams) holder.itemView.findViewById(R.id.linearLayout_bubble).getLayoutParams();
+        params2.addRule(RelativeLayout.BELOW, 255);
+
+        ViewGroup insertPoint = ((ViewGroup) holder.itemView.getRootView());
+        insertPoint.addView(v);
+
+        holder.itemView.findViewById(R.id.linearLayout_bubble).setLayoutParams(params2);
     }
 
     private void LawoneBinder(BaseViewHolder holder, int position) {
