@@ -33,7 +33,7 @@
         android:padding="@dimen/global_padding">
 
         <RelativeLayout
-            android:id="@+id/linearLayour_bubble"
+            android:id="@+id/linearLayout_bubble"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentRight="true">

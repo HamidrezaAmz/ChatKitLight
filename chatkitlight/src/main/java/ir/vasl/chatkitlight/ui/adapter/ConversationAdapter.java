@@ -131,8 +131,12 @@ public class ConversationAdapter extends PagedListAdapter<ConversationModel, Bas
                 LawoneBinder(holder, position);
                 break;
         }
-
-        createDateGroupIfNeeded(holder, position);
+        try {
+            createDateGroupIfNeeded(holder, position);
+        } catch (Exception e){
+            Log.e("TAG", "Cannot create date grouping " + e.getMessage()  );
+            e.printStackTrace();
+        }
     }
 
     public static boolean isSameDay(Date date1, Date date2) {
