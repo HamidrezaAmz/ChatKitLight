@@ -15,7 +15,7 @@
             type="ir.vasl.chatkitlight.ui.callback.ConversationListListener" />
     </data>
 
-    <FrameLayout
+    <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/global_margin"
@@ -29,6 +29,8 @@
             android:layout_gravity="left"
             android:background="@drawable/shape_curve_server"
             android:orientation="vertical"
+            android:layout_alignParentLeft="true"
+            android:id="@+id/linearLayout_bubble"
             android:padding="@dimen/global_padding_middle">
 
             <TextView
@@ -85,6 +87,6 @@
 
         </LinearLayout>
 
-    </FrameLayout>
+    </RelativeLayout>
 
 </layout>

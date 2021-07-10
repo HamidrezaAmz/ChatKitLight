@@ -1,12 +1,16 @@
 package ir.vasl.chatkitlight.ui.adapter;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.media.MediaPlayer;
 import android.os.CountDownTimer;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.FrameLayout;
+import android.widget.RelativeLayout;
+import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -22,6 +26,9 @@ import com.bumptech.glide.request.RequestOptions;
 import com.thin.downloadmanager.DownloadRequest;
 import com.thin.downloadmanager.DownloadStatusListenerV1;
 import com.thin.downloadmanager.ThinDownloadManager;
+
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
 import ir.vasl.chatkitlight.R;
 import ir.vasl.chatkitlight.databinding.LawoneConversationClientAudioBinding;
@@ -56,6 +63,8 @@ import ir.vasl.chatkitlight.utils.globalEnums.ChatStyleEnum;
 import ir.vasl.chatkitlight.utils.globalEnums.ConversationType;
 import me.itangqi.waveloadingview.WaveLoadingView;
 import rm.com.audiowave.AudioWaveView;
+import saman.zamani.persiandate.PersianDate;
+import saman.zamani.persiandate.PersianDateFormat;
 
 public class ConversationAdapter extends PagedListAdapter<ConversationModel, BaseViewHolder> implements ConversationListListener {
 
@@ -108,6 +117,12 @@ public class ConversationAdapter extends PagedListAdapter<ConversationModel, Bas
             case LAWONE:
                 LawoneBinder(holder, position);
                 break;
+        }
+        try {
+            createDateGroupIfNeeded(holder, position);
+        } catch (Exception e) {
+            Log.e("TAG", "Cannot create date grouping " + e.getMessage());
+            e.printStackTrace();
         }
     }
 
@@ -430,6 +445,63 @@ public class ConversationAdapter extends PagedListAdapter<ConversationModel, Bas
     public void onConversationItemClicked(Object object) {
         if (conversationListListener != null)
             conversationListListener.onConversationItemClicked(object);
+    }
+
+    @SuppressLint("ResourceType")
+    private void createDateGroupIfNeeded(BaseViewHolder holder, int position) {
+
+        if (position == getItemCount() - 1 && ((ViewGroup) holder.itemView).findViewById(255) == null) {
+            createAndAddView(getItem(position), holder);
+            return;
+        }
+        ConversationModel lastModel = getItem(position);
+        ConversationModel nextModel = getItem(position + 1);
+
+        if (lastModel.getTime().contains(":") || nextModel.getTime().contains(":"))
+            return;
+
+        Date lastDate = new Date(Long.parseLong(lastModel.getTime()));
+        Date nextDate = new Date(Long.parseLong(nextModel.getTime()));
+
+        if (!isSameDay(lastDate, nextDate) &&
+                ((ViewGroup) holder.itemView).findViewById(255) == null) {
+            createAndAddView(lastModel, holder);
+        } else {
+            if (((ViewGroup) holder.itemView).findViewById(255) != null && isSameDay(lastDate, nextDate)) {
+                ((ViewGroup) holder.itemView).removeView(((ViewGroup) holder.itemView).findViewById(255));
+            }
+        }
+    }
+
+    public static boolean isSameDay(Date date1, Date date2) {
+        SimpleDateFormat fmt = new SimpleDateFormat("yyyyMMdd");
+        return fmt.format(date1).equals(fmt.format(date2));
+    }
+
+    private void createAndAddView(ConversationModel lastModel, BaseViewHolder holder) {
+        LayoutInflater vi = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+        View v = vi.inflate(R.layout.item_date, null);
+        v.setId(255);
+        TextView textView = (TextView) v.findViewById(R.id.textView_date);
+
+        PersianDate pdate = new PersianDate(Long.parseLong(lastModel.getTime()));
+        PersianDateFormat pdformater = new PersianDateFormat("l j F Y");
+
+        textView.setText(pdformater.format(pdate));
+
+        RelativeLayout.LayoutParams params = new RelativeLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+        params.addRule(RelativeLayout.ALIGN_PARENT_TOP);
+        params.addRule(RelativeLayout.CENTER_HORIZONTAL);
+        params.bottomMargin = (int) AndroidUtils.convertDpToPixel(18f, context);
+        v.setLayoutParams(params);
+
+        RelativeLayout.LayoutParams params2 = (RelativeLayout.LayoutParams) holder.itemView.findViewById(R.id.linearLayout_bubble).getLayoutParams();
+        params2.addRule(RelativeLayout.BELOW, 255);
+
+        ViewGroup insertPoint = ((ViewGroup) holder.itemView.getRootView());
+        insertPoint.addView(v);
+
+        holder.itemView.findViewById(R.id.linearLayout_bubble).setLayoutParams(params2);
     }
 
     private BaseViewHolder LawoneViewHolderCreator(ViewGroup parent, LayoutInflater inflater, int viewType) {

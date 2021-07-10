@@ -29,6 +29,7 @@
             android:layout_height="wrap_content"
             android:layout_gravity="right"
             android:background="@drawable/shape_curve_client"
+            android:id="@+id/linearLayout_bubble"
             android:orientation="vertical"
             android:padding="@dimen/global_padding_middle">
 

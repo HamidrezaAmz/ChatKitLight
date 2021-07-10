@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/textView_date"
+        android:fontFamily="@font/app_font"
+        android:textSize="11sp"
+        android:textColor="@color/white"
+        android:background="@drawable/rounded_grey"
+        tools:text="Yesterday"
+        android:paddingRight="@dimen/global_padding_x_extra"
+        android:paddingLeft="@dimen/global_padding_x_extra"
+        android:paddingTop="@dimen/global_padding_x_small"
+        android:paddingBottom="@dimen/global_padding_x_small"
+        android:layout_centerHorizontal="true"
+        android:layout_margin="@dimen/global_margin"
+        android:alpha="0.6"
+        android:gravity="center"
+        />
+
+</RelativeLayout>

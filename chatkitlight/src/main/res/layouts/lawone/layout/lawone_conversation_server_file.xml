@@ -29,7 +29,7 @@
             android:layout_gravity="left"
             android:background="@drawable/lawone_shape_curve_server"
             android:orientation="vertical"
-            android:id="@+id/linearLayour_bubble"
+            android:id="@+id/linearLayout_bubble"
             android:padding="@dimen/global_padding_middle">
 
             <FrameLayout
@@ -92,7 +92,7 @@
             android:id="@+id/waveView"
             android:layout_width="@dimen/download_circle_size"
             android:layout_height="@dimen/download_circle_size"
-            android:layout_toRightOf="@id/linearLayour_bubble"
+            android:layout_toRightOf="@id/linearLayout_bubble"
             android:layout_marginLeft="-27.5dp"
             android:layout_centerVertical="true"
             app:wlv_borderColor="@color/white"
@@ -111,7 +111,7 @@
         <androidx.appcompat.widget.AppCompatImageView
             android:layout_width="50dp"
             android:layout_height="50dp"
-            android:layout_toRightOf="@id/linearLayour_bubble"
+            android:layout_toRightOf="@id/linearLayout_bubble"
             android:layout_marginLeft="-27.5dp"
             android:layout_centerVertical="true"
             app:srcCompat="@drawable/checkmark_white"
