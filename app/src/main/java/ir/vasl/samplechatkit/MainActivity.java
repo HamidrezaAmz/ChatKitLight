@@ -49,6 +49,7 @@ public class MainActivity
     private ConversationListViewModel conversationListViewModel;
     private ConversationView conversationView;
     private PermissionHelper permissionHelper;
+    int tester = -20;
 
     private static final String chatID = "tempChatId";
     private static final String TAG = "MainActivity";
@@ -100,19 +101,22 @@ public class MainActivity
 
     @Override
     public void onSubmit(CharSequence input) {
+        tester ++;
 
         List<ConversationModel> allModels = DatabaseLayer.getInstance(MyApplication.getApp()).getChatKitDatabase().getChatDao().getAllSimple(chatID);
 
         ConversationModel conversationModel = new ConversationModel(chatID, UUID.randomUUID().toString());
         conversationModel.setTitle("");
         conversationModel.setMessage(input.toString());
-        conversationModel.setTime(TimeUtils.getCurrTime());
+//        conversationModel.setTime(TimeUtils.getCurrTime());
+        conversationModel.setTime(String.valueOf(System.currentTimeMillis() - 86000000 * tester));
         conversationModel.setConversationType(ConversationType.CLIENT);
         conversationModel.setConversationStatus(ConversationStatus.SENDING);
         conversationModel.setImageUrl("https://www.w3schools.com/howto/img_avatar.png");
+        conversationModel.setFileType(FileType.NONE);
 //        if(imageUri != null) {
-            conversationModel.setFileType(FileType.IMAGE);
-            conversationModel.setFileAddress("https://www.w3schools.com/howto/img_avatar.png");
+//            conversationModel.setFileType(FileType.IMAGE);
+//            conversationModel.setFileAddress("https://www.w3schools.com/howto/img_avatar.png");
 //            conversationModel.setFileAddress("https://www.kozco.com/tech/piano2.wav");
             findViewById(R.id.image2).setVisibility(View.GONE);
 //        }

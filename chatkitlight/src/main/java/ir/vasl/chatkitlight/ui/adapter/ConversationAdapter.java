@@ -475,6 +475,7 @@ public class ConversationAdapter extends PagedListAdapter<ConversationModel, Bas
 
     public static boolean isSameDay(Date date1, Date date2) {
         SimpleDateFormat fmt = new SimpleDateFormat("yyyyMMdd");
+        Log.e("TAG", "isSameDay: " + date1.getTime() + date2.getTime() + " " + fmt.format(date1).equals(fmt.format(date2)) );
         return fmt.format(date1).equals(fmt.format(date2));
     }
 
