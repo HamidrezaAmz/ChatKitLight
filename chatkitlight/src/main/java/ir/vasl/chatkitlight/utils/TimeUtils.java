@@ -116,4 +116,18 @@ public class TimeUtils {
         }
     }
 
+    public static String convertDateToTime(long timeStamp) {
+
+        Calendar cal = Calendar.getInstance(Locale.ENGLISH);
+        cal.setTimeInMillis(timeStamp);
+        int hours = cal.get(Calendar.HOUR_OF_DAY);
+        int minutes = cal.get(Calendar.MINUTE);
+        int seconds = cal.get(Calendar.SECOND);
+
+        String formattedHours = String.format(Locale.US, "%02d", hours);
+        String formattedMinutes = String.format(Locale.US, "%02d", minutes);
+
+        return new StringBuilder().append(formattedHours).append(":").append(formattedMinutes).toString();
+    }
+
 }
