@@ -67,7 +67,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginStart="@dimen/global_margin"
                     android:layout_marginEnd="@dimen/global_margin"
-                    android:text='@{conversationModel.time.contains(":") ? conversationModel.time : TimeUtils.convertDateToTime(Long.parseLong(conversationModel.time))}'
+                    android:text='@{!android.text.TextUtils.isDigitsOnly(conversationModel.time) ? conversationModel.time : TimeUtils.convertDateToTime(Long.parseLong(conversationModel.time))}'
                     android:textColor="@color/warm_grey_five"
                     android:textSize="12sp"
                     android:textStyle="bold"
