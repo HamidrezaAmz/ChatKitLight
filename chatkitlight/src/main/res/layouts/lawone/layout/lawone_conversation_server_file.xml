@@ -21,7 +21,6 @@
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layoutDirection="ltr"
         android:padding="@dimen/global_padding">
 
         <RelativeLayout
@@ -35,18 +34,24 @@
                 android:layout_alignParentLeft="true"
                 android:background="@drawable/lawone_shape_curve_server">
 
-                <FrameLayout
+                <androidx.constraintlayout.widget.ConstraintLayout
                     android:id="@+id/frameLayoutFile"
-                    android:layout_width="wrap_content"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:paddingLeft="33dp">
+                    android:layout_marginStart="30dp"
+                    android:layout_marginEnd="30dp"
+                    android:background="@drawable/lawone_shape_curve_server">
 
                     <androidx.appcompat.widget.AppCompatImageView
+                        android:id="@+id/imageView_file_icon"
                         android:layout_width="@dimen/icon_circle_size"
                         android:layout_height="@dimen/icon_circle_size"
                         android:layout_gravity="left|center_vertical"
                         android:padding="4dp"
                         android:scaleType="centerInside"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"
                         app:srcCompat="@drawable/ic_file_lawone" />
 
                     <ProgressBar
@@ -59,39 +64,46 @@
                         android:indeterminateTint="@color/warm_grey_five"
                         android:indeterminateTintMode="src_atop"
                         android:padding="4dp"
-                        android:visibility="gone" />
+                        android:visibility="gone"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
 
                     <TextView
-                        style="@style/TextViewServerTitleStyle"
+                        android:id="@+id/textView_title"
+                        android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_gravity="left|top"
-                        android:layout_marginLeft="@dimen/global_margin_spaced"
-                        android:layout_marginRight="@dimen/global_margin_x_extra"
                         android:ellipsize="start"
-                        android:gravity="left"
-                        android:maxLength="18"
-                        android:singleLine="true"
+                        android:gravity="start"
+                        android:padding="@dimen/global_padding_small"
                         android:text='@{!conversationModel.title.equals("") ? conversationModel.title : conversationModel.fileAddress.substring(conversationModel.fileAddress.lastIndexOf("/") + 1)}'
+                        android:textColor="@color/lawone_client_text"
                         android:textSize="@dimen/input_text_size_middle"
-                        tools:text="this is file name" />
+                        app:layout_constraintBottom_toBottomOf="@id/imageView_file_icon"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toEndOf="@id/imageView_file_icon"
+                        app:layout_constraintTop_toTopOf="@id/imageView_file_icon"
+                        tools:text="this is a title for this message" />
 
                     <TextView
-                        android:layout_width="match_parent"
+                        android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_gravity="right|bottom"
-                        android:layout_marginLeft="@dimen/global_margin_spaced"
-                        android:layout_marginTop="6dp"
-                        android:layout_marginRight="@dimen/global_margin_extra"
                         android:ellipsize="end"
                         android:gravity="left"
                         android:maxLines="1"
+                        android:padding="@dimen/global_padding_small"
                         android:text="@{ conversationModel.message}"
                         android:textColor="@color/lawone_client_text"
                         android:textSize="@dimen/input_text_size_small"
                         android:visibility='@{ conversationModel.message.equals("") ? View.GONE : View.VISIBLE }'
+                        app:layout_constraintStart_toStartOf="@id/textView_title"
+                        app:layout_constraintTop_toBottomOf="@id/textView_title"
                         tools:text="350Kb PDF"
                         tools:visibility="visible" />
-                </FrameLayout>
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
 
             </RelativeLayout>
 
@@ -99,6 +111,7 @@
                 android:id="@+id/waveView"
                 android:layout_width="@dimen/download_circle_size"
                 android:layout_height="@dimen/download_circle_size"
+                android:layout_centerVertical="true"
                 android:layout_marginLeft="-45dp"
                 android:layout_marginTop="@dimen/download_circle_size_half"
                 android:layout_toRightOf="@id/relative_bubble"
@@ -131,6 +144,7 @@
                 android:id="@+id/imageView_avatar"
                 style="@style/AvatarStyle"
                 android:layout_alignParentLeft="true"
+                android:layout_centerVertical="true"
                 app:round_image="true"
                 app:srcCompat="@drawable/ic_user" />
 

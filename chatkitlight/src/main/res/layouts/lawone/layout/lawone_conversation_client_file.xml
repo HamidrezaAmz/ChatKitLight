@@ -37,20 +37,25 @@
                 android:layout_alignParentRight="true"
                 android:background="@drawable/lawone_shape_curve_client"
                 android:gravity="right"
-                android:minWidth="@dimen/conversation_min_width"
-                android:paddingRight="33dp">
+                android:minWidth="@dimen/conversation_min_width">
 
-                <FrameLayout
+                <androidx.constraintlayout.widget.ConstraintLayout
                     android:id="@+id/frameLayoutFile"
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content">
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="30dp"
+                    android:layout_marginEnd="30dp">
 
                     <androidx.appcompat.widget.AppCompatImageView
+                        android:id="@id/imageView_file_icon"
                         android:layout_width="@dimen/icon_circle_size"
                         android:layout_height="@dimen/icon_circle_size"
                         android:layout_gravity="right|center_vertical"
                         android:padding="4dp"
                         android:scaleType="centerInside"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"
                         app:srcCompat="@drawable/ic_file_lawone" />
 
                     <ProgressBar
@@ -63,42 +68,42 @@
                         android:indeterminateTint="@color/gray"
                         android:indeterminateTintMode="src_atop"
                         android:padding="4dp"
-                        android:visibility="gone" />
+                        android:visibility="gone"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
 
                     <TextView
+                        android:id="@+id/textView_title"
                         style="@style/TextViewTitleStyle"
-                        android:layout_width="wrap_content"
+                        android:layout_width="0dp"
                         android:layout_height="wrap_content"
-                        android:layout_gravity="top|left"
-                        android:layout_marginLeft="@dimen/global_margin_x_extra"
-                        android:layout_marginRight="@dimen/global_margin_spaced"
                         android:ellipsize="start"
-                        android:gravity="left"
-                        android:maxWidth="@dimen/chat_item_max_width"
-                        android:maxLength="18"
-                        android:singleLine="true"
+                        android:gravity="end"
                         android:text='@{!conversationModel.title.equals("") ? conversationModel.title : conversationModel.fileAddress.substring(conversationModel.fileAddress.lastIndexOf("/") + 1)}'
                         android:textColor="@color/lawone_client_text"
                         android:textSize="@dimen/input_text_size_middle"
-                        tools:text="this is file name" />
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toStartOf="@id/imageView_file_icon"
+                        app:layout_constraintTop_toTopOf="parent"
+                        tools:text="This is a title message from client" />
 
                     <TextView
-                        android:layout_width="wrap_content"
+                        android:layout_width="0dp"
                         android:layout_height="wrap_content"
-                        android:layout_gravity="bottom|right"
-                        android:layout_marginLeft="@dimen/global_margin_middle"
                         android:layout_marginTop="2dp"
-                        android:layout_marginRight="@dimen/global_margin_spaced"
                         android:gravity="right"
                         android:maxWidth="@dimen/chat_item_max_width"
                         android:text="@{ conversationModel.message}"
                         android:textColor="@color/lawone_client_icon_background"
                         android:textSize="@dimen/input_text_size_small"
                         android:visibility='@{ conversationModel.message.equals("") ? View.GONE : View.VISIBLE }'
+                        app:layout_constraintEnd_toEndOf="@id/textView_title"
+                        app:layout_constraintTop_toBottomOf="@id/textView_title"
                         tools:text="350Kb PDF"
                         tools:visibility="visible" />
 
-                </FrameLayout>
+                </androidx.constraintlayout.widget.ConstraintLayout>
 
             </RelativeLayout>
 
@@ -106,6 +111,7 @@
                 android:id="@+id/waveView"
                 android:layout_width="@dimen/download_circle_size"
                 android:layout_height="@dimen/download_circle_size"
+                android:layout_centerVertical="true"
                 android:layout_marginTop="@dimen/download_circle_size_half"
                 android:layout_marginRight="-45dp"
                 android:layout_toLeftOf="@id/relative_bubble"
@@ -138,6 +144,7 @@
                 android:id="@+id/imageView_avatar"
                 style="@style/AvatarStyle"
                 android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
                 app:round_image="true"
                 app:srcCompat="@drawable/ic_user" />
 

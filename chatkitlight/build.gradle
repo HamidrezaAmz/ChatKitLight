@@ -4,14 +4,14 @@ group = 'com.github.hamidrezaamz'
 
 android {
 
-    compileSdkVersion 29
-    buildToolsVersion "29.0.3"
+    compileSdkVersion 30
+    buildToolsVersion "30.0.3"
 
     defaultConfig {
         minSdkVersion 21
-        targetSdkVersion 29
-        versionCode 86
-        versionName "3.0.35.02"
+        targetSdkVersion 30
+        versionCode 87
+        versionName "3.0.40"
         vectorDrawables.useSupportLibrary = true
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
