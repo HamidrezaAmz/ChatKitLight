@@ -133,6 +133,7 @@
                 android:id="@+id/imageView_checkmark"
                 android:layout_width="@dimen/download_circle_size"
                 android:layout_height="@dimen/download_circle_size"
+                android:layout_centerVertical="true"
                 android:layout_marginTop="@dimen/download_circle_size_half"
                 android:layout_marginRight="-45dp"
                 android:layout_toLeftOf="@id/relative_bubble"
