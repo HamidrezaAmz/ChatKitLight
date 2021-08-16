@@ -30,7 +30,6 @@ import ir.vasl.chatkitlight.ui.audio.AttachmentOption;
 import ir.vasl.chatkitlight.ui.callback.ConversationViewListener;
 import ir.vasl.chatkitlight.ui.customview.ImageViewCustom;
 import ir.vasl.chatkitlight.ui.view.ConversationView;
-import ir.vasl.chatkitlight.utils.TimeUtils;
 import ir.vasl.chatkitlight.utils.globalEnums.ConversationStatus;
 import ir.vasl.chatkitlight.utils.globalEnums.ConversationType;
 import ir.vasl.chatkitlight.utils.globalEnums.FileType;
@@ -110,7 +109,7 @@ public class MainActivity
         List<ConversationModel> allModels = DatabaseLayer.getInstance(MyApplication.getApp()).getChatKitDatabase().getChatDao().getAllSimple(chatID);
 
         ConversationModel conversationModel = new ConversationModel(chatID, UUID.randomUUID().toString());
-        conversationModel.setId(firstId ++);
+        conversationModel.setId(firstId++);
         conversationModel.setTitle("");
         conversationModel.setMessage(input.toString());
         conversationModel.setTime(String.valueOf(System.currentTimeMillis() + (85000000 * (tester - 30))));
@@ -246,8 +245,8 @@ public class MainActivity
     }
 
     @Override
-    public void pdfFileClicked(Uri pdfUri) {
-        Log.e(TAG, "pdfFileClicked: " + pdfUri);
+    public void onFileClicked(Uri fileUri) {
+        Log.e(TAG, "onFileClicked: " + fileUri);
     }
 
     @Override

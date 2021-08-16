@@ -1,5 +1,7 @@
 package ir.vasl.chatkitlight.ui.view;
 
+import static androidx.core.content.ContextCompat.getSystemService;
+
 import android.content.ClipData;
 import android.content.ClipboardManager;
 import android.content.Context;
@@ -32,8 +34,6 @@ import ir.vasl.chatkitlight.ui.callback.TypingListener;
 import ir.vasl.chatkitlight.utils.Constants;
 import ir.vasl.chatkitlight.utils.globalEnums.ChatStyleEnum;
 import ir.vasl.chatkitlight.viewmodel.ConversationListViewModel;
-
-import static androidx.core.content.ContextCompat.getSystemService;
 
 public class ConversationView
         extends LinearLayout
@@ -238,9 +238,9 @@ public class ConversationView
     }
 
     @Override
-    public void pdfFileClicked(Uri pdfUri) {
+    public void onFileClicked(Uri fileUri) {
         if (conversationViewListener != null)
-            conversationViewListener.pdfFileClicked(pdfUri);
+            conversationViewListener.onFileClicked(fileUri);
     }
 
     @Override

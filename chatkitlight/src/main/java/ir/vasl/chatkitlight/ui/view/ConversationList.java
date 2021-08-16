@@ -131,9 +131,9 @@ public class ConversationList
     }
 
     @Override
-    public void pdfFileClicked(Uri pdfUri) {
+    public void onFileClicked(Uri fileUri) {
         if (dialogMenuListener != null)
-            dialogMenuListener.pdfFileClicked(pdfUri);
+            dialogMenuListener.onFileClicked(fileUri);
     }
 
     @SuppressWarnings("unchecked")

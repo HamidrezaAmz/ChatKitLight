@@ -19,16 +19,17 @@ public interface ConversationListListener<T> {
     default void requestStoragePermission() {
     }
 
-    default void pdfFileClicked(Uri pdfUri) {
+    default void onFileClicked(Uri fileUrl) {
     }
 
-    default void systemSupportClicked(){
-
-    }
-
-    default void systemRateClicked(){
+    default void systemSupportClicked() {
 
     }
 
-    default void listSubmitted(){}
+    default void systemRateClicked() {
+
+    }
+
+    default void listSubmitted() {
+    }
 }
