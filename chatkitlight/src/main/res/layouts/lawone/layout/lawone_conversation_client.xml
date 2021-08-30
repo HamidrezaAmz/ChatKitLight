@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
 
     <data>
 
         <import type="android.view.View" />
 
-        <import
-            type="ir.vasl.chatkitlight.utils.TimeUtils" />
+        <import type="ir.vasl.chatkitlight.utils.TimeUtils" />
 
         <variable
             name="conversationModel"
@@ -22,7 +22,6 @@
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:onClick="@{() -> conversationListListener.onConversationItemClicked(conversationModel)}"
         android:padding="@dimen/global_padding">
 
         <RelativeLayout
@@ -36,7 +35,8 @@
                 style="@style/ChatBubbleStyle"
                 android:layout_alignParentRight="true"
                 android:background="@drawable/lawone_shape_curve_client"
-                android:gravity="right">
+                android:gravity="right"
+                android:onClick="@{() -> conversationListListener.onConversationItemClicked(conversationModel)}">
 
                 <include
                     layout="@layout/lawone_tilted_icon"
@@ -45,14 +45,18 @@
                 <TextView
                     android:id="@+id/textView_title"
                     style="@style/TextViewClientTitleStyle"
+                    android:gravity="right"
                     android:text="@{conversationModel.title}"
-                    android:visibility='@{conversationModel.title.equals("") ? View.GONE : View.VISIBLE }' />
+                    android:visibility='@{conversationModel.title.equals("") ? View.GONE : View.VISIBLE }'
+                    tools:text="THIS IS TITLE OF MESSAGE" />
 
                 <TextView
                     style="@style/TextViewClientTitleStyle"
                     android:layout_below="@id/textView_title"
+                    android:gravity="right"
                     android:text="@{conversationModel.message}"
-                    android:visibility='@{conversationModel.message.equals("") ? View.GONE : View.VISIBLE }' />
+                    android:visibility='@{conversationModel.message.equals("") ? View.GONE : View.VISIBLE }'
+                    tools:text="THIS IS SUB TITLE OF MESSAGE" />
 
             </RelativeLayout>
 

@@ -1,4 +1,4 @@
-package ir.vasl.samplechatkit;
+package ir.vasl.samplechatkit.helper;
 
 import android.Manifest;
 import android.app.Activity;

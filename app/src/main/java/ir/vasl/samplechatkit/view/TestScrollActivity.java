@@ -1,8 +1,10 @@
-package ir.vasl.samplechatkit;
+package ir.vasl.samplechatkit.view;
+
+import android.os.Bundle;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import android.os.Bundle;
+import ir.vasl.samplechatkit.R;
 
 public class TestScrollActivity extends AppCompatActivity {
 

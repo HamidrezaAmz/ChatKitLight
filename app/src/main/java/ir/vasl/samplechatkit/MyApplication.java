@@ -2,6 +2,8 @@ package ir.vasl.samplechatkit;
 
 import android.app.Application;
 
+import ir.vasl.samplechatkit.helper.LocaleHelper;
+
 public class MyApplication extends Application {
 
     static Application app;

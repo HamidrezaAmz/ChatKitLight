@@ -210,6 +210,11 @@ public class ConversationModel {
         this.serverSideId = serverSideId;
     }
 
+    public String getFileName() {
+        String path = getFileAddress();
+        return path.substring(path.lastIndexOf("/") + 1);
+    }
+
     @BindingAdapter("conversationStatusIcon")
     public static void loadConversationStatusIcon(AppCompatImageView view, ConversationStatus conversationStatus) {
         if (conversationStatus == null)

@@ -1,4 +1,6 @@
-package ir.vasl.samplechatkit;
+package ir.vasl.samplechatkit.view;
+
+import static ir.vasl.samplechatkit.utils.PublicValues.chatId;
 
 import android.Manifest;
 import android.content.Context;
@@ -23,7 +25,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
-import droidninja.filepicker.FilePickerBuilder;
 import ir.vasl.chatkitlight.database.DatabaseLayer;
 import ir.vasl.chatkitlight.model.ConversationModel;
 import ir.vasl.chatkitlight.ui.audio.AttachmentOption;
@@ -35,8 +36,14 @@ import ir.vasl.chatkitlight.utils.globalEnums.ConversationType;
 import ir.vasl.chatkitlight.utils.globalEnums.FileType;
 import ir.vasl.chatkitlight.viewmodel.ConversationListViewModel;
 import ir.vasl.chatkitlight.viewmodel.factory.ConversationListViewModelFactory;
-import saman.zamani.persiandate.PersianDate;
-import saman.zamani.persiandate.PersianDateFormat;
+import ir.vasl.samplechatkit.MyApplication;
+import ir.vasl.samplechatkit.R;
+import ir.vasl.samplechatkit.helper.IdGeneratorHelper;
+import ir.vasl.samplechatkit.helper.LocaleHelper;
+import ir.vasl.samplechatkit.helper.MessageGeneratorHelper;
+import ir.vasl.samplechatkit.helper.PermissionHelper;
+import ir.vasl.samplechatkit.helper.TimeHelper;
+import ir.vasl.samplechatkit.utils.PublicValues;
 
 public class MainActivity
         extends AppCompatActivity
@@ -47,10 +54,7 @@ public class MainActivity
     private ConversationView conversationView;
     private PermissionHelper permissionHelper;
 
-    private static final String chatID = "tempChatId";
     private static final String TAG = "MainActivity";
-
-    int firstId = 200;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -66,20 +70,14 @@ public class MainActivity
 
         initViewModel();
 
-        conversationView.setShowBlockerView(false); // block input
-//        conversationView.showHintView("این رو بخون بعد بگو متوجه شدم", "متوجه شدم"); // hint view
+        // conversationView.setShowBlockerView(false); // block input
+        // conversationView.showHintView("این رو بخون بعد بگو متوجه شدم", "متوجه شدم"); // hint view
     }
 
     @Override
     protected void attachBaseContext(Context newBase) {
         super.attachBaseContext(newBase);
         LocaleHelper.onAttach(newBase);
-    }
-
-    private void initViewModel() {
-        conversationListViewModel = new ViewModelProvider(this, new ConversationListViewModelFactory(getApplication(), chatID)).get(ConversationListViewModel.class);
-        conversationView.setConversationListViewModel(conversationListViewModel);
-        conversationView.setConversationViewListener(this);
     }
 
     @Override
@@ -100,53 +98,17 @@ public class MainActivity
         }
     }
 
-    int tester = 0;
-
     @Override
     public void onSubmit(CharSequence input) {
-        tester++;
 
-        List<ConversationModel> allModels = DatabaseLayer.getInstance(MyApplication.getApp()).getChatKitDatabase().getChatDao().getAllSimple(chatID);
-
-        ConversationModel conversationModel = new ConversationModel(chatID, UUID.randomUUID().toString());
-        conversationModel.setId(firstId++);
-        conversationModel.setTitle("");
+        ConversationModel conversationModel = new ConversationModel(chatId, UUID.randomUUID().toString());
+        conversationModel.setId(IdGeneratorHelper.Companion.getRandomIntId());
+        conversationModel.setTitle(PublicValues.sampleUsername);
         conversationModel.setMessage(input.toString());
-        conversationModel.setTime(String.valueOf(System.currentTimeMillis() + (85000000 * (tester - 30))));
-
-        PersianDate pdate = new PersianDate(Long.parseLong(conversationModel.getTime()));
-        PersianDateFormat pdformater = new PersianDateFormat("l j F Y");
-
-        Toast.makeText(this, pdformater.format(pdate), Toast.LENGTH_SHORT).show();
-        if (tester % 3 == 0) {
-            conversationModel.setConversationType(ConversationType.CLIENT);
-        } else if (tester % 3 == 1) {
-            conversationModel.setConversationType(ConversationType.SERVER);
-        } else if (tester % 3 == 2) {
-            conversationModel.setConversationType(ConversationType.SYSTEM);
-        } else if (tester % 5 == 0) {
-            conversationModel.setFileType(FileType.NONE);
-        } else if (tester % 5 == 1) {
-            conversationModel.setFileType(FileType.AUDIO);
-        } else if (tester % 5 == 2) {
-            conversationModel.setFileType(FileType.NONE);
-        } else if (tester % 5 == 3) {
-            conversationModel.setFileType(FileType.IMAGE);
-        } else if (tester % 5 == 4) {
-            conversationModel.setFileType(FileType.DOCUMENT);
-        }
+        conversationModel.setTime(String.valueOf(TimeHelper.Companion.getCurrentTimestamp()));
         conversationModel.setConversationStatus(ConversationStatus.SENDING);
-        // conversationModel.setFileAddress("https://www.w3schools.com/howto/img_avatar.png");
-        conversationModel.setImageRes("2");
-        //        if (imageUri != null) {
-//            conversationModel.setFileAddress(imageUri.toString());
-        conversationModel.setFileAddress("https://www.w3.org/WAI/ER/tests/xhtml/testfiles/resources/pdf/dummy.pdf");
-        //        conversationModel.setFileAddress("https://www.kozco.com/tech/piano2.wav");
-//        conversationModel.setFileAddress("https://www.kozco.com/tech/organfinale.wav");
         conversationModel.setFileType(FileType.NONE);
         conversationModel.setConversationType(ConversationType.CLIENT);
-
-        findViewById(R.id.image2).setVisibility(View.GONE);
 
         conversationListViewModel.addNewConversation(conversationModel);
 
@@ -157,7 +119,7 @@ public class MainActivity
             }
 
             public void onFinish() {
-                List<ConversationModel> allModels = DatabaseLayer.getInstance(MyApplication.getApp()).getChatKitDatabase().getChatDao().getAllSimple(chatID);
+                List<ConversationModel> allModels = DatabaseLayer.getInstance(MyApplication.getApp()).getChatKitDatabase().getChatDao().getAllSimple(chatId);
                 conversationListViewModel.updateConversationStatus(conversationModel.getConversationId(), ConversationStatus.SENT);
             }
 
@@ -218,20 +180,6 @@ public class MainActivity
         pickGallery();
     }
 
-    private void pickGallery() {
-        FilePickerBuilder.getInstance()
-                .setActivityTheme(R.style.AppTheme) //optional
-                .enableVideoPicker(true)
-                .pickPhoto(this, 400);
-    }
-
-    private boolean checkPermission() {
-        permissionHelper = new PermissionHelper(this);
-        return permissionHelper.checkAccessStoragePermissionRead();
-    }
-
-    Uri imageUri;
-
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
@@ -239,7 +187,7 @@ public class MainActivity
         image.setVisibility(View.VISIBLE);
         ArrayList<Parcelable> uri = data.getParcelableArrayListExtra("SELECTED_PHOTOS");
         image.setImageUrl(((Uri) uri.get(0)));
-        imageUri = ((Uri) uri.get(0));
+        Uri imageUri = ((Uri) uri.get(0));
         Log.e(TAG, "onActivityResult: " + uri);
 
     }
@@ -286,4 +234,67 @@ public class MainActivity
     public void shouldPaginate() {
         Log.i(TAG, "shouldPaginate: ***********");
     }
+
+    private void pickGallery() {
+        /*FilePickerBuilder.getInstance()
+                .setActivityTheme(R.style.AppTheme) //optional
+                .enableVideoPicker(true)
+                .pickPhoto(this, 400);*/
+    }
+
+    private boolean checkPermission() {
+        permissionHelper = new PermissionHelper(this);
+        return permissionHelper.checkAccessStoragePermissionRead();
+    }
+
+    private void initViewModel() {
+        conversationListViewModel = new ViewModelProvider(this, new ConversationListViewModelFactory(getApplication(), chatId)).get(ConversationListViewModel.class);
+        conversationView.setConversationListViewModel(conversationListViewModel);
+        conversationView.setConversationViewListener(this);
+
+        addSampleMessageIntoDB();
+    }
+
+    private void addSampleMessageIntoDB() {
+        ArrayList<ConversationModel> conversationModels = MessageGeneratorHelper.Companion.generateSampleMessageList();
+        conversationListViewModel.addNewConversation(conversationModels);
+    }
+
+    private void pleaseHoldThisForASec() {
+
+        /*PersianDate pdate = new PersianDate(Long.parseLong(conversationModel.getTime()));
+        PersianDateFormat pdformater = new PersianDateFormat("l j F Y");
+
+        Toast.makeText(this, pdformater.format(pdate), Toast.LENGTH_SHORT).show();
+        if (tester % 3 == 0) {
+            conversationModel.setConversationType(ConversationType.CLIENT);
+        } else if (tester % 3 == 1) {
+            conversationModel.setConversationType(ConversationType.SERVER);
+        } else if (tester % 3 == 2) {
+            conversationModel.setConversationType(ConversationType.SYSTEM);
+        } else if (tester % 5 == 0) {
+            conversationModel.setFileType(FileType.NONE);
+        } else if (tester % 5 == 1) {
+            conversationModel.setFileType(FileType.AUDIO);
+        } else if (tester % 5 == 2) {
+            conversationModel.setFileType(FileType.NONE);
+        } else if (tester % 5 == 3) {
+            conversationModel.setFileType(FileType.IMAGE);
+        } else if (tester % 5 == 4) {
+            conversationModel.setFileType(FileType.DOCUMENT);
+        }
+        conversationModel.setConversationStatus(ConversationStatus.SENDING);
+        // conversationModel.setFileAddress("https://www.w3schools.com/howto/img_avatar.png");
+        conversationModel.setImageRes("2");
+        //        if (imageUri != null) {
+//            conversationModel.setFileAddress(imageUri.toString());
+        conversationModel.setFileAddress("https://www.w3.org/WAI/ER/tests/xhtml/testfiles/resources/pdf/dummy.pdf");
+        //        conversationModel.setFileAddress("https://www.kozco.com/tech/piano2.wav");
+//        conversationModel.setFileAddress("https://www.kozco.com/tech/organfinale.wav");
+        conversationModel.setFileType(FileType.NONE);
+        conversationModel.setConversationType(ConversationType.CLIENT);
+
+        findViewById(R.id.image2).setVisibility(View.GONE);*/
+    }
+
 }

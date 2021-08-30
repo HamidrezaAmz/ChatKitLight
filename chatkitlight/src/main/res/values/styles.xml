@@ -46,8 +46,8 @@
     <style name="ChatBubbleStyle">
         <item name="android:layout_marginRight">@dimen/avatar_circle_size_half</item>
         <item name="android:layout_marginLeft">@dimen/avatar_circle_size_half</item>
-        <item name="android:paddingTop">@dimen/global_padding_extra</item>
-        <item name="android:paddingBottom">@dimen/global_padding_extra</item>
+        <item name="android:paddingTop">@dimen/global_padding</item>
+        <item name="android:paddingBottom">@dimen/global_padding</item>
         <item name="android:layout_width">wrap_content</item>
         <item name="android:layout_height">wrap_content</item>
     </style>

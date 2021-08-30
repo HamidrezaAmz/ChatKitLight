@@ -21,26 +21,29 @@
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layoutDirection="ltr"
         android:padding="@dimen/global_padding">
 
         <RelativeLayout
             android:id="@+id/linearLayout_bubble"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true">
 
             <RelativeLayout
                 android:id="@+id/relative_bubble"
                 style="@style/ChatBubbleStyle"
                 android:layout_alignParentLeft="true"
-                android:background="@drawable/lawone_shape_curve_server">
+                android:background="@drawable/lawone_shape_curve_server"
+                android:gravity="left"
+                android:minWidth="@dimen/conversation_min_width">
 
                 <androidx.constraintlayout.widget.ConstraintLayout
                     android:id="@+id/frameLayoutFile"
-                    android:layout_width="match_parent"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="30dp"
-                    android:layout_marginEnd="30dp"
-                    android:background="@drawable/lawone_shape_curve_server">
+                    android:layout_marginEnd="30dp">
 
                     <androidx.appcompat.widget.AppCompatImageView
                         android:id="@+id/imageView_file_icon"
@@ -71,17 +74,15 @@
 
                     <TextView
                         android:id="@+id/textView_title"
+                        style="@style/TextViewTitleStyle"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
-                        android:layout_gravity="left|top"
                         android:ellipsize="start"
-                        android:gravity="start"
-                        android:padding="@dimen/global_padding_small"
+                        android:gravity="left"
                         android:text='@{!conversationModel.title.equals("") ? conversationModel.title : conversationModel.fileAddress.substring(conversationModel.fileAddress.lastIndexOf("/") + 1)}'
                         android:textColor="@color/lawone_client_text"
                         android:textSize="@dimen/input_text_size_middle"
                         app:layout_constraintBottom_toBottomOf="@id/imageView_file_icon"
-                        app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toEndOf="@id/imageView_file_icon"
                         app:layout_constraintTop_toTopOf="@id/imageView_file_icon"
                         tools:text="this is a title for this message" />
@@ -90,17 +91,14 @@
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_gravity="right|bottom"
-                        android:ellipsize="end"
                         android:gravity="left"
-                        android:maxLines="1"
-                        android:padding="@dimen/global_padding_small"
                         android:text="@{ conversationModel.message}"
                         android:textColor="@color/lawone_client_text"
                         android:textSize="@dimen/input_text_size_small"
                         android:visibility='@{ conversationModel.message.equals("") ? View.GONE : View.VISIBLE }'
                         app:layout_constraintStart_toStartOf="@id/textView_title"
                         app:layout_constraintTop_toBottomOf="@id/textView_title"
-                        tools:text="350Kb PDF"
+                        tools:text="THIS IS FILE MESSAGE FOR TESTING NAMING AND OTHER STAFS"
                         tools:visibility="visible" />
 
                 </androidx.constraintlayout.widget.ConstraintLayout>
@@ -125,8 +123,8 @@
                 app:wlv_titleCenterColor="@color/dark_grey_two"
                 app:wlv_titleCenterSize="10sp"
                 app:wlv_triangle_direction="north"
-                app:wlv_waveAmplitude="85"
-                app:wlv_waveColor="@color/red"
+                app:wlv_waveAmplitude="100"
+                app:wlv_waveColor="@color/white"
                 app:wlv_wave_background_Color="@color/white" />
 
             <androidx.appcompat.widget.AppCompatImageView

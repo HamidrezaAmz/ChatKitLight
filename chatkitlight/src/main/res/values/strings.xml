@@ -15,4 +15,6 @@
     <string name="title_slide_to_cancel">Slide to cancel</string>
     <string name="true_s">true</string>
     <string name="false_s">false</string>
+    <string name="confirm_access">Confirm Access</string>
+
 </resources>

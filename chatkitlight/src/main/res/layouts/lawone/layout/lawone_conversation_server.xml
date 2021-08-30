@@ -42,12 +42,14 @@
                 <TextView
                     android:id="@+id/textView_title"
                     style="@style/TextViewServerTitleStyle"
+                    android:gravity="left"
                     android:text="@{ conversationModel.title}"
                     android:visibility='@{ conversationModel.title.equals("") ? View.GONE : View.VISIBLE }' />
 
                 <TextView
                     style="@style/TextViewServerTitleStyle"
                     android:layout_below="@id/textView_title"
+                    android:gravity="left"
                     android:text="@{ conversationModel.message}"
                     android:visibility='@{ conversationModel.message.equals("") ? View.GONE : View.VISIBLE }' />
 

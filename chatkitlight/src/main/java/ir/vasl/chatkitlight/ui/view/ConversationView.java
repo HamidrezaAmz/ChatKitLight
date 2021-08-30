@@ -220,6 +220,7 @@ public class ConversationView
         public void onScrolled(@NonNull RecyclerView recyclerView, int dx, int dy) {
             super.onScrolled(recyclerView, dx, dy);
 
+            /*
             LinearLayoutManager manager = ((LinearLayoutManager) recyclerView.getLayoutManager());
             if (manager != null) {
                 if (manager.findFirstCompletelyVisibleItemPosition() == 0) {
@@ -227,6 +228,19 @@ public class ConversationView
                 } else {
                     swipyRefreshLayout.setEnabled((recyclerView.canScrollVertically(DIRECTION_UP)));
                 }
+            }
+            */
+        }
+
+        @Override
+        public void onScrollStateChanged(@NonNull RecyclerView recyclerView, int newState) {
+            super.onScrollStateChanged(recyclerView, newState);
+            LinearLayoutManager layoutManager = (LinearLayoutManager) recyclerView.getLayoutManager();
+            int firstPos = layoutManager != null ? layoutManager.findFirstCompletelyVisibleItemPosition() : 0;
+            if (firstPos > 0) {
+                swipyRefreshLayout.setEnabled(false);
+            } else {
+                swipyRefreshLayout.setEnabled(true);
             }
         }
     };

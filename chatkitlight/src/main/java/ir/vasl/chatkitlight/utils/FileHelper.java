@@ -24,20 +24,16 @@ import java.util.Objects;
 
 public class FileHelper {
 
-    //    public static String getFileName(String uri) {
-//        String res = uri;
-//        if (uri == null)
-//            return "";
-//        String[] split = uri.split("/");
-//        if (split.length > 0)
-//            res = split[split.length - 1];
-//        return res.length() < 17 ? res : res.substring(res.length() - 16);
-//    }
-
     public static boolean checkFileExistence(Context context, String fileName) {
         if (context.getExternalFilesDir(null) == null || fileName == null)
             return false;
         return new File(Objects.requireNonNull(context.getExternalFilesDir(null)).toString() + "/chatkit/", fileName).exists();
+    }
+
+    public static String getExistsFilePath(Context context, String fileName) {
+        if (context.getExternalFilesDir(null) == null || fileName == null)
+            return "";
+        return new File(Objects.requireNonNull(context.getExternalFilesDir(null)).toString() + "/chatkit/", fileName).getPath();
     }
 
     public static DownloadRequest downloadFile(Context context, String url, String fileName, DownloadStatusListenerV1 downloadListener) {
