@@ -92,6 +92,7 @@
                         android:layout_height="wrap_content"
                         android:layout_gravity="right|bottom"
                         android:gravity="left"
+                        android:maxLines="1"
                         android:text="@{ conversationModel.message}"
                         android:textColor="@color/lawone_client_text"
                         android:textSize="@dimen/input_text_size_small"
