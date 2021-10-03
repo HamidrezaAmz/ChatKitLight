@@ -34,6 +34,12 @@ public class FileHelper {
 //        return res.length() < 17 ? res : res.substring(res.length() - 16);
 //    }
 
+    public static String getExistsFilePath(Context context, String fileName) {
+        if (context.getExternalFilesDir(null) == null || fileName == null)
+            return "";
+        return new File(Objects.requireNonNull(context.getExternalFilesDir(null)).toString() + "/chatkit/", fileName).getPath();
+    }
+
     public static boolean checkFileExistence(Context context, String fileName) {
         if (context.getExternalFilesDir(null) == null || fileName == null)
             return false;

@@ -45,12 +45,14 @@
                 <TextView
                     android:id="@+id/textView_title"
                     style="@style/TextViewClientTitleStyle"
+                    android:gravity="right"
                     android:text="@{conversationModel.title}"
                     android:visibility='@{conversationModel.title.equals("") ? View.GONE : View.VISIBLE }' />
 
                 <TextView
                     style="@style/TextViewClientTitleStyle"
                     android:layout_below="@id/textView_title"
+                    android:gravity="right"
                     android:text="@{conversationModel.message}"
                     android:visibility='@{conversationModel.message.equals("") ? View.GONE : View.VISIBLE }' />
 
