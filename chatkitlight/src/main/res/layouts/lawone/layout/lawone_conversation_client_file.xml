@@ -74,9 +74,6 @@
                         android:layout_marginRight="@dimen/global_margin_spaced"
                         android:ellipsize="start"
                         android:gravity="left"
-                        android:maxWidth="@dimen/chat_item_max_width"
-                        android:maxLength="18"
-                        android:singleLine="true"
                         android:text='@{!conversationModel.title.equals("") ? conversationModel.title : conversationModel.fileAddress.substring(conversationModel.fileAddress.lastIndexOf("/") + 1)}'
                         android:textColor="@color/lawone_client_text"
                         android:textSize="@dimen/input_text_size_middle"
@@ -90,6 +87,8 @@
                         android:layout_marginTop="2dp"
                         android:layout_marginRight="@dimen/global_margin_spaced"
                         android:gravity="right"
+                        android:ellipsize="end"
+                        android:maxLines="1"
                         android:maxWidth="@dimen/chat_item_max_width"
                         android:text="@{ conversationModel.message}"
                         android:textColor="@color/lawone_client_icon_background"
@@ -130,6 +129,7 @@
                 android:layout_marginTop="@dimen/download_circle_size_half"
                 android:layout_marginRight="-45dp"
                 android:layout_toLeftOf="@id/relative_bubble"
+                android:layout_centerVertical="true"
                 android:scaleType="centerInside"
                 android:visibility="gone"
                 app:srcCompat="@drawable/ic_check_black_24dp" />

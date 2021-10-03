@@ -238,9 +238,9 @@ public class ConversationView
     }
 
     @Override
-    public void pdfFileClicked(Uri pdfUri) {
+    public void onFileClicked(Uri fileUri) {
         if (conversationViewListener != null)
-            conversationViewListener.pdfFileClicked(pdfUri);
+            conversationViewListener.onFileClicked(fileUri);
     }
 
     @Override

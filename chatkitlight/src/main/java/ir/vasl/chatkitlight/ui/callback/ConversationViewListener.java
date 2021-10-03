@@ -54,7 +54,7 @@ public interface ConversationViewListener<T> {
     default void requestStoragePermission() {
     }
 
-    default void pdfFileClicked(Uri pdfUri) {
+    default void onFileClicked(Uri fileUri) {
     }
 
     default void extraOptionClicked() {

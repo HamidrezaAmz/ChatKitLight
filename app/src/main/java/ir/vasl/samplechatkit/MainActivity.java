@@ -246,7 +246,7 @@ public class MainActivity
     }
 
     @Override
-    public void pdfFileClicked(Uri pdfUri) {
+    public void onFileClicked(Uri pdfUri) {
         Log.e(TAG, "pdfFileClicked: " + pdfUri);
     }
 

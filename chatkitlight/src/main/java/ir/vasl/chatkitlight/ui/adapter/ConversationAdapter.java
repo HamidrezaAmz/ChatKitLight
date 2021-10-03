@@ -59,8 +59,10 @@ import ir.vasl.chatkitlight.ui.base.BaseViewHolder;
 import ir.vasl.chatkitlight.ui.callback.ConversationListListener;
 import ir.vasl.chatkitlight.ui.dialogs.PermissionDialog;
 import ir.vasl.chatkitlight.utils.AndroidUtils;
+import ir.vasl.chatkitlight.utils.ExtensionHelper;
 import ir.vasl.chatkitlight.utils.FileHelper;
 import ir.vasl.chatkitlight.utils.PermissionHelper;
+import ir.vasl.chatkitlight.utils.PublicValue;
 import ir.vasl.chatkitlight.utils.TimeUtils;
 import ir.vasl.chatkitlight.utils.globalEnums.ChatStyleEnum;
 import ir.vasl.chatkitlight.utils.globalEnums.ConversationType;
@@ -1173,8 +1175,10 @@ public class ConversationAdapter extends PagedListAdapter<ConversationModel, Bas
                 if (FileHelper.checkFileExistence(context, getItem(getBindingAdapterPosition()).getTitle())) {
                     Uri fileUri = FileHelper.getFileUri(context, getItem(getBindingAdapterPosition()).getTitle());
                     String type = FileHelper.getMimeType(context, fileUri);
-                    if (type.contains("/") && type.split("/")[1].equals("pdf"))
-                        activatePdfInterface(fileUri);
+                    String extension = ExtensionHelper.getUriExtension(fileUri);
+
+                    if (extension.contains(PublicValue.PDF) || extension.contains(PublicValue.DOC) || extension.contains(PublicValue.DOCX))
+                        OnFileClicked(fileUri);
                     else
                         FileHelper.openFile(context, getItem(getBindingAdapterPosition()).getFileAddress(), getItem(getBindingAdapterPosition()).getTitle());
                 } else {
@@ -1342,8 +1346,10 @@ public class ConversationAdapter extends PagedListAdapter<ConversationModel, Bas
                 if (FileHelper.checkFileExistence(context, getItem(getBindingAdapterPosition()).getTitle())) {
                     Uri fileUri = FileHelper.getFileUri(context, getItem(getBindingAdapterPosition()).getTitle());
                     String type = FileHelper.getMimeType(context, fileUri);
-                    if (type.contains("/") && type.split("/")[1].equals("pdf"))
-                        activatePdfInterface(fileUri);
+                    String extension = ExtensionHelper.getUriExtension(fileUri);
+
+                    if (extension.contains(PublicValue.PDF) || extension.contains(PublicValue.DOC) || extension.contains(PublicValue.DOCX))
+                        OnFileClicked(fileUri);
                     else
                         FileHelper.openFile(context, getItem(getBindingAdapterPosition()).getFileAddress(), getItem(getBindingAdapterPosition()).getTitle());
                 } else {
@@ -1362,8 +1368,8 @@ public class ConversationAdapter extends PagedListAdapter<ConversationModel, Bas
         }
     }
 
-    private void activatePdfInterface(Uri fileUri) {
-        conversationListListener.pdfFileClicked(fileUri);
+    private void OnFileClicked(Uri fileUri) {
+        conversationListListener.onFileClicked(fileUri);
     }
 
     public void stopMediaPlayer() {

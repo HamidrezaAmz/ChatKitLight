@@ -28,7 +28,7 @@ public interface DialogMenuListener<T> {
     default void requestStoragePermission() {
     }
 
-    void pdfFileClicked(Uri pdfUri);
+    default void onFileClicked(Uri fileUri){}
 
     default void onSupportClicked(){}
 
