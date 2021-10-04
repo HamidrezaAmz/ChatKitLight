@@ -1220,6 +1220,7 @@ public class ConversationAdapter extends PagedListAdapter<ConversationModel, Bas
                     } catch (StringIndexOutOfBoundsException exception){
                         extension = ExtensionHelper.getUriExtension(getItem(getBindingAdapterPosition()).getFileName());
                     }
+                    Log.e("TAG", "ConversationViewHolder: " + extension );
                     if (extension.contains(PublicValue.PDF) || extension.contains(PublicValue.DOC) || extension.contains(PublicValue.DOCX))
                         OnFileClicked(fileUri);
                     else
