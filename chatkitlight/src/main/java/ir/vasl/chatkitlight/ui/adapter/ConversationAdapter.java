@@ -1215,13 +1215,14 @@ public class ConversationAdapter extends PagedListAdapter<ConversationModel, Bas
                     Uri fileUri = FileHelper.getFileUri(context, getItem(getBindingAdapterPosition()).getFileName());
                     String type = FileHelper.getMimeType(context, fileUri);
                     String extension = "";
-                    try{
+                    try {
                         extension = ExtensionHelper.getUriExtension(getItem(getBindingAdapterPosition()).getMessage());
-                    } catch (StringIndexOutOfBoundsException exception){
+                    } catch (StringIndexOutOfBoundsException exception) {
                         extension = ExtensionHelper.getUriExtension(getItem(getBindingAdapterPosition()).getFileName());
                     }
-                    Log.e("TAG", "ConversationViewHolder: " + extension );
-                    if (extension.contains(PublicValue.PDF) || extension.contains(PublicValue.DOC) || extension.contains(PublicValue.DOCX))
+                    Log.e("TAG", "ConversationViewHolder: " + extension);
+                    if (extension.contains(PublicValue.PDF) || extension.contains(PublicValue.DOC) || extension.contains(PublicValue.DOCX)
+                            || extension.contains(PublicValue.EXT_PDF) || extension.contains(PublicValue.EXT_DOC) || extension.contains(PublicValue.EXT_DOCX))
                         OnFileClicked(fileUri);
                     else
                         FileHelper.openFile(context, getItem(getBindingAdapterPosition()).getFileAddress(), getItem(getBindingAdapterPosition()).getFileName());
@@ -1384,12 +1385,13 @@ public class ConversationAdapter extends PagedListAdapter<ConversationModel, Bas
                     Uri fileUri = FileHelper.getFileUri(context, getItem(getBindingAdapterPosition()).getFileName());
                     String type = FileHelper.getMimeType(context, fileUri);
                     String extension = "";
-                    try{
+                    try {
                         extension = ExtensionHelper.getUriExtension(getItem(getBindingAdapterPosition()).getMessage());
-                    } catch (StringIndexOutOfBoundsException exception){
+                    } catch (StringIndexOutOfBoundsException exception) {
                         extension = ExtensionHelper.getUriExtension(getItem(getBindingAdapterPosition()).getFileName());
                     }
-                    if (extension.contains(PublicValue.PDF) || extension.contains(PublicValue.DOC) || extension.contains(PublicValue.DOCX))
+                    if (extension.contains(PublicValue.PDF) || extension.contains(PublicValue.DOC) || extension.contains(PublicValue.DOCX)
+                            || extension.contains(PublicValue.EXT_PDF) || extension.contains(PublicValue.EXT_DOC) || extension.contains(PublicValue.EXT_DOCX))
                         OnFileClicked(fileUri);
                     else
                         FileHelper.openFile(context, getItem(getBindingAdapterPosition()).getFileAddress(), getItem(getBindingAdapterPosition()).getFileName());
