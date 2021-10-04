@@ -213,7 +213,7 @@ public class ConversationModel {
     public String getFileName() {
 //        String path = getFileAddress();
 //        return path.substring(path.lastIndexOf("/") + 1);
-        return title;
+        return message;
     }
 
     @BindingAdapter("conversationStatusIcon")
