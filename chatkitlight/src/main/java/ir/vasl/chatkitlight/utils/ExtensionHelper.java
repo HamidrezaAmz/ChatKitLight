@@ -8,5 +8,9 @@ public class ExtensionHelper {
         String stringBaseUri = uri.toString();
         return stringBaseUri.substring(stringBaseUri.lastIndexOf("."));
     }
+    public static String getUriExtension(String uri) {
+        String stringBaseUri = uri.toString();
+        return stringBaseUri.substring(stringBaseUri.lastIndexOf("."));
+    }
 
 }

@@ -74,9 +74,9 @@
                         android:layout_marginRight="@dimen/global_margin_spaced"
                         android:ellipsize="start"
                         android:gravity="right"
-                        android:text='@{!conversationModel.title.equals("") ? conversationModel.title : conversationModel.fileAddress.substring(conversationModel.fileAddress.lastIndexOf("/") + 1)}'
                         android:textColor="@color/lawone_client_text"
                         android:textSize="@dimen/input_text_size_middle"
+                        android:text="@{ conversationModel.message}"
                         tools:text="this is file name" />
 
                     <TextView
@@ -90,11 +90,11 @@
                         android:ellipsize="end"
                         android:maxLines="1"
                         android:maxWidth="@dimen/chat_item_max_width"
-                        android:text="@{ conversationModel.message}"
                         android:textColor="@color/lawone_client_icon_background"
                         android:textSize="@dimen/input_text_size_small"
                         android:visibility='@{ conversationModel.message.equals("") ? View.GONE : View.VISIBLE }'
                         tools:text="350Kb PDF"
+                        android:text='@{!conversationModel.title.equals("") ? conversationModel.title : conversationModel.fileAddress.substring(conversationModel.fileAddress.lastIndexOf("/") + 1)}'
                         tools:visibility="visible" />
 
                 </FrameLayout>

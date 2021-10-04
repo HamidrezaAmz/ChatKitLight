@@ -68,8 +68,8 @@
                         android:layout_marginLeft="@dimen/global_margin_spaced"
                         android:layout_marginRight="@dimen/global_margin_x_extra"
                         android:ellipsize="start"
+                        android:text="@{ conversationModel.message}"
                         android:gravity="left"
-                        android:text='@{!conversationModel.title.equals("") ? conversationModel.title : conversationModel.fileAddress.substring(conversationModel.fileAddress.lastIndexOf("/") + 1)}'
                         android:textSize="@dimen/input_text_size_middle"
                         tools:text="this is file name" />
 
@@ -83,7 +83,7 @@
                         android:ellipsize="end"
                         android:gravity="left"
                         android:maxLines="1"
-                        android:text="@{ conversationModel.message}"
+                        android:text='@{!conversationModel.title.equals("") ? conversationModel.title : conversationModel.fileAddress.substring(conversationModel.fileAddress.lastIndexOf("/") + 1)}'
                         android:textColor="@color/lawone_client_text"
                         android:textSize="@dimen/input_text_size_small"
                         android:visibility='@{ conversationModel.message.equals("") ? View.GONE : View.VISIBLE }'

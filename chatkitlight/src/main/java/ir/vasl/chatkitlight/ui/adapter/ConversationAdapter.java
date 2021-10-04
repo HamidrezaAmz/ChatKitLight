@@ -1214,8 +1214,7 @@ public class ConversationAdapter extends PagedListAdapter<ConversationModel, Bas
                 if (FileHelper.checkFileExistence(context, getItem(getBindingAdapterPosition()).getFileName())) {
                     Uri fileUri = FileHelper.getFileUri(context, getItem(getBindingAdapterPosition()).getFileName());
                     String type = FileHelper.getMimeType(context, fileUri);
-                    String extension = ExtensionHelper.getUriExtension(fileUri);
-
+                    String extension = ExtensionHelper.getUriExtension(getItem(getBindingAdapterPosition()).getMessage());
                     if (extension.contains(PublicValue.PDF) || extension.contains(PublicValue.DOC) || extension.contains(PublicValue.DOCX))
                         OnFileClicked(fileUri);
                     else
