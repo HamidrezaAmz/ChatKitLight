@@ -141,10 +141,10 @@ public class MainActivity
         conversationModel.setImageRes("2");
         //        if (imageUri != null) {
 //            conversationModel.setFileAddress(imageUri.toString());
-        conversationModel.setFileAddress("https://www.w3.org/WAI/ER/tests/xhtml/testfiles/resources/pdf/dummy.pdf");
+//        conversationModel.setFileAddress("https://www.w3.org/WAI/ER/tests/xhtml/testfiles/resources/pdf/dummy.pdf");
         //        conversationModel.setFileAddress("https://www.kozco.com/tech/piano2.wav");
-//        conversationModel.setFileAddress("https://www.kozco.com/tech/organfinale.wav");
-        conversationModel.setFileType(FileType.DOCUMENT);
+        conversationModel.setFileAddress("https://www.kozco.com/tech/organfinale.wav");
+        conversationModel.setFileType(FileType.AUDIO);
         conversationModel.setConversationType(ConversationType.CLIENT);
 
         findViewById(R.id.image2).setVisibility(View.GONE);

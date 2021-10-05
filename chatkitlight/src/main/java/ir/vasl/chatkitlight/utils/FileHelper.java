@@ -43,7 +43,9 @@ public class FileHelper {
     public static boolean checkFileExistence(Context context, String fileName) {
         if (context.getExternalFilesDir(null) == null || fileName == null)
             return false;
-        return new File(Objects.requireNonNull(context.getExternalFilesDir(null)).toString() + "/chatkit/", fileName).exists();
+        boolean res = new File(Objects.requireNonNull(context.getExternalFilesDir(null)).toString() + "/chatkit/", fileName).exists();
+        Log.e("TAG", "downloading: " + res );
+        return res;
     }
 
     public static DownloadRequest downloadFile(Context context, String url, String fileName, DownloadStatusListenerV1 downloadListener) {

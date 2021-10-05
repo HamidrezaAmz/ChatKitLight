@@ -1296,6 +1296,7 @@ public class ConversationAdapter extends PagedListAdapter<ConversationModel, Bas
                     singletonMediaPlayer.playSound(downloadedFilePath);
                 } else {
                     try {
+                        Log.e("TAG", "Downloading: " + getItem(getBindingAdapterPosition()).getFileAddress() + " AS " + getItem(getBindingAdapterPosition()).getFileName() );
                         downloadRequest = FileHelper.downloadFile(context, getItem(getBindingAdapterPosition()).getFileAddress(),
                                 getItem(getBindingAdapterPosition()).getFileName(),
                                 downloadListenerCreator(null, lawoneClientAudioBinding.progressbarLoading, lawoneClientAudioBinding.wave, null));
