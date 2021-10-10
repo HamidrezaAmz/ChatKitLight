@@ -2,7 +2,6 @@ package ir.vasl.chatkitlight.ui.adapter;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
-import android.media.MediaPlayer;
 import android.net.Uri;
 import android.os.CountDownTimer;
 import android.util.Log;
@@ -26,10 +25,6 @@ import com.thin.downloadmanager.DownloadStatusListenerV1;
 import com.thin.downloadmanager.ThinDownloadManager;
 
 import java.text.SimpleDateFormat;
-import java.time.Instant;
-import java.time.LocalDate;
-import java.time.ZoneId;
-import java.time.temporal.ChronoUnit;
 import java.util.Date;
 
 import ir.vasl.chatkitlight.R;
@@ -65,7 +60,6 @@ import ir.vasl.chatkitlight.utils.FileHelper;
 import ir.vasl.chatkitlight.utils.PermissionHelper;
 import ir.vasl.chatkitlight.utils.PublicValue;
 import ir.vasl.chatkitlight.utils.SingletonMediaPlayer;
-import ir.vasl.chatkitlight.utils.TimeUtils;
 import ir.vasl.chatkitlight.utils.TypefaceHelper;
 import ir.vasl.chatkitlight.utils.extensions.WaveLoadingViewExtensionKt;
 import ir.vasl.chatkitlight.utils.globalEnums.ChatStyleEnum;
@@ -1050,7 +1044,7 @@ public class ConversationAdapter extends PagedListAdapter<ConversationModel, Bas
                     return;
                 }
                 if (FileHelper.checkFileExistence(context, getItem(getBindingAdapterPosition()).getFileName())) {
-                    if (clientAudioBinding.getIsPlaying()) {
+                    if (clientAudioBinding != null && clientAudioBinding.getIsPlaying()) {
                         clientAudioBinding.setIsPlaying(false);
                         singletonMediaPlayer.pauseSound();
                         lastPlayingPos = -1;
@@ -1131,7 +1125,7 @@ public class ConversationAdapter extends PagedListAdapter<ConversationModel, Bas
                     return;
                 }
                 if (FileHelper.checkFileExistence(context, getItem(getBindingAdapterPosition()).getFileName())) {
-                    if (serverAudioBinding.getIsPlaying()) {
+                    if (serverAudioBinding != null && serverAudioBinding.getIsPlaying()) {
                         serverAudioBinding.setIsPlaying(false);
                         singletonMediaPlayer.pauseSound();
                         lastPlayingPos = -1;
@@ -1266,7 +1260,7 @@ public class ConversationAdapter extends PagedListAdapter<ConversationModel, Bas
                     return;
                 }
                 if (FileHelper.checkFileExistence(context, getItem(getBindingAdapterPosition()).getTitle())) {
-                    if (lawoneClientAudioBinding.getIsPlaying()) {
+                    if (lawoneClientAudioBinding != null && lawoneClientAudioBinding.getIsPlaying()) {
                         lawoneClientAudioBinding.setIsPlaying(false);
                         singletonMediaPlayer.pauseSound();
                         lastPlayingPos = -1;
@@ -1296,7 +1290,7 @@ public class ConversationAdapter extends PagedListAdapter<ConversationModel, Bas
                     singletonMediaPlayer.playSound(downloadedFilePath);
                 } else {
                     try {
-                        Log.e("TAG", "Downloading: " + getItem(getBindingAdapterPosition()).getFileAddress() + " AS " + getItem(getBindingAdapterPosition()).getFileName() );
+                        Log.e("TAG", "Downloading: " + getItem(getBindingAdapterPosition()).getFileAddress() + " AS " + getItem(getBindingAdapterPosition()).getFileName());
                         downloadRequest = FileHelper.downloadFile(context, getItem(getBindingAdapterPosition()).getFileAddress(),
                                 getItem(getBindingAdapterPosition()).getFileName(),
                                 downloadListenerCreator(null, lawoneClientAudioBinding.progressbarLoading, lawoneClientAudioBinding.wave, null));
@@ -1328,13 +1322,13 @@ public class ConversationAdapter extends PagedListAdapter<ConversationModel, Bas
                     if (singletonMediaPlayer.getMediaPlayer() != null && singletonMediaPlayer.getMediaPlayer().isPlaying()) {
                         singletonMediaPlayer.getMediaPlayer().stop();
                         singletonMediaPlayer.getMediaPlayer().release();
-                        if (lawoneClientAudioBinding.getIsPlaying()) {
+                        if (lawoneClientAudioBinding != null && lawoneClientAudioBinding.getIsPlaying()) {
                             lawoneClientAudioBinding.setIsPlaying(false);
                             lastPlayingPos = -1;
                             return;
                         }
                     }
-                    if (lawoneClientAudioBinding.getIsPlaying()) {
+                    if (lawoneClientAudioBinding != null && lawoneClientAudioBinding.getIsPlaying()) {
                         lawoneClientAudioBinding.setIsPlaying(false);
                         singletonMediaPlayer.pauseSound();
                         lastPlayingPos = -1;

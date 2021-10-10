@@ -3,23 +3,10 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
-        <entry key="..\:/AndroidStudioProjects/chatkit/ChatKitLight/chatkitlight/src/main/res/layouts/lawone/layout/lawone_conversation_server_file.xml" value="0.25416666666666665" />
-        <entry key="app/src/main/res/layout/activity_main.xml" value="0.19930555555555557" />
-        <entry key="chatkitlight/src/main/res/drawable/lawone_shape_curve_server.xml" value="0.1875" />
-        <entry key="chatkitlight/src/main/res/drawable/shape_curve_light.xml" value="0.18680555555555556" />
-        <entry key="chatkitlight/src/main/res/drawable/shape_curve_menu.xml" value="0.18680555555555556" />
-        <entry key="chatkitlight/src/main/res/layouts/av/layout/item_date.xml" value="0.2125" />
-        <entry key="chatkitlight/src/main/res/layouts/av/layout/lawone_conversation_client_audio.xml" value="0.19444444444444445" />
-        <entry key="chatkitlight/src/main/res/layouts/av/layout/lawone_conversation_system.xml" value="0.19444444444444445" />
-        <entry key="chatkitlight/src/main/res/layouts/general/layout/dialog_permission.xml" value="0.2125" />
-        <entry key="chatkitlight/src/main/res/layouts/lawone/layout/lawone_conversation_client.xml" value="0.125" />
-        <entry key="chatkitlight/src/main/res/layouts/lawone/layout/lawone_conversation_client_file.xml" value="0.1798611111111111" />
-        <entry key="chatkitlight/src/main/res/layouts/lawone/layout/lawone_conversation_server.xml" value="0.1326388888888889" />
-        <entry key="chatkitlight/src/main/res/layouts/lawone/layout/lawone_conversation_server_file.xml" value="0.1798611111111111" />
+        <entry key="chatkitlight/src/main/res/layouts/av/layout/view_conversation_server_audio.xml" value="0.2125" />
       </map>
     </option>
   </component>
-  <component name="ProjectRootManager" version="2" languageLevel="JDK_11" default="true" project-jdk-name="11" project-jdk-type="JavaSDK">
-    <output url="file://$PROJECT_DIR$/build/classes" />
-  </component>
+  <component name="ExternalStorageConfigurationManager" enabled="true" />
+  <component name="ProjectRootManager" version="2" languageLevel="JDK_11" default="true" project-jdk-name="11" project-jdk-type="JavaSDK" />
 </project>
