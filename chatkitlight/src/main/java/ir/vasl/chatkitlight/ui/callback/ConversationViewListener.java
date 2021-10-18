@@ -69,7 +69,7 @@ public interface ConversationViewListener<T> {
     default void onRateClicked() {
     }
 
-     default void onListSubmitted() {
+    default void onListSubmitted() {
     }
 
 }
