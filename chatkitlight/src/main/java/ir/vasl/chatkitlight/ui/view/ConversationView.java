@@ -29,6 +29,7 @@ import ir.vasl.chatkitlight.ui.callback.ConversationViewListener;
 import ir.vasl.chatkitlight.ui.callback.DialogMenuListener;
 import ir.vasl.chatkitlight.ui.callback.InputListener;
 import ir.vasl.chatkitlight.ui.callback.TypingListener;
+import ir.vasl.chatkitlight.utils.AndroidUtils;
 import ir.vasl.chatkitlight.utils.Constants;
 import ir.vasl.chatkitlight.utils.globalEnums.ChatStyleEnum;
 import ir.vasl.chatkitlight.viewmodel.ConversationListViewModel;
@@ -315,7 +316,7 @@ public class ConversationView
     public void showHintView(String hintMessage, String hintButtonTitle) {
         textViewHintView.setText(hintMessage);
         cardViewHintViewHolder.setVisibility(VISIBLE);
-
+        conversationList.setPadding(0, 0, 0, (int) AndroidUtils.convertDpToPixel(60f, getContext()));
         if (hintButtonTitle != null)
             buttonHintView.setText(hintButtonTitle);
     }
@@ -323,6 +324,7 @@ public class ConversationView
     public void hideHintView() {
         textViewHintView.setText("");
         cardViewHintViewHolder.setVisibility(GONE);
+        conversationList.setPadding(0, 0, 0, 0);
     }
 
     @Override

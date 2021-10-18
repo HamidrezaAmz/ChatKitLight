@@ -67,7 +67,7 @@ public class MainActivity
         initViewModel();
 
         conversationView.setShowBlockerView(false); // block input
-//        conversationView.showHintView("این رو بخون بعد بگو متوجه شدم", "متوجه شدم"); // hint view
+        conversationView.showHintView("این رو بخون بعد بگو متوجه شدم", "متوجه شدم"); // hint view
     }
 
     @Override
@@ -143,7 +143,7 @@ public class MainActivity
 //        conversationModel.setFileAddress("https://www.w3.org/WAI/ER/tests/xhtml/testfiles/resources/pdf/dummy.pdf");
         //        conversationModel.setFileAddress("https://www.kozco.com/tech/piano2.wav");
         conversationModel.setFileAddress("https://www.kozco.com/tech/organfinale.wav");
-        conversationModel.setFileType(FileType.AUDIO);
+        conversationModel.setFileType(FileType.NONE);
         conversationModel.setConversationType(ConversationType.CLIENT);
 
         findViewById(R.id.image2).setVisibility(View.GONE);
