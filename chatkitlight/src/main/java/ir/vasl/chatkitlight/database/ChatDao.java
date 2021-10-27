@@ -19,6 +19,12 @@ public interface ChatDao {
     @Query("SELECT * FROM " + Constants.TABLE_NAME + " WHERE chatId=:chatIdValue ORDER BY id DESC")
     DataSource.Factory<Integer, ConversationModel> getAll(String chatIdValue);
 
+    @Query("SELECT * FROM " + Constants.TABLE_NAME + " WHERE chatId=:chatIdValue ORDER BY time DESC")
+    DataSource.Factory<Integer, ConversationModel> getAllByTime(String chatIdValue);
+
+    @Query("SELECT * FROM " + Constants.TABLE_NAME + " WHERE chatId=:chatIdValue ORDER BY time ASC")
+    DataSource.Factory<Integer, ConversationModel> getAllByTimeAsc(String chatIdValue);
+
     @Query("SELECT * FROM " + Constants.TABLE_NAME + " WHERE chatId=:chatIdValue ORDER BY id DESC")
     List<ConversationModel> getAllSimple(String chatIdValue);
 
