@@ -31,6 +31,24 @@ public class ConversationListViewModel extends AndroidViewModel {
                 .build();
     }
 
+    public ConversationListViewModel(@NonNull Application application, String chatID, boolean timeAsc) {
+        super(application);
+        this.application = application;
+        if(timeAsc) {
+            this.liveData = new LivePagedListBuilder<>(DatabaseLayer.getInstance(application)
+                    .getChatKitDatabase()
+                    .getChatDao()
+                    .getAllByTimeAsc(chatID), Constants.PAGINATE_OFFSET)
+                    .build();
+        } else {
+            this.liveData = new LivePagedListBuilder<>(DatabaseLayer.getInstance(application)
+                    .getChatKitDatabase()
+                    .getChatDao()
+                    .getAllByTime(chatID), Constants.PAGINATE_OFFSET)
+                    .build();
+        }
+    }
+
     public LiveData<PagedList<ConversationModel>> getLiveData() {
         return liveData;
     }

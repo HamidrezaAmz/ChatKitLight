@@ -22,6 +22,6 @@ public class ConversationListViewModelFactory implements ViewModelProvider.Facto
     @NonNull
     @Override
     public <T extends ViewModel> T create(@NonNull Class<T> modelClass) {
-        return (T) new ConversationListViewModel(mApplication, mChatID);
+        return (T) new ConversationListViewModel(mApplication, mChatID, false);
     }
 }
