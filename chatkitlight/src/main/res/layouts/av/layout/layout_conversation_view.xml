@@ -38,6 +38,7 @@
         app:inputButtonDefaultIconColor="@color/green"
         app:inputHint="@string/type_a_message"
         app:inputTextColor="@color/black"
+        app:inputMaxLines="6"
         app:inputTextSize="@dimen/input_text_size_small"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
