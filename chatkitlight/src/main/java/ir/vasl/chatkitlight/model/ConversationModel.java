@@ -99,7 +99,7 @@ public class ConversationModel {
     }
 
     public String getImageRes() {
-        return imageRes;
+        return ifValid(imageRes);
     }
 
     public void setImageRes(String imageRes) {
@@ -115,7 +115,7 @@ public class ConversationModel {
     }
 
     public String getChatId() {
-        return chatId;
+        return ifValid(chatId);
     }
 
     public void setChatId(String chatId) {
@@ -123,7 +123,7 @@ public class ConversationModel {
     }
 
     public String getConversationId() {
-        return conversationId;
+        return ifValid(conversationId);
     }
 
     public void setConversationId(String conversationId) {
@@ -131,7 +131,7 @@ public class ConversationModel {
     }
 
     public String getTitle() {
-        return title;
+        return ifValid(title);
     }
 
     public void setTitle(String title) {
@@ -139,7 +139,7 @@ public class ConversationModel {
     }
 
     public String getMessage() {
-        return message;
+        return ifValid(message);
     }
 
     public boolean isPlaying() {
@@ -155,7 +155,7 @@ public class ConversationModel {
     }
 
     public String getTime() {
-        return time;
+        return ifValid(time);
     }
 
     public void setTime(String time) {
@@ -187,7 +187,7 @@ public class ConversationModel {
     }
 
     public String getFileAddress() {
-        return fileAddress;
+        return ifValid(fileAddress);
     }
 
     public void setFileAddress(String fileAddress) {
@@ -195,7 +195,7 @@ public class ConversationModel {
     }
 
     public String getImageUrl() {
-        return imageUrl;
+        return ifValid(imageUrl);
     }
 
     public void setImageUrl(String imageUrl) {
@@ -203,7 +203,7 @@ public class ConversationModel {
     }
 
     public String getServerSideId() {
-        return serverSideId;
+        return ifValid(serverSideId);
     }
 
     public void setServerSideId(String serverSideId) {
@@ -214,6 +214,10 @@ public class ConversationModel {
 //        String path = getFileAddress();
 //        return path.substring(path.lastIndexOf("/") + 1);
         return message;
+    }
+
+    private String ifValid(String input){
+        return input == null ? "" : input;
     }
 
     @BindingAdapter("conversationStatusIcon")
@@ -302,7 +306,7 @@ public class ConversationModel {
         return model.getConversationId().equals(conversationId) &&
                 model.getMessage().equals(message) &&
                 model.getTitle().equals(title) &&
-                model.conversationStatus.getValue().equals(conversationStatus.getValue()) &&
+                model.getConversationStatus().getValue().equals(conversationStatus.getValue()) &&
                 ((model.fileAddress == null && fileAddress == null) || (model.fileAddress != null && model.fileAddress.equals(fileAddress))) &&
                 ((model.imageUrl == null && imageUrl == null) || model.getImageUrl().equals(imageUrl));
 
