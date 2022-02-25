@@ -67,7 +67,7 @@ public class MainActivity
         initViewModel();
 
         conversationView.setShowBlockerView(false); // block input
-        conversationView.showHintView("این رو بخون بعد بگو متوجه شدم", "متوجه شدم"); // hint view
+//        conversationView.showHintView("این رو بخون بعد بگو متوجه شدم", "متوجه شدم"); // hint view
     }
 
     @Override

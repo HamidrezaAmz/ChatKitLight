@@ -3,16 +3,7 @@
     android:shape="rectangle">
 
     <corners
-        android:bottomLeftRadius="@dimen/corner_curve_input"
-        android:bottomRightRadius="@dimen/corner_curve_input"
-        android:topLeftRadius="@dimen/corner_curve_input"
-        android:topRightRadius="@dimen/corner_curve_input" />
-
-    <padding
-        android:bottom="0dp"
-        android:left="0dp"
-        android:right="0dp"
-        android:top="0dp" />
+        android:radius="32dp" />
 
     <solid android:color="@color/white_two" />
 

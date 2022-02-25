@@ -316,7 +316,7 @@ public class ConversationView
     public void showHintView(String hintMessage, String hintButtonTitle) {
         textViewHintView.setText(hintMessage);
         cardViewHintViewHolder.setVisibility(VISIBLE);
-        conversationList.setPadding(0, 0, 0, (int) AndroidUtils.convertDpToPixel(60f, getContext()));
+        conversationList.setPadding(0, 0, 0, conversationInput.getMeasuredHeight());
         if (hintButtonTitle != null)
             buttonHintView.setText(hintButtonTitle);
     }

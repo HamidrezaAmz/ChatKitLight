@@ -62,10 +62,10 @@ class MessageInputStyle extends Style {
     private Drawable inputBackground;
     private Drawable inputCursorDrawable;
 
-    private int inputDefaultPaddingLeft;
-    private int inputDefaultPaddingRight;
-    private int inputDefaultPaddingTop;
-    private int inputDefaultPaddingBottom;
+//    private int inputDefaultPaddingLeft;
+//    private int inputDefaultPaddingRight;
+//    private int inputDefaultPaddingTop;
+//    private int inputDefaultPaddingBottom;
 
     private int delayTypingStatus;
 
@@ -130,10 +130,10 @@ class MessageInputStyle extends Style {
 
         typedArray.recycle();
 
-        style.inputDefaultPaddingLeft = style.getDimension(R.dimen.input_padding_left);
-        style.inputDefaultPaddingRight = style.getDimension(R.dimen.input_padding_right);
-        style.inputDefaultPaddingTop = style.getDimension(R.dimen.input_padding_top);
-        style.inputDefaultPaddingBottom = style.getDimension(R.dimen.input_padding_bottom);
+//        style.inputDefaultPaddingLeft = style.getDimension(R.dimen.input_padding_left);
+//        style.inputDefaultPaddingRight = style.getDimension(R.dimen.input_padding_right);
+//        style.inputDefaultPaddingTop = style.getDimension(R.dimen.input_padding_top);
+//        style.inputDefaultPaddingBottom = style.getDimension(R.dimen.input_padding_bottom);
 
         return style;
     }
@@ -254,21 +254,21 @@ class MessageInputStyle extends Style {
         return inputCursorDrawable;
     }
 
-    protected int getInputDefaultPaddingLeft() {
-        return inputDefaultPaddingLeft;
-    }
-
-    protected int getInputDefaultPaddingRight() {
-        return inputDefaultPaddingRight;
-    }
-
-    protected int getInputDefaultPaddingTop() {
-        return inputDefaultPaddingTop;
-    }
-
-    protected int getInputDefaultPaddingBottom() {
-        return inputDefaultPaddingBottom;
-    }
+//    protected int getInputDefaultPaddingLeft() {
+//        return inputDefaultPaddingLeft;
+//    }
+//
+//    protected int getInputDefaultPaddingRight() {
+//        return inputDefaultPaddingRight;
+//    }
+//
+//    protected int getInputDefaultPaddingTop() {
+//        return inputDefaultPaddingTop;
+//    }
+//
+//    protected int getInputDefaultPaddingBottom() {
+//        return inputDefaultPaddingBottom;
+//    }
 
     int getDelayTypingStatus() {
         return delayTypingStatus;
