@@ -1071,8 +1071,11 @@ public class ConversationAdapter extends PagedListAdapter<ConversationModel, Bas
                             lastPlayingPos = getCurrentPosition();
                         }
                     });
-                    singletonMediaPlayer.playSound(downloadedFilePath);
-
+                    new Thread(() -> {
+                        try {
+                            singletonMediaPlayer.playSound(downloadedFilePath);
+                        } catch (Exception e){e.printStackTrace();}
+                    }).start();
                 } else {
                     downloadRequest = FileHelper.downloadFile(context, getItem(getBindingAdapterPosition()).getFileAddress(),
                             getItem(getBindingAdapterPosition()).getFileName(),
@@ -1152,8 +1155,11 @@ public class ConversationAdapter extends PagedListAdapter<ConversationModel, Bas
                             lastPlayingPos = getCurrentPosition();
                         }
                     });
-                    singletonMediaPlayer.playSound(downloadedFilePath);
-
+                    new Thread(() -> {
+                        try {
+                            singletonMediaPlayer.playSound(downloadedFilePath);
+                        } catch (Exception e){e.printStackTrace();}
+                    }).start();
                 } else {
                     downloadRequest = FileHelper.downloadFile(context, getItem(getBindingAdapterPosition()).getFileAddress(),
                             getItem(getBindingAdapterPosition()).getFileName(),
@@ -1287,7 +1293,11 @@ public class ConversationAdapter extends PagedListAdapter<ConversationModel, Bas
                             lastPlayingPos = getCurrentPosition();
                         }
                     });
-                    singletonMediaPlayer.playSound(downloadedFilePath);
+                        new Thread(() -> {
+                            try {
+                                singletonMediaPlayer.playSound(downloadedFilePath);
+                            } catch (Exception e){e.printStackTrace();}
+                        }).start();
                 } else {
                     try {
                         Log.e("TAG", "Downloading: " + getItem(getBindingAdapterPosition()).getFileAddress() + " AS " + getItem(getBindingAdapterPosition()).getFileName());
@@ -1355,8 +1365,11 @@ public class ConversationAdapter extends PagedListAdapter<ConversationModel, Bas
                             lastPlayingPos = getCurrentPosition();
                         }
                     });
-                    singletonMediaPlayer.playSound(downloadedFilePath);
-                } else {
+                    new Thread(() -> {
+                        try {
+                            singletonMediaPlayer.playSound(downloadedFilePath);
+                        } catch (Exception e){e.printStackTrace();}
+                    }).start();                } else {
                     downloadRequest = FileHelper.downloadFile(context, getItem(getBindingAdapterPosition()).getFileAddress(),
                             getItem(getBindingAdapterPosition()).getFileName(),
                             downloadListenerCreator(null, lawoneServerAudioBinding.progressbarLoading, lawoneServerAudioBinding.wave, null));
