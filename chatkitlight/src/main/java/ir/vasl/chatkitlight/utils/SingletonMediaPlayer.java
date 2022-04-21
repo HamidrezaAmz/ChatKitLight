@@ -41,11 +41,10 @@ public class SingletonMediaPlayer
      */
     public synchronized void playSound(String fileName) {
 
-        if (instance.mediaPlayer == null) {
-            instance.mediaPlayer = new MediaPlayer();
-        } else {
-            instance.mediaPlayer.reset();
-        }
+        if(instance.mediaPlayer != null)
+            instance.mediaPlayer.stop();
+        stopSound();
+        instance.mediaPlayer = new MediaPlayer();
         try {
             instance.mediaPlayer.setDataSource(fileName);
             instance.mediaPlayer.prepare();
@@ -58,10 +57,10 @@ public class SingletonMediaPlayer
             instance.mediaPlayer.setOnBufferingUpdateListener(new MediaPlayer.OnBufferingUpdateListener() {
                 @Override
                 public void onBufferingUpdate(MediaPlayer mediaPlayer, int i) {
-                    Log.i(TAG, "onBufferingUpdate: " + i);
+                    Log.e(TAG, "onBufferingUpdate: " + i);
                 }
             });
-        } catch (IOException e) {
+        } catch (Exception e) {
             e.printStackTrace();
         }
     }
