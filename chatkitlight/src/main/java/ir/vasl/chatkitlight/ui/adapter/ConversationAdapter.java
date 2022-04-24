@@ -1097,11 +1097,14 @@ public class ConversationAdapter extends PagedListAdapter<ConversationModel, Bas
                         } catch (Exception e){e.printStackTrace();}
                     }).start();
                 } else {
+                    try{
                     downloadRequest = FileHelper.downloadFile(context, getItem(getBindingAdapterPosition()).getFileAddress(),
                             getItem(getBindingAdapterPosition()).getFileName(),
                             downloadListenerCreator(clientAudioBinding.imageViewCheckmark, null, clientAudioBinding.wave, null, clientAudioBinding.imageViewPlay));
                     if (downloadRequest != null)
                         downloadManager.add(downloadRequest);
+                    } catch (Exception e) {e.printStackTrace();}
+
                 }
             });
         }
@@ -1183,11 +1186,13 @@ public class ConversationAdapter extends PagedListAdapter<ConversationModel, Bas
                     });
                     singletonMediaPlayer.playSound(downloadedFilePath);
                 } else {
-                    downloadRequest = FileHelper.downloadFile(context, getItem(getBindingAdapterPosition()).getFileAddress(),
-                            getItem(getBindingAdapterPosition()).getFileName(),
-                            downloadListenerCreator(serverAudioBinding.imageViewCheckmark, null, serverAudioBinding.wave, null, serverAudioBinding.imageViewPlay));
-                    if (downloadRequest != null)
-                        downloadManager.add(downloadRequest);
+                    try {
+                        downloadRequest = FileHelper.downloadFile(context, getItem(getBindingAdapterPosition()).getFileAddress(),
+                                getItem(getBindingAdapterPosition()).getFileName(),
+                                downloadListenerCreator(serverAudioBinding.imageViewCheckmark, null, serverAudioBinding.wave, null, serverAudioBinding.imageViewPlay));
+                        if (downloadRequest != null)
+                            downloadManager.add(downloadRequest);
+                    } catch (Exception e) {e.printStackTrace();}
                 }
             });
         }
@@ -1398,11 +1403,14 @@ public class ConversationAdapter extends PagedListAdapter<ConversationModel, Bas
                             singletonMediaPlayer.playSound(downloadedFilePath);
                         } catch (Exception e){e.printStackTrace();}
                     }).start();                } else {
+                    try{
                     downloadRequest = FileHelper.downloadFile(context, getItem(getBindingAdapterPosition()).getFileAddress(),
                             getItem(getBindingAdapterPosition()).getFileName(),
                             downloadListenerCreator(null, lawoneServerAudioBinding.progressbarLoading, lawoneServerAudioBinding.wave, null, lawoneServerAudioBinding.imageViewPlay));
                     if (downloadRequest != null)
                         downloadManager.add(downloadRequest);
+                    } catch (Exception e) {e.printStackTrace();}
+
                 }
             });
         }
@@ -1432,11 +1440,14 @@ public class ConversationAdapter extends PagedListAdapter<ConversationModel, Bas
                     else
                         FileHelper.openFile(context, getItem(getBindingAdapterPosition()).getFileAddress(), getItem(getBindingAdapterPosition()).getFileName());
                 } else {
+                    try{
                     downloadRequest = FileHelper.downloadFile(context, getItem(getBindingAdapterPosition()).getFileAddress(),
                             getItem(getBindingAdapterPosition()).getFileName(),
                             downloadListenerCreator(lawoneServerFileBinding.imageViewCheckmark, lawoneServerFileBinding.progressbarLoading, null, lawoneServerFileBinding.waveView, null));
                     if (downloadRequest != null)
                         downloadManager.add(downloadRequest);
+                    } catch (Exception e) {e.printStackTrace();}
+
                 }
             });
         }
