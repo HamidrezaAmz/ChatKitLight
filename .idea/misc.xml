@@ -5,17 +5,20 @@
       <map>
         <entry key="..\:/AndroidStudioProjects/chatkit/ChatKitLight/app/src/main/res/layout/activity_main.xml" value="0.175" />
         <entry key="..\:/AndroidStudioProjects/chatkit/ChatKitLight/chatkitlight/src/main/res/drawable-xxxhdpi/shape_round_orange_dark.xml" value="0.2175925925925926" />
+        <entry key="..\:/AndroidStudioProjects/chatkit/ChatKitLight/chatkitlight/src/main/res/drawable/ic_play.xml" value="0.20092592592592592" />
         <entry key="..\:/AndroidStudioProjects/chatkit/ChatKitLight/chatkitlight/src/main/res/drawable/lawone_shape_curve_client.xml" value="0.2175925925925926" />
         <entry key="..\:/AndroidStudioProjects/chatkit/ChatKitLight/chatkitlight/src/main/res/drawable/lawone_shape_curve_server.xml" value="0.2175925925925926" />
         <entry key="..\:/AndroidStudioProjects/chatkit/ChatKitLight/chatkitlight/src/main/res/drawable/shape_lawone_edittext_curve.xml" value="0.2175925925925926" />
         <entry key="..\:/AndroidStudioProjects/chatkit/ChatKitLight/chatkitlight/src/main/res/layouts/av/drawable/oval_lawone_client_icon.xml" value="0.2175925925925926" />
         <entry key="..\:/AndroidStudioProjects/chatkit/ChatKitLight/chatkitlight/src/main/res/layouts/av/drawable/oval_lawone_server_icon.xml" value="0.2175925925925926" />
         <entry key="..\:/AndroidStudioProjects/chatkit/ChatKitLight/chatkitlight/src/main/res/layouts/av/drawable/oval_server.xml" value="0.2175925925925926" />
+        <entry key="..\:/AndroidStudioProjects/chatkit/ChatKitLight/chatkitlight/src/main/res/layouts/av/drawable/progressbar_loading.xml" value="0.20092592592592592" />
         <entry key="..\:/AndroidStudioProjects/chatkit/ChatKitLight/chatkitlight/src/main/res/layouts/av/drawable/ring_gradient_avatar.xml" value="0.2175925925925926" />
         <entry key="..\:/AndroidStudioProjects/chatkit/ChatKitLight/chatkitlight/src/main/res/layouts/av/drawable/rounded_bordered_white.xml" value="0.2175925925925926" />
         <entry key="..\:/AndroidStudioProjects/chatkit/ChatKitLight/chatkitlight/src/main/res/layouts/av/drawable/rounded_grey.xml" value="0.2175925925925926" />
         <entry key="..\:/AndroidStudioProjects/chatkit/ChatKitLight/chatkitlight/src/main/res/layouts/av/drawable/shape_message_options.xml" value="0.2175925925925926" />
         <entry key="..\:/AndroidStudioProjects/chatkit/ChatKitLight/chatkitlight/src/main/res/layouts/av/drawable/shape_rounded_gray.xml" value="0.2175925925925926" />
+        <entry key="..\:/AndroidStudioProjects/chatkit/ChatKitLight/chatkitlight/src/main/res/layouts/av/layout/lawone_conversation_client_audio.xml" value="0.23425925925925925" />
         <entry key="..\:/AndroidStudioProjects/chatkit/ChatKitLight/chatkitlight/src/main/res/layouts/av/layout/layout_conversation_view.xml" value="0.175" />
         <entry key="..\:/AndroidStudioProjects/chatkit/ChatKitLight/chatkitlight/src/main/res/layouts/av/layout/view_message_input.xml" value="0.175" />
         <entry key="..\:/AndroidStudioProjects/chatkit/ChatKitLight/chatkitlight/src/main/res/layouts/av/layout/view_message_input_typing.xml" value="0.25416666666666665" />

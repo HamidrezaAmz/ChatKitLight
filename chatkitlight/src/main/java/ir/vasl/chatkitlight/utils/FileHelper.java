@@ -14,8 +14,10 @@ import com.thin.downloadmanager.DefaultRetryPolicy;
 import com.thin.downloadmanager.DownloadRequest;
 import com.thin.downloadmanager.DownloadStatusListenerV1;
 
+import java.io.BufferedInputStream;
 import java.io.File;
 import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.URL;
@@ -113,32 +115,22 @@ public class FileHelper {
         }
     }
 
+    @SuppressWarnings("ResultOfMethodCallIgnored")
     public static byte[] getFileBytes(Context context, String fileName) {
+        byte[] difa = new byte[]{0, 5, 10, 15, 20, 30, 40, 50, 100, 0, 5, 10, 15, 20, 30, 40, 50, 100, 0, 5, 10, 15, 20, 30, 40, 50, 100};
         if (context.getExternalFilesDir(null) == null || fileName == null || fileName.length() == 0)
-            return new byte[]{};
-        byte[] result = new byte[((int) Runtime.getRuntime().freeMemory())];
-//        String fileName = getFileName(fileAddress);
+            return difa;
         File file = new File(Objects.requireNonNull(context.getExternalFilesDir(null)).toString() + "/chatkit/", fileName);
-        FileInputStream fis = null;
-        int all = 0;
+        int size = (int) file.length();
+        byte[] bytes = new byte[size];
         try {
-            fis = new FileInputStream(file);
-            byte[] buffer = new byte[4096];
-            int read = 0;
-            while ((read = fis.read(buffer)) != -1) {
-                all += read;
-                System.arraycopy(buffer, 0, result, all, buffer.length);
-            }
+            BufferedInputStream buf = new BufferedInputStream(new FileInputStream(file));
+            buf.read(bytes, 0, bytes.length);
+            buf.close();
         } catch (Exception e) {
-            Log.e("tag", "getFileBytes: " + e.getMessage());
-        } finally {
-            try {
-                if (fis != null) {
-                    fis.close();
-                }
-            } catch (IOException ignored) {
-            }
+            e.printStackTrace();
+            return difa;
         }
-        return Arrays.copyOfRange(result, 0, all - 1);
+        return bytes;
     }
 }

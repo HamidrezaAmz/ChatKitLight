@@ -41,8 +41,8 @@ public class SingletonMediaPlayer
      */
     public synchronized void playSound(String fileName) {
 
-        if(instance.mediaPlayer != null)
-            instance.mediaPlayer.stop();
+//        if(instance.mediaPlayer != null)
+//            instance.mediaPlayer.stop();
         stopSound();
         instance.mediaPlayer = new MediaPlayer();
         try {
@@ -66,81 +66,112 @@ public class SingletonMediaPlayer
     }
 
     public synchronized void stopSound() {
-        if (instance.mediaPlayer != null) {
-            instance.mediaPlayer.stop();
-            instance.mediaPlayer.release();
+        try {
+            if (instance.mediaPlayer != null) {
+                instance.mediaPlayer.stop();
+                instance.mediaPlayer.release();
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
         }
     }
 
     public synchronized void pauseSound() {
-        if (instance.mediaPlayer != null) {
-            instance.mediaPlayer.pause();
+        try {
+            if (instance.mediaPlayer != null) {
+                instance.mediaPlayer.pause();
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
         }
     }
 
     public synchronized void restartSound() {
-        if (instance.mediaPlayer != null) {
-            instance.mediaPlayer.start();
+        try {
+            if (instance.mediaPlayer != null) {
+                instance.mediaPlayer.start();
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
         }
     }
 
     public synchronized void playRepeatedSound(String fileName) {
-        if (instance.mediaPlayer == null) {
-            instance.mediaPlayer = new MediaPlayer();
-        } else {
-            instance.mediaPlayer.reset();
-        }
         try {
-            instance.mediaPlayer.setDataSource(fileName);
-            instance.mediaPlayer.prepare();
-            instance.mediaPlayer.setVolume(100f, 100f);
-            instance.mediaPlayer.setLooping(true);
-            instance.mediaPlayer.start();
-            instance.mediaPlayer.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
-                @Override
-                public void onCompletion(MediaPlayer mp) {
-                    if (mp != null) {
-                        mp.reset();
-                        mp = null;
+            if (instance.mediaPlayer == null) {
+                instance.mediaPlayer = new MediaPlayer();
+            } else {
+                instance.mediaPlayer.reset();
+            }
+            try {
+                instance.mediaPlayer.setDataSource(fileName);
+                instance.mediaPlayer.prepare();
+                instance.mediaPlayer.setVolume(100f, 100f);
+                instance.mediaPlayer.setLooping(true);
+                instance.mediaPlayer.start();
+                instance.mediaPlayer.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
+                    @Override
+                    public void onCompletion(MediaPlayer mp) {
+                        if (mp != null) {
+                            mp.reset();
+                            mp = null;
+                        }
                     }
-                }
-            });
-        } catch (IOException e) {
+                });
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        } catch (Exception e) {
             e.printStackTrace();
         }
     }
 
     public synchronized MediaPlayer getMediaPlayer() {
-        if (instance.mediaPlayer == null) {
-            instance.mediaPlayer = new MediaPlayer();
+        try {
+            if (instance.mediaPlayer == null) {
+                instance.mediaPlayer = new MediaPlayer();
+            }
+            return instance.mediaPlayer;
+        } catch (Exception e) {
+            e.printStackTrace();
+            return new MediaPlayer();
         }
-        return instance.mediaPlayer;
     }
 
     @Override
     public void onCompletion(MediaPlayer mediaPlayer) {
-        Log.i(TAG, "onCompletion: ");
-        if (instance.mediaPlayer != null) {
-            instance.mediaPlayer.reset();
-            instance.mediaPlayer = null;
+        try {
+            if (instance.mediaPlayer != null) {
+                instance.mediaPlayer.reset();
+                instance.mediaPlayer = null;
+            }
+            if (singletonMediaPlayerCallback != null)
+                singletonMediaPlayerCallback.onCompletion();
+        } catch (Exception e) {
+            e.printStackTrace();
         }
-        if (singletonMediaPlayerCallback != null)
-            singletonMediaPlayerCallback.onCompletion();
     }
 
     @Override
     public boolean onError(MediaPlayer mediaPlayer, int i, int i1) {
-        Log.i(TAG, "onError: ");
-        if (singletonMediaPlayerCallback != null)
-            singletonMediaPlayerCallback.onError();
-        return false;
+        try {
+            if (singletonMediaPlayerCallback != null)
+                singletonMediaPlayerCallback.onError();
+            return false;
+        } catch (Exception e) {
+            e.printStackTrace();
+            return false;
+        }
     }
 
     @Override
     public void onPrepared(MediaPlayer mediaPlayer) {
-        Log.i(TAG, "onPrepared: ");
-        if (singletonMediaPlayerCallback != null)
-            singletonMediaPlayerCallback.onPrepared();
+        try {
+            if (singletonMediaPlayerCallback != null)
+                singletonMediaPlayerCallback.onPrepared();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 }
 
