@@ -45,4 +45,8 @@ public class DbMigration {
                     + " ADD COLUMN serverSideId TEXT");
         }
     };
+
+//    static final Migration MIGRATION_6_7 = new Migration(6, 7) {
+//        asdasdasd
+//    };
 }

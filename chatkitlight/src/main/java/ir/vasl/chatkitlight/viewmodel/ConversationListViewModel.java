@@ -7,6 +7,7 @@ import androidx.lifecycle.AndroidViewModel;
 import androidx.lifecycle.LiveData;
 import androidx.paging.LivePagedListBuilder;
 import androidx.paging.PagedList;
+import androidx.room.Transaction;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -47,6 +48,36 @@ public class ConversationListViewModel extends AndroidViewModel {
                 .getChatKitDatabase()
                 .getChatDao()
                 .insertAll(conversationModels);
+    }
+
+    public void upsert2(ConversationModel obj) {
+        int id = DatabaseLayer.getInstance(application)
+                .getChatKitDatabase()
+                .getChatDao().update2(obj);
+        if (id == 0) {
+            DatabaseLayer.getInstance(application)
+                    .getChatKitDatabase()
+                    .getChatDao().insert(obj);
+        }
+    }
+
+    public void upsert2(List<ConversationModel> objList) {
+        List<Long> insertResult = DatabaseLayer.getInstance(application)
+                .getChatKitDatabase()
+                .getChatDao().insert2(objList);
+        List<ConversationModel> updateList = new ArrayList<>();
+
+        for (int i = 0; i < insertResult.size(); i++) {
+            if (insertResult.get(i) == -1) {
+                updateList.add(objList.get(i));
+            }
+        }
+
+        if (!updateList.isEmpty()) {
+            DatabaseLayer.getInstance(application)
+                    .getChatKitDatabase()
+                    .getChatDao().update2(updateList);
+        }
     }
 
     public void updateConversationStatus(String conversationId, ConversationStatus conversationStatus) {
@@ -134,7 +165,7 @@ public class ConversationListViewModel extends AndroidViewModel {
                 .size();
     }
 
-    public List<ConversationModel> getAllDataSimple (String chatId){
+    public List<ConversationModel> getAllDataSimple(String chatId) {
         return DatabaseLayer.getInstance(application)
                 .getChatKitDatabase()
                 .getChatDao()

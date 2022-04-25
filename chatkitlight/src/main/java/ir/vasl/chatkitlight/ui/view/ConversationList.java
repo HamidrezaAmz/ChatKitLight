@@ -199,4 +199,10 @@ public class ConversationList
         if (dialogMenuListener != null)
             dialogMenuListener.onListSubmitted();
     }
+
+    @Override
+    public void onError(String error) {
+        if(dialogMenuListener != null)
+            dialogMenuListener.onError(error);
+    }
 }

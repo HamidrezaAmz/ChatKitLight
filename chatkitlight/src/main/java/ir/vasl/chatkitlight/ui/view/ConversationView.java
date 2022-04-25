@@ -220,14 +220,17 @@ public class ConversationView
         @Override
         public void onScrolled(@NonNull RecyclerView recyclerView, int dx, int dy) {
             super.onScrolled(recyclerView, dx, dy);
+        }
 
-            LinearLayoutManager manager = ((LinearLayoutManager) recyclerView.getLayoutManager());
-            if (manager != null) {
-                if (manager.findFirstCompletelyVisibleItemPosition() == 0) {
-                    swipyRefreshLayout.setEnabled(true);
-                } else {
-                    swipyRefreshLayout.setEnabled((recyclerView.canScrollVertically(DIRECTION_UP)));
-                }
+        @Override
+        public void onScrollStateChanged(@NonNull RecyclerView recyclerView, int newState) {
+            super.onScrollStateChanged(recyclerView, newState);
+            LinearLayoutManager layoutManager = (LinearLayoutManager) recyclerView.getLayoutManager();
+            int firstPos = layoutManager != null ? layoutManager.findFirstCompletelyVisibleItemPosition() : 0;
+            if (firstPos > 0) {
+                swipyRefreshLayout.setEnabled(false);
+            } else {
+                swipyRefreshLayout.setEnabled(true);
             }
         }
     };
@@ -299,6 +302,12 @@ public class ConversationView
     public void onSupportClicked() {
         if (conversationViewListener != null)
             conversationViewListener.onSupportClicked();
+    }
+
+    @Override
+    public void onError(String message) {
+        if (conversationViewListener != null)
+            conversationViewListener.onError(message);
     }
 
     public void stopMediaPlayer() {

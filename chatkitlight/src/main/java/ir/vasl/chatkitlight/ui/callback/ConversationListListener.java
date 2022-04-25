@@ -32,4 +32,6 @@ public interface ConversationListListener<T> {
 
     default void listSubmitted() {
     }
+
+    default void onError(String error) {}
 }

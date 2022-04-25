@@ -35,4 +35,6 @@ public interface DialogMenuListener<T> {
     default void onRateClicked(){}
 
     default void onListSubmitted(){}
+
+    default void onError(String message){}
 }

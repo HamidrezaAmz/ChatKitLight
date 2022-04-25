@@ -5,7 +5,9 @@
       <map>
         <entry key="..\:/AndroidStudioProjects/chatkit/ChatKitLight/app/src/main/res/layout/activity_main.xml" value="0.175" />
         <entry key="..\:/AndroidStudioProjects/chatkit/ChatKitLight/chatkitlight/src/main/res/drawable-xxxhdpi/shape_round_orange_dark.xml" value="0.2175925925925926" />
+        <entry key="..\:/AndroidStudioProjects/chatkit/ChatKitLight/chatkitlight/src/main/res/drawable/ic_download.xml" value="0.20092592592592592" />
         <entry key="..\:/AndroidStudioProjects/chatkit/ChatKitLight/chatkitlight/src/main/res/drawable/ic_play.xml" value="0.20092592592592592" />
+        <entry key="..\:/AndroidStudioProjects/chatkit/ChatKitLight/chatkitlight/src/main/res/drawable/ic_upload.xml" value="0.20092592592592592" />
         <entry key="..\:/AndroidStudioProjects/chatkit/ChatKitLight/chatkitlight/src/main/res/drawable/lawone_shape_curve_client.xml" value="0.2175925925925926" />
         <entry key="..\:/AndroidStudioProjects/chatkit/ChatKitLight/chatkitlight/src/main/res/drawable/lawone_shape_curve_server.xml" value="0.2175925925925926" />
         <entry key="..\:/AndroidStudioProjects/chatkit/ChatKitLight/chatkitlight/src/main/res/drawable/shape_lawone_edittext_curve.xml" value="0.2175925925925926" />
@@ -22,6 +24,7 @@
         <entry key="..\:/AndroidStudioProjects/chatkit/ChatKitLight/chatkitlight/src/main/res/layouts/av/layout/layout_conversation_view.xml" value="0.175" />
         <entry key="..\:/AndroidStudioProjects/chatkit/ChatKitLight/chatkitlight/src/main/res/layouts/av/layout/view_message_input.xml" value="0.175" />
         <entry key="..\:/AndroidStudioProjects/chatkit/ChatKitLight/chatkitlight/src/main/res/layouts/av/layout/view_message_input_typing.xml" value="0.25416666666666665" />
+        <entry key="..\:/AndroidStudioProjects/chatkit/ChatKitLight/chatkitlight/src/main/res/layouts/lawone/layout/lawone_conversation_client.xml" value="0.15833333333333333" />
         <entry key="chatkitlight/src/main/res/layouts/av/layout/view_conversation_server_audio.xml" value="0.2125" />
       </map>
     </option>

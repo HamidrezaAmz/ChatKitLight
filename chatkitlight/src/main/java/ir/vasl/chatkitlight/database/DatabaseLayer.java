@@ -20,6 +20,7 @@ public class DatabaseLayer {
                         DbMigration.MIGRATION_3_4,
                         DbMigration.MIGRATION_4_5,
                         DbMigration.MIGRATION_5_6)
+//                        DbMigration.MIGRATION_6_7)
                 .build();
         DatabaseLayer = this;
     }

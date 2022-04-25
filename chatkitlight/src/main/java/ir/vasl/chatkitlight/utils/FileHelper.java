@@ -117,7 +117,9 @@ public class FileHelper {
 
     @SuppressWarnings("ResultOfMethodCallIgnored")
     public static byte[] getFileBytes(Context context, String fileName) {
-        byte[] difa = new byte[]{0, 5, 10, 15, 20, 30, 40, 50, 100, 0, 5, 10, 15, 20, 30, 40, 50, 100, 0, 5, 10, 15, 20, 30, 40, 50, 100};
+        byte[] difa = new byte[]{0, 10, 20, 30, 40, 50, 40, 30, 20, 0
+                , 10, 20, 30, 40, 50, 40, 30, 20, 0
+                , 10, 20, 30, 40, 50, 40, 30, 20, 0};
         if (context.getExternalFilesDir(null) == null || fileName == null || fileName.length() == 0)
             return difa;
         File file = new File(Objects.requireNonNull(context.getExternalFilesDir(null)).toString() + "/chatkit/", fileName);

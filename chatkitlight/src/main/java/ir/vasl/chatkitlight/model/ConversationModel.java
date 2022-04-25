@@ -28,7 +28,6 @@ import ir.vasl.chatkitlight.utils.globalEnums.FileType;
 public class ConversationModel {
 
     @NonNull
-    @PrimaryKey
     @ColumnInfo(name = "id")
     private int id;
 
@@ -40,6 +39,7 @@ public class ConversationModel {
     private String chatId = "";
 
     @NonNull
+    @PrimaryKey
     @ColumnInfo(name = "conversationId")
     private String conversationId = "";
 

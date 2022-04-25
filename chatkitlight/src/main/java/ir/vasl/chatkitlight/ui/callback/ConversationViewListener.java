@@ -72,4 +72,5 @@ public interface ConversationViewListener<T> {
     default void onListSubmitted() {
     }
 
+    default void onError(String message) {}
 }
