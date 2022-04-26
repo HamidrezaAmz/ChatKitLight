@@ -4,13 +4,13 @@ apply plugin: 'kotlin-kapt'
 
 android {
 
-    compileSdkVersion 29
+    compileSdkVersion 31
     buildToolsVersion "29.0.3"
 
     defaultConfig {
         applicationId "ir.vasl.samplechatkit"
         minSdkVersion 21
-        targetSdkVersion 29
+        targetSdkVersion 31
         versionCode 1
         versionName "1.0.0"
 
