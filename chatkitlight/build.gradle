@@ -6,14 +6,14 @@ group = 'com.github.hamidrezaamz'
 
 android {
 
-    compileSdkVersion 31
+    compileSdkVersion 29
     buildToolsVersion "29.0.3"
 
     defaultConfig {
         minSdkVersion 21
-        targetSdkVersion 31
-        versionCode 117
-        versionName "3.0.47.4.16"
+        targetSdkVersion 29
+        versionCode 120
+        versionName "3.0.47.4.18"
         vectorDrawables.useSupportLibrary = true
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
@@ -59,7 +59,7 @@ android {
         implementation 'androidx.legacy:legacy-support-v4:1.0.0'
         implementation 'com.google.android.material:material:1.3.0'
         implementation 'androidx.constraintlayout:constraintlayout:2.0.4'
-        implementation "androidx.recyclerview:recyclerview:1.3.0-alpha02"
+        implementation "androidx.recyclerview:recyclerview:1.2.0-beta01"
 
         // live data - view model
         implementation "androidx.lifecycle:lifecycle-viewmodel:$lifecycle_version"
