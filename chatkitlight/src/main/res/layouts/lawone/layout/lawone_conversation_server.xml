@@ -60,7 +60,7 @@
                 style="@style/AvatarStyle"
                 android:layout_alignParentLeft="true"
                 app:round_image="true"
-                app:srcCompat="@drawable/ic_user" />
+                loadImageIndexBase="@{conversationModel.imageRes}" />
         </RelativeLayout>
 
         <LinearLayout

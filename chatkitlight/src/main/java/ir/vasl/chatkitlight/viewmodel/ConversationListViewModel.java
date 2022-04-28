@@ -50,17 +50,6 @@ public class ConversationListViewModel extends AndroidViewModel {
                 .insertAll(conversationModels);
     }
 
-    public void upsert2(ConversationModel obj) {
-        int id = DatabaseLayer.getInstance(application)
-                .getChatKitDatabase()
-                .getChatDao().update2(obj);
-        if (id == 0) {
-            DatabaseLayer.getInstance(application)
-                    .getChatKitDatabase()
-                    .getChatDao().insert(obj);
-        }
-    }
-
     public void upsert2(List<ConversationModel> objList) {
         List<Long> insertResult = DatabaseLayer.getInstance(application)
                 .getChatKitDatabase()

@@ -25,6 +25,7 @@
         <entry key="..\:/AndroidStudioProjects/chatkit/ChatKitLight/chatkitlight/src/main/res/layouts/av/layout/view_message_input.xml" value="0.175" />
         <entry key="..\:/AndroidStudioProjects/chatkit/ChatKitLight/chatkitlight/src/main/res/layouts/av/layout/view_message_input_typing.xml" value="0.25416666666666665" />
         <entry key="..\:/AndroidStudioProjects/chatkit/ChatKitLight/chatkitlight/src/main/res/layouts/lawone/layout/lawone_conversation_client.xml" value="0.15833333333333333" />
+        <entry key="..\:/AndroidStudioProjects/chatkit/ChatKitLight/chatkitlight/src/main/res/layouts/lawone/layout/lawone_conversation_server.xml" value="0.2" />
         <entry key="chatkitlight/src/main/res/layouts/av/layout/view_conversation_server_audio.xml" value="0.2125" />
       </map>
     </option>
