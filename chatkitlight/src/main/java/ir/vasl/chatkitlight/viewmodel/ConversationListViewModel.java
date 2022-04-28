@@ -69,6 +69,17 @@ public class ConversationListViewModel extends AndroidViewModel {
         }
     }
 
+    public void upsert2(ConversationModel obj) {
+        int id = DatabaseLayer.getInstance(application)
+                .getChatKitDatabase()
+                .getChatDao().update2(obj);
+        if (id == 0) {
+            DatabaseLayer.getInstance(application)
+                    .getChatKitDatabase()
+                    .getChatDao().insert(obj);
+        }
+    }
+
     public void updateConversationStatus(String conversationId, ConversationStatus conversationStatus) {
         if (liveData.getValue() == null)
             return;
