@@ -71,7 +71,7 @@
                         android:text="@{ conversationModel.message}"
                         android:gravity="left"
                         android:textSize="@dimen/input_text_size_middle"
-                        tools:text="this is file name" />
+                        tools:text="this is file name this is file name this is file name this is file name" />
 
                     <TextView
                         android:layout_width="match_parent"
@@ -106,6 +106,7 @@
                 app:wlv_progressValue="0"
                 app:wlv_round_rectangle="true"
                 app:wlv_shapeType="circle"
+                android:layout_centerVertical="true"
                 app:wlv_titleCenter="@string/download"
                 app:wlv_titleCenterColor="@color/dark_grey_two"
                 app:wlv_titleCenterSize="10sp"
