@@ -219,12 +219,12 @@ public class ConversationAdapter extends PagedListAdapter<ConversationModel, Bas
 //                    getAudioSeeker(((ConversationViewHolder) holder).lawoneClientAudioBinding.wave, position).cancel();
                     ((ConversationViewHolder) holder).lawoneClientAudioBinding.wave.setProgress(0);
                     ((ConversationViewHolder) holder).lawoneClientAudioBinding.setConversationListListener(this);
-                    if(model == null || model.getFileName() == null) return;
+                    if (model == null || model.getFileName() == null) return;
                     new Handler().postDelayed(() -> {
-                        if(!FileHelper.checkFileExistence(context, model.getFileName())){
+                        if (!FileHelper.checkFileExistence(context, model.getFileName())) {
                             ((ConversationViewHolder) holder).lawoneClientAudioBinding.imageViewPlay.setImageResource(R.drawable.ic_download);
                             ((ConversationViewHolder) holder).itemView.setAlpha(1f);
-                        } else if(model.getConversationStatus() == ConversationStatus.SENDING){
+                        } else if (model.getConversationStatus() == ConversationStatus.SENDING) {
                             ((ConversationViewHolder) holder).lawoneClientAudioBinding.imageViewPlay.setImageResource(R.drawable.ic_upload);
                             ((ConversationViewHolder) holder).itemView.setAlpha(0.7f);
                         } else {
@@ -244,12 +244,12 @@ public class ConversationAdapter extends PagedListAdapter<ConversationModel, Bas
 //                    getAudioSeeker(((ConversationViewHolder) holder).lawoneServerAudioBinding.wave, position).cancel();
                     ((ConversationViewHolder) holder).lawoneServerAudioBinding.wave.setProgress(0);
                     ((ConversationViewHolder) holder).lawoneServerAudioBinding.setConversationListListener(this);
-                    if(model.getFileName() == null) return;
+                    if (model.getFileName() == null) return;
                     new Handler().postDelayed(() -> {
-                        if(!FileHelper.checkFileExistence(context, model.getFileName())){
+                        if (!FileHelper.checkFileExistence(context, model.getFileName())) {
                             ((ConversationViewHolder) holder).lawoneServerAudioBinding.imageViewPlay.setImageResource(R.drawable.ic_download);
                             ((ConversationViewHolder) holder).itemView.setAlpha(1f);
-                        } else if(model.getConversationStatus() == ConversationStatus.SENDING){
+                        } else if (model.getConversationStatus() == ConversationStatus.SENDING) {
                             ((ConversationViewHolder) holder).lawoneServerAudioBinding.imageViewPlay.setImageResource(R.drawable.ic_upload);
                             ((ConversationViewHolder) holder).itemView.setAlpha(0.7f);
                         } else {
@@ -841,8 +841,6 @@ public class ConversationAdapter extends PagedListAdapter<ConversationModel, Bas
 
     private class ConversationViewHolder extends BaseViewHolder {
 
-        DownloadRequest downloadRequest = null; //download request for different file types
-
         //DEFAULT - AV
         private ViewConversationClientBinding clientTextBinding;
         private ViewConversationClientImageBinding clientImageBinding;
@@ -998,8 +996,8 @@ public class ConversationAdapter extends PagedListAdapter<ConversationModel, Bas
                         wave.setRawData(FileHelper.getFileBytes(context, getItem(getBindingAdapterPosition()).getFileName()));
                         wave.performClick();
                     }
-                    if(playButton != null){
-                        if(downloadDoubleCheck) {
+                    if (playButton != null) {
+                        if (downloadDoubleCheck) {
                             playButton.setImageResource(R.drawable.ic_play);
                         } else {
                             playButton.setImageResource(R.drawable.ic_download);
@@ -1014,7 +1012,7 @@ public class ConversationAdapter extends PagedListAdapter<ConversationModel, Bas
                         loadingProgress.setVisibility(View.GONE);
                     if (waveView != null)
                         waveView.setCenterTitle(context.getString(R.string.download));
-                    if(playButton != null){
+                    if (playButton != null) {
                         playButton.setImageResource(R.drawable.ic_download);
                     }
                 }
@@ -1126,18 +1124,18 @@ public class ConversationAdapter extends PagedListAdapter<ConversationModel, Bas
                     new Thread(() -> {
                         try {
                             singletonMediaPlayer.playSound(downloadedFilePath);
-                        } catch (Exception e){
+                        } catch (Exception e) {
                             e.printStackTrace();
                             conversationListListener.onError("در پخش فایل صوتی خطایی رخ داد!");
                         }
                     }).start();
                 } else {
-                    try{
-                    downloadRequest = FileHelper.downloadFile(context, getItem(getBindingAdapterPosition()).getFileAddress(),
-                            getItem(getBindingAdapterPosition()).getFileName(),
-                            downloadListenerCreator(clientAudioBinding.imageViewCheckmark, null, clientAudioBinding.wave, null, clientAudioBinding.imageViewPlay));
-                    if (downloadRequest != null)
-                        downloadManager.add(downloadRequest);
+                    try {
+                        DownloadRequest downloadRequest = FileHelper.downloadFile(context, getItem(getBindingAdapterPosition()).getFileAddress(),
+                                getItem(getBindingAdapterPosition()).getFileName(),
+                                downloadListenerCreator(clientAudioBinding.imageViewCheckmark, null, clientAudioBinding.wave, null, clientAudioBinding.imageViewPlay));
+                        if (downloadRequest != null)
+                            downloadManager.add(downloadRequest);
                     } catch (Exception e) {
                         e.printStackTrace();
                         conversationListListener.onError("دانلود فایل با خطا مواجه شد!");
@@ -1190,10 +1188,10 @@ public class ConversationAdapter extends PagedListAdapter<ConversationModel, Bas
                 }
                 if (FileHelper.checkFileExistence(context, getItem(getBindingAdapterPosition()).getFileName())) {
                     if (serverPlayingAudio != null && serverPlayingAudio.getConversationModel() != null &&
-                            serverPlayingAudio.getConversationModel() != lawoneServerAudioBinding.getConversationModel()){
+                            serverPlayingAudio.getConversationModel() != lawoneServerAudioBinding.getConversationModel()) {
                         serverPlayingAudio.setIsPlaying(false);
                     }
-                    if (lawoneServerAudioBinding.getIsPlaying()){
+                    if (lawoneServerAudioBinding.getIsPlaying()) {
                         lawoneServerAudioBinding.setIsPlaying(false);
                         singletonMediaPlayer.pauseSound();
                         lastPlayingPos = -1;
@@ -1226,7 +1224,7 @@ public class ConversationAdapter extends PagedListAdapter<ConversationModel, Bas
                     singletonMediaPlayer.playSound(downloadedFilePath);
                 } else {
                     try {
-                        downloadRequest = FileHelper.downloadFile(context, getItem(getBindingAdapterPosition()).getFileAddress(),
+                        DownloadRequest downloadRequest = FileHelper.downloadFile(context, getItem(getBindingAdapterPosition()).getFileAddress(),
                                 getItem(getBindingAdapterPosition()).getFileName(),
                                 downloadListenerCreator(serverAudioBinding.imageViewCheckmark, null, serverAudioBinding.wave, null, serverAudioBinding.imageViewPlay));
                         if (downloadRequest != null)
@@ -1266,7 +1264,7 @@ public class ConversationAdapter extends PagedListAdapter<ConversationModel, Bas
             this.lawoneClientImageBinding.imageViewImage.setOnClickListener(v -> {
                 if (getBindingAdapterPosition() == -1 || getItem(getBindingAdapterPosition()) == null)
                     return;
-                if(getItem(getBindingAdapterPosition()).getConversationStatus() != ConversationStatus.DELIVERED){
+                if (getItem(getBindingAdapterPosition()).getConversationStatus() != ConversationStatus.DELIVERED) {
                     conversationListListener.onError("فایل در حال آپلود است!");
                     return;
                 }
@@ -1280,7 +1278,7 @@ public class ConversationAdapter extends PagedListAdapter<ConversationModel, Bas
             this.lawoneClientFileBinding.frameLayoutFile.setOnClickListener(v -> {
                 if (getBindingAdapterPosition() == -1 || getItem(getBindingAdapterPosition()) == null)
                     return;
-                if(getItem(getBindingAdapterPosition()).getConversationStatus() != ConversationStatus.DELIVERED){
+                if (getItem(getBindingAdapterPosition()).getConversationStatus() != ConversationStatus.DELIVERED) {
                     conversationListListener.onError("فایل در حال آپلود است!");
                     return;
                 }
@@ -1305,7 +1303,7 @@ public class ConversationAdapter extends PagedListAdapter<ConversationModel, Bas
                         FileHelper.openFile(context, getItem(getBindingAdapterPosition()).getFileAddress(), getItem(getBindingAdapterPosition()).getFileName());
                 } else {
                     try {
-                        downloadRequest = FileHelper.downloadFile(context, getItem(getBindingAdapterPosition()).getFileAddress(),
+                        DownloadRequest downloadRequest = FileHelper.downloadFile(context, getItem(getBindingAdapterPosition()).getFileAddress(),
                                 getItem(getBindingAdapterPosition()).getFileName(),
                                 downloadListenerCreator(lawoneClientFileBinding.imageViewCheckmark, lawoneClientFileBinding.progressbarLoading, null, lawoneClientFileBinding.waveView, null));
                         if (downloadRequest != null)
@@ -1330,13 +1328,16 @@ public class ConversationAdapter extends PagedListAdapter<ConversationModel, Bas
         public ConversationViewHolder(LawoneConversationClientAudioBinding clientAudioBinding) {
             super(clientAudioBinding.getRoot());
             this.lawoneClientAudioBinding = clientAudioBinding;
-            this.lawoneClientAudioBinding.setIsPlaying(false);
+            if (clientPlayingAudio != null && clientPlayingAudio.getConversationModel() != null && clientAudioBinding.getConversationModel()!= null && clientPlayingAudio.getConversationModel().getConversationId().equals(clientAudioBinding.getConversationModel().getConversationId()))
+                this.lawoneClientAudioBinding.setIsPlaying(true);
+            else
+                this.lawoneClientAudioBinding.setIsPlaying(false);
             this.lawoneClientAudioBinding.frameLayoutFile.setOnClickListener(v -> {
                 if (getBindingAdapterPosition() == -1 || getItem(getBindingAdapterPosition()) == null || lawoneClientAudioBinding == null)
                     return;
                 ConversationModel item = getItem(getBindingAdapterPosition());
                 if (item == null) return;
-                if(item.getConversationStatus() != ConversationStatus.DELIVERED){
+                if (item.getConversationStatus() != ConversationStatus.DELIVERED) {
                     conversationListListener.onError("فایل در حال آپلود است!");
                     return;
                 }
@@ -1349,19 +1350,19 @@ public class ConversationAdapter extends PagedListAdapter<ConversationModel, Bas
                     return;
                 }
                 if (FileHelper.checkFileExistence(context, getItem(getBindingAdapterPosition()).getTitle())) {
-                    if(serverPlayingAudio != null)
+                    if (serverPlayingAudio != null)
                         serverPlayingAudio.setIsPlaying(false);
                     if (clientPlayingAudio != null && clientPlayingAudio.getConversationModel() != null &&
-                            clientPlayingAudio.getConversationModel() != lawoneClientAudioBinding.getConversationModel()){
+                            clientPlayingAudio.getConversationModel().getConversationId().equals(lawoneClientAudioBinding.getConversationModel().getConversationId())) {
                         clientPlayingAudio.setIsPlaying(false);
                     }
-                    if (lawoneClientAudioBinding.getIsPlaying()){
+                    if (lawoneClientAudioBinding.getIsPlaying()) {
                         lawoneClientAudioBinding.setIsPlaying(false);
                         singletonMediaPlayer.pauseSound();
                         lastPlayingPos = -1;
                         clientPlayingAudio = null;
                         return;
-                    }
+                    } else
                     clientPlayingAudio = lawoneClientAudioBinding;
                     String downloadedFilePath = FileHelper.getExistsFilePath(context, getItem(getBindingAdapterPosition()).getFileName());
                     singletonMediaPlayer.setSingletonMediaPlayerCallback(new SingletonMediaPlayerCallback() {
@@ -1388,7 +1389,7 @@ public class ConversationAdapter extends PagedListAdapter<ConversationModel, Bas
                     singletonMediaPlayer.playSound(downloadedFilePath);
                 } else {
                     try {
-                        downloadRequest = FileHelper.downloadFile(context, getItem(getBindingAdapterPosition()).getFileAddress(),
+                        DownloadRequest downloadRequest = FileHelper.downloadFile(context, getItem(getBindingAdapterPosition()).getFileAddress(),
                                 getItem(getBindingAdapterPosition()).getFileName(),
                                 downloadListenerCreator(null, lawoneClientAudioBinding.progressbarLoading, lawoneClientAudioBinding.wave, null, lawoneClientAudioBinding.imageViewPlay));
                         if (downloadRequest != null)
@@ -1402,6 +1403,10 @@ public class ConversationAdapter extends PagedListAdapter<ConversationModel, Bas
 
         public ConversationViewHolder(LawoneConversationServerAudioBinding serverAudioBinding) {
             super(serverAudioBinding.getRoot());
+            if (serverPlayingAudio != null && serverPlayingAudio.getConversationModel() != null && serverAudioBinding.getConversationModel()!= null && serverPlayingAudio.getConversationModel().getConversationId().equals(serverAudioBinding.getConversationModel().getConversationId()))
+                this.lawoneServerAudioBinding.setIsPlaying(true);
+            else
+                this.lawoneServerAudioBinding.setIsPlaying(false);
             this.lawoneServerAudioBinding = serverAudioBinding;
             this.lawoneServerAudioBinding.setIsPlaying(false);
             this.lawoneServerAudioBinding.frameLayoutFile.setOnClickListener(v -> {
@@ -1409,7 +1414,7 @@ public class ConversationAdapter extends PagedListAdapter<ConversationModel, Bas
                     return;
                 ConversationModel item = getItem(getBindingAdapterPosition());
                 if (item == null) return;
-                if(item.getConversationStatus() != ConversationStatus.DELIVERED){
+                if (item.getConversationStatus() != ConversationStatus.DELIVERED) {
                     conversationListListener.onError("فایل در حال دانلود است!");
                     return;
                 }
@@ -1422,7 +1427,7 @@ public class ConversationAdapter extends PagedListAdapter<ConversationModel, Bas
                     return;
                 }
                 if (FileHelper.checkFileExistence(context, getItem(getBindingAdapterPosition()).getFileName())) {
-                    if(clientPlayingAudio != null)
+                    if (clientPlayingAudio != null)
                         clientPlayingAudio.setIsPlaying(false);
                     if (singletonMediaPlayer.getMediaPlayer() != null && singletonMediaPlayer.getMediaPlayer().isPlaying()) {
                         singletonMediaPlayer.getMediaPlayer().stop();
@@ -1464,18 +1469,18 @@ public class ConversationAdapter extends PagedListAdapter<ConversationModel, Bas
                     new Thread(() -> {
                         try {
                             singletonMediaPlayer.playSound(downloadedFilePath);
-                        } catch (Exception e){
+                        } catch (Exception e) {
                             e.printStackTrace();
                             conversationListListener.onError("پخش فایل صوتی با خطا مواجه شد!");
                         }
                     }).start();
                 } else {
-                    try{
-                    downloadRequest = FileHelper.downloadFile(context, getItem(getBindingAdapterPosition()).getFileAddress(),
-                            getItem(getBindingAdapterPosition()).getFileName(),
-                            downloadListenerCreator(null, lawoneServerAudioBinding.progressbarLoading, lawoneServerAudioBinding.wave, null, lawoneServerAudioBinding.imageViewPlay));
-                    if (downloadRequest != null)
-                        downloadManager.add(downloadRequest);
+                    try {
+                        DownloadRequest downloadRequest = FileHelper.downloadFile(context, getItem(getBindingAdapterPosition()).getFileAddress(),
+                                getItem(getBindingAdapterPosition()).getFileName(),
+                                downloadListenerCreator(null, lawoneServerAudioBinding.progressbarLoading, lawoneServerAudioBinding.wave, null, lawoneServerAudioBinding.imageViewPlay));
+                        if (downloadRequest != null)
+                            downloadManager.add(downloadRequest);
                     } catch (Exception e) {
                         e.printStackTrace();
                         conversationListListener.onError("دانلود فایل با خطا مواجه شد!");
@@ -1510,12 +1515,12 @@ public class ConversationAdapter extends PagedListAdapter<ConversationModel, Bas
                     else
                         FileHelper.openFile(context, getItem(getBindingAdapterPosition()).getFileAddress(), getItem(getBindingAdapterPosition()).getFileName());
                 } else {
-                    try{
-                    downloadRequest = FileHelper.downloadFile(context, getItem(getBindingAdapterPosition()).getFileAddress(),
-                            getItem(getBindingAdapterPosition()).getFileName(),
-                            downloadListenerCreator(lawoneServerFileBinding.imageViewCheckmark, lawoneServerFileBinding.progressbarLoading, null, lawoneServerFileBinding.waveView, null));
-                    if (downloadRequest != null)
-                        downloadManager.add(downloadRequest);
+                    try {
+                        DownloadRequest downloadRequest = FileHelper.downloadFile(context, getItem(getBindingAdapterPosition()).getFileAddress(),
+                                getItem(getBindingAdapterPosition()).getFileName(),
+                                downloadListenerCreator(lawoneServerFileBinding.imageViewCheckmark, lawoneServerFileBinding.progressbarLoading, null, lawoneServerFileBinding.waveView, null));
+                        if (downloadRequest != null)
+                            downloadManager.add(downloadRequest);
                     } catch (Exception e) {
                         e.printStackTrace();
                         conversationListListener.onError("دانلود فایل با خطا مواجه شد!");

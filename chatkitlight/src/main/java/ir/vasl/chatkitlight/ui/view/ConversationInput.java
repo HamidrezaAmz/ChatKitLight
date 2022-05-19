@@ -306,6 +306,7 @@ public class ConversationInput
         conversationInput.addTextChangedListener(this);
         conversationInput.setText("");
         conversationInput.setOnFocusChangeListener(this);
+        recordView.setCancelBounds(0);
         animButton.setRecordView(recordView);
 
         animButton.setOnRecordClickListener(this);
