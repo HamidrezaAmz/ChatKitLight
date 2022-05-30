@@ -127,7 +127,7 @@ public class ConversationList
         dialogChatMenu.setMenuItem(o);
         dialogChatMenu.setDialogMenuListener(this);
         dialogChatMenu.show();
-        return true;
+        return false;
     }
 
     @Override
