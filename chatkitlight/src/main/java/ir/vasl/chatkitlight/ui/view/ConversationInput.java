@@ -7,6 +7,7 @@ import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.AttributeSet;
 import android.util.TypedValue;
+import android.view.MotionEvent;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.FrameLayout;
@@ -295,6 +296,20 @@ public class ConversationInput
         inflate(context, R.layout.view_message_input, this);
 
         conversationInput = findViewById(R.id.messageInput);
+        conversationInput.setOnTouchListener(new OnTouchListener() {
+            @Override
+            public boolean onTouch(View v, MotionEvent event) {
+                if (v.getId() == conversationInput.getId()) {
+                    v.getParent().requestDisallowInterceptTouchEvent(true);
+                    switch (event.getAction() & MotionEvent.ACTION_MASK) {
+                        case MotionEvent.ACTION_UP:
+                            v.getParent().requestDisallowInterceptTouchEvent(false);
+                            break;
+                    }
+                }
+                return false;
+            }
+        });
         attachmentButton = findViewById(R.id.attachmentButton);
         recordView = findViewById(R.id.record_view);
         animButton = findViewById(R.id.anim_button);
