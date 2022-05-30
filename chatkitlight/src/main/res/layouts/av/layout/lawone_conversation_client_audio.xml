@@ -30,6 +30,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:onClick="@{() -> conversationListListener.onConversationItemClicked(conversationModel)}"
+        android:onLongClick="@{() -> conversationListListener.onConversationItemLongClicked(conversationModel)}"
         android:padding="@dimen/global_padding">
 
         <RelativeLayout

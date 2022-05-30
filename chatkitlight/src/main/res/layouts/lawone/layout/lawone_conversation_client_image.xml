@@ -21,6 +21,7 @@
         android:layout_height="wrap_content"
         android:padding="8dp"
         android:onClick="@{() -> conversationListListener.onConversationItemClicked(conversationModel)}"
+        android:onLongClick="@{() -> conversationListListener.onConversationItemLongClicked(conversationModel)}"
         android:orientation="vertical">
 
         <LinearLayout

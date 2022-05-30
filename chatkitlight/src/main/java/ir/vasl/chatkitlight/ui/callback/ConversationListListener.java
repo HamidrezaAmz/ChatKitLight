@@ -13,7 +13,8 @@ public interface ConversationListListener<T> {
     default void onConversationItemLongClicked() {
     }
 
-    default void onConversationItemLongClicked(T t) {
+    default boolean onConversationItemLongClicked(T t) {
+        return false;
     }
 
     default void requestStoragePermission() {

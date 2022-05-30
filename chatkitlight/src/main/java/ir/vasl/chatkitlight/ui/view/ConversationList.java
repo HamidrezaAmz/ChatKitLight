@@ -116,12 +116,18 @@ public class ConversationList
 
     @Override
     public void onConversationItemClicked(Object object) {
+
+    }
+
+    @Override
+    public boolean onConversationItemLongClicked(Object o) {
         if (!canShowDialog || getContext() == null)
-            return;
+            return false;
         DialogChatMenu dialogChatMenu = new DialogChatMenu(getContext());
-        dialogChatMenu.setMenuItem(object);
+        dialogChatMenu.setMenuItem(o);
         dialogChatMenu.setDialogMenuListener(this);
         dialogChatMenu.show();
+        return true;
     }
 
     @Override
