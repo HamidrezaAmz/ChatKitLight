@@ -6,6 +6,7 @@ import android.os.Build;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.AttributeSet;
+import android.util.Log;
 import android.util.TypedValue;
 import android.view.MotionEvent;
 import android.view.View;
@@ -296,20 +297,36 @@ public class ConversationInput
         inflate(context, R.layout.view_message_input, this);
 
         conversationInput = findViewById(R.id.messageInput);
-        conversationInput.setOnTouchListener(new OnTouchListener() {
-            @Override
-            public boolean onTouch(View v, MotionEvent event) {
-                if (v.getId() == conversationInput.getId()) {
-                    v.getParent().requestDisallowInterceptTouchEvent(true);
-                    switch (event.getAction() & MotionEvent.ACTION_MASK) {
-                        case MotionEvent.ACTION_UP:
-                            v.getParent().requestDisallowInterceptTouchEvent(false);
-                            break;
+        try {
+            Log.e("TAG", "init1: " + conversationInput.getParent().getClass().getSimpleName() );
+            Log.e("TAG", "init2: " + conversationInput.getParent().getParent().getClass().getSimpleName() );
+            Log.e("TAG", "init3: " + conversationInput.getParent().getParent().getParent().getClass().getSimpleName() );
+            Log.e("TAG", "init4: " + conversationInput.getParent().getParent().getParent().getParent().getClass().getSimpleName() );
+            Log.e("TAG", "init5: " + conversationInput.getParent().getParent().getParent().getParent().getParent().getClass().getSimpleName() );
+        } catch (Exception e){
+            Log.e("TAG", "init out of 5 ->" + e );
+            e.printStackTrace();
+        }
+        if(conversationInput.getParent().getParent().getParent() != null) {
+            conversationInput.setOnTouchListener(new OnTouchListener() {
+                @Override
+                public boolean onTouch(View v, MotionEvent event) {
+                    if (v.getId() == conversationInput.getId()) {
+                        try {
+                            v.getParent().getParent().getParent().requestDisallowInterceptTouchEvent(true);
+                            switch (event.getAction() & MotionEvent.ACTION_MASK) {
+                                case MotionEvent.ACTION_UP:
+                                    v.getParent().getParent().getParent().requestDisallowInterceptTouchEvent(false);
+                                    break;
+                            }
+                        } catch (Exception e){
+                            e.printStackTrace();
+                        }
                     }
+                    return false;
                 }
-                return false;
-            }
-        });
+            });
+        }
         attachmentButton = findViewById(R.id.attachmentButton);
         recordView = findViewById(R.id.record_view);
         animButton = findViewById(R.id.anim_button);
