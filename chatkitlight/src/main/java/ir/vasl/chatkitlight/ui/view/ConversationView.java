@@ -48,7 +48,7 @@ public class ConversationView
     private ConversationViewListener conversationViewListener;
     public ConversationList conversationList;
     private ConversationInput conversationInput;
-    private SwipyRefreshLayout swipyRefreshLayout;
+//    private SwipyRefreshLayout swipyRefreshLayout;
     private CardView cardViewHintViewHolder;
     private TextView textViewHintView;
     private Button buttonHintView;
@@ -115,12 +115,12 @@ public class ConversationView
         if (!canShowAttachment)
             conversationInput.findViewById(R.id.attachmentButton).setVisibility(GONE);
 
-        swipyRefreshLayout = conversationView.findViewById(R.id.swipyRefreshLayout);
+//        swipyRefreshLayout = conversationView.findViewById(R.id.swipyRefreshLayout);
 
         // listeners
         conversationInput.setInputListener(this);
         conversationList.setDialogMenuListener(this);
-        swipyRefreshLayout.setOnRefreshListener(this);
+//        swipyRefreshLayout.setOnRefreshListener(this);
         conversationInput.setAttachmentsListener(this);
         conversationInput.setOnRecordListener(this);
         buttonHintView.setOnClickListener(this);
@@ -206,11 +206,11 @@ public class ConversationView
     }
 
     public void hideSwipeRefresh() {
-        swipyRefreshLayout.setRefreshing(false);
+//        swipyRefreshLayout.setRefreshing(false);
     }
 
     public void showSwipeRefresh() {
-        swipyRefreshLayout.setRefreshing(true);
+//        swipyRefreshLayout.setRefreshing(true);
     }
 
     private RecyclerView.OnScrollListener scrollListener = new RecyclerView.OnScrollListener() {
@@ -227,11 +227,11 @@ public class ConversationView
             super.onScrollStateChanged(recyclerView, newState);
             LinearLayoutManager layoutManager = (LinearLayoutManager) recyclerView.getLayoutManager();
             int firstPos = layoutManager != null ? layoutManager.findFirstCompletelyVisibleItemPosition() : 0;
-            if (firstPos > 0) {
-                swipyRefreshLayout.setEnabled(false);
-            } else {
-                swipyRefreshLayout.setEnabled(true);
-            }
+//            if (firstPos > 0) {
+//                swipyRefreshLayout.setEnabled(false);
+//            } else {
+//                swipyRefreshLayout.setEnabled(true);
+//            }
         }
     };
 
