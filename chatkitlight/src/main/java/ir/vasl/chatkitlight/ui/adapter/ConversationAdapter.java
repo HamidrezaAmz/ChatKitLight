@@ -1425,11 +1425,11 @@ public class ConversationAdapter extends PagedListAdapter<ConversationModel, Bas
 
         public ConversationViewHolder(LawoneConversationServerAudioBinding serverAudioBinding) {
             super(serverAudioBinding.getRoot());
+            this.lawoneServerAudioBinding = serverAudioBinding;
             if (serverPlayingAudio != null && serverPlayingAudio.getConversationModel() != null && serverAudioBinding.getConversationModel()!= null && serverPlayingAudio.getConversationModel().getConversationId().equals(serverAudioBinding.getConversationModel().getConversationId()))
                 this.lawoneServerAudioBinding.setIsPlaying(true);
             else
                 this.lawoneServerAudioBinding.setIsPlaying(false);
-            this.lawoneServerAudioBinding = serverAudioBinding;
             this.lawoneServerAudioBinding.setIsPlaying(false);
             this.lawoneServerAudioBinding.frameLayoutFile.setOnClickListener(v -> {
                 if (getBindingAdapterPosition() == -1 || getItem(getBindingAdapterPosition()) == null && lawoneServerAudioBinding == null)
