@@ -80,7 +80,7 @@ public class ConversationAdapter extends PagedListAdapter<ConversationModel, Bas
     private ChatStyleEnum chatStyleEnum;
     private ThinDownloadManager downloadManager; // one dl mgr for the whole list
     private int lastPlayingPos = -1;
-    private final SingletonMediaPlayer singletonMediaPlayer = SingletonMediaPlayer.getInstance();
+    private SingletonMediaPlayer singletonMediaPlayer = SingletonMediaPlayer.getInstance();
 
     private LawoneConversationClientAudioBinding clientPlayingAudio;
     private LawoneConversationServerAudioBinding serverPlayingAudio;
@@ -1569,6 +1569,22 @@ public class ConversationAdapter extends PagedListAdapter<ConversationModel, Bas
 
     public void stopMediaPlayer() {
         singletonMediaPlayer.stopSound();
+    }
+
+    private boolean getMediaPlaying(){
+
+        try{
+            return singletonMediaPlayer.getMediaPlayer().isPlaying();
+        } catch (Exception e) {
+            e.printStackTrace();
+            try {
+                singletonMediaPlayer.stopSound();
+            } catch (Exception ex) {
+                ex.printStackTrace();
+                singletonMediaPlayer = SingletonMediaPlayer.getInstance();
+            }
+        }
+        return false;
     }
 
     public int getResId(String num) {
