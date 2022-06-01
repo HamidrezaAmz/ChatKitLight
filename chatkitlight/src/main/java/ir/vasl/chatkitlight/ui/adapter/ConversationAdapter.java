@@ -1451,14 +1451,16 @@ public class ConversationAdapter extends PagedListAdapter<ConversationModel, Bas
                 if (FileHelper.checkFileExistence(context, getItem(getBindingAdapterPosition()).getFileName())) {
                     if (clientPlayingAudio != null)
                         clientPlayingAudio.setIsPlaying(false);
-                    if (singletonMediaPlayer.getMediaPlayer() != null && singletonMediaPlayer.getMediaPlayer().isPlaying()) {
-                        singletonMediaPlayer.getMediaPlayer().stop();
-                        singletonMediaPlayer.getMediaPlayer().release();
-                        if (lawoneServerAudioBinding != null && lawoneServerAudioBinding.getIsPlaying()) {
-                            lawoneServerAudioBinding.setIsPlaying(false);
-                            lastPlayingPos = -1;
-                            return;
-                        }
+                    if (singletonMediaPlayer.getMediaPlayer() != null && getMediaPlaying()) {
+                        try {
+                            singletonMediaPlayer.getMediaPlayer().stop();
+                            singletonMediaPlayer.getMediaPlayer().release();
+                            if (lawoneServerAudioBinding != null && lawoneServerAudioBinding.getIsPlaying()) {
+                                lawoneServerAudioBinding.setIsPlaying(false);
+                                lastPlayingPos = -1;
+                                return;
+                            }
+                        } catch (Exception e) {e.printStackTrace();}
                     }
                     if (lawoneServerAudioBinding != null && lawoneServerAudioBinding.getIsPlaying()) {
                         lawoneServerAudioBinding.setIsPlaying(false);
