@@ -1604,6 +1604,8 @@ public class ConversationAdapter extends PagedListAdapter<ConversationModel, Bas
                 return R.drawable.ic_avatar_4;
             case 5:
                 return R.drawable.ic_avatar_5;
+            case 10:
+                return R.drawable.ic_logo_lawone_svg_black;
             default:
                 return -1;
         }
