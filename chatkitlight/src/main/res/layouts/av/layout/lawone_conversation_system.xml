@@ -110,11 +110,14 @@
                 android:layout_centerVertical="true"
                 android:background="@drawable/ring_gradient_avatar"
                 android:foregroundGravity="center"
-                android:padding="3dp"
-                android:scaleType="fitXY"
+                android:scaleType="centerCrop"
                 android:visibility="visible"
                 app:round_image="true"
-                app:srcCompat="@drawable/ic_system_avatar" />
+                android:paddingTop="5dp"
+                android:paddingBottom="3dp"
+                android:paddingRight="3dp"
+                android:paddingLeft="3dp"
+                app:srcCompat="@drawable/ic_logo_lawone_svg_black"/>
 
         </RelativeLayout>
 
