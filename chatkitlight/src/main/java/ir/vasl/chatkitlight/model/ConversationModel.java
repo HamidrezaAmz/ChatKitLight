@@ -17,6 +17,8 @@ import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.resource.bitmap.CenterInside;
 import com.bumptech.glide.request.RequestOptions;
 
+import org.jetbrains.annotations.NotNull;
+
 import ir.vasl.chatkitlight.R;
 import ir.vasl.chatkitlight.utils.Constants;
 import ir.vasl.chatkitlight.utils.globalEnums.ConversationStatus;
@@ -70,6 +72,10 @@ public class ConversationModel {
     @ColumnInfo(name = "imageRes")
     private String imageRes = "";
 
+    @NotNull
+    @ColumnInfo(name = "seek")
+    private Integer seek = 0;
+
     @Ignore
     private boolean isPlaying;
 
@@ -96,6 +102,15 @@ public class ConversationModel {
     public ConversationModel(@NonNull String chatId, @NonNull String conversationId) {
         this.chatId = chatId;
         this.conversationId = conversationId;
+    }
+
+    @NonNull
+    public Integer getSeek() {
+        return seek;
+    }
+
+    public void setSeek(@NotNull Integer seek) {
+        this.seek = seek;
     }
 
     public String getImageRes() {

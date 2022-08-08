@@ -46,7 +46,11 @@ public class DbMigration {
         }
     };
 
-//    static final Migration MIGRATION_6_7 = new Migration(6, 7) {
-//        asdasdasd
-//    };
+    static final Migration MIGRATION_6_7 = new Migration(6, 7) {
+        @Override
+        public void migrate(SupportSQLiteDatabase database) {
+            database.execSQL("ALTER TABLE TABLE_CONVERSATION "
+                    + " ADD COLUMN seek INTEGER NOT NULL DEFAULT 0");
+        }
+    };
 }
