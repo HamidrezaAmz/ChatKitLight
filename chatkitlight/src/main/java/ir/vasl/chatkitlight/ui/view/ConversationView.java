@@ -31,6 +31,7 @@ import ir.vasl.chatkitlight.ui.callback.InputListener;
 import ir.vasl.chatkitlight.ui.callback.TypingListener;
 import ir.vasl.chatkitlight.utils.AndroidUtils;
 import ir.vasl.chatkitlight.utils.Constants;
+import ir.vasl.chatkitlight.utils.SingletonMediaPlayer;
 import ir.vasl.chatkitlight.utils.globalEnums.ChatStyleEnum;
 import ir.vasl.chatkitlight.viewmodel.ConversationListViewModel;
 
@@ -261,6 +262,11 @@ public class ConversationView
 
     @Override
     public void onStart() {
+        try {
+            conversationList.adapter.recordingStarted();
+        } catch (Exception e){
+            e.printStackTrace();
+        }
         if (conversationViewListener != null)
             conversationViewListener.onVoiceRecordStarted();
     }

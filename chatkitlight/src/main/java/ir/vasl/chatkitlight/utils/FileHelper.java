@@ -46,7 +46,6 @@ public class FileHelper {
         if (context.getExternalFilesDir(null) == null || fileName == null)
             return false;
         boolean res = new File(Objects.requireNonNull(context.getExternalFilesDir(null)).toString() + "/chatkit/", fileName).exists();
-        Log.e("TAG", "downloading: " + res );
         return res;
     }
 

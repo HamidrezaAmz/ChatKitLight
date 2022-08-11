@@ -47,9 +47,6 @@ public class SingletonMediaPlayer
      * @param fileName if sound name is "sound.mp3" then pass fileName as "sound" only.
      */
     public synchronized void playSound(String fileName) {
-
-//        if(instance.mediaPlayer != null)
-//            instance.mediaPlayer.stop();
         if(playing != null)
             stopSound();
         playing = fileName;
@@ -68,12 +65,7 @@ public class SingletonMediaPlayer
             instance.mediaPlayer.setOnCompletionListener(this);
             instance.mediaPlayer.setOnErrorListener(this);
             instance.mediaPlayer.setOnPreparedListener(this);
-            instance.mediaPlayer.setOnBufferingUpdateListener(new MediaPlayer.OnBufferingUpdateListener() {
-                @Override
-                public void onBufferingUpdate(MediaPlayer mediaPlayer, int i) {
-                    Log.e(TAG, "onBufferingUpdate: " + i);
-                }
-            });
+            instance.mediaPlayer.setOnBufferingUpdateListener((mediaPlayer, i) -> Log.v(TAG, "onBufferingUpdate: " + i));
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -96,7 +88,7 @@ public class SingletonMediaPlayer
     }
 
     public synchronized void pauseSound() {
-
+        playing = null;
         try {
             if (instance.mediaPlayer != null) {
                 instance.mediaPlayer.pause();

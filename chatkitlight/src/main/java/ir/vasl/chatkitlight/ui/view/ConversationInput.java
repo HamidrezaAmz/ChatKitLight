@@ -297,16 +297,6 @@ public class ConversationInput
         inflate(context, R.layout.view_message_input, this);
 
         conversationInput = findViewById(R.id.messageInput);
-        try {
-            Log.e("TAG", "init1: " + conversationInput.getParent().getClass().getSimpleName() );
-            Log.e("TAG", "init2: " + conversationInput.getParent().getParent().getClass().getSimpleName() );
-            Log.e("TAG", "init3: " + conversationInput.getParent().getParent().getParent().getClass().getSimpleName() );
-            Log.e("TAG", "init4: " + conversationInput.getParent().getParent().getParent().getParent().getClass().getSimpleName() );
-            Log.e("TAG", "init5: " + conversationInput.getParent().getParent().getParent().getParent().getParent().getClass().getSimpleName() );
-        } catch (Exception e){
-            Log.e("TAG", "init out of 5 ->" + e );
-            e.printStackTrace();
-        }
         if(conversationInput.getParent().getParent().getParent() != null) {
             conversationInput.setOnTouchListener(new OnTouchListener() {
                 @Override
