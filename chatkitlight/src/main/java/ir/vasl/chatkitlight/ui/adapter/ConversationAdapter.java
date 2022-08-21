@@ -1443,111 +1443,87 @@ public class ConversationAdapter extends PagedListAdapter<ConversationModel, Bas
         public ConversationViewHolder(LawoneConversationServerAudioBinding serverAudioBinding) {
             super(serverAudioBinding.getRoot());
             this.lawoneServerAudioBinding = serverAudioBinding;
-            this.lawoneServerAudioBinding.frameLayoutFile.setOnClickListener(v -> {
-                if (getBindingAdapterPosition() == -1 || getItem(getBindingAdapterPosition()) == null && lawoneServerAudioBinding == null)
-                    return;
-                ConversationModel item = getItem(getBindingAdapterPosition());
-                if (item == null) return;
-                if (item.getConversationStatus() != ConversationStatus.DELIVERED) {
-                    conversationListListener.onError("فایل در حال دانلود است!");
-                    return;
-                }
-                if (!PermissionHelper.checkStoragePermission(context)) {
-                    new PermissionDialog(context, () -> conversationListListener.requestStoragePermission()).show();
-                    return;
-                }
-                if (FileHelper.checkFileExistence(context, getItem(getBindingAdapterPosition()).getFileName())) {
-                    if (clientPlayingAudio != null)
-                        clientPlayingAudio.setIsPlaying(false);
-                    if(serverPlayingAudio != null){
-                        if(serverPlayingAudio.getConversationModel().getConversationId().equals(getItem(getBindingAdapterPosition()).getConversationId())){
-                            // hamin item play boode
-                        } else {
-                            serverPlayingAudio.setIsPlaying(false);
-                        }
-                    }
-//                    if (singletonMediaPlayer.getMediaPlayer() != null && getMediaPlaying()) {
-//                        try {
-//                            singletonMediaPlayer.getMediaPlayer().stop();
-//                            singletonMediaPlayer.getMediaPlayer().release();
-//                            if (lawoneServerAudioBinding != null && lawoneServerAudioBinding.getIsPlaying()) {
-//                                lawoneServerAudioBinding.setIsPlaying(false);
-//                                lastPlayingPos = -1;
-//                                return;
-//                            }
-//                        } catch (Exception e) {
-//                            e.printStackTrace();
-//                        }
-//                    }
-                    if (lawoneServerAudioBinding != null && lawoneServerAudioBinding.getIsPlaying()) {
-                        lawoneServerAudioBinding.setIsPlaying(false);
-                        singletonMediaPlayer.pauseSound();
-                        lastPlayingPos = -1;
-                        serverPlayingAudio = null;
+            this.lawoneServerAudioBinding.frameLayoutFile.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    if (getBindingAdapterPosition() == -1 || getItem(getBindingAdapterPosition()) == null || lawoneServerAudioBinding == null)
+                        return;
+                    ConversationModel item = getItem(getBindingAdapterPosition());
+                    if (item == null) return;
+                    if (item.getConversationStatus() != ConversationStatus.DELIVERED) {
+                        conversationListListener.onError("فایل در حال آپلود است!");
                         return;
                     }
-                    String downloadedFilePath = FileHelper.getExistsFilePath(context, getItem(getBindingAdapterPosition()).getFileName());
-                    singletonMediaPlayer.setSingletonMediaPlayerCallback(new SingletonMediaPlayerCallback() {
-                        @Override
-                        public void onCompletion() {
-                            if (lawoneServerAudioBinding != null)
-                                lawoneServerAudioBinding.setIsPlaying(false);
-                            singletonMediaPlayer.stopSound();
-                            lastPlayingPos = -1;
-                        }
-
-                        @Override
-                        public void onError() {
-
-                            if (lawoneServerAudioBinding != null)
-                                lawoneServerAudioBinding.setIsPlaying(false);
-                            conversationListListener.onError("در پخش فایل صوتی خطایی رخ داد!");
-                            lastPlayingPos = -1;
-                        }
-
-                        @Override
-                        public void onPrepared() {
-                            if (lawoneServerAudioBinding != null) {
-                                lawoneServerAudioBinding.setIsPlaying(true);
-                                getAudioSeeker(lawoneServerAudioBinding.wave, getCurrentPosition(), lawoneServerAudioBinding.getConversationModel()).start();
-                            }
-                            lastPlayingPos = getCurrentPosition();
-                        }
-                    });
-                    new Thread(() -> {
-                        try {
-                            if (singletonMediaPlayer.getPlaying() == null || !singletonMediaPlayer.getPlaying().equals(downloadedFilePath)) {
-                                if (clientPlayingAudio != null)
-                                    clientPlayingAudio.setIsPlaying(false);
-                                if (serverPlayingAudio != null)
-                                    serverPlayingAudio.setIsPlaying(false);
-                                singletonMediaPlayer.playSound(downloadedFilePath);
-                                serverPlayingAudio = lawoneServerAudioBinding;
-                                serverPlayingAudio.setIsPlaying(true);
-                            } else if (singletonMediaPlayer.getPlaying() != null && singletonMediaPlayer.getPlaying().equals(downloadedFilePath)) {
-                                if (clientPlayingAudio != null)
-                                    clientPlayingAudio.setIsPlaying(false);
-                                if (serverPlayingAudio != null)
-                                    serverPlayingAudio.setIsPlaying(false);
-                                singletonMediaPlayer.stopSound();
-                            }
-                        } catch (Exception e) {
-                            e.printStackTrace();
-                            conversationListListener.onError("پخش فایل صوتی با خطا مواجه شد!");
-                        }
-                    }).start();
-                } else {
-                    try {
-                        DownloadRequest downloadRequest = FileHelper.downloadFile(context, getItem(getBindingAdapterPosition()).getFileAddress(),
-                                getItem(getBindingAdapterPosition()).getFileName(),
-                                downloadListenerCreator(null, lawoneServerAudioBinding.progressbarLoading, lawoneServerAudioBinding.wave, null, lawoneServerAudioBinding.imageViewPlay));
-                        if (downloadRequest != null)
-                            downloadManager.add(downloadRequest);
-                    } catch (Exception e) {
-                        e.printStackTrace();
-                        conversationListListener.onError("دانلود فایل با خطا مواجه شد!");
+                    if (!PermissionHelper.checkStoragePermission(context)) {
+                        new PermissionDialog(context, () -> conversationListListener.requestStoragePermission()).show();
+                        return;
                     }
+                    if (FileHelper.checkFileExistence(context, getItem(getBindingAdapterPosition()).getTitle())) {
+                        if (clientPlayingAudio != null)
+                            clientPlayingAudio.setIsPlaying(false);
+                        if(serverPlayingAudio != null){
+                            if(serverPlayingAudio.getConversationModel().getConversationId().equals(getItem(getBindingAdapterPosition()).getConversationId())){
+                                // hamin item play boode
+                            } else {
+                                serverPlayingAudio.setIsPlaying(false);
+                            }
+                        }
+                        if (lawoneServerAudioBinding.getIsPlaying()) {
+                            lawoneServerAudioBinding.setIsPlaying(false);
+                            singletonMediaPlayer.pauseSound();
+                            lastPlayingPos = -1;
+                            serverPlayingAudio = null;
+                            return;
+                        } else
+                            serverPlayingAudio = lawoneServerAudioBinding;
+                        String downloadedFilePath = FileHelper.getExistsFilePath(context, getItem(getBindingAdapterPosition()).getFileName());
+                        singletonMediaPlayer.setSingletonMediaPlayerCallback(new SingletonMediaPlayerCallback() {
+                            @Override
+                            public void onCompletion() {
+                                if (serverPlayingAudio != null)
+                                    serverPlayingAudio.setIsPlaying(false);
+                                lastPlayingPos = -1;
+                            }
 
+                            @Override
+                            public void onError() {
+                                if (serverPlayingAudio != null)
+                                    serverPlayingAudio.setIsPlaying(false);
+                                conversationListListener.onError("در پخش فایل صوتی خطایی رخ داد!");
+                                lastPlayingPos = -1;
+                            }
+
+                            @Override
+                            public void onPrepared() {
+                                if (serverPlayingAudio != null) {
+                                    serverPlayingAudio.setIsPlaying(true);
+                                    getAudioSeeker(serverPlayingAudio.wave, getCurrentPosition(), serverPlayingAudio.getConversationModel()).start();
+                                }
+                                lastPlayingPos = getCurrentPosition();
+                            }
+                        });
+                        if (singletonMediaPlayer.getPlaying() == null || !singletonMediaPlayer.getPlaying().equals(downloadedFilePath)) {
+                            if (serverPlayingAudio != null) serverPlayingAudio.setIsPlaying(false);
+                            if (clientPlayingAudio != null) clientPlayingAudio.setIsPlaying(false);
+                            singletonMediaPlayer.playSound(downloadedFilePath);
+                            serverPlayingAudio = lawoneServerAudioBinding;
+                            serverPlayingAudio.setIsPlaying(true);
+                        } else if (singletonMediaPlayer.getPlaying() != null && singletonMediaPlayer.getPlaying().equals(downloadedFilePath)) {
+                            if (serverPlayingAudio != null) serverPlayingAudio.setIsPlaying(false);
+                            if (clientPlayingAudio != null) clientPlayingAudio.setIsPlaying(false);
+                            singletonMediaPlayer.stopSound();
+                        }
+                    } else {
+                        try {
+                            DownloadRequest downloadRequest = FileHelper.downloadFile(context, getItem(getBindingAdapterPosition()).getFileAddress(),
+                                    getItem(getBindingAdapterPosition()).getFileName(),
+                                    downloadListenerCreator(null, lawoneServerAudioBinding.progressbarLoading, lawoneServerAudioBinding.wave, null, lawoneServerAudioBinding.imageViewPlay));
+                            if (downloadRequest != null)
+                                downloadManager.add(downloadRequest);
+                        } catch (Exception e) {
+                            conversationListListener.onError("دانلود فایل با خطا مواجه شد!");
+                        }
+                    }
                 }
             });
         }
