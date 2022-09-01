@@ -68,7 +68,7 @@
                         android:layout_marginLeft="@dimen/global_margin_spaced"
                         android:layout_marginRight="@dimen/global_margin_x_extra"
                         android:ellipsize="start"
-                        android:text="@{ conversationModel.message}"
+                        android:text="@{TimeUtils.showDateAsFileName(conversationModel.time, conversationModel.message)}"
                         android:gravity="left"
                         android:textSize="@dimen/input_text_size_middle"
                         tools:text="this is file name this is file name this is file name this is file name" />

@@ -139,6 +139,36 @@ public class TimeUtils {
         return new StringBuilder().append(formattedYear).append("/").append(formattedMonth).append("/").append(formattedDay).toString();
     }
 
+    public static String showDateAsFileName(String timeStamp, String name) {
+
+        long time = Long.parseLong(timeStamp);
+
+        String ext = name.split("\\.")[name.split("\\.").length - 1];
+
+        Calendar cal = Calendar.getInstance(Locale.US);
+        cal.setTimeInMillis(time);
+        int day = cal.get(Calendar.DAY_OF_MONTH);
+        int month = cal.get(Calendar.MONTH);
+        int year = cal.get(Calendar.YEAR);
+
+        String formattedYear = String.format(Locale.US, "%02d", year);
+        String formattedMonth = String.format(Locale.US, "%02d", month);
+        String formattedDay = String.format(Locale.US, "%02d", day);
+
+        return new StringBuilder()
+                .append("File_")
+                .append(formattedYear)
+                .append("/")
+                .append(formattedMonth)
+                .append("/")
+                .append(formattedDay)
+                .append("_")
+                .append(convertDateToTime(time))
+                .append(".")
+                .append(ext)
+                .toString();
+    }
+
     public static String convertDateToTime(long timeStamp) {
 
         Calendar cal = Calendar.getInstance(Locale.ENGLISH);
