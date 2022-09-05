@@ -181,8 +181,14 @@ public class ConversationAdapter extends PagedListAdapter<ConversationModel, Bas
         View v = vi.inflate(R.layout.item_date, null);
         v.setId(255);
         TextView textView = (TextView) v.findViewById(R.id.textView_date);
-
-        PersianDate pdate = new PersianDate(Long.parseLong(lastModel.getTime()));
+        Long milli = 0L;
+        try {
+            milli = Long.parseLong(lastModel.getTime());
+        } catch (Exception e){
+            e.printStackTrace();
+            return;
+        }
+        PersianDate pdate = new PersianDate(milli);
         PersianDateFormat pdformater = new PersianDateFormat("l j F Y");
 
         textView.setText(pdformater.format(pdate));
