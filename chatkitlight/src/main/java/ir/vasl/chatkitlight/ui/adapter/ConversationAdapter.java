@@ -2,6 +2,7 @@ package ir.vasl.chatkitlight.ui.adapter;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
+import android.media.MediaMetadataRetriever;
 import android.net.Uri;
 import android.os.CountDownTimer;
 import android.os.Handler;
@@ -25,6 +26,7 @@ import com.thin.downloadmanager.DownloadRequest;
 import com.thin.downloadmanager.DownloadStatusListenerV1;
 import com.thin.downloadmanager.ThinDownloadManager;
 
+import java.io.File;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
@@ -61,6 +63,7 @@ import ir.vasl.chatkitlight.utils.FileHelper;
 import ir.vasl.chatkitlight.utils.PermissionHelper;
 import ir.vasl.chatkitlight.utils.PublicValue;
 import ir.vasl.chatkitlight.utils.SingletonMediaPlayer;
+import ir.vasl.chatkitlight.utils.TimeUtils;
 import ir.vasl.chatkitlight.utils.TypefaceHelper;
 import ir.vasl.chatkitlight.utils.extensions.WaveLoadingViewExtensionKt;
 import ir.vasl.chatkitlight.utils.globalEnums.ChatStyleEnum;
@@ -223,6 +226,10 @@ public class ConversationAdapter extends PagedListAdapter<ConversationModel, Bas
                     ((ConversationViewHolder) holder).lawoneClientAudioBinding.wave.setProgress(0);
                     ((ConversationViewHolder) holder).lawoneClientAudioBinding.setConversationListListener(this);
                     if (model == null || model.getFileName() == null) return;
+                    String downloadedFilePath = FileHelper.getExistsFilePath(context, model.getFileName());
+                    String duration = getAudioFileDuration(downloadedFilePath);
+                    ((ConversationViewHolder) holder).lawoneClientAudioBinding
+                            .tvDuration.setText(duration);
                     new Handler().postDelayed(() -> {
                         if (!FileHelper.checkFileExistence(context, model.getFileName())) {
                             ((ConversationViewHolder) holder).lawoneClientAudioBinding.imageViewPlay.setImageResource(R.drawable.ic_download);
@@ -407,6 +414,33 @@ public class ConversationAdapter extends PagedListAdapter<ConversationModel, Bas
                     break;
             }
         }
+    }
+
+    private String getAudioFileDuration(String fileAddress) {
+
+        Log.e("TAG", "getAudioFileDuration: " + fileAddress );
+
+        if(fileAddress == null || !new File(fileAddress).exists()) return "00:00/00:00";
+        // load data file
+        MediaMetadataRetriever metaRetriever = new MediaMetadataRetriever();
+        metaRetriever.setDataSource(fileAddress);
+
+        String out = "";
+        // get mp3 info
+
+        // convert duration to minute:seconds
+        String duration =
+                metaRetriever.extractMetadata(MediaMetadataRetriever.METADATA_KEY_DURATION);
+        Log.v("time", duration);
+        long dur = Long.parseLong(duration);
+
+        duration = TimeUtils.getTime(dur);
+
+        // close object
+        metaRetriever.release();
+
+
+        return duration;
     }
 
     private void AvBinder(BaseViewHolder holder, int position) {
@@ -829,7 +863,7 @@ public class ConversationAdapter extends PagedListAdapter<ConversationModel, Bas
         }
     }
 
-    public CountDownTimer getAudioSeeker(AudioWaveView wave, int pos, ConversationModel conversationModel) {
+    public CountDownTimer getAudioSeeker(AudioWaveView wave, TextView tvDuration, ConversationModel conversationModel) {
         return new CountDownTimer(10000, 20) {
             @Override
             public void onTick(long millisUntilFinished) {
@@ -838,9 +872,9 @@ public class ConversationAdapter extends PagedListAdapter<ConversationModel, Bas
                         if (singletonMediaPlayer.getPlaying() != null && singletonMediaPlayer.getPlaying().equals(FileHelper.getExistsFilePath(context, conversationModel.getFileName()))) {
                             int seek = ((int) ((((float) singletonMediaPlayer.getMediaPlayer().getCurrentPosition()) / ((float) singletonMediaPlayer.getMediaPlayer().getDuration())) * 100));
                             singletonMediaPlayer.seekChanged(seek);
+                            tvDuration.setText(TimeUtils.makeRemainingTimeText(singletonMediaPlayer.getMediaPlayer().getCurrentPosition(), singletonMediaPlayer.getMediaPlayer().getDuration()));
                             wave.setProgress(seek);
                         }
-//                        else wave.setProgress(0);
                     } catch (Exception e) {
                         e.printStackTrace();
                     }
@@ -1416,7 +1450,7 @@ public class ConversationAdapter extends PagedListAdapter<ConversationModel, Bas
                         public void onPrepared() {
                             if (clientPlayingAudio != null) {
                                 clientPlayingAudio.setIsPlaying(true);
-                                getAudioSeeker(clientPlayingAudio.wave, getCurrentPosition(), clientPlayingAudio.getConversationModel()).start();
+                                getAudioSeeker(clientPlayingAudio.wave, clientPlayingAudio.tvDuration, clientPlayingAudio.getConversationModel()).start();
                             }
                             lastPlayingPos = getCurrentPosition();
                         }
@@ -1503,7 +1537,7 @@ public class ConversationAdapter extends PagedListAdapter<ConversationModel, Bas
                             public void onPrepared() {
                                 if (serverPlayingAudio != null) {
                                     serverPlayingAudio.setIsPlaying(true);
-                                    getAudioSeeker(serverPlayingAudio.wave, getCurrentPosition(), serverPlayingAudio.getConversationModel()).start();
+                                    getAudioSeeker(serverPlayingAudio.wave, serverPlayingAudio.tvDuration, serverPlayingAudio.getConversationModel()).start();
                                 }
                                 lastPlayingPos = getCurrentPosition();
                             }

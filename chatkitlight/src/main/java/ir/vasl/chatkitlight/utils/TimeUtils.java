@@ -183,4 +183,9 @@ public class TimeUtils {
         return new StringBuilder().append(formattedHours).append(":").append(formattedMinutes).toString();
     }
 
+    public static String makeRemainingTimeText(long currentPosition, long duration) {
+        String time = "";
+        time = getTime(currentPosition) + "/" + getTime(duration);
+        return time;
+    }
 }

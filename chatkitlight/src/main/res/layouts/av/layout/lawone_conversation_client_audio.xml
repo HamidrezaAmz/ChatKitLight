@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
 
     <data>
 
@@ -52,7 +53,7 @@
                     android:layout_height="wrap_content"
                     android:layout_centerVertical="true"
                     android:layout_marginLeft="@dimen/global_margin_middle"
-                    android:layout_toLeftOf="@id/wave"
+                    android:layout_toLeftOf="@id/rlWave"
                     android:padding="2dp">
 
                     <View
@@ -80,22 +81,41 @@
 
                 </FrameLayout>
 
-                <rm.com.audiowave.AudioWaveView
-                    android:id="@+id/wave"
+                <RelativeLayout
+                    android:id="@+id/rlWave"
                     android:layout_width="150dp"
-                    android:layout_height="32dp"
+                    android:layout_height="wrap_content"
                     android:layout_alignParentRight="true"
                     android:layout_centerVertical="true"
                     android:layout_marginLeft="@dimen/global_margin_extra"
-                    android:layout_marginRight="@dimen/avatar_circle_size"
-                    app:animateExpansion="false"
-                    app:chunkHeight="28dp"
-                    app:chunkRadius="1dp"
-                    app:chunkSpacing="2dp"
-                    app:chunkWidth="3dp"
-                    app:minChunkHeight="2dp"
-                    app:touchable="false"
-                    app:waveColor="@color/lawone_yellow" />
+                    android:layout_marginRight="@dimen/avatar_circle_size">
+
+                    <rm.com.audiowave.AudioWaveView
+                        android:id="@+id/wave"
+                        android:layout_width="150dp"
+                        android:layout_height="32dp"
+                        app:animateExpansion="false"
+                        app:chunkHeight="28dp"
+                        app:chunkRadius="1dp"
+                        app:chunkSpacing="2dp"
+                        app:chunkWidth="3dp"
+                        app:minChunkHeight="2dp"
+                        app:touchable="false"
+                        app:waveColor="@color/lawone_yellow" />
+
+                    <TextView
+                        android:id="@+id/tvDuration"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@id/wave"
+                        android:layout_alignLeft="@id/wave"
+                        android:fontFamily="@font/app_font"
+                        android:textColor="@color/gray"
+                        android:textSize="13sp"
+                        android:text="- - : - -"
+                        tools:text="00:27/01:30" />
+
+                </RelativeLayout>
 
             </RelativeLayout>
 
