@@ -257,7 +257,11 @@ public class ConversationAdapter extends PagedListAdapter<ConversationModel, Bas
 //                    getAudioSeeker(((ConversationViewHolder) holder).lawoneServerAudioBinding.wave, position).cancel();
                     ((ConversationViewHolder) holder).lawoneServerAudioBinding.wave.setProgress(0);
                     ((ConversationViewHolder) holder).lawoneServerAudioBinding.setConversationListListener(this);
-                    if (model.getFileName() == null) return;
+                    if (model == null || model.getFileName() == null) return;
+                    String downloadedFilePath = FileHelper.getExistsFilePath(context, model.getFileName());
+                    String duration = getAudioFileDuration(downloadedFilePath);
+                    ((ConversationViewHolder) holder).lawoneClientAudioBinding
+                            .tvDuration.setText(duration);
                     new Handler().postDelayed(() -> {
                         if (!FileHelper.checkFileExistence(context, model.getFileName())) {
                             ((ConversationViewHolder) holder).lawoneServerAudioBinding.imageViewPlay.setImageResource(R.drawable.ic_download);
