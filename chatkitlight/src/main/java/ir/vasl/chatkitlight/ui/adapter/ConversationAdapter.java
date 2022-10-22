@@ -260,7 +260,7 @@ public class ConversationAdapter extends PagedListAdapter<ConversationModel, Bas
                     if (model == null || model.getFileName() == null) return;
                     String downloadedFilePath = FileHelper.getExistsFilePath(context, model.getFileName());
                     String duration = getAudioFileDuration(downloadedFilePath);
-                    ((ConversationViewHolder) holder).lawoneClientAudioBinding
+                    ((ConversationViewHolder) holder).lawoneServerAudioBinding
                             .tvDuration.setText(duration);
                     new Handler().postDelayed(() -> {
                         if (!FileHelper.checkFileExistence(context, model.getFileName())) {
