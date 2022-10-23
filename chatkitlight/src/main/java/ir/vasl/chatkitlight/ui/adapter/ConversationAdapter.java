@@ -227,9 +227,19 @@ public class ConversationAdapter extends PagedListAdapter<ConversationModel, Bas
                     ((ConversationViewHolder) holder).lawoneClientAudioBinding.setConversationListListener(this);
                     if (model == null || model.getFileName() == null) return;
                     String downloadedFilePath = FileHelper.getExistsFilePath(context, model.getFileName());
-                    String duration = getAudioFileDuration(downloadedFilePath);
-                    ((ConversationViewHolder) holder).lawoneClientAudioBinding
-                            .tvDuration.setText(duration);
+                    String duration = null;
+                    try{
+                        duration = getAudioFileDuration(downloadedFilePath);
+                    } catch (Exception e){
+                        e.printStackTrace();
+                    }
+                    if(duration != null) {
+                        ((ConversationViewHolder) holder).lawoneClientAudioBinding
+                                .tvDuration.setText(duration);
+                    } else {
+                        ((ConversationViewHolder) holder).lawoneClientAudioBinding
+                                .tvDuration.setText("");
+                    }
                     new Handler().postDelayed(() -> {
                         if (!FileHelper.checkFileExistence(context, model.getFileName())) {
                             ((ConversationViewHolder) holder).lawoneClientAudioBinding.imageViewPlay.setImageResource(R.drawable.ic_download);
@@ -259,9 +269,19 @@ public class ConversationAdapter extends PagedListAdapter<ConversationModel, Bas
                     ((ConversationViewHolder) holder).lawoneServerAudioBinding.setConversationListListener(this);
                     if (model == null || model.getFileName() == null) return;
                     String downloadedFilePath = FileHelper.getExistsFilePath(context, model.getFileName());
-                    String duration = getAudioFileDuration(downloadedFilePath);
-                    ((ConversationViewHolder) holder).lawoneServerAudioBinding
-                            .tvDuration.setText(duration);
+                    String duration = null;
+                    try{
+                        duration = getAudioFileDuration(downloadedFilePath);
+                    } catch (Exception e){
+                        e.printStackTrace();
+                    }
+                    if(duration != null) {
+                        ((ConversationViewHolder) holder).lawoneServerAudioBinding
+                                .tvDuration.setText(duration);
+                    } else {
+                        ((ConversationViewHolder) holder).lawoneServerAudioBinding
+                                .tvDuration.setText("");
+                    }
                     new Handler().postDelayed(() -> {
                         if (!FileHelper.checkFileExistence(context, model.getFileName())) {
                             ((ConversationViewHolder) holder).lawoneServerAudioBinding.imageViewPlay.setImageResource(R.drawable.ic_download);
@@ -421,9 +441,6 @@ public class ConversationAdapter extends PagedListAdapter<ConversationModel, Bas
     }
 
     private String getAudioFileDuration(String fileAddress) {
-
-        Log.e("TAG", "getAudioFileDuration: " + fileAddress );
-
         if(fileAddress == null || !new File(fileAddress).exists()) return "00:00/00:00";
         // load data file
         MediaMetadataRetriever metaRetriever = new MediaMetadataRetriever();
